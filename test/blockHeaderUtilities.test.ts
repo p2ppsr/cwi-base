@@ -1,5 +1,5 @@
 import { toBlockHeader } from "../src/Api/BlockHeaderApi"
-import { genesisBuffer, genesisHeaderHex, serializeBlockHeader } from "../src/baseBlockHeaderUtilities"
+import { genesisBuffer, genesisHeaderHex, serializeBlockHeader } from "../src/blockHeaderUtils"
 
 describe('testing serializeBlockHeader', () => {
     test('serialize genesis header', async () => {
