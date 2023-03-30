@@ -1,0 +1,163 @@
+import { BaseBlockHeader, BaseBlockHeaderHex, BlockHeader, BlockHeaderHex } from "./BlockHeaderApi"
+import { Chain } from "./CwiBaseApi"
+
+export type HeaderListener = (header: BlockHeader) => void
+
+export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
+
+export interface ChaintracksClientApi {
+    /**
+     * Confirms the chain
+     */
+    getChain(): Promise<Chain>
+
+    /**
+     * Subscribe to "header" events. 
+     * @param listener 
+     * @returns identifier for this subscription
+     */
+    subscribeHeaders(listener: HeaderListener): Promise<string>
+
+    /**
+     * Subscribe to "reorganization" events. 
+     * @param listener 
+     * @returns identifier for this subscription
+     */
+    subscribeReorgs(listener: ReorgListener): Promise<string>
+
+    /**
+     * Cancels all subscriptions with the given `subscriptionId` which was previously returned
+     * by a `subscribe` method.
+     * @param subscriptionId value previously returned by subscribeToHeaders or subscribeToReorgs
+     * @returns true if a subscription was canceled
+     */
+    unsubscribe(subscriptionId: string) : Promise<boolean>
+
+    /**
+     * Return the latest chain height from configured bulk ingestors.
+     */
+    getPresentHeight() : Promise<number>
+
+    /**
+     * Adds headers in 80 byte serialized format to a buffer.
+     * Only adds active headers.
+     * Buffer length divided by 80 is the actual number returned.
+     * 
+     * @param height of first header
+     * @param count of headers, maximum
+     */
+    getHeaders(height: number, count: number) : Promise<Buffer>
+
+    /**
+     * Adds headers in 80 byte serialized format to a buffer.
+     * Only adds active headers.
+     * Buffer length divided by 80 is the actual number returned.
+     * 
+     * @param height of first header
+     * @param count of headers, maximum
+     */
+    getHeadersHex(height: number, count: number) : Promise<string>
+
+    /**
+     * Returns the active chain tip header
+     */
+    findChainTipHeader(): Promise<BlockHeader>
+
+    /**
+     * Returns the active chain tip header
+     */
+    findChainTipHeaderHex(): Promise<BlockHeaderHex>
+
+    /**
+     * Returns the block hash of the active chain tip.
+     */
+    findChainTipHash(): Promise<Buffer>
+
+    /**
+     * Returns the block hash of the active chain tip.
+     */
+    findChainTipHashHex(): Promise<string>
+
+    /**
+     * Returns block header for a given block hash
+     * @param hash block hash
+     */
+    findHeaderForBlockHash(hash: Buffer | string): Promise<BlockHeader | undefined>
+
+    /**
+     * Returns block header for a given block hash
+     * @param hash block hash
+     */
+    findHeaderHexForBlockHash(hash: Buffer | string): Promise<BlockHeaderHex | undefined>
+
+    /**
+     * Returns block header for a given block height on active chain.
+     */
+    findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
+
+    /**
+     * Returns block header for a given block height on active chain.
+     */
+    findHeaderHexForHeight(height: number): Promise<BlockHeaderHex | undefined>
+
+    /**
+     * Returns block header for a given merkleRoot
+     * @param merkleRoot
+     */
+    findHeaderForMerkleRoot(merkleRoot: Buffer | string): Promise<BlockHeader | undefined>
+
+    /**
+     * Returns block header for a given merkleRoot
+     * @param merkleRoot
+     */
+    findHeaderHexForMerkleRoot(root: Buffer | string): Promise<BlockHeaderHex | undefined>
+
+    /**
+     * Submit a possibly new header for adding
+     * 
+     * If the header is invalid or a duplicate it will not be added.
+     * 
+     * This header will be ignored if the previous header has not already been inserted when this header
+     * is considered for insertion.
+     * 
+     * @param header
+     * @returns immediately 
+     */
+    addHeader(header: BaseBlockHeader | BaseBlockHeaderHex) : Promise<void>
+
+    /**
+     * Start or resume listening for new headers.
+     * 
+     * Calls `synchronize` to catch up on headers that were found while not listening.
+     * 
+     * Begins listening to any number of configured new header notification services.
+     * 
+     * Begins sending notifications to subscribed listeners only after processing any
+     * previously found headers.
+     * 
+     * May be called if already listening or synchronizing to listen.
+     * 
+     * `listening` callback will be called after listening for new live headers has begun.
+     * Alternatively, the `listening` API function which returns a Promise can be awaited.
+     * 
+     * @param listening callback indicates when listening for new headers has started.
+     */
+    startListening(listening?: () => void): Promise<void>
+
+    /**
+     * Returns a Promise that will resolve when the previous call to startListening
+     * enters the listening-for-new-headers state.
+     */
+    listening() : Promise<void>
+
+    /**
+     * Returns true if actively listening for new headers and client api is enabled.
+     */
+    isListening() : Promise<boolean>
+
+    /**
+     * Returns true if `synchronize` has completed at least once.
+     */
+    isSynchronized() : Promise<boolean>
+}
+
