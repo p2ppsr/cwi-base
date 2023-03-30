@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import * as bsv from '@ts-bitcoin/core';
 
 /**
  * Coerce a value to Buffer if currently encoded as a string
@@ -174,4 +175,31 @@ export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: st
     const hash = doubleSha256BE(concat);
 
     return hash;
+}
+
+/**
+ * Parse a bsv transaction encoded as a hex string, serialized Buffer to bsv.Tx
+ * If tx is already a bsvTx, just return it.
+ * @param tx 
+ * @returns bsv.Tx
+ */
+export function asBsvTx(tx: string | Buffer | bsv.Tx): bsv.Tx {
+    if (Buffer.isBuffer(tx))
+        tx = new bsv.Tx().fromBuffer(tx);
+    else if (typeof tx === 'string')
+        tx = new bsv.Tx().fromString(tx);
+    return tx
+}
+
+/**
+ * For a bitcoin transaction in hex string, Buffer or parsed bsv.Tx form:
+ * Returns deduplicated array of the input's outpoint transaction hashes (txids).
+ */
+export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
+    tx = asBsvTx(tx)
+    const txids = {};
+    for (const input of tx.txIns) {
+        txids[input.txid()] = true;
+    }
+    return Object.keys(txids);
 }
