@@ -2,6 +2,27 @@ import crypto from 'crypto'
 import * as bsv from '@ts-bitcoin/core';
 
 /**
+ * @returns count cryptographically secure random bytes as Buffer
+ */
+export function randomBytes(count: number) : Buffer {
+    return crypto.randomBytes(count)
+}
+
+/**
+ * @returns count cryptographically secure random bytes as hex encoded string
+ */
+export function randomBytesHex(count: number) : string {
+    return randomBytes(count).toString('hex')
+}
+
+/**
+ * @returns count cryptographically secure random bytes as base64 encoded string
+ */
+export function randomBytesBase64(count: number) : string {
+    return randomBytes(count).toString('base64')
+}
+
+/**
  * Coerce a value to Buffer if currently encoded as a string
  * @param val 
  * @param encoding defaults to 'hex'
