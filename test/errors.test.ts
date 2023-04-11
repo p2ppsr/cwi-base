@@ -1,4 +1,4 @@
-import { ERR_INTERNAL } from '../src/errors'
+import { ERR_INTERNAL } from '../src/ERR_errors'
 
 describe("errors", () => {
     test("super", () => {
