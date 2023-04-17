@@ -5,11 +5,33 @@ export type HeaderListener = (header: BlockHeader) => void
 
 export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
 
+export interface ChaintracksPackageInfoApi {
+    name: string,
+    version: string
+}
+
+export interface ChaintracksInfoApi {
+    chain: Chain,
+    heightBulk: number,
+    heightLive: number,
+    storageEngine: string,
+    bulkStorage: string | undefined,
+    bulkIndex: string | undefined,
+    bulkIngestors: string[],
+    liveIngestors: string[],
+    packages: ChaintracksPackageInfoApi[]
+}
+
 export interface ChaintracksClientApi {
     /**
      * Confirms the chain
      */
     getChain(): Promise<Chain>
+
+    /**
+     * @returns Summary of configuration and state.
+     */
+    getInfo(): Promise<ChaintracksInfoApi>
 
     /**
      * Subscribe to "header" events. 
@@ -77,6 +99,22 @@ export interface ChaintracksClientApi {
      * Returns the block hash of the active chain tip.
      */
     findChainTipHashHex(): Promise<string>
+
+    /**
+     * Only returns a value for headers in live storage.
+     * Returns undefined if `hash` is unknown or in bulk storage.
+     * @param hash 
+     * @returns chainwork of block header with given hash
+     */
+    findChainWorkForBlockHash(hash: Buffer | string): Promise<Buffer | undefined>
+
+    /**
+     * Only returns a value for headers in live storage.
+     * Returns undefined if `hash` is unknown or in bulk storage.
+     * @param hash 
+     * @returns chainwork of block header with given hash
+     */
+    findChainWorkHexForBlockHash(hash: Buffer | string): Promise<string | undefined>
 
     /**
      * Returns block header for a given block hash
