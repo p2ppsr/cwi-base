@@ -1,5 +1,6 @@
 import crypto from 'crypto'
 import * as bsv from '@ts-bitcoin/core';
+import { ERR_BAD_REQUEST } from './ERR_errors';
 
 /**
  * @returns count cryptographically secure random bytes as Buffer
@@ -20,6 +21,32 @@ export function randomBytesHex(count: number) : string {
  */
 export function randomBytesBase64(count: number) : string {
     return randomBytes(count).toString('base64')
+}
+
+/**
+ * This is not a cryptographically strong shuffle.
+ * Run time is O(n)
+ * Thanks to https://stackoverflow.com/a/2450976 for this
+ * @returns original `array` with contents shuffled
+ */
+export function shuffleArray<T>(array: Array<T>) : Array<T> {
+  let currentIndex = array.length
+  let temporaryValue
+  let randomIndex
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+
+  return array
 }
 
 /**
@@ -98,6 +125,11 @@ export function convertBufferToUint32(buffer: Buffer, littleEndian = true) : num
     return view.getUint32(0, littleEndian)
 }
 
+export function varUintSize(val: number) {
+    if (val < 0) throw new ERR_BAD_REQUEST()
+    return (val <= 0xfc ? 1 : val <= 0xffff ? 3 : val <= 0xffffffff ? 5 : 9)
+}
+
 export function readVarUint32LE(buffer: Buffer, offset: number): { val: number; offset: number; } {
     const b0 = buffer[offset++];
     switch (b0) {
@@ -115,7 +147,7 @@ export function readVarUint32LE(buffer: Buffer, offset: number): { val: number; 
 export function writeVarUint32LE(val: number, buffer: Buffer, offset: number): number {
     if (val < 0)
         throw new Error(`val ${val} must be a non-negative integer.`);
-    if (val < 0xfd) {
+    if (val <= 0xfc) {
         buffer[offset] = val
         return offset + 1
     }
@@ -130,6 +162,9 @@ export function writeVarUint32LE(val: number, buffer: Buffer, offset: number): n
         return offset + 5
     }
     throw new Error("Larger than Uint32 value is not supported at this time.");
+    //buffer[offset] = 0xff
+    //buffer.writeBigUint64LE(val, offset + 1)
+    //return offset + 9
 }
 
 /**
