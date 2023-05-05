@@ -22,6 +22,9 @@ export interface ChaintracksInfoApi {
     packages: ChaintracksPackageInfoApi[]
 }
 
+/**
+ * Chaintracks client API excluding events and callbacks
+ */
 export interface ChaintracksClientApi {
     /**
      * Confirms the chain
@@ -32,28 +35,6 @@ export interface ChaintracksClientApi {
      * @returns Summary of configuration and state.
      */
     getInfo(): Promise<ChaintracksInfoApi>
-
-    /**
-     * Subscribe to "header" events. 
-     * @param listener 
-     * @returns identifier for this subscription
-     */
-    subscribeHeaders(listener: HeaderListener): Promise<string>
-
-    /**
-     * Subscribe to "reorganization" events. 
-     * @param listener 
-     * @returns identifier for this subscription
-     */
-    subscribeReorgs(listener: ReorgListener): Promise<string>
-
-    /**
-     * Cancels all subscriptions with the given `subscriptionId` which was previously returned
-     * by a `subscribe` method.
-     * @param subscriptionId value previously returned by subscribeToHeaders or subscribeToReorgs
-     * @returns true if a subscription was canceled
-     */
-    unsubscribe(subscriptionId: string) : Promise<boolean>
 
     /**
      * Return the latest chain height from configured bulk ingestors.
@@ -175,12 +156,9 @@ export interface ChaintracksClientApi {
      * 
      * May be called if already listening or synchronizing to listen.
      * 
-     * `listening` callback will be called after listening for new live headers has begun.
-     * Alternatively, the `listening` API function which returns a Promise can be awaited.
-     * 
-     * @param listening callback indicates when listening for new headers has started.
+     * The `listening` API function which returns a Promise can be awaited.
      */
-    startListening(listening?: () => void): Promise<void>
+    startListening(): Promise<void>
 
     /**
      * Returns a Promise that will resolve when the previous call to startListening
@@ -197,5 +175,52 @@ export interface ChaintracksClientApi {
      * Returns true if `synchronize` has completed at least once.
      */
     isSynchronized() : Promise<boolean>
+}
+
+/**
+ * Full Chaintracks client API including events and callbacks
+ */
+export interface ChaintracksApi extends ChaintracksClientApi {
+
+    /**
+     * Subscribe to "header" events. 
+     * @param listener 
+     * @returns identifier for this subscription
+     */
+    subscribeHeaders(listener: HeaderListener): Promise<string>
+
+    /**
+     * Subscribe to "reorganization" events. 
+     * @param listener 
+     * @returns identifier for this subscription
+     */
+    subscribeReorgs(listener: ReorgListener): Promise<string>
+
+    /**
+     * Cancels all subscriptions with the given `subscriptionId` which was previously returned
+     * by a `subscribe` method.
+     * @param subscriptionId value previously returned by subscribeToHeaders or subscribeToReorgs
+     * @returns true if a subscription was canceled
+     */
+    unsubscribe(subscriptionId: string) : Promise<boolean>
+    
+    /**
+     * Start or resume listening for new headers.
+     * 
+     * Calls `synchronize` to catch up on headers that were found while not listening.
+     * 
+     * Begins listening to any number of configured new header notification services.
+     * 
+     * Begins sending notifications to subscribed listeners only after processing any
+     * previously found headers.
+     * 
+     * May be called if already listening or synchronizing to listen.
+     * 
+     * `listening` callback will be called after listening for new live headers has begun.
+     * Alternatively, the `listening` API function which returns a Promise can be awaited.
+     * 
+     * @param listening callback indicates when listening for new headers has started.
+     */
+    startListening(listening?: () => void): Promise<void>
 }
 
