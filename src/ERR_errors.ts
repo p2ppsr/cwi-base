@@ -11,6 +11,11 @@ export class ERR_INTERNAL extends CwiError { constructor(description?: string) {
 export class ERR_UNAUTHORIZED extends CwiError { constructor(description?: string) { super('ERR_UNAUTHORIZED', description || 'Access is denied due to an authorization error.') } }
 
 /**
+ * The ${name} parameter is invalid.
+ */
+export class ERR_INVALID_PARAMETER extends CwiError { constructor(name: string) { super('ERR_INVALID_PARAMETER', `The ${name} parameter is invalid.`) } }
+
+/**
  * The ${name} parameter is missing, but it must be ${mustBe}.
  */
 export class ERR_MISSING_PARAMETER extends CwiError { constructor(name: string, mustBe: string) { super('ERR_MISSING_PARAMETER', `The ${name} parameter is missing, but it must be ${mustBe}.`) } }
