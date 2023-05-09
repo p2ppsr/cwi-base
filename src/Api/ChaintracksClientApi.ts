@@ -120,16 +120,24 @@ export interface ChaintracksClientApi {
     findHeaderHexForHeight(height: number): Promise<BlockHeaderHex | undefined>
 
     /**
-     * Returns block header for a given merkleRoot
+     * Returns block header for a given possible height and specific merkleRoot
+     * The height, available for all mined blocks, allows fast and compact indexing of
+     * bulk headers.
+     * Confirms that the found header has the request merkleRoot or returns undefined.
      * @param merkleRoot
+     * @param height optional, may be required for bulk header lookup.
      */
-    findHeaderForMerkleRoot(merkleRoot: Buffer | string): Promise<BlockHeader | undefined>
+    findHeaderForMerkleRoot(merkleRoot: Buffer | string, height?: number): Promise<BlockHeader | undefined>
 
     /**
-     * Returns block header for a given merkleRoot
-     * @param merkleRoot
+     * Returns block header for a given possible height and specific merkleRoot
+     * The height, available for all mined blocks, allows fast and compact indexing of
+     * bulk headers.
+     * Confirms that the found header has the request merkleRoot or returns undefined.
+     * @param root
+     * @param height optional, may be required for bulk header lookup.
      */
-    findHeaderHexForMerkleRoot(root: Buffer | string): Promise<BlockHeaderHex | undefined>
+    findHeaderHexForMerkleRoot(root: Buffer | string, height?: number): Promise<BlockHeaderHex | undefined>
 
     /**
      * Submit a possibly new header for adding

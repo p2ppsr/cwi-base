@@ -3,6 +3,13 @@ import * as bsv from '@ts-bitcoin/core';
 import { ERR_BAD_REQUEST } from './ERR_errors';
 
 /**
+ * Returns an await'able Promise that resolves in the given number of msecs.
+ */
+export function wait(msecs: number) : Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, msecs))  
+} 
+            
+/**
  * @returns count cryptographically secure random bytes as Buffer
  */
 export function randomBytes(count: number) : Buffer {
