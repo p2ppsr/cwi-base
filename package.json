@@ -1,5 +1,5 @@
 {
-  "name": "@cwi/base",
+  "name": "cwi-base",
   "version": "0.1.4",
   "description": "Base level functions, classes, interfaces for CWI",
   "author": "Peer-to-peer Privacy Systems Research LLC",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/p2ppsr/cwi-base.git"
   },
   "publishConfig": {
-    "registry": "https://npm-registry.babbage.systems/"
+    "registry": "https://www.npmjs.com/package/"
   },
   "keywords": [
     "BSV",
