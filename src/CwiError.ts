@@ -17,9 +17,23 @@ import { CwiErrorApi } from "./Api/CwiBaseApi"
  * identifier after the 'ERR_' prefix. e.g. 'ERR_DOJO_' as the prefix for Dojo specific error
  * classes.
  */
-export abstract class CwiError implements CwiErrorApi {
+export class CwiError implements CwiErrorApi {
 
     constructor (readonly code: string, readonly description: string) {
+    }
+
+    toString() { return `${this.code}: ${this.description}`}
+
+    static fromUnknown(err: unknown) {
+        // eslint-disable-next-line no-debugger
+        // debugger
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const e = err as any
+        const code = e.code || e.status || 'ERR_UNKNOWN'
+        let description = e.description || e.message || ''
+        if (!description && e.toString && typeof e.toString === 'function')
+            description = e.toString()
+        return new CwiError(code, description)
     }
 
     /**
