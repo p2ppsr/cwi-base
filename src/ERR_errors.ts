@@ -40,4 +40,8 @@ export class ERR_CHAIN_INVALID extends CwiError { constructor() { super('ERR_CHA
  * TXIDs must be 32 bytes encoded as 64 hex digits.
  */
 export class ERR_TXID_INVALID extends CwiError { constructor() { super('ERR_TXID_INVALID', 'TXIDs must be 32 bytes encoded as 64 hex digits.') } }
+/**
+ * TXID failed to correspond to a known transaction.
+ */
+export class ERR_TXID_UNKNOWN extends CwiError { constructor(description?: string) { super('ERR_TXID_UNKNOWN', description || 'TXID failed to correspond to a known transaction.') } }
 
