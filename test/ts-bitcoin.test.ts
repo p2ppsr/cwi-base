@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Address, Bn, KeyPair, PrivKey, PubKey, Tx, TxBuilder, TxIn, TxOut, deps } from '@ts-bitcoin/core'
+import { Address, Bn, KeyPair, PrivKey, PubKey, Tx, TxBuilder, TxIn, TxOut, deps } from 'cwi-bitcoin'
 
-describe("ts-bitcoin", () => {
+describe("cwi-bitcoin", () => {
 
     test("compress public key", () => {
         const pk = PubKey.fromHex('045384871bedffb233fdb0b4899285d73d0f0a2b9ad18062a062c01c8bdb2f720a1535c6ae0978962d24d95b8e2ec9a4a36f23ab6d31d9e7960714ed92996a77fe')

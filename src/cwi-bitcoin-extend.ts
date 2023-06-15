@@ -1,4 +1,4 @@
-import { Point } from '@ts-bitcoin/core'
+import { Point } from 'cwi-bitcoin'
 
 /**
  * A "compressed" format point is the X part of the (X, Y) point plus an extra

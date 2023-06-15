@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import * as bsv from '@ts-bitcoin/core';
+import * as bsv from 'cwi-bitcoin';
 import { ERR_BAD_REQUEST } from './ERR_errors';
 
 /**
