@@ -13,7 +13,7 @@ export class ERR_UNAUTHORIZED extends CwiError { constructor(description?: strin
 /**
  * The ${name} parameter is invalid.
  */
-export class ERR_INVALID_PARAMETER extends CwiError { constructor(name: string) { super('ERR_INVALID_PARAMETER', `The ${name} parameter is invalid.`) } }
+export class ERR_INVALID_PARAMETER extends CwiError { constructor(name: string, mustBe?: string) { super('ERR_INVALID_PARAMETER', `The ${name} parameter must be ${mustBe || 'valid'}.`) } }
 
 /**
  * The ${name} parameter is missing, but it must be ${mustBe}.

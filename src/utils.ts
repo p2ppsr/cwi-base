@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import * as bsv from 'cwi-bitcoin';
-import { ERR_BAD_REQUEST } from './ERR_errors';
+import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors';
 
 /**
  * Returns an await'able Promise that resolves in the given number of msecs.
@@ -28,6 +28,17 @@ export function randomBytesHex(count: number) : string {
  */
 export function randomBytesBase64(count: number) : string {
     return randomBytes(count).toString('base64')
+}
+
+/**
+ * @param min minimum value to return
+ * @param max greater than maximum value returned
+ * @returns a weakly randomized value in the range from min to less than max.
+ * @throws ERR_INVALID_PARAMETER when max is less than min.
+ */
+export function randomMinMax(min: number, max: number) : number {
+    if (max < min) throw new ERR_INVALID_PARAMETER('max', `less than min (${min}). max is (${max})`)
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 /**
