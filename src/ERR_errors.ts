@@ -1,6 +1,11 @@
 import { CwiError } from "./CwiError"
 
 /**
+ * Not implemented.
+ */
+export class ERR_NOT_IMPLEMENTED extends CwiError { constructor() { super('ERR_NOT_IMPLEMENTED', 'Not implemented.') } }
+
+/**
  * An internal server error has occurred.
  */
 export class ERR_INTERNAL extends CwiError { constructor(description?: string) { super('ERR_INTERNAL', description || 'An internal server error has occurred.') } }
