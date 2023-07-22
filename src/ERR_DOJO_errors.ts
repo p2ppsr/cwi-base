@@ -1,4 +1,4 @@
-import { CwiError } from "cwi-base"
+import { CwiError } from "./CwiError"
 
 /**
  * Transaction amount is not correct!
