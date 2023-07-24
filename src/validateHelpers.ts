@@ -1,7 +1,24 @@
 import { bsv } from "."
 import { DojoCreateTxOutputApi, DojoFeeModelApi, DojoOutputGenerationApi, DojoOutputToRedeemApi, DojoSubmitDirectTransactionApi, DojoTxInputSelectionApi } from "./Api/DojoClientApi"
 import { ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS, ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, ERR_DOJO_UNKNOWN_FEE_MODEL } from "./ERR_DOJO_errors"
-import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID } from "./ERR_errors"
+import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORIZED } from "./ERR_errors"
+
+export function validateIdentityKey(identityKey?: string | null) : string {
+    // First, we make sure the user has provided the required fields
+    if (!identityKey) throw new ERR_UNAUTHORIZED('User identityKey not provided!')
+
+    // Force the incoming identityKey value to be a compressed public key...
+    if (identityKey.length > 66) {
+        // A compressed public key is 33 hex digits.
+        const pubkey = bsv.PubKey.fromHex(identityKey)
+        pubkey.compressed = true
+        identityKey = pubkey.toHex()
+    }
+
+    if (identityKey.length !== 66) throw new ERR_UNAUTHORIZED('User identityKey is invalid!')
+
+    return identityKey
+}
 
 export function validateTXID(txid: string) : void {
     if (typeof txid === 'string') {

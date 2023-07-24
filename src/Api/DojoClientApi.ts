@@ -37,6 +37,24 @@ export interface DojoPublicApi {
 export interface DojoClientApi extends DojoPublicApi {
 
     /**
+     * For Dojo scenarios where it is permissible for Dojo to directly act as
+     * a specified user, authenticate that user by supplying their identityKey
+     *
+     * For Dojo scenarios where authrite is used to authenticate the local user
+     * to a potentially remote Dojo server:
+     * - If identityKey has a value then it used and must match the authenticated value.
+     * - If identityKey is undefined, the authenticated value is used.
+     * 
+     * Sets userId and identityKey
+     * 
+     * @param identityKey optional, 33 hex encoded bytes, the user to authenticate's identity key
+     * @param addIfNew optional, if true, unknown identityKey is added as new user.
+     *
+     * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
+     */
+    authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+
+    /**
      * Returns authenticated user.
      * Throws an error if isAuthenticated is false.
      */
@@ -204,20 +222,20 @@ export interface DojoClientApi extends DojoPublicApi {
      * inputs[TXID].outputsToRedeem: An additional field, an array of outputs
      * from that transaction to be spent.
      * 
-     * @param inputSelection Algorithmic control over source of additional inputs that may be needed.
+     * @param inputSelection Optional. Algorithmic control over source of additional inputs that may be needed.
      * @param outputs Possibly empty, explicit outputs, typically external, to create as part of this transaction.
-     * @param outputGeneration Algorithmic control over additional outputs that may be needed.
-     * @param fee An object representing the fee the transaction will pay.
-     * @param labels Each at most 150 characters. Labels can be used to tag transactions into categories
-     * @param note A human-readable note detailing this transaction (Optional)
-     * @param recipient The Paymail handle of the recipient of this transaction (Optional)
+     * @param outputGeneration Optional. Algorithmic control over additional outputs that may be needed.
+     * @param feeModel Optional. An object representing the fee the transaction will pay.
+     * @param labels Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
+     * @param note Optional. A human-readable note detailing this transaction (Optional)
+     * @param recipient Optional. The Paymail handle of the recipient of this transaction (Optional)
      */
     createTransaction(
         inputs: Record<string, DojoTxInputsApi>,
         inputSelection: DojoTxInputSelectionApi | undefined,
         outputs: DojoCreateTxOutputApi[],
-        outputGeneration: DojoOutputGenerationApi | undefined,
-        feeModel: DojoFeeModelApi,
+        outputGeneration?: DojoOutputGenerationApi,
+        feeModel?: DojoFeeModelApi,
         labels?: string[],
         note?: string,
         recipient?: string
