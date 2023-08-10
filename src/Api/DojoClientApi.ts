@@ -598,6 +598,10 @@ export interface DojoOutputApi {
      * max length of 255
      */
     spendingDescription: string | null
+    /**
+     * optional envelope for transaction containing output
+     */
+    envelope?: EnvelopeApi
 }
 
 export interface DojoTransactionApi {
