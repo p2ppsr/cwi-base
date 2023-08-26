@@ -598,7 +598,7 @@ export interface DojoOutputApi {
      * transactionId of spending transaction or null if unspent
      * max 10 digits
      */
-    spentBy: number
+    spentBy: number | null
     /**
      * max length of 32
      * base64 encoded
