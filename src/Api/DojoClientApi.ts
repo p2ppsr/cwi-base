@@ -334,13 +334,13 @@ export interface DojoGetTransactionsOptions {
      */
     label?: string
     /**
-     * Optional. Match transactions created on or after this time. Seconds since the epoch.
+     * Optional. Match transactions created on or after this time. Date, ISO string, or seconds since the epoch.
      */
-    startTime?: number
+    startTime?: Date | string | number
     /**
-     * Optional. Match transactions created on or before this time. Seconds since the epoch.
+     * Optional. Match transactions created on or before this time. Date, ISO string, or seconds since the epoch.
      */
-    endTime?: number
+    endTime?: Date | string | number
     /**
      * Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
      */
@@ -402,11 +402,11 @@ export interface DojoGetTotalOfAmountsOptions {
     /**
      * Optional. Match transactions created on or after this time. Seconds since the epoch.
      */
-    startTime?: number
+    startTime?: Date | string | number
     /**
      * Optional. Match transactions created on or before this time. Seconds since the epoch.
      */
-    endTime?: number
+    endTime?: Date | string | number
     /**
      * Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
      */
@@ -427,6 +427,7 @@ export interface DojoStatsApi {
 export interface DojoUserStateApi {
     aliases: DojoAliasApi[],
     certificates: DojoCertificateApi[],
+    certificateFields: DojoCertificateFieldApi[],
     commissions: DojoCommissionApi[],
     mapiResponses: DojoMapiResponseApi[],
     outputs: DojoOutputApi[],
@@ -478,6 +479,8 @@ export interface DojoAvatarApi {
 export interface DojoCertificateFieldApi {
     userId: number
     certificateId: number
+    created_at?: Date | null
+    updated_at?: Date | null
     /**
      * max length of 100
      */
@@ -486,6 +489,10 @@ export interface DojoCertificateFieldApi {
      * max length of 255
      */
     fieldValue: string
+    /**
+     * base64 encrypted master field revelation key
+     */
+    masterKey: string
 }
 
 export interface DojoCertificateApi {
@@ -525,6 +532,10 @@ export interface DojoCertificateApi {
      * Certificate fields object constructed from fieldName and fieldValue properties of DojoCertificateFieldApi instances associated with this certificate.
      */
     fields?: Record<string, string>
+    /**
+     * Certificate masterKeyring object constructed from fieldName and masterKey properties of DojoCertificateFieldApi instances associated with this certificate.
+     */
+    masterKeyring?: Record<string, string>
 }
 
 export interface DojoCommissionApi {
@@ -816,6 +827,8 @@ export interface DojoTxLabelApi {
 export interface DojoTxLabelMapApi {
     txLabelId: number
     transactionId: number
+    created_at?: Date | null
+    updated_at?: Date | null
 }
 
 export interface DojoClientUserApi {
