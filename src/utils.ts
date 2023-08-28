@@ -277,3 +277,9 @@ export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
     }
     return Object.keys(txids);
 }
+
+export function identityKeyFromPrivateKey(privKey: string) : string {
+    const priv = new bsv.PrivKey(new bsv.Bn(privKey, 'hex'), true)
+    const identityKey = bsv.PubKey.fromPrivKey(priv).toDer(true).toString('hex')
+    return identityKey
+}

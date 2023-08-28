@@ -30,11 +30,68 @@ export interface DojoPublicApi {
     stats() : Promise<DojoStatsApi>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DojoProgressLoggerApi = (...data: any) => void
+
+/**
+ * success: Last sync of this user from this dojo was successful.
+ * 
+ * error: Last sync protocol operation for this user to this dojo threw and error.
+ * 
+ * identified: Configured sync dojo has been identified but not sync'ed.
+ * 
+ * unknown: Sync protocol state is unknown.
+ */
+export type DojoSyncStateStatusApi = 'success' | 'error' | 'identified' | 'unknown'
+
+export interface DojoSyncResultApi {
+    userIdentityKey: string
+    dojoIdentityKey: string
+    dojoName?: string
+    status: DojoSyncStateStatusApi
+    when?: Date
+    since?: Date
+    errorCode?: string
+    errorDescription?: string
+    total?: number
+    state?: DojoUserStateApi
+}
+
+/**
+ * Dojo Sync Protocol Methods
+ */
+export interface DojoSyncApi {
+    /**
+     * Called by an external dojo to initiate the sync protocol.
+     * 
+     * This is the initial protocol step to exchange dojo identityKeys and
+     * configure the records in the sync_state tables to support the sync protocol.
+     * 
+     * @param fromUserIdentityKey must match the authenticated user's identityKey
+     * @param fromDojoIdentityKey the sync initiating remote dojo's identityKey
+     * @param fromDojoName optional, the sync initiating remote dojo's human readable name
+     * @returns sync result with just dojoIdentityKey and dojoName set to this dojo's identity
+     */
+    syncIdentify(fromUserIdentityKey: string, fromDojoIdentityKey: string, fromDojoName?: string): Promise<DojoSyncResultApi>
+    
+    /**
+     * Receive a state update for the authenticated user from a remote dojo
+     * and respond with merge result and any pre-merge local state update
+     * for the data interval from `since` to `when`
+     * 
+     * @param state remote state update for the data interval from `since` to `when`
+     * @param fromDojoIdentityKey the sync initiating remote dojo's identityKey
+     * @param when 
+     * @param since optional, if undefined data interval begins with earliest records.
+     */
+    syncUpdate(state: DojoUserStateApi, fromDojoIdentityKey: string, when: Date, since?: Date): Promise<DojoSyncResultApi>
+}
+
 /**
  * User specific public Dojo API accessible from all Dojo implementations
  * including `DojoExpressClient` HTTP client
  */
-export interface DojoClientApi extends DojoPublicApi {
+export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
     /**
      * For Dojo scenarios where it is permissible for Dojo to directly act as
@@ -301,8 +358,9 @@ export interface DojoClientApi extends DojoPublicApi {
 
     /**
      * Return a complete copy of all records for the authenticated user.
+     * @param since optional, start of data interval if specified. 
      */
-    copyState(): Promise<DojoUserStateApi>
+    copyState(since?: Date): Promise<DojoUserStateApi>
     
     /**
      * Merge user state from an external dojo into this dojo
