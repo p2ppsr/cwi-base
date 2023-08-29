@@ -19,7 +19,7 @@ import { CwiErrorApi } from "./Api/CwiBaseApi"
  */
 export class CwiError implements CwiErrorApi {
 
-    constructor (readonly code: string, readonly description: string) {
+    constructor (readonly code: string, readonly description: string, readonly stack?: string) {
     }
 
     toString() { return `${this.code}: ${this.description}`}
@@ -33,7 +33,10 @@ export class CwiError implements CwiErrorApi {
         let description = e.description || e.message || ''
         if (!description && e.toString && typeof e.toString === 'function')
             description = e.toString()
-        return new CwiError(code, description)
+        let stack: string | undefined = undefined
+        if (e.stack && typeof e.stack === 'string')
+            stack = e.stack
+        return new CwiError(code, description, stack)
     }
 
     /**
