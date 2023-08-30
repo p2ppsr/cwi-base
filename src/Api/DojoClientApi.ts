@@ -85,6 +85,28 @@ export interface DojoSyncApi {
      * @param since optional, if undefined data interval begins with earliest records.
      */
     syncUpdate(state: DojoUserStateApi, fromDojoIdentityKey: string, when: Date, since?: Date): Promise<DojoSyncResultApi>
+
+    /**
+     * For Dojo scenarios where it is permissible for Dojo to directly act as
+     * a specified user, authenticate that user by supplying their identityKey
+     *
+     * For Dojo scenarios where authrite is used to authenticate the local user
+     * to a potentially remote Dojo server:
+     * - If identityKey has a value then it used and must match the authenticated value.
+     * - If identityKey is undefined, the authenticated value is used.
+     * 
+     * Sets userId and identityKey
+     * 
+     * @param identityKey optional, 33 hex encoded bytes, the user to authenticate's identity key
+     * @param addIfNew optional, if true, unknown identityKey is added as new user.
+     *
+     * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
+     */
+    authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+}
+
+export interface DojoSyncOptionsApi {
+    syncOnAuthenticate?: boolean    
 }
 
 /**
@@ -111,6 +133,9 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      */
     authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
 
+    setSyncDojos(dojos: DojoSyncApi[], options?: DojoSyncOptionsApi): void
+    getSyncDojos(): { dojos: DojoSyncApi[]; options: DojoSyncOptionsApi }
+    
     /**
      * Returns authenticated user.
      * Throws an error if isAuthenticated is false.
