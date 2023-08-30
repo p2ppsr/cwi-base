@@ -1,0 +1,322 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>cmp | cwi-base</title><meta name="description" content="Documentation for cwi-base"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base="..">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">cwi-base</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb">
+<li><a href="../modules.html">cwi-base</a></li>
+<li><a href="../modules/bsv.html">bsv</a></li>
+<li><a href="bsv.cmp.html">cmp</a></li></ul>
+<h1>Function cmp</h1></div>
+<section class="tsd-panel">
+<ul class="tsd-signatures tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="cmp"><span class="tsd-kind-call-signature">cmp</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">buf1</span>, <span class="tsd-kind-parameter">buf2</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#cmp" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="icon-anchor"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></g></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><a id="md:constant-time-buffer-compare" class="tsd-anchor"></a><h1><a href="#md:constant-time-buffer-compare">Constant-Time Buffer Compare</a></h1><p>A constant-time comparison function. This should be used in any security
+sensitive code where leaking timing information may lead to lessened
+security. Note that if the buffers are not equal in length, this function
+loops for the longest buffer, which may not be necessary. Usually this
+function should be used for buffers that would otherwise be equal length,
+such as a hash, particularly Hmacs.</p>
+<p>The algorithm here, which is XORs each byte (or, if undefined, 0) with the
+corresponding other byte, and then ORs that with a running total (d), is
+adapted from here:</p>
+<p><a href="https://groups.google.com/forum/#!topic/keyczar-discuss/VXHsoJSLKhM">https://groups.google.com/forum/#!topic/keyczar-discuss/VXHsoJSLKhM</a></p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">buf1</span>: <span class="tsd-signature-type ">Buffer</span></h5></li>
+<li>
+<h5><span class="tsd-kind-parameter">buf2</span>: <span class="tsd-signature-type ">Buffer</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/cwi-bitcoin/lib/cmp.d.ts:19</li></ul></aside></li></ul></section></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)" id="icon-chevronDown"></path></svg>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li>
+<ul>
+<li><a href="#md:constant-time-buffer-compare"><span>Constant-<wbr/>Time <wbr/>Buffer <wbr/>Compare</span></a></li></ul></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../modules.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>cwi-<wbr/>base</span></a>
+<ul class="tsd-small-nested-navigation">
+<li><a href="../modules.html#asBsvTx"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4194304"><rect fill="var(--color-icon-background)" stroke="#FF4D82" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M10.354 17V8.24H13.066C13.586 8.24 14.042 8.348 14.434 8.564C14.826 8.772 15.13 9.064 15.346 9.44C15.562 9.816 15.67 10.256 15.67 10.76C15.67 11.352 15.514 11.86 15.202 12.284C14.898 12.708 14.482 13 13.954 13.16L15.79 17H14.518L12.838 13.28H11.434V17H10.354ZM11.434 12.308H13.066C13.514 12.308 13.874 12.168 14.146 11.888C14.418 11.6 14.554 11.224 14.554 10.76C14.554 10.288 14.418 9.912 14.146 9.632C13.874 9.352 13.514 9.212 13.066 9.212H11.434V12.308Z" fill="var(--color-text)"></path></g></svg><span>as<wbr/>Bsv<wbr/>Tx</span></a></li>
+<li><a href="../modules.html#asBuffer"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>as<wbr/>Buffer</span></a></li>
+<li><a href="../modules.html#asString"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>as<wbr/>String</span></a></li>
+<li><a href="../modules.html#computeMerkleTreeParent"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>compute<wbr/>Merkle<wbr/>Tree<wbr/>Parent</span></a></li>
+<li><a href="../modules.html#computeRootFromMerkleProofNodes"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>compute<wbr/>Root<wbr/>From<wbr/>Merkle<wbr/>Proof<wbr/>Nodes</span></a></li>
+<li><a href="../modules.html#convertBufferToUint32"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>convert<wbr/>Buffer<wbr/>To<wbr/>Uint32</span></a></li>
+<li><a href="../modules.html#convertUint32ToBuffer"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>convert<wbr/>Uint32<wbr/>To<wbr/>Buffer</span></a></li>
+<li><a href="../modules.html#doubleSha256BE"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>double<wbr/>Sha256BE</span></a></li>
+<li><a href="../modules.html#doubleSha256HashLE"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>double<wbr/>Sha256<wbr/>HashLE</span></a></li>
+<li><a href="../modules.html#getInputTxIds"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>get<wbr/>Input<wbr/>Tx<wbr/>Ids</span></a></li>
+<li><a href="../modules.html#identityKeyFromPrivateKey"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>identity<wbr/>Key<wbr/>From<wbr/>Private<wbr/>Key</span></a></li>
+<li><a href="../modules.html#randomBytes"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>random<wbr/>Bytes</span></a></li>
+<li><a href="../modules.html#randomBytesBase64"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>random<wbr/>Bytes<wbr/>Base64</span></a></li>
+<li><a href="../modules.html#randomBytesHex"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>random<wbr/>Bytes<wbr/>Hex</span></a></li>
+<li><a href="../modules.html#randomMinMax"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>random<wbr/>Min<wbr/>Max</span></a></li>
+<li><a href="../modules.html#readVarUint32LE"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>read<wbr/>Var<wbr/>Uint32LE</span></a></li>
+<li><a href="../modules.html#sha256Hash"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>sha256<wbr/>Hash</span></a></li>
+<li><a href="../modules.html#shuffleArray"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>shuffle<wbr/>Array</span></a></li>
+<li><a href="../modules.html#swapByteOrder"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>swap<wbr/>Byte<wbr/>Order</span></a></li>
+<li><a href="../modules.html#varUintSize"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>var<wbr/>Uint<wbr/>Size</span></a></li>
+<li><a href="../modules.html#wait"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>wait</span></a></li>
+<li><a href="../modules.html#writeVarUint32LE"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4194304"></use></svg><span>write<wbr/>Var<wbr/>Uint32LE</span></a></li>
+<li>
+<details class="tsd-index-accordion tsd-is-external" open data-key="bsv"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg><a href="../modules/bsv.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>bsv</span></a></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li><a href="../classes/bsv.Ach.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-128"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)"></path></g></svg><span>Ach</span></a></li>
+<li><a href="../classes/bsv.Address.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Address</span></a></li>
+<li><a href="../classes/bsv.Aes.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Aes</span></a></li>
+<li><a href="../classes/bsv.Aescbc.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Aescbc</span></a></li>
+<li><a href="../classes/bsv.Base58.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Base58</span></a></li>
+<li><a href="../classes/bsv.Base58Check.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Base58<wbr/>Check</span></a></li>
+<li><a href="../classes/bsv.Bip32.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Bip32</span></a></li>
+<li><a href="../classes/bsv.Bip39.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Bip39</span></a></li>
+<li><a href="../classes/bsv.Block.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Block</span></a></li>
+<li><a href="../classes/bsv.BlockHeader.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Block<wbr/>Header</span></a></li>
+<li><a href="../classes/bsv.Br.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Br</span></a></li>
+<li><a href="../classes/bsv.Bsm.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Bsm</span></a></li>
+<li><a href="../classes/bsv.Bw.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Bw</span></a></li>
+<li><a href="../classes/bsv.Cbc.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Cbc</span></a></li>
+<li><a href="../classes/bsv.Ecdsa.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Ecdsa</span></a></li>
+<li><a href="../classes/bsv.Ecies.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Ecies</span></a></li>
+<li><a href="../classes/bsv.Hash.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Hash</span></a></li>
+<li><a href="../classes/bsv.Interp.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Interp</span></a></li>
+<li><a href="../classes/bsv.KeyPair.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Key<wbr/>Pair</span></a></li>
+<li><a href="../classes/bsv.Point.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Point</span></a></li>
+<li><a href="../classes/bsv.PrivKey.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Priv<wbr/>Key</span></a></li>
+<li><a href="../classes/bsv.PubKey.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Pub<wbr/>Key</span></a></li>
+<li><a href="../classes/bsv.Random.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Random</span></a></li>
+<li><a href="../classes/bsv.Script.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Script</span></a></li>
+<li><a href="../classes/bsv.Sig.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Sig</span></a></li>
+<li><a href="../classes/bsv.SigOperations.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Sig<wbr/>Operations</span></a></li>
+<li><a href="../classes/bsv.Struct.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Struct</span></a></li>
+<li><a href="../classes/bsv.Tx.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Tx</span></a></li>
+<li><a href="../classes/bsv.TxBuilder.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Tx<wbr/>Builder</span></a></li>
+<li><a href="../classes/bsv.TxIn.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Tx<wbr/>In</span></a></li>
+<li><a href="../classes/bsv.TxOut.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Tx<wbr/>Out</span></a></li>
+<li><a href="../classes/bsv.TxOutMap.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Tx<wbr/>Out<wbr/>Map</span></a></li>
+<li><a href="../classes/bsv.TxVerifier.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Tx<wbr/>Verifier</span></a></li>
+<li><a href="../classes/bsv.VarInt.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Var<wbr/>Int</span></a></li>
+<li><a href="../classes/bsv.Workers.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Workers</span></a></li>
+<li><a href="../classes/bsv.WorkersResult.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Workers<wbr/>Result</span></a></li>
+<li><a href="../interfaces/bsv.BlockHeaderLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-256"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)"></path></g></svg><span>Block<wbr/>Header<wbr/>Like</span></a></li>
+<li><a href="../interfaces/bsv.BlockLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Block<wbr/>Like</span></a></li>
+<li><a href="../interfaces/bsv.NetworkConstants.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Network<wbr/>Constants</span></a></li>
+<li><a href="../interfaces/bsv.SigOperationsLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Sig<wbr/>Operations<wbr/>Like</span></a></li>
+<li><a href="../interfaces/bsv.TxInLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Tx<wbr/>In<wbr/>Like</span></a></li>
+<li><a href="../interfaces/bsv.TxLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Tx<wbr/>Like</span></a></li>
+<li><a href="../interfaces/bsv.TxOutLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Tx<wbr/>Out<wbr/>Like</span></a></li>
+<li><a href="../interfaces/bsv.TxOutMapLike.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Tx<wbr/>Out<wbr/>Map<wbr/>Like</span></a></li>
+<li><a href="../types/bsv.Bn.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2097152"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>Bn</span></a></li>
+<li><a href="../types/bsv.OpCode.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Op<wbr/>Code</span></a></li>
+<li><a href="../variables/bsv.Bn-1.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-32"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-variable)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.106 16L8.85 7.24H9.966L11.454 13.192C11.558 13.608 11.646 13.996 11.718 14.356C11.79 14.708 11.842 14.976 11.874 15.16C11.906 14.976 11.954 14.708 12.018 14.356C12.09 13.996 12.178 13.608 12.282 13.192L13.758 7.24H14.85L12.582 16H11.106Z" fill="var(--color-text)"></path></g></svg><span>Bn</span></a></li>
+<li><a href="../variables/bsv.Constants.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>Constants</span></a></li>
+<li><a href="../variables/bsv.OpCode-1.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>Op<wbr/>Code</span></a></li>
+<li><a href="../variables/bsv.deps.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>deps</span></a></li>
+<li><a href="bsv.cmp.html" class="current tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-64"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)"></path></g></svg><span>cmp</span></a></li>
+<li><a href="bsv.getConstants.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Constants</span></a></li></ul></div></details></li>
+<li><a href="../modules/crypto.html" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>crypto</span></a></li>
+<li><a href="../modules/utils.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>utils</span></a></li>
+<li><a href="../classes/CwiError.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Cwi<wbr/>Error</span></a></li>
+<li><a href="../classes/ERR_BAD_REQUEST.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>BAD_<wbr/>REQUEST</span></a></li>
+<li><a href="../classes/ERR_CHAIN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>CHAIN</span></a></li>
+<li><a href="../classes/ERR_CHAIN_INVALID.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>CHAIN_<wbr/>INVALID</span></a></li>
+<li><a href="../classes/ERR_DOJO_BROADCAST_DUPE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>BROADCAST_<wbr/>DUPE</span></a></li>
+<li><a href="../classes/ERR_DOJO_CERT_DUPE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>CERT_<wbr/>DUPE</span></a></li>
+<li><a href="../classes/ERR_DOJO_CERT_INVALID.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>CERT_<wbr/>INVALID</span></a></li>
+<li><a href="../classes/ERR_DOJO_CERT_SUBJECT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>CERT_<wbr/>SUBJECT</span></a></li>
+<li><a href="../classes/ERR_DOJO_CREATE_TX_EMPTY.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>CREATE_<wbr/>TX_<wbr/>EMPTY</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_BASKET_NAME.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>BASKET_<wbr/>NAME</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>CUSTOM_<wbr/>INSTRUCTIONS</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_NOTE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>NOTE</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_OUTPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>OUTPOINT</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_OUTPUT_DESCRIPTION.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>OUTPUT_<wbr/>DESCRIPTION</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_PAYMAIL_DOMAIN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>PAYMAIL_<wbr/>DOMAIN</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_PAYMAIL_HANDLE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>PAYMAIL_<wbr/>HANDLE</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_REDEEM.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>REDEEM</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_REFERENCE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>REFERENCE</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_SATOSHIS.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>SATOSHIS</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_SCRIPT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>SCRIPT</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_TIME.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>TIME</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_TRANSACTION_STATUS.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>TRANSACTION_<wbr/>STATUS</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_TXID.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>TXID</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_TX_LABEL.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>TX_<wbr/>LABEL</span></a></li>
+<li><a href="../classes/ERR_DOJO_INVALID_TX_RECIPIENT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>INVALID_<wbr/>TX_<wbr/>RECIPIENT</span></a></li>
+<li><a href="../classes/ERR_DOJO_LABEL_NOT_FOUND.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>LABEL_<wbr/>NOT_<wbr/>FOUND</span></a></li>
+<li><a href="../classes/ERR_DOJO_NOT_SUFFICIENT_FUNDS.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>NOT_<wbr/>SUFFICIENT_<wbr/>FUNDS</span></a></li>
+<li><a href="../classes/ERR_DOJO_NO_ENVELOPE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>NO_<wbr/>ENVELOPE</span></a></li>
+<li><a href="../classes/ERR_DOJO_PAYMAIL_MISMATCH.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>PAYMAIL_<wbr/>MISMATCH</span></a></li>
+<li><a href="../classes/ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>PAYMAIL_<wbr/>NOT_<wbr/>FORMATTED_<wbr/>CORRECTLY</span></a></li>
+<li><a href="../classes/ERR_DOJO_PAYMAIL_NOT_FOUND.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>PAYMAIL_<wbr/>NOT_<wbr/>FOUND</span></a></li>
+<li><a href="../classes/ERR_DOJO_PAYMAIL_UNAVAILABLE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>PAYMAIL_<wbr/>UNAVAILABLE</span></a></li>
+<li><a href="../classes/ERR_DOJO_PROCESS_PENDING_OUTGOING.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>PROCESS_<wbr/>PENDING_<wbr/>OUTGOING</span></a></li>
+<li><a href="../classes/ERR_DOJO_REQUEST_EXPIRED.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>REQUEST_<wbr/>EXPIRED</span></a></li>
+<li><a href="../classes/ERR_DOJO_SENDER_SIGNATURE_CHECK.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>SENDER_<wbr/>SIGNATURE_<wbr/>CHECK</span></a></li>
+<li><a href="../classes/ERR_DOJO_TRANSACTION_NOT_FOUND.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>TRANSACTION_<wbr/>NOT_<wbr/>FOUND</span></a></li>
+<li><a href="../classes/ERR_DOJO_TRANSACTION_REJECTED.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>TRANSACTION_<wbr/>REJECTED</span></a></li>
+<li><a href="../classes/ERR_DOJO_TX_BAD_AMOUNT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>TX_<wbr/>BAD_<wbr/>AMOUNT</span></a></li>
+<li><a href="../classes/ERR_DOJO_UNKNOWN_FEE_MODEL.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>DOJO_<wbr/>UNKNOWN_<wbr/>FEE_<wbr/>MODEL</span></a></li>
+<li><a href="../classes/ERR_INTERNAL.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>INTERNAL</span></a></li>
+<li><a href="../classes/ERR_INVALID_PARAMETER.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>INVALID_<wbr/>PARAMETER</span></a></li>
+<li><a href="../classes/ERR_MISSING_PARAMETER.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>MISSING_<wbr/>PARAMETER</span></a></li>
+<li><a href="../classes/ERR_NOT_IMPLEMENTED.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>NOT_<wbr/>IMPLEMENTED</span></a></li>
+<li><a href="../classes/ERR_TXID_INVALID.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>TXID_<wbr/>INVALID</span></a></li>
+<li><a href="../classes/ERR_TXID_UNKNOWN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>TXID_<wbr/>UNKNOWN</span></a></li>
+<li><a href="../classes/ERR_UNAUTHORIZED.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>ERR_<wbr/>UNAUTHORIZED</span></a></li>
+<li><a href="../interfaces/BaseBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Base<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="../interfaces/BaseBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Base<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="../interfaces/BlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Block<wbr/>Header</span></a></li>
+<li><a href="../interfaces/BlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="../interfaces/ChaintracksApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Chaintracks<wbr/>Api</span></a></li>
+<li><a href="../interfaces/ChaintracksClientApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Chaintracks<wbr/>Client<wbr/>Api</span></a></li>
+<li><a href="../interfaces/ChaintracksInfoApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Chaintracks<wbr/>Info<wbr/>Api</span></a></li>
+<li><a href="../interfaces/ChaintracksPackageInfoApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Chaintracks<wbr/>Package<wbr/>Info<wbr/>Api</span></a></li>
+<li><a href="../interfaces/CwiErrorApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Cwi<wbr/>Error<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoAliasApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Alias<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoAvatarApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Avatar<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCertificateApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Certificate<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCertificateFieldApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Certificate<wbr/>Field<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoClientApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Client<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoClientUserApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Client<wbr/>User<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCommissionApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Commission<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCreateTransactionResultApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Create<wbr/>Transaction<wbr/>Result<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCreateTxOutputApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Create<wbr/>Tx<wbr/>Output<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCreatingTxInputsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Creating<wbr/>Tx<wbr/>Inputs<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCreatingTxInstructionsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Creating<wbr/>Tx<wbr/>Instructions<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoCreatingTxOutputApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Creating<wbr/>Tx<wbr/>Output<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoFeeModelApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Fee<wbr/>Model<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoGetTotalOfAmountsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Get<wbr/>Total<wbr/>Of<wbr/>Amounts<wbr/>Options</span></a></li>
+<li><a href="../interfaces/DojoGetTransactionOutputsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Get<wbr/>Transaction<wbr/>Outputs<wbr/>Options</span></a></li>
+<li><a href="../interfaces/DojoGetTransactionsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Get<wbr/>Transactions<wbr/>Options</span></a></li>
+<li><a href="../interfaces/DojoMapiResponseApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Mapi<wbr/>Response<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoOutputApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Output<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoOutputBasketApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Output<wbr/>Basket<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoOutputGenerationApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Output<wbr/>Generation<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoOutputToRedeemApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Output<wbr/>To<wbr/>Redeem<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoPendingTxApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Pending<wbr/>Tx<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoPendingTxInputApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Pending<wbr/>Tx<wbr/>Input<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoPendingTxInputInstructionsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Pending<wbr/>Tx<wbr/>Input<wbr/>Instructions<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoPendingTxOutputApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Pending<wbr/>Tx<wbr/>Output<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoProcessTransactionResultApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Process<wbr/>Transaction<wbr/>Result<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoProvenTxApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Proven<wbr/>Tx<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoProvenTxReqApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Proven<wbr/>Tx<wbr/>Req<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoPublicApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Public<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoStatsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Stats<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoSubmitDirectTransactionApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Submit<wbr/>Direct<wbr/>Transaction<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoSubmitDirectTransactionOutputApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Submit<wbr/>Direct<wbr/>Transaction<wbr/>Output<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoSubmitDirectTransactionResultApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Submit<wbr/>Direct<wbr/>Transaction<wbr/>Result<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoSyncApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Sync<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoSyncOptionsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Sync<wbr/>Options<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoSyncResultApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Sync<wbr/>Result<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoTransactionApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Transaction<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoTxInputSelectionApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Tx<wbr/>Input<wbr/>Selection<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoTxInputsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Tx<wbr/>Inputs<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoTxLabelApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Tx<wbr/>Label<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoTxLabelMapApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>Tx<wbr/>Label<wbr/>Map<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoUserApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>User<wbr/>Api</span></a></li>
+<li><a href="../interfaces/DojoUserStateApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Dojo<wbr/>User<wbr/>State<wbr/>Api</span></a></li>
+<li><a href="../interfaces/EnvelopeApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Envelope<wbr/>Api</span></a></li>
+<li><a href="../interfaces/EnvelopeEvidenceApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Envelope<wbr/>Evidence<wbr/>Api</span></a></li>
+<li><a href="../interfaces/LiveBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Live<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="../interfaces/LiveBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Live<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="../interfaces/MapiCallbackPayloadApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Mapi<wbr/>Callback<wbr/>Payload<wbr/>Api</span></a></li>
+<li><a href="../interfaces/MapiPostTxPayloadApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Mapi<wbr/>Post<wbr/>Tx<wbr/>Payload<wbr/>Api</span></a></li>
+<li><a href="../interfaces/MapiResponseApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Mapi<wbr/>Response<wbr/>Api</span></a></li>
+<li><a href="../interfaces/MapiTxStatusPayloadApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Mapi<wbr/>Tx<wbr/>Status<wbr/>Payload<wbr/>Api</span></a></li>
+<li><a href="../interfaces/MapiTxidReturnResultApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Mapi<wbr/>Txid<wbr/>Return<wbr/>Result<wbr/>Api</span></a></li>
+<li><a href="../interfaces/TscMerkleProofApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Tsc<wbr/>Merkle<wbr/>Proof<wbr/>Api</span></a></li>
+<li><a href="../types/Chain.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Chain</span></a></li>
+<li><a href="../types/DojoProgressLoggerApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Dojo<wbr/>Progress<wbr/>Logger<wbr/>Api</span></a></li>
+<li><a href="../types/DojoProvenTxReqStatusApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Dojo<wbr/>Proven<wbr/>Tx<wbr/>Req<wbr/>Status<wbr/>Api</span></a></li>
+<li><a href="../types/DojoProvidedByApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Dojo<wbr/>Provided<wbr/>By<wbr/>Api</span></a></li>
+<li><a href="../types/DojoSyncStateStatusApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Dojo<wbr/>Sync<wbr/>State<wbr/>Status<wbr/>Api</span></a></li>
+<li><a href="../types/DojoTransactionStatusApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Dojo<wbr/>Transaction<wbr/>Status<wbr/>Api</span></a></li>
+<li><a href="../types/EnvelopeInputMapApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Envelope<wbr/>Input<wbr/>Map<wbr/>Api</span></a></li>
+<li><a href="../types/HeaderListener.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Header<wbr/>Listener</span></a></li>
+<li><a href="../types/ReorgListener.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg><span>Reorg<wbr/>Listener</span></a></li>
+<li><a href="blockHash.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>block<wbr/>Hash</span></a></li>
+<li><a href="createBabbageServiceChargeOutput.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>create<wbr/>Babbage<wbr/>Service<wbr/>Charge<wbr/>Output</span></a></li>
+<li><a href="deserializeBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>deserialize<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="genesisBuffer.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>genesis<wbr/>Buffer</span></a></li>
+<li><a href="genesisHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>genesis<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="isBaseBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Base<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="isBaseBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Base<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="isBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="isBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="isLive.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Live</span></a></li>
+<li><a href="isLiveBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Live<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="isLiveBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Live<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="lockScriptWithKeyOffsetFromPubKey.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>lock<wbr/>Script<wbr/>With<wbr/>Key<wbr/>Offset<wbr/>From<wbr/>Pub<wbr/>Key</span></a></li>
+<li><a href="offsetPrivKey.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>offset<wbr/>Priv<wbr/>Key</span></a></li>
+<li><a href="offsetPubKey.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>offset<wbr/>Pub<wbr/>Key</span></a></li>
+<li><a href="pointToBuffer.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>point<wbr/>To<wbr/>Buffer</span></a></li>
+<li><a href="pointToCompressed.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>point<wbr/>To<wbr/>Compressed</span></a></li>
+<li><a href="serializeBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>serialize<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="toBaseBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>to<wbr/>Base<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="toBaseBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>to<wbr/>Base<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="toBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>to<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="toBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>to<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="toLiveBlockHeader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>to<wbr/>Live<wbr/>Block<wbr/>Header</span></a></li>
+<li><a href="toLiveBlockHeaderHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>to<wbr/>Live<wbr/>Block<wbr/>Header<wbr/>Hex</span></a></li>
+<li><a href="transactionInputSize.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>transaction<wbr/>Input<wbr/>Size</span></a></li>
+<li><a href="transactionOutputSize.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>transaction<wbr/>Output<wbr/>Size</span></a></li>
+<li><a href="transactionSize.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>transaction<wbr/>Size</span></a></li>
+<li><a href="validateBasketName.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Basket<wbr/>Name</span></a></li>
+<li><a href="validateCreateTxOutput.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Create<wbr/>Tx<wbr/>Output</span></a></li>
+<li><a href="validateCustomInstructions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Custom<wbr/>Instructions</span></a></li>
+<li><a href="validateFeeModel.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Fee<wbr/>Model</span></a></li>
+<li><a href="validateIdentityKey.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Identity<wbr/>Key</span></a></li>
+<li><a href="validateInputSelection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Input<wbr/>Selection</span></a></li>
+<li><a href="validateOutputDescription.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Output<wbr/>Description</span></a></li>
+<li><a href="validateOutputGeneration.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Output<wbr/>Generation</span></a></li>
+<li><a href="validateOutputToRedeem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Output<wbr/>To<wbr/>Redeem</span></a></li>
+<li><a href="validatePaymail.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Paymail</span></a></li>
+<li><a href="validateSABPPPTransaction.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validateSABPPPTransaction</span></a></li>
+<li><a href="validateSatoshis.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Satoshis</span></a></li>
+<li><a href="validateScript.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Script</span></a></li>
+<li><a href="validateSecondsSinceEpoch.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Seconds<wbr/>Since<wbr/>Epoch</span></a></li>
+<li><a href="validateSubmitDirectCustomTransaction.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Submit<wbr/>Direct<wbr/>Custom<wbr/>Transaction</span></a></li>
+<li><a href="validateTXID.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validateTXID</span></a></li>
+<li><a href="validateTxLabel.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Tx<wbr/>Label</span></a></li>
+<li><a href="validateTxLabels.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Tx<wbr/>Labels</span></a></li>
+<li><a href="validateTxNote.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Tx<wbr/>Note</span></a></li>
+<li><a href="validateTxRecipient.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>validate<wbr/>Tx<wbr/>Recipient</span></a></li>
+<li><a href="verifyBuffer.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>verify<wbr/>Buffer</span></a></li>
+<li><a href="verifyNone.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>verify<wbr/>None</span></a></li>
+<li><a href="verifyNumber.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>verify<wbr/>Number</span></a></li>
+<li><a href="verifyOne.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>verify<wbr/>One</span></a></li>
+<li><a href="verifyOneOrNone.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>verify<wbr/>One<wbr/>Or<wbr/>None</span></a></li>
+<li><a href="verifyTruthy.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>verify<wbr/>Truthy</span></a></li></ul></nav></div></div></div>
+<div class="tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" rel="noopener" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div></body></html>
