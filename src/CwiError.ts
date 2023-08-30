@@ -19,7 +19,7 @@ import { CwiErrorApi } from "./Api/CwiBaseApi"
  */
 export class CwiError implements CwiErrorApi {
 
-    constructor (readonly code: string, readonly description: string, readonly stack?: string) {
+    constructor (public code: string, public description: string, readonly stack?: string) {
     }
 
     toString() { return `${this.code}: ${this.description}`}
