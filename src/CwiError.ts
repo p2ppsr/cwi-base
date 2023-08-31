@@ -25,8 +25,6 @@ export class CwiError implements CwiErrorApi {
     toString() { return `${this.code}: ${this.description}`}
 
     static fromUnknown(err: unknown) {
-        // eslint-disable-next-line no-debugger
-        // debugger
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const e = err as any
         const code = e.code || e.status || 'ERR_UNKNOWN'
