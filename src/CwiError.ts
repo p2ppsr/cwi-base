@@ -19,7 +19,7 @@ import { CwiErrorApi } from "./Api/CwiBaseApi"
  */
 export class CwiError implements CwiErrorApi {
 
-    constructor (public code: string, public description: string, readonly stack?: string) {
+    constructor (public code: string, public description: string, public stack?: string, public details?: Record<string, string>) {
     }
 
     toString() { return `${this.code}: ${this.description}`}
@@ -34,7 +34,10 @@ export class CwiError implements CwiErrorApi {
         let stack: string | undefined = undefined
         if (e.stack && typeof e.stack === 'string')
             stack = e.stack
-        return new CwiError(code, description, stack)
+        const details: Record<string, string> = {}
+        if (e.sql && typeof e.sql === 'string') details['sql'] = e.sql
+        if (e.sqlMessage && typeof e.sqlMessage === 'string') details['sqlMessage'] = e.sqlMessage
+        return new CwiError(code, description, stack, details || undefined)
     }
 
     /**
