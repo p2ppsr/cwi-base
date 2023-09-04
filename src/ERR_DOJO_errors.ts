@@ -4,7 +4,7 @@ import { CwiError } from './CwiError'
 /**
  * Transaction amount is not correct!
  */
-export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError { constructor (description?: string) { super('ERR_DOJO_TX_BAD_AMOUNT', description || 'Transaction amount is not correct!') } }
+export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError { constructor (description?: string) { super('ERR_DOJO_TX_BAD_AMOUNT', description ?? 'Transaction amount is not correct!') } }
 
 /**
  * Not sufficient funds in the available inputs to cover the cost of the required outputs
@@ -47,7 +47,7 @@ export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError { constructor () { super(
 /**
  * outputToRedeem is invalid
  */
-export class ERR_DOJO_INVALID_REDEEM extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_REDEEM', description || 'outputToRedeem is invalid') } }
+export class ERR_DOJO_INVALID_REDEEM extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_REDEEM', description ?? 'outputToRedeem is invalid') } }
 
 /**
  * Output customInstruction must be a string or length not more than 2500.
@@ -65,7 +65,7 @@ export class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION extends CwiError { constructor 
 /**
  * The paymail handle is invalid.
  */
-export class ERR_DOJO_INVALID_PAYMAIL_HANDLE extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_PAYMAIL_HANDLE', description || 'The paymail handle is invalid') } }
+export class ERR_DOJO_INVALID_PAYMAIL_HANDLE extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_PAYMAIL_HANDLE', description ?? 'The paymail handle is invalid') } }
 /**
  * This server is not accepting registrations for new Paymail handles under the specified domain name.
  */
@@ -77,7 +77,7 @@ export class ERR_DOJO_INVALID_NOTE extends CwiError { constructor () { super('ER
 /**
  * The transaction reference is invalid.
  */
-export class ERR_DOJO_INVALID_REFERENCE extends CwiError { constructor (reference?: string) { super('ERR_DOJO_INVALID_REFERENCE', `The transaction reference (${reference || ''}) is invalid.`) } }
+export class ERR_DOJO_INVALID_REFERENCE extends CwiError { constructor (reference?: string) { super('ERR_DOJO_INVALID_REFERENCE', `The transaction reference (${reference ?? ''}) is invalid.`) } }
 /**
  * An amount of satoshis must be a non-negative integer less than 21e14.
  */
@@ -85,7 +85,7 @@ export class ERR_DOJO_INVALID_SATOSHIS extends CwiError { constructor () { super
 /**
  * Script must be a valid Bitcoin script.
  */
-export class ERR_DOJO_INVALID_SCRIPT extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_SCRIPT', description || 'Script must be a valid Bitcoin script.') } }
+export class ERR_DOJO_INVALID_SCRIPT extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_SCRIPT', description ?? 'Script must be a valid Bitcoin script.') } }
 /**
  * Time values must be integer number of seconds since the epoch.
  */
@@ -154,7 +154,7 @@ export class ERR_DOJO_TRANSACTION_NOT_FOUND extends CwiError { constructor () { 
 /**
  * This transaction was rejected and was not broadcasted by the recipient. Ensure that all specified output scripts are present with the correct amounts assigned to each.
  */
-export class ERR_DOJO_TRANSACTION_REJECTED extends CwiError { constructor (description?: string) { super('ERR_DOJO_TRANSACTION_REJECTED', description || 'This transaction was rejected and was not broadcasted by the recipient. Ensure that all specified output scripts are present with the correct amounts assigned to each.') } }
+export class ERR_DOJO_TRANSACTION_REJECTED extends CwiError { constructor (description?: string) { super('ERR_DOJO_TRANSACTION_REJECTED', description ?? 'This transaction was rejected and was not broadcasted by the recipient. Ensure that all specified output scripts are present with the correct amounts assigned to each.') } }
 /**
  * No envelope for ${txid}
  */
@@ -167,4 +167,4 @@ export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError { constructor ()
 export class ERR_DOJO_SYNC_STATUS extends CwiError { constructor (step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) { super('ERR_DOJO_SYNC_STATUS', `dojo sync ${step} status expected '${expected} but received '${actual}'`) } }
 export class ERR_DOJO_SYNC_REFNUM extends CwiError { constructor (expected: string, actual: string) { super('ERR_DOJO_SYNC_REFNUM', `refNum '${expected}' expected, '${actual}' received`) } }
 export class ERR_DOJO_SYNC_STATE extends CwiError { constructor () { super('ERR_DOJO_SYNC_STATE', 'missing valid update state from syncDojo') } }
-export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: number | undefined, actual: number | undefined) { super('ERR_DOJO_SYNC_TOTAL', `sync total '${expected}' expected, '${actual}' received`) } }
+export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: number | undefined, actual: number | undefined) { super('ERR_DOJO_SYNC_TOTAL', `sync total '${expected ?? 0}' expected, '${actual ?? 0}' received`) } }

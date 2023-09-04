@@ -29,7 +29,7 @@
  * @returns {String} The normalized protocol
  * @private
  */
-export function normalizeProtocol (input) {
+export function normalizeProtocol (input): [number, string] {
   if (typeof input === 'undefined') {
     throw new Error('A protocol ID is required')
   }
@@ -46,7 +46,7 @@ export function normalizeProtocol (input) {
   return [level, normalizeProtocolName(input[1])]
 }
 
-const normalizeProtocolName = input => {
+const normalizeProtocolName = (input?: string): string => {
   if (typeof input === 'undefined') {
     throw new Error('A protocol name is required')
   }
@@ -54,7 +54,7 @@ const normalizeProtocolName = input => {
     throw new Error('Protocol names must be strings')
   }
   input = input.toLowerCase().trim()
-  if (input.indexOf('  ') !== -1) {
+  if (input.includes('  ')) {
     throw new Error(
       'Protocol names cannot contain multiple consecutive spaces ("  ")'
     )
@@ -78,7 +78,7 @@ const normalizeProtocolName = input => {
   return input
 }
 
-export function getProtocolInvoiceNumber ({ protocolID, keyID }) {
-  protocolID = normalizeProtocol(protocolID)
-  return `${protocolID[0]}-${protocolID[1]}-${keyID}`
+export function getProtocolInvoiceNumber (params: { protocolID: string | [number, string], keyID: string }): string {
+  const npID = normalizeProtocol(params.protocolID)
+  return `${npID[0]}-${npID[1]}-${params.keyID}`
 }

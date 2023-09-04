@@ -41,7 +41,7 @@ export function transactionSize (inputs: number[], outputs: number[]): number {
 
 function keyOffsetToHashedSecret (pub: bsv.PubKey, keyOffset?: string): { hashedSecret: bsv.Bn, keyOffset: string } {
   let offset: bsv.PrivKey
-  if (keyOffset) {
+  if (keyOffset !== undefined) {
     offset = bsv.PrivKey.fromString(keyOffset)
   } else {
     offset = bsv.PrivKey.fromRandom()
@@ -118,10 +118,10 @@ export function createBabbageServiceChargeOutput ():
  *
  * Detect these situations and restore contained values as Buffers.
  */
-export function restoreUserStateBuffers (state: DojoUserStateApi) {
+export function restoreUserStateBuffers (state: DojoUserStateApi): void {
   const verifyBuffer = (v: Buffer | object): Buffer => {
     if (Buffer.isBuffer(v)) return v
-    if (typeof v === 'object' && v.type === 'Buffer' && v.data) {
+    if ('type' in v && v.type === 'Buffer' && 'data' in v && Array.isArray(v.data)) {
       return Buffer.from(v.data)
     }
     throw new ERR_INTERNAL('Unexpected buffer encoding')

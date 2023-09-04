@@ -23,7 +23,7 @@ export function verifyBuffer (b: Buffer | undefined | null, length?: number): Bu
  * Verifies that a possibly optional value has a value.
  */
 export function verifyTruthy<T> (v: T | null | undefined, description?: string): T {
-  if (!v) throw new ERR_INTERNAL(description || 'A truthy value is required.')
+  if (v == null) throw new ERR_INTERNAL(description ?? 'A truthy value is required.')
   return v
 }
 
@@ -57,7 +57,7 @@ export function verifyOneOrNone<T> (results: T[]): (T | undefined) {
  * @returns results[0].
  */
 export function verifyOne<T> (results: T[], errorDescrition?: string): T {
-  if (results.length !== 1) throw new ERR_BAD_REQUEST(errorDescrition || 'Result must exist and be unique.')
+  if (results.length !== 1) throw new ERR_BAD_REQUEST(errorDescrition ?? 'Result must exist and be unique.')
   return results[0]
 }
 

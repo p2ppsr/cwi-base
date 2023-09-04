@@ -5,7 +5,7 @@ import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORI
 
 export function validateIdentityKey (identityKey?: string | null): string {
   // First, we make sure the user has provided the required fields
-  if (!identityKey) throw new ERR_UNAUTHORIZED('User identityKey not provided!')
+  if (identityKey == null) throw new ERR_UNAUTHORIZED('User identityKey not provided!')
 
   // Force the incoming identityKey value to be a compressed public key...
   if (identityKey.length > 66) {
@@ -29,32 +29,32 @@ export function validateTXID (txid: string): void {
 
 export function validateBasketName (name: string): string {
   name = name.trim()
-  if (!name || name.length > 1000) { throw new ERR_DOJO_INVALID_BASKET_NAME() }
+  if (name.length > 1000) { throw new ERR_DOJO_INVALID_BASKET_NAME() }
   return name
 }
 
 export function validateTxRecipient (recipient?: string): string | undefined {
-  if (!recipient) return undefined
+  if (recipient === undefined) return undefined
   if (typeof recipient !== 'string' || recipient.length > 100) throw new ERR_DOJO_INVALID_TX_RECIPIENT()
   validatePaymail(recipient)
   return recipient
 }
 
 export function validateTxNote (note?: string): string | undefined {
-  if (!note) return undefined
+  if (note === undefined) return undefined
   if (typeof note !== 'string' || note.length > 500) throw new ERR_DOJO_INVALID_NOTE()
   return note
 }
 
 export function validateCustomInstructions (s: string): string {
   s = s.trim()
-  if (!s || s.length > 2500) { throw new ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS() }
+  if (s.length > 2500) { throw new ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS() }
   return s
 }
 
 export function validateOutputDescription (s: string): string {
   s = s.trim()
-  if (!s || s.length > 255) { throw new ERR_DOJO_INVALID_OUTPUT_DESCRIPTION() }
+  if (s.length > 255) { throw new ERR_DOJO_INVALID_OUTPUT_DESCRIPTION() }
   return s
 }
 
@@ -62,14 +62,14 @@ export function validateCreateTxOutput (o: DojoCreateTxOutputApi): void {
   if (typeof o !== 'object') throw new ERR_BAD_REQUEST('Outputs must be objects.')
   validateSatoshis(o.satoshis)
   validateScript(o.script)
-  if (o.description) o.description = validateOutputDescription(o.description)
-  if (o.basket) o.basket = validateTxLabel(o.basket)
-  if (o.customInstructions) o.customInstructions = validateCustomInstructions(o.customInstructions)
+  if (o.description !== undefined) o.description = validateOutputDescription(o.description)
+  if (o.basket !== undefined) o.basket = validateTxLabel(o.basket)
+  if (o.customInstructions !== undefined) o.customInstructions = validateCustomInstructions(o.customInstructions)
 }
 
 export function validateSecondsSinceEpoch (time: number): Date {
   const date = new Date(time * 1000)
-  if (!date || date.getTime() / 1000 !== time || time < 1600000000 || time > 100000000000) { throw new ERR_DOJO_INVALID_TIME() }
+  if (date.getTime() / 1000 !== time || time < 1600000000 || time > 100000000000) { throw new ERR_DOJO_INVALID_TIME() }
   return date
 }
 
@@ -129,7 +129,7 @@ export function validateOutputGeneration (v: DojoOutputGenerationApi | undefined
 
 export function validateTxLabel (label: string): string {
   label = label.trim()
-  if (!label || label.length > 150) { throw new ERR_DOJO_INVALID_TX_LABEL() }
+  if (label.length > 150) { throw new ERR_DOJO_INVALID_TX_LABEL() }
   return label
 }
 
@@ -156,13 +156,13 @@ export function validateFeeModel (v?: DojoFeeModelApi): DojoFeeModelApi {
   return r
 }
 
-export function validateOutputToRedeem (output: DojoOutputToRedeemApi) {
+export function validateOutputToRedeem (output: DojoOutputToRedeemApi): void {
   if (typeof output.index !== 'number') { throw new ERR_DOJO_INVALID_REDEEM('index property is missing or invalid') }
   if (typeof output.unlockingScriptLength !== 'number') { throw new ERR_DOJO_INVALID_REDEEM('unlockingScriptLength property is missing or invalid') }
 }
 
-export function validatePaymail (paymailHandle: string) {
-  if (!paymailHandle) throw new ERR_DOJO_INVALID_PAYMAIL_HANDLE('The paymail handle cannot be null.')
+export function validatePaymail (paymailHandle: string | null): void {
+  if (paymailHandle == null) throw new ERR_DOJO_INVALID_PAYMAIL_HANDLE('The paymail handle cannot be null.')
   if (typeof paymailHandle !== 'string') throw new ERR_DOJO_INVALID_PAYMAIL_HANDLE('The paymail handle must be a string.')
   const re = /^(([a-zA-Z0-9._-]+)@([a-zA-Z0-9]+)(\.|:)([a-zA-Z0-9]+))$/g
   if (!re.test(paymailHandle) || paymailHandle.length > 128) { throw new ERR_DOJO_INVALID_PAYMAIL_HANDLE('The paymail handle must follow e-mail address formatting rules and not be longer than 128 characters.') }

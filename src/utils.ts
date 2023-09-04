@@ -74,7 +74,7 @@ export function shuffleArray<T> (array: T[]): T[] {
  * @returns input val if it is a Buffer or new Buffer from string val
  */
 export function asBuffer (val: Buffer | string, encoding?: BufferEncoding): Buffer {
-  return Buffer.isBuffer(val) ? val : Buffer.from(val, encoding || 'hex')
+  return Buffer.isBuffer(val) ? val : Buffer.from(val, encoding ?? 'hex')
 }
 
 /**
@@ -84,7 +84,7 @@ export function asBuffer (val: Buffer | string, encoding?: BufferEncoding): Buff
  * @returns input val if it is a string or Buffer encoded as string
  */
 export function asString (val: Buffer | string, encoding?: BufferEncoding): string {
-  return Buffer.isBuffer(val) ? val.toString(encoding || 'hex') : val
+  return Buffer.isBuffer(val) ? val.toString(encoding ?? 'hex') : val
 }
 
 /**
@@ -143,7 +143,7 @@ export function convertBufferToUint32 (buffer: Buffer, littleEndian = true): num
   return view.getUint32(0, littleEndian)
 }
 
-export function varUintSize (val: number) {
+export function varUintSize (val: number): number {
   if (val < 0) throw new ERR_BAD_REQUEST()
   return (val <= 0xfc ? 1 : val <= 0xffff ? 3 : val <= 0xffffffff ? 5 : 9)
 }
@@ -219,9 +219,8 @@ export function computeRootFromMerkleProofNodes (index: number, txid: string | B
     }
     const cIsLeft = index % 2 === 0
 
-    if (!cIsLeft && c.equals(p))
     // Proof is invalid if computed value equals provided value and computed is right side.
-    { return Buffer.alloc(32) }
+    if (!cIsLeft && c.equals(p)) { return Buffer.alloc(32) }
 
     c = cIsLeft
       ? computeMerkleTreeParent(c, p)
@@ -284,8 +283,8 @@ export function identityKeyFromPrivateKey (privKey: string): string {
  * @returns
  */
 export function maxDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
-  if (d1 == null || d1 === undefined) return d2 ? d2 : undefined
-  if (d2 == null || d2 === undefined) return d1 ? d1 : undefined
+  if (d1 == null) return (d2 != null) ? d2 : undefined
+  if (d2 == null) return (d1 != null) ? d1 : undefined
   return d1 > d2 ? d1 : d2
 }
 
@@ -297,6 +296,6 @@ export function maxDate (d1: Date | null | undefined, d2: Date | null | undefine
  * @returns
  */
 export function minDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
-  if ((d1 == null || d1 == undefined) || (d2 == null || d2 == undefined)) return undefined
+  if (d1 == null || d2 == null) return undefined
   return d1 < d2 ? d1 : d2
 }
