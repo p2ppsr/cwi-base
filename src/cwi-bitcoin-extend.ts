@@ -9,13 +9,13 @@ import { Point } from 'cwi-bitcoin'
  * @param {Point} point An instance of Point.
  * @returns {Buffer} A compressed point in the form of a buffer.
  */
-export function pointToCompressed(point: Point) : Buffer {
+export function pointToCompressed (point: Point): Buffer {
   const xbuf = point.getX().toBuffer({ size: 32 })
   const ybuf = point.getY().toBuffer({ size: 32 })
 
   let prefix: Buffer
   const odd = ybuf[ybuf.length - 1] % 2
-  if (odd) {
+  if (odd === 1) {
     prefix = Buffer.from([0x03])
   } else {
     prefix = Buffer.from([0x02])
@@ -23,4 +23,4 @@ export function pointToCompressed(point: Point) : Buffer {
   return Buffer.concat([prefix, xbuf])
 }
 
-export function pointToBuffer(point: Point) : Buffer { return pointToCompressed(point) }
+export function pointToBuffer (point: Point): Buffer { return pointToCompressed(point) }

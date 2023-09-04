@@ -1,9 +1,10 @@
-import { CwiError } from "./CwiError"
+import { DojoSyncStatus } from './Api/DojoClientApi'
+import { CwiError } from './CwiError'
 
 /**
  * Transaction amount is not correct!
  */
-export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError { constructor (description?: string) { super('ERR_DOJO_TX_BAD_AMOUNT', description || `Transaction amount is not correct!`) } }
+export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError { constructor (description?: string) { super('ERR_DOJO_TX_BAD_AMOUNT', description || 'Transaction amount is not correct!') } }
 
 /**
  * Not sufficient funds in the available inputs to cover the cost of the required outputs
@@ -12,9 +13,9 @@ export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError { constructor (description?
  * to pay the fee to unlock and spend the outputs used to provide the additional satoshis.
  */
 export class ERR_DOJO_NOT_SUFFICIENT_FUNDS extends CwiError {
-    constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) {
-        super('ERR_DOJO_NOT_SUFFICIENT_FUNDS', `Not sufficient funds in the available inputs to cover the cost of the required outputs and the transaction fee (${moreSatoshisNeeded} more satoshis are needed, for a total of ${totalSatoshisNeeded}), plus whatever would be required in order to pay the fee to unlock and spend the outputs used to provide the additional satoshis.`)
-    }
+  constructor (public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) {
+    super('ERR_DOJO_NOT_SUFFICIENT_FUNDS', `Not sufficient funds in the available inputs to cover the cost of the required outputs and the transaction fee (${moreSatoshisNeeded} more satoshis are needed, for a total of ${totalSatoshisNeeded}), plus whatever would be required in order to pay the fee to unlock and spend the outputs used to provide the additional satoshis.`)
+  }
 }
 
 /**
@@ -46,7 +47,7 @@ export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError { constructor () { super(
 /**
  * outputToRedeem is invalid
  */
-export class ERR_DOJO_INVALID_REDEEM extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_REDEEM', description || `outputToRedeem is invalid`) } }
+export class ERR_DOJO_INVALID_REDEEM extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_REDEEM', description || 'outputToRedeem is invalid') } }
 
 /**
  * Output customInstruction must be a string or length not more than 2500.
@@ -72,7 +73,7 @@ export class ERR_DOJO_INVALID_PAYMAIL_DOMAIN extends CwiError { constructor () {
 /**
  * The transaction note is invalid.
  */
-export class ERR_DOJO_INVALID_NOTE extends CwiError { constructor () { super('ERR_DOJO_INVALID_NOTE', `The transaction note is invalid. Length limit is 500.`) } }
+export class ERR_DOJO_INVALID_NOTE extends CwiError { constructor () { super('ERR_DOJO_INVALID_NOTE', 'The transaction note is invalid. Length limit is 500.') } }
 /**
  * The transaction reference is invalid.
  */
@@ -161,4 +162,9 @@ export class ERR_DOJO_NO_ENVELOPE extends CwiError { constructor (txid: string) 
 /**
  * processPendingOuputs of outgoing transactions is not suported at this time.
  */
-export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError { constructor () { super('ERR_DOJO_PROCESS_PENDING_OUTGOING', `processPendingOuputs of outgoing transactions is not suported at this time.`) } }
+export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError { constructor () { super('ERR_DOJO_PROCESS_PENDING_OUTGOING', 'processPendingOuputs of outgoing transactions is not suported at this time.') } }
+
+export class ERR_DOJO_SYNC_STATUS extends CwiError { constructor (step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) { super('ERR_DOJO_SYNC_STATUS', `dojo sync ${step} status expected '${expected} but received '${actual}'`) } }
+export class ERR_DOJO_SYNC_REFNUM extends CwiError { constructor (expected: string, actual: string) { super('ERR_DOJO_SYNC_REFNUM', `refNum '${expected}' expected, '${actual}' received`) } }
+export class ERR_DOJO_SYNC_STATE extends CwiError { constructor () { super('ERR_DOJO_SYNC_STATE', 'missing valid update state from syncDojo') } }
+export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: number | undefined, actual: number | undefined) { super('ERR_DOJO_SYNC_TOTAL', `sync total '${expected}' expected, '${actual}' received`) } }

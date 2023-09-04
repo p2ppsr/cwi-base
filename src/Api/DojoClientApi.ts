@@ -1,6 +1,6 @@
-import { Chain } from "./CwiBaseApi"
-import { EnvelopeApi, EnvelopeEvidenceApi } from "./EnvelopeApi"
-import { MapiResponseApi } from "./MerchantApi"
+import { Chain } from './CwiBaseApi'
+import { EnvelopeApi, EnvelopeEvidenceApi } from './EnvelopeApi'
+import { MapiResponseApi } from './MerchantApi'
 
 /**
  * Public Dojo Api
@@ -9,84 +9,148 @@ import { MapiResponseApi } from "./MerchantApi"
  */
 export interface DojoPublicApi {
 
-    //
-    // Public services, No Authrite
-    //
-   
-    /**
+  //
+  // Public services, No Authrite
+  //
+
+  /**
      * Return the chain served by this Dojo
      *
      * Also serves to verifies that all dependent services are on same chain.
      */
-    getChain() : Promise<Chain>
-    
-    //
-    // Statistics
-    //
+  getChain: () => Promise<Chain>
 
-    /**
+  //
+  // Statistics
+  //
+
+  /**
      * @returns general storage statistics
      */
-    stats() : Promise<DojoStatsApi>
+  stats: () => Promise<DojoStatsApi>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type DojoProgressLoggerApi = (...data: any) => void
+export type DojoLoggerApi = (...data: any) => void
 
 /**
  * success: Last sync of this user from this dojo was successful.
- * 
+ *
  * error: Last sync protocol operation for this user to this dojo threw and error.
- * 
+ *
  * identified: Configured sync dojo has been identified but not sync'ed.
- * 
+ *
  * unknown: Sync protocol state is unknown.
  */
-export type DojoSyncStateStatusApi = 'success' | 'error' | 'identified' | 'unknown'
+export type DojoSyncStatus = 'success' | 'error' | 'identified' | 'updated' | 'unknown'
 
-export interface DojoSyncResultApi {
-    userIdentityKey: string
-    dojoIdentityKey: string
-    dojoName?: string
-    status: DojoSyncStateStatusApi
-    when?: Date
-    since?: Date
-    errorCode?: string
-    errorDescription?: string
-    total?: number
-    state?: DojoUserStateApi
+export type DojoSyncProtocolVersion = '0.1.0'
+
+export interface DojoSyncErrorApi {
+  code: string
+  description: string
 }
 
 /**
- * Dojo Sync Protocol Methods
+ * Receipt of `DojoSyncIdentiyParams` via the `syncIdentify` function starts a dojo to dojo sync.
+ *
+ * It may also force a restart of the sync protocol.
+ *
+ * The purpose of the `Identify` phase is to identify both dojo's to each other,
+ * the identity of the authenticated user, and the last known sync_state.
+ */
+export interface DojoSyncIdentifyParams {
+  protocolVersion: DojoSyncProtocolVersion
+  userIdentityKey: string
+  dojoIdentityKey: string
+  dojoName?: string
+  refNum: string
+}
+
+export interface DojoSyncIdentifyResultApi {
+  refNum: string
+  identityKey: string
+  name?: string
+  status: DojoSyncStatus
+  when?: Date
+  error?: DojoSyncErrorApi
+}
+
+export interface DojoSyncUpdateParams {
+  protocolVersion: DojoSyncProtocolVersion
+  refNum: string
+  since?: Date
+}
+
+export interface DojoSyncUpdateResultApi {
+  refNum: string
+  status: DojoSyncStatus
+  since?: Date
+  state?: DojoUserStateApi
+  error?: DojoSyncErrorApi
+}
+
+export interface DojoSyncMergeParams {
+  protocolVersion: DojoSyncProtocolVersion
+  refNum: string
+  when?: Date
+  state?: DojoUserStateApi
+  total?: number
+}
+
+export interface DojoSyncMergeResultApi {
+  refNum: string
+  status: DojoSyncStatus
+  error?: DojoSyncErrorApi
+}
+
+/**
+ * Dojo Sync Protocol
+ *
+ * The Dojo Sync Protocol keeps multiple UTXO management services (Dojos) synchronized as updates occur between them.
+ *
+ * The protocol relies on the properties of the blockchain to handle specific conflicts.
+ *
+ * It is intended to support use cases where there is a primary dojo which periodically synchronizes to backup "syncDojos".
+ *
+ * There is no formal conrol within the protocol for determining the primary dojo or transitioning between roles.
+ *
+ * Synchronization is initiated from the primary Dojo.
+ *
+ * Step 1. Run through the configured syncDojos calling syncIdentify which shares the local dojo and syncDojo's identities.
+ * Any syncDojo that responds is added to activeSyncDojos.
+ *
+ * Step 2. Run through the activeSyncDojos calling syncUpdate.
+ *
  */
 export interface DojoSyncApi {
-    /**
-     * Called by an external dojo to initiate the sync protocol.
-     * 
+  /**
+     * Called to initiate the sync protocol.
+     *
      * This is the initial protocol step to exchange dojo identityKeys and
-     * configure the records in the sync_state tables to support the sync protocol.
-     * 
-     * @param fromUserIdentityKey must match the authenticated user's identityKey
-     * @param fromDojoIdentityKey the sync initiating remote dojo's identityKey
-     * @param fromDojoName optional, the sync initiating remote dojo's human readable name
-     * @returns sync result with just dojoIdentityKey and dojoName set to this dojo's identity
+     * configure the records in the sync_state and sync_history tables to support the sync protocol.
+     *
+     * @param params Parameters identifying the primary initiating dojo, user, sarting status and protocol version.
+     * @returns Equivalent parameters for this syncDojo.
      */
-    syncIdentify(fromUserIdentityKey: string, fromDojoIdentityKey: string, fromDojoName?: string): Promise<DojoSyncResultApi>
-    
-    /**
+  syncIdentify: (params: DojoSyncIdentifyParams) => Promise<DojoSyncIdentifyResultApi>
+
+  /**
      * Receive a state update for the authenticated user from a remote dojo
      * and respond with merge result and any pre-merge local state update
      * for the data interval from `since` to `when`
-     * 
-     * @param state remote state update for the data interval from `since` to `when`
-     * @param fromDojoIdentityKey the sync initiating remote dojo's identityKey
-     * @param when 
-     * @param since optional, if undefined data interval begins with earliest records.
      */
-    syncUpdate(state: DojoUserStateApi, fromDojoIdentityKey: string, when: Date, since?: Date): Promise<DojoSyncResultApi>
+  syncUpdate: (params: DojoSyncUpdateParams) => Promise<DojoSyncUpdateResultApi>
 
-    /**
+  /**
+     * Informs a syncDojo of the result of merging state received from them.
+     *
+     * This is the only valid way that the syncDojo's `when` field in `sync_state` is updated which is critical to
+     * guaranteeing that un-merged changes are presented until successfully merged.
+     */
+  syncMerge: (params: DojoSyncMergeParams) => Promise<DojoSyncMergeResultApi>
+
+  /**
      * For Dojo scenarios where it is permissible for Dojo to directly act as
      * a specified user, authenticate that user by supplying their identityKey
      *
@@ -94,19 +158,19 @@ export interface DojoSyncApi {
      * to a potentially remote Dojo server:
      * - If identityKey has a value then it used and must match the authenticated value.
      * - If identityKey is undefined, the authenticated value is used.
-     * 
+     *
      * Sets userId and identityKey
-     * 
+     *
      * @param identityKey optional, 33 hex encoded bytes, the user to authenticate's identity key
      * @param addIfNew optional, if true, unknown identityKey is added as new user.
      *
      * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
      */
-    authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+  authenticate: (identityKey?: string, addIfNew?: boolean) => Promise<void>
 }
 
 export interface DojoSyncOptionsApi {
-    syncOnAuthenticate?: boolean    
+  syncOnAuthenticate?: boolean
 }
 
 /**
@@ -115,7 +179,7 @@ export interface DojoSyncOptionsApi {
  */
 export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
-    /**
+  /**
      * For Dojo scenarios where it is permissible for Dojo to directly act as
      * a specified user, authenticate that user by supplying their identityKey
      *
@@ -123,152 +187,162 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * to a potentially remote Dojo server:
      * - If identityKey has a value then it used and must match the authenticated value.
      * - If identityKey is undefined, the authenticated value is used.
-     * 
+     *
      * Sets userId and identityKey
-     * 
+     *
      * @param identityKey optional, 33 hex encoded bytes, the user to authenticate's identity key
      * @param addIfNew optional, if true, unknown identityKey is added as new user.
      *
      * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
      */
-    authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+  authenticate: (identityKey?: string, addIfNew?: boolean) => Promise<void>
 
-    setSyncDojos(dojos: DojoSyncApi[], options?: DojoSyncOptionsApi): void
-    getSyncDojos(): { dojos: DojoSyncApi[]; options: DojoSyncOptionsApi }
-    
-    /**
+  setSyncDojos: (dojos: DojoSyncApi[], options?: DojoSyncOptionsApi) => void
+  getSyncDojos: () => { dojos: DojoSyncApi[], options: DojoSyncOptionsApi }
+
+  /**
+     * Sync's this dojo's state for the authenticated user with all of the configured syncDojos
+     *
+     * This method must be called when either a local or remote state change occurs, or may have occurred.
+     *
+     * User state changes are propagated across all configured syncDojos.
+     *
+     * @param logger optional sync progress update logger
+     */
+  sync: (logger?: DojoLoggerApi) => Promise<void>
+
+  /**
      * Returns authenticated user.
      * Throws an error if isAuthenticated is false.
      */
-    getUser() : DojoClientUserApi
+  getUser: () => DojoClientUserApi
 
-    /**
+  /**
      * Returns the name and photo URL of the user
      * @returns {Promise<Avatar>} The avatar of the user
      */
-    getAvatar(): Promise<DojoAvatarApi>
+  getAvatar: () => Promise<DojoAvatarApi>
 
-    /**
+  /**
      * Update the avatar for the authenticated user.
      */
-    setAvatar(avatar: DojoAvatarApi): Promise<void>
+  setAvatar: (avatar: DojoAvatarApi) => Promise<void>
 
-    /**
+  /**
      * Return array of paymail style identifiers for currently authenticated user in `alias`@`domain` format.
-     * 
+     *
      * Where `alias` and `domain` come from the aliases table.
-     * 
+     *
      * and `reservationCompleted` is true
      */
-    getCurrentPaymails() : Promise<string[]>
+  getCurrentPaymails: () => Promise<string[]>
 
-    /**
+  /**
      * Save a new certificate with optional fields.
-     * 
+     *
      * certificate must belong to aunthenticated user.
-     * 
+     *
      * certificate.subject must match authenticated user's idenitityKey or throws ERR_DOJO_CERT_SUBJECT
-     * 
+     *
      * certificate.signature must be valid or throws ERR_DOJO_CERT_INVALID
-     * 
+     *
      * If { type, subject, validationKey, serialNumber, userId } already exist, throw ERR_DOJO_CERT_DUPE
-     * 
+     *
      * @returns the certificateId of the new certificate.
      */
-    saveCertificate(certificate: DojoCertificateApi) : Promise<number>
+  saveCertificate: (certificate: DojoCertificateApi) => Promise<number>
 
-    /**
+  /**
      * Returns all of the authenticated user's certificates,
-     * where the certifier and type values match one of the optionaly 
+     * where the certifier and type values match one of the optionaly
      * @param certifiers optional array of certifier identifiers, if provided results match at least one value.
      * @param types optional array of certificate types, if provided results match at least one value and only requested fields are returned.
      */
-    findCertificates(certifiers?: string[], types?: Record<string, string[]>) : Promise<DojoCertificateApi[]>
+  findCertificates: (certifiers?: string[], types?: Record<string, string[]>) => Promise<DojoCertificateApi[]>
 
-    /**
+  /**
      * Returns the total of spendable output amounts.
-     * 
+     *
      * Returns undefined if basket is not undefined and doesn't match an existing basket name.
-     * 
+     *
      * If basket is not undefined, total is restricted to outputs in that basket.
-     * 
+     *
      * If basket is undefined, total is over all spendable outputs.
-     * 
+     *
      * @param basket name of existing outputs basket or undefined
      * @returns total of unspent outputs in named basket
      */
-    getTotalOfUnspentOutputs(basket?: string) : Promise<number | undefined>
+  getTotalOfUnspentOutputs: (basket?: string) => Promise<number | undefined>
 
-
-    /**
+  /**
      * Update `spendable` of an output that must exist,
      * belonging to the authenticated user,
      * in transaction with txid,
      * at index vout.
-     * 
-     * @param txid 
-     * @param vout 
-     * @param spendable 
+     *
+     * @param txid
+     * @param vout
+     * @param spendable
      */
-    updateOutpointStatus(txid: string, vout: number, spendable: boolean) : Promise<void>
+  updateOutpointStatus: (txid: string, vout: number, spendable: boolean) => Promise<void>
 
-    /**
+  /**
      * Returns the sum of transaction amounts belonging to authenticated user,
      * matching the given direction,
      * and optionally matching conditions in `options`.
      */
-    getTotalOfAmounts(direction: 'incoming' | 'outgoing', options?: DojoGetTotalOfAmountsOptions ) : Promise<number>
+  getTotalOfAmounts: (direction: 'incoming' | 'outgoing', options?: DojoGetTotalOfAmountsOptions) => Promise<number>
 
-    /**
+  /**
      * Returns the net sum of transaction amounts belonging to authenticated user,
      * incoming plus outgoing, as outgoing amounts are negative and incoming amounts are positive.
      * and optionally matching conditions in `options`.
      */
-    getNetOfAmounts(options?: DojoGetTotalOfAmountsOptions ) : Promise<number>
-    
-    /**
+  getNetOfAmounts: (options?: DojoGetTotalOfAmountsOptions) => Promise<number>
+
+  /**
      * Update transaction status and associated ouputs (both inputs and outputs) spendable and spentBy properties.
-     * 
+     *
      * Updated transaction userId must match authenticated user and referenceNumber must match reference.
-     * 
-     * @param reference 
+     *
+     * @param reference
      * @param status New transaction status.
      */
-    updateTransactionStatus(reference: string, status: DojoTransactionStatusApi) : Promise<void>
+  updateTransactionStatus: (reference: string, status: DojoTransactionStatusApi) => Promise<void>
 
-    /**
+  /**
      * Returns transactions matching options and total matching count available.
      *
      * @param options limit defaults to 25, offset defaults to 0, addLabels defaults to true, order defaults to 'descending'
      */
-    getTransactions(options?: DojoGetTransactionsOptions) : Promise<{ txs: DojoTransactionApi[], total: number }>
+  getTransactions: (options?: DojoGetTransactionsOptions) => Promise<{ txs: DojoTransactionApi[], total: number }>
 
-    /**
+  /**
      * Returns transaction outputs matching options and total matching count available.
      *
      * @param options limit defaults to 25, offset defaults to 0, includeEnvelpe defaults to true
      */
-    getTransactionOutputs(options?: DojoGetTransactionOutputsOptions) : Promise<{ outputs: DojoOutputApi[], total: number }>
+  getTransactionOutputs: (options?: DojoGetTransactionOutputsOptions) => Promise<{ outputs: DojoOutputApi[], total: number }>
 
-    /**
+  /**
      * Returns an Everett Style envelope for the given txid.
      *
      * A transaction envelope is a tree of inputs where all the leaves are proven transactions.
      * The trivial case is a single leaf: the envelope for a proven transaction is the rawTx and its proof.
-     * 
+     *
      * Each branching level of the tree corresponds to an unmined transaction without a proof,
      * in which case the envelope is:
      * - rawTx
      * - mapiResponses from transaction processors (optional)
-     * - inputs object where keys are this transaction's input txids and values are recursive envelope for those txids.    
-     * 
-     * @param txid 
+     * - inputs object where keys are this transaction's input txids and values are recursive envelope for those txids.
+     *
+     * @param txid
      */
-    getEnvelopeForTransaction(txid: string) : Promise<EnvelopeApi | undefined>
+  getEnvelopeForTransaction: (txid: string) => Promise<EnvelopeApi | undefined>
 
-    /**
+  /**
      * Returns transactions with status of 'waitingForSenderToSend' or 'unprocessed' for authenticated user
-     * 
+     *
      * Original Dojo returned only these properties:
      *   'transactionId',
      *   'amount',
@@ -279,21 +353,21 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *   'status',
      *   'isOutgoing',
      *   'rawTransaction'
-     * 
+     *
      * @param referenceNumber optional referenceNumber to also match
      */
-    getPendingTransactions(referenceNumber?: string) : Promise<DojoPendingTxApi[]>
+  getPendingTransactions: (referenceNumber?: string) => Promise<DojoPendingTxApi[]>
 
-    /**
+  /**
      * Constructs a new transaction spending known outputs (inputs) and creating new outputs.
-     * 
+     *
      * If the inputs to the transaction go beyond what is needed to fund these outputs (plus the transaction fee),
      * additional Dojo-managed UTXOs will be generated to collect the remainder
      * (see the "outputGeneration" parameter for more on this).
-     * 
+     *
      * @param inputs An object whose keys are TXIDs and whose values are payment envelopes
      * for external inputs to use when funding this transaction.
-     * 
+     *
      * If more funding is needed beyond what is given here to pay for the specified outputs
      * (plus the transaction fee), Dojo will select them from your baskets of unspent outputs
      * (see the "inputSelection" parameter for more on this).
@@ -303,7 +377,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * inputs[TXID].outputsToRedeem: An additional field, an array of outputs
      * from that transaction to be spent.
-     * 
+     *
      * @param inputSelection Optional. Algorithmic control over source of additional inputs that may be needed.
      * @param outputs Possibly empty, explicit outputs, typically external, to create as part of this transaction.
      * @param outputGeneration Optional. Algorithmic control over additional outputs that may be needed.
@@ -312,23 +386,23 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param note Optional. A human-readable note detailing this transaction (Optional)
      * @param recipient Optional. The Paymail handle of the recipient of this transaction (Optional)
      */
-    createTransaction(
-        inputs: Record<string, DojoTxInputsApi>,
-        inputSelection: DojoTxInputSelectionApi | undefined,
-        outputs: DojoCreateTxOutputApi[],
-        outputGeneration?: DojoOutputGenerationApi,
-        feeModel?: DojoFeeModelApi,
-        labels?: string[],
-        note?: string,
-        recipient?: string
-    ): Promise<DojoCreateTransactionResultApi>
+  createTransaction: (
+    inputs: Record<string, DojoTxInputsApi>,
+    inputSelection: DojoTxInputSelectionApi | undefined,
+    outputs: DojoCreateTxOutputApi[],
+    outputGeneration?: DojoOutputGenerationApi,
+    feeModel?: DojoFeeModelApi,
+    labels?: string[],
+    note?: string,
+    recipient?: string
+  ) => Promise<DojoCreateTransactionResultApi>
 
-    /**
+  /**
      * After creating a transaction with createTransaction and signing it, submit the serialized raw transaction
      * to transaction processors for processing.
-     * 
+     *
      * The reference number uniquely identifies the transaction in the database.
-     * 
+     *
      * Differences from v1:
      * 1. mapi_responses records are created when callbackIDs are generated, they exist before callbackID is given to external transaction processing service.
      *
@@ -343,469 +417,468 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @returns `DojoProcessTransactionResultApi` with txid and status of 'completed' or 'unknown'
      */
-    processTransaction(rawTx: string | Buffer, reference: string, outputMap: Record<string, number>)
-    : Promise<DojoProcessTransactionResultApi>
-    
-    /**
+  processTransaction: (rawTx: string | Buffer, reference: string, outputMap: Record<string, number>) => Promise<DojoProcessTransactionResultApi>
+
+  /**
      * This endpoint allows a recipient to submit a transactions that was directly given to them by a sender.
      *
      * Saves the inputs and key derivation information, allowing the UTXOs to be redeemed in the future.
      *
      * Sets the transaction to completed and marks the outputs as spendable.
      */
-    submitDirectTransaction(
-        /**
+  submitDirectTransaction: (
+  /**
          * Specify the transaction submission payment protocol to use.
-         * 
+         *
          * Currently, the only supported protocol is that with BRFC ID "3241645161d8"
          */
-        protocol: string,
-        /**
+    protocol: string,
+  /**
          * The transaction envelope to submit, including key derivation information.
          */
-        transaction: DojoSubmitDirectTransactionApi,
-        /**
+    transaction: DojoSubmitDirectTransactionApi,
+  /**
          * Provide the identity key for the person who sent the transaction
          */
-        senderIdentityKey: string,
-        /**
+    senderIdentityKey: string,
+  /**
          * Human-readable description for the transaction.
          */
-        note: string,
-        /**
+    note: string,
+  /**
          * An array of transaction label strings, each at most 150 characters.
-         * 
+         *
          * Labels can be used to tag transactions into categories.
          */
-        labels: string[],
-        derivationPrefix?: string
-    ) : Promise<DojoSubmitDirectTransactionResultApi>
+    labels: string[],
+    derivationPrefix?: string
+  ) => Promise<DojoSubmitDirectTransactionResultApi>
 
-    /**
+  /**
      * Return a complete copy of all records for the authenticated user.
-     * @param since optional, start of data interval if specified. 
+     * @param since optional, start of data interval if specified.
      */
-    copyState(since?: Date): Promise<DojoUserStateApi>
+  copyState: (since?: Date) => Promise<DojoUserStateApi>
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
 
 export interface DojoGetTransactionsOptions {
-    /**
+  /**
      * Columns to return for each transaction. If undefined or empty, all columns are returned.
      */
-    columns?: string[]
-    /**
+  columns?: string[]
+  /**
      * Optional. Match transactions with this referenceNumber.
      */
-    referenceNumber?: string
-    /**
+  referenceNumber?: string
+  /**
      * Optional. Match transactions with this status.
      */
-    status?: DojoTransactionStatusApi
-    /**
+  status?: DojoTransactionStatusApi
+  /**
      * Optional. Match transactions with this label.
      */
-    label?: string
-    /**
+  label?: string
+  /**
      * Optional. Match transactions created on or after this time. Date, ISO string, or seconds since the epoch.
      */
-    startTime?: Date | string | number
-    /**
+  startTime?: Date | string | number
+  /**
      * Optional. Match transactions created on or before this time. Date, ISO string, or seconds since the epoch.
      */
-    endTime?: Date | string | number
-    /**
+  endTime?: Date | string | number
+  /**
      * Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
      */
-    involving?: string
-    /**
+  involving?: string
+  /**
      * Optional. If true, array of mapped `labels` is added to each transaction.
      */
-    addLabels?: boolean
-    /**
+  addLabels?: boolean
+  /**
      * Optional. How many transactions to return.
      */
-    limit?: number
-    /**
+  limit?: number
+  /**
      * Optional. How many transactions to skip.
      */
-    offset?: number
-    /**
+  offset?: number
+  /**
      * Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
      */
-    order?: 'ascending' | 'descending'
+  order?: 'ascending' | 'descending'
 }
 
 export interface DojoGetTransactionOutputsOptions {
-    /**
+  /**
      *  If provided, indicates which basket the outputs should be selected from.
      */
-    basket?: string
-    /**
+  basket?: string
+  /**
      *  If provided, only outputs with the corresponding tracked value will be returned (true/false).
      */
-    tracked?: boolean
-    /**
+  tracked?: boolean
+  /**
      * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
      */
-    includeEnvelope?: boolean
-    /**
+  includeEnvelope?: boolean
+  /**
      * If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
      */
-    spendable?: boolean
-    /**
+  spendable?: boolean
+  /**
      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
      */
-    type?: string
-    /**
+  type?: string
+  /**
      * Provide a limit on the number of outputs that will be returned.
      */
-    limit?: number
-    /**
+  limit?: number
+  /**
      * Provide an offset into the list of outputs.
      */
-    offset?: number
+  offset?: number
 }
-     
+
 export interface DojoGetTotalOfAmountsOptions {
-    /**
+  /**
      * Optional. Match transactions with this label.
      */
-    label?: string
-    /**
+  label?: string
+  /**
      * Optional. Match transactions created on or after this time. Seconds since the epoch.
      */
-    startTime?: Date | string | number
-    /**
+  startTime?: Date | string | number
+  /**
      * Optional. Match transactions created on or before this time. Seconds since the epoch.
      */
-    endTime?: Date | string | number
-    /**
+  endTime?: Date | string | number
+  /**
      * Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
      */
-    involving?: string
-    /**
+  involving?: string
+  /**
      * Direction of value flow.
      */
-    direction?: 'incoming' | 'outgoing'
+  direction?: 'incoming' | 'outgoing'
 }
 
 export interface DojoStatsApi {
-    users: number
-    transactions: number
-    txLabels: number
-    chain: Chain
+  users: number
+  transactions: number
+  txLabels: number
+  chain: Chain
 }
 
 export interface DojoUserStateApi {
-    certificates: DojoCertificateApi[],
-    certificateFields: DojoCertificateFieldApi[],
-    commissions: DojoCommissionApi[],
-    mapiResponses: DojoMapiResponseApi[],
-    outputs: DojoOutputApi[],
-    baskets: DojoOutputBasketApi[],
-    provenTxReqs: DojoProvenTxReqApi[],
-    provenTxs: DojoProvenTxApi[],
-    txs: DojoTransactionApi[],
-    txLabels: DojoTxLabelApi[],
-    txLabelMaps: DojoTxLabelMapApi[],
-    user: DojoUserApi
+  certificates: DojoCertificateApi[]
+  certificateFields: DojoCertificateFieldApi[]
+  commissions: DojoCommissionApi[]
+  mapiResponses: DojoMapiResponseApi[]
+  outputs: DojoOutputApi[]
+  baskets: DojoOutputBasketApi[]
+  provenTxReqs: DojoProvenTxReqApi[]
+  provenTxs: DojoProvenTxApi[]
+  txs: DojoTransactionApi[]
+  txLabels: DojoTxLabelApi[]
+  txLabelMaps: DojoTxLabelMapApi[]
+  user: DojoUserApi
 }
 
 export interface DojoAliasApi {
-    aliasId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  aliasId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * max length of 30
      */
-    alias: string
-    /**
+  alias: string
+  /**
      * max length of 30
      */
-    domain: string
-    /**
+  domain: string
+  /**
      * max length of 30
      */
-    avatarName?: string
-    /**
+  avatarName?: string
+  /**
      * max length of 100
      */
-    avatarPhotoURL?: string
-    reservationCompleted: boolean
-    userId: number
-    destinationBasketId: number
+  avatarPhotoURL?: string
+  reservationCompleted: boolean
+  userId: number
+  destinationBasketId: number
 }
 
 export interface DojoAvatarApi {
-    /**
+  /**
      * The name of the user
      */
-    name: string
-    /**
+  name: string
+  /**
      * An HTTPS or UHRP URL to a photo of the user
      */
-    photoURL: string
+  photoURL: string
 }
 
 export interface DojoCertificateFieldApi {
-    userId: number
-    certificateId: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  userId: number
+  certificateId: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * max length of 100
      */
-    fieldName: string
-    /**
+  fieldName: string
+  /**
      * max length of 255
      */
-    fieldValue: string
-    /**
+  fieldValue: string
+  /**
      * base64 encrypted master field revelation key
      */
-    masterKey: string
+  masterKey: string
 }
 
 export interface DojoCertificateApi {
-    certificateId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    userId: number
-    /**
+  certificateId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  userId: number
+  /**
      * max length of 255
      */
-    type: string
-    /**
+  type: string
+  /**
      * max length of 255
      */
-    subject: string
-    /**
+  subject: string
+  /**
      * max length of 255
      */
-    validationKey: string
-    /**
+  validationKey: string
+  /**
      * max length of 255
      */
-    serialNumber: string
-    /**
+  serialNumber: string
+  /**
      * max length of 255
      */
-    certifier: string
-    /**
+  certifier: string
+  /**
      * max length of 255
      */
-    revocationOutpoint: string
-    /**
+  revocationOutpoint: string
+  /**
      * max length of 255
      */
-    signature: string
-    /**
+  signature: string
+  /**
      * Certificate fields object constructed from fieldName and fieldValue properties of DojoCertificateFieldApi instances associated with this certificate.
      */
-    fields?: Record<string, string>
-    /**
+  fields?: Record<string, string>
+  /**
      * Certificate masterKeyring object constructed from fieldName and masterKey properties of DojoCertificateFieldApi instances associated with this certificate.
      */
-    masterKeyring?: Record<string, string>
+  masterKeyring?: Record<string, string>
 }
 
 export interface DojoCommissionApi {
-    commissionId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    transactionId: number
-    userId: number
-    isRedeemed: boolean
-    /**
+  commissionId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  transactionId: number
+  userId: number
+  isRedeemed: boolean
+  /**
      * max length of 130
      */
-    keyOffset: string
-    outputScript: Buffer | null
-    /**
+  keyOffset: string
+  outputScript: Buffer | null
+  /**
      * 15 integer digits
      */
-    satoshis: number
+  satoshis: number
 }
 
 export interface DojoMapiResponseApi {
-    responseId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    transactionId: number
-    userId: number
-    callbackID?: string
-    payload?: string
-    /**
+  responseId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  transactionId: number
+  userId: number
+  callbackID?: string
+  payload?: string
+  /**
      * max length of 255
      */
-    publicKey?: string
-    /**
+  publicKey?: string
+  /**
      * max length of 255
      */
-    signature?: string
-    /**
+  signature?: string
+  /**
      * max length of 16
      */
-    doubleSpendResponse?: string | null
+  doubleSpendResponse?: string | null
 }
 
 export interface DojoOutputApi {
-    outputId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    spendable: boolean
-    change: boolean
-    /**
+  outputId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  spendable: boolean
+  change: boolean
+  /**
      * length 64 hex encoded
      */
-    txid: string | null
-    /**
+  txid: string | null
+  /**
      * max 10 digits
      */
-    vout: number | null
-    /**
+  vout: number | null
+  /**
      * max 15 digits
      */
-    amount: number | null
-    outputScript: Buffer | null
-    /**
+  amount: number | null
+  outputScript: Buffer | null
+  /**
      * max length of 50
      * e.g. P2PKH, custom
      */
-    type: string
-    transactionId: number
-    userId: number
-    basketId: number | null
-    /**
+  type: string
+  transactionId: number
+  userId: number
+  basketId: number | null
+  /**
      * transactionId of spending transaction or null if unspent
      * max 10 digits
      */
-    spentBy: number | null
-    /**
+  spentBy: number | null
+  /**
      * max length of 32
      * base64 encoded
      */
-    derivationPrefix: string | null
-    /**
+  derivationPrefix: string | null
+  /**
      * max length of 32
      * base64 encoded
      */
-    derivationSuffix: string | null
-    /**
+  derivationSuffix: string | null
+  /**
      * max length of 64
      */
-    paymailHandle: string | null
-    /**
+  paymailHandle: string | null
+  /**
      * max length of 130
      * hex encoded
      */
-    senderIdentityKey: string | null
-    /**
+  senderIdentityKey: string | null
+  /**
      * max length of 2500
      */
-    customInstructions: string | null
-    /**
+  customInstructions: string | null
+  /**
      * true if output was put in a basket for tracking
      */
-    tracked: boolean | null
-    /**
+  tracked: boolean | null
+  /**
      * max length of 130
      * e.g. you, dojo
      */
-    providedBy: string | null
-    /**
+  providedBy: string | null
+  /**
      * max length of 20
      * e.g. change
      */
-    purpose: string | null
-    /**
+  purpose: string | null
+  /**
      * max length of 255
      */
-    description: string | null
-    /**
+  description: string | null
+  /**
      * max length of 255
      */
-    spendingDescription: string | null
-    /**
+  spendingDescription: string | null
+  /**
      * optional envelope for transaction containing output
      */
-    envelope?: EnvelopeApi
+  envelope?: EnvelopeApi
 }
 
 export interface DojoOutputBasketApi {
-    basketId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  basketId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * max length of 1000
      */
-    name: string
-    numberOfDesiredUTXOs: number
-    minimumDesiredUTXOValue: number
-    userId: number
+  name: string
+  numberOfDesiredUTXOs: number
+  minimumDesiredUTXOValue: number
+  userId: number
 }
 
 export interface DojoTransactionApi {
-    transactionId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  transactionId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * length 64 hex encoded
      */
-    txid: string
-    rawTransaction: Buffer | null
-    /**
+  txid: string
+  rawTransaction: Buffer | null
+  /**
      * max length of 64
      * e.g. completed, failed, unprocessed, waitingForSenderToSend
      */
-    status: DojoTransactionStatusApi
-    /**
+  status: DojoTransactionStatusApi
+  /**
      * max length of 64, hex encoded
      */
-    referenceNumber: string | null
-    /**
+  referenceNumber: string | null
+  /**
      * max 15 digits
      */
-    amount: number
-    userId: number
-    /**
+  amount: number
+  userId: number
+  /**
      * max length of 100
      */
-    senderPaymail: string | null
-    /**
+  senderPaymail: string | null
+  /**
      * max length of 100
      */
-    recipientPaymail: string | null
-    /**
+  recipientPaymail: string | null
+  /**
      * max length of 500
      */
-    note: string | null
-    /**
+  note: string | null
+  /**
      * true if transaction originated in this wallet, change returns to it.
      * false for a transaction created externally and handed in to this wallet.
      */
-    isOutgoing: boolean
-    unconfirmedInputChainLength: number
-    proof: string | null
-    truncatedExternalInputs: string | null
-    /**
+  isOutgoing: boolean
+  unconfirmedInputChainLength: number
+  proof: string | null
+  truncatedExternalInputs: string | null
+  /**
      * Is valid when transaction proof record exists in DojoProvenTxApi table.
      */
-    provenTxId?: number | null
-    
-    /**
+  provenTxId?: number | null
+
+  /**
      * When not undefined, array of assigned tx_labels.label values.
      */
-    labels?: string[]
+  labels?: string[]
 }
 
 /**
  * Initial status (attempts === 0):
  *
  * sending: rawTx is about to be sent to transaction processors.
- * 
+ *
  * unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
  *
  * unknown: rawTx status is unknown but is believed to have been previously sent to the network.
@@ -813,13 +886,13 @@ export interface DojoTransactionApi {
  * Attempts > 0 status, processing:
  *
  * unknown: Last status update received did not recognize txid or wasn't understood.
- * 
+ *
  * nonfinal: rawTx has an un-expired nLockTime and is eligible for continuous updating by new transactions with additional outputs and incrementing sequence numbers.
  *
  * unmined: Last attempt has txid waiting to be mined, possibly just sent without callback
  *
  * callback: Waiting for proof confirmation callback from transaction processor.
- * 
+ *
  * unconfirmed: Potential proof has not been confirmed by chaintracks
  *
  * notifying: proven_txs record added, while notifications are being processed.
@@ -827,210 +900,210 @@ export interface DojoTransactionApi {
  * Terminal status:
  *
  * doubleSpend: Transaction spends same input as another transaction.
- * 
+ *
  * invalid: rawTx is structuraly invalid or was rejected by the network. Will never be re-attempted or completed.
  *
  * completed: proven_txs record added, and notifications are complete.
  */
 export type DojoProvenTxReqStatusApi =
-"sending" | "unsent" | "unknown" | "nonfinal" | 
-"unmined" | "callback" | "unconfirmed" | "notifying" |
-"completed" | "invalid" | "doubleSpend"
+'sending' | 'unsent' | 'unknown' | 'nonfinal' |
+'unmined' | 'callback' | 'unconfirmed' | 'notifying' |
+'completed' | 'invalid' | 'doubleSpend'
 
 export interface DojoProvenTxReqApi {
-    provenTxReqId?: number
-    userId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    txid: string
-    callbackID?: string
-    rawTx?: Buffer
-    /**
+  provenTxReqId?: number
+  userId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  txid: string
+  callbackID?: string
+  rawTx?: Buffer
+  /**
      * JSON string of processing history.
      * Parses to `DojoProvenTxReqHistoryApi`.
      */
-    history: string
-    /**
+  history: string
+  /**
      * JSON string of data to drive notifications when this request completes.
      * Parses to `DojoProvenTxReqNotifyApi`.
      */
-    notify: string
-    /**
+  notify: string
+  /**
      * See `DojoProvenTxReqStatusApi`
      */
-    status: DojoProvenTxReqStatusApi
-    /**
+  status: DojoProvenTxReqStatusApi
+  /**
      * Count of how many times a service has been asked about this txid
      */
-    attempts: number
-    /**
+  attempts: number
+  /**
      * Once a DojoProvenTxApi record has been validated and added to database, the provenTxId value.
      */
-    provenTxId?: number
+  provenTxId?: number
 }
 
 export interface DojoProvenTxApi {
-    provenTxId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    txid: string
-    height: number
-    index: number
-    /**
+  provenTxId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  txid: string
+  height: number
+  index: number
+  /**
      * Serialized 32 bytes per node.
      */
-    nodes: Buffer
-    rawTx: Buffer
-    blockHash: Buffer
-    merkleRoot: Buffer
+  nodes: Buffer
+  rawTx: Buffer
+  blockHash: Buffer
+  merkleRoot: Buffer
 }
 
 export interface DojoTxLabelApi {
-    txLabelId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  txLabelId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * max length of 150
      * e.g. babbage_app_..., babbage_protocol_..., babbage_spend_..., babbage_basket_..., babbage_cert_...., babbage_certificate_, nanostore
      */
-    label: string
-    userId: number
+  label: string
+  userId: number
 }
 
 export interface DojoTxLabelMapApi {
-    txLabelId: number
-    transactionId: number
-    created_at?: Date | null
-    updated_at?: Date | null
+  txLabelId: number
+  transactionId: number
+  created_at?: Date | null
+  updated_at?: Date | null
 }
 
 export interface DojoClientUserApi {
-    userId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  userId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * max length of 130
      * hex encoded
      */
-    identityKey: string
+  identityKey: string
 }
 
 export interface DojoUserApi extends DojoClientUserApi {
-    userId?: number
-    created_at?: Date | null
-    updated_at?: Date | null
-    /**
+  userId?: number
+  created_at?: Date | null
+  updated_at?: Date | null
+  /**
      * max length of 130
      * hex encoded
      */
-    identityKey: string
-    /**
+  identityKey: string
+  /**
      * max 12 digits
      */
-    timeSpentProcessingRequests?: number
-    /**
+  timeSpentProcessingRequests?: number
+  /**
      * max 18 digits
      */
-    bandwidthUsed?: number
-    /**
+  bandwidthUsed?: number
+  /**
      * max 15 digits
      */
-    storageSpaceUsedByHostedData?: number
+  storageSpaceUsedByHostedData?: number
 }
 
 export interface DojoPendingTxInputInstructionsApi {
-    /**
+  /**
      * max length of 50
      * e.g. P2PKH, custom
      */
-    type: string
-    /**
+  type: string
+  /**
      * max length of 32
      * base64 encoded
      */
-    derivationPrefix: string | null
-    /**
+  derivationPrefix: string | null
+  /**
      * max length of 32
      * base64 encoded
      */
-    derivationSuffix: string | null
-    /**
+  derivationSuffix: string | null
+  /**
      * max length of 64
      */
-    paymailHandle: string | null
-    /**
+  paymailHandle: string | null
+  /**
      * max length of 130
      * hex encoded
      */
-    senderIdentityKey: string | null
-    /**
+  senderIdentityKey: string | null
+  /**
      * max length of 2500
      */
-    customInstructions: string | null
+  customInstructions: string | null
 }
 
 export interface DojoPendingTxInputApi extends EnvelopeEvidenceApi {
-    outputsToRedeem?: number[]
-    instructions?: Record<number, DojoPendingTxInputInstructionsApi>
+  outputsToRedeem?: number[]
+  instructions?: Record<number, DojoPendingTxInputInstructionsApi>
 }
 
 export type DojoProvidedByApi = 'you' | 'dojo' | 'you-and-dojo'
 
 export interface DojoPendingTxOutputApi {
-    type: string
-    satoshis: number
-    script?: string
-    derivationPrefix?: string
-    derivationSuffix?: string
-    paymailHandle?: string
-    providedBy?: string
-    purpose?: string
-    senderIdentityKey?: string
-    txid?: string
-    vout?: number
+  type: string
+  satoshis: number
+  script?: string
+  derivationPrefix?: string
+  derivationSuffix?: string
+  paymailHandle?: string
+  providedBy?: string
+  purpose?: string
+  senderIdentityKey?: string
+  txid?: string
+  vout?: number
 }
 
 /**
  * Return type from Ninja and Dojo getPendingTransactions methods.
  */
 export interface DojoPendingTxApi {
-    amount: number
-    created_at: string
-    referenceNumber: string
-    senderPaymail?: string
-    status: string
-    isOutgoing: boolean
-    rawTransaction?: string
-    derivationPrefix?: string
-    paymailHandle?: string
+  amount: number
+  created_at: string
+  referenceNumber: string
+  senderPaymail?: string
+  status: string
+  isOutgoing: boolean
+  rawTransaction?: string
+  derivationPrefix?: string
+  paymailHandle?: string
 
-    inputs: Record<string, DojoPendingTxInputApi>
+  inputs: Record<string, DojoPendingTxInputApi>
 
-    outputs: DojoPendingTxOutputApi[]
+  outputs: DojoPendingTxOutputApi[]
 }
 
 export interface DojoProcessTransactionResultApi {
-    txid: string,
-    status: 'completed' | 'unknown',
-    mapiResponses: MapiResponseApi[]
+  txid: string
+  status: 'completed' | 'unknown'
+  mapiResponses: MapiResponseApi[]
 }
 
 export interface DojoOutputToRedeemApi {
-    /**
+  /**
      * Zero based output index within its transaction to spend.
      */
-    index: number,
-    /**
+  index: number
+  /**
      * byte length of unlocking script
      *
      * Note: To protect client keys and utxo control, unlocking scripts are never shared with Dojo.
      */
-    unlockingScriptLength: number,
-    spendingDescription?: string
+  unlockingScriptLength: number
+  spendingDescription?: string
 }
 
 export interface DojoTxInputsApi extends EnvelopeEvidenceApi {
-    outputsToRedeem: DojoOutputToRedeemApi[]
+  outputsToRedeem: DojoOutputToRedeemApi[]
 }
 
 /**
@@ -1038,21 +1111,21 @@ export interface DojoTxInputsApi extends EnvelopeEvidenceApi {
  * this object describes which kinds of inputs can be selected, and from where.
  */
 export interface DojoTxInputSelectionApi {
-    /**
+  /**
      * This is a boolean that, when true, will forbid Dojo from adding any additional inputs to your transaction,
      * beyond what you specified in the "inputs" parameter.
      * Thus, if you have not sufficiently funded the transaction yourself,
      * or if the "inputs" array is empty, you will get an error.
      */
-    disable: boolean
-    /**
+  disable: boolean
+  /**
      * TODO (coming soon).
      * This is an array of UTXO basket names from which UTXOs can be selected for spending.
      * To only select UTXOs of a certain type, configure the source basket only to accept those types of UTXOs.
      * By default, UTXOs will only be selected if they are in the "default" basket.
      */
-    baskets: string[]
-    /**
+  baskets: string[]
+  /**
      * An integer representing the maximum length for any chain of unconfirmed parents
      * that a selected input can have.
      * When undefined or -1 (the default), no maximum is specified.
@@ -1062,7 +1135,7 @@ export interface DojoTxInputSelectionApi {
      * When 3 denotes grandparents.
      * When 4 great-grandparents and so forth.
      */
-    maxUnconfirmedChainLength?: number
+  maxUnconfirmedChainLength?: number
 }
 
 /**
@@ -1070,26 +1143,26 @@ export interface DojoTxInputSelectionApi {
  * These outputs can contain custom scripts as specified by recipients.
  */
 export interface DojoCreateTxOutputApi {
-    /**
+  /**
      * The output script that will be included, hex encoded
      */
-    script: string
-    /**
+  script: string
+  /**
      * The amount of the output in satoshis
      */
-    satoshis: number
-    /**
+  satoshis: number
+  /**
      * Human-readable output line-item description
      */
-    description?: string
-    /**
+  description?: string
+  /**
      * Destination output basket name for the new UTXO
      */
-    basket?: string
-    /**
+  basket?: string
+  /**
      * Custom spending instructions (metadata, string, optional)
      */
-    customInstructions?: string
+  customInstructions?: string
 }
 
 /**
@@ -1097,83 +1170,83 @@ export interface DojoCreateTxOutputApi {
  * this object describes what kind of outputs to generate, and where they should be kept.
  */
 export interface DojoOutputGenerationApi {
-    /**
+  /**
      * TODO (coming soon).
      * Specify the basket where the generated outputs will be kept.
      * Only output types compatible with the destination basket will be generated.
      */
-    basket: string
-    /**
+  basket: string
+  /**
      * The method used to generate outputs.
      * "auto" (the default) selects the amount and types of generated outputs based on the selected basket's
      * configuration for how many of each type to keep on hand,
      * then uses Benford's law to distribute the satoshis across them.
      * "single" just uses one output, randomly selected from the available types, that contains all the satoshis.
      */
-    method: 'auto' | 'single'
+  method: 'auto' | 'single'
 }
 
 /**
  * An object representing the fee the transaction will pay.
  */
 export interface DojoFeeModelApi {
-    /**
+  /**
      * The fee model to use, default "sat/kb"
      */
-    model: 'sat/kb'
-    /**
+  model: 'sat/kb'
+  /**
      * When "fee.model" is "sat/kb", this is an integer representing the number of satoshis per kb of block space
      * the transaction will pay in fees.
 
      * If undefined, the default value is used which may vary with market conditions.
      */
-    value?: number
+  value?: number
 }
 
 export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
-    providedBy: DojoProvidedByApi
-    purpose?: string
-    destinationBasket?: string
-    derivationSuffix?: string
-    keyOffset?: string
+  providedBy: DojoProvidedByApi
+  purpose?: string
+  destinationBasket?: string
+  derivationSuffix?: string
+  keyOffset?: string
 }
 
 export interface DojoCreatingTxInstructionsApi {
-    type: string
-    paymailHandle?: string
-    derivationPrefix?: string
-    derivationSuffix?: string
-    senderIdentityKey?: string
+  type: string
+  paymailHandle?: string
+  derivationPrefix?: string
+  derivationSuffix?: string
+  senderIdentityKey?: string
 }
 
 export interface DojoCreatingTxInputsApi extends DojoTxInputsApi {
-    providedBy: DojoProvidedByApi
-    instructions: Record<number, DojoCreatingTxInstructionsApi>
+  providedBy: DojoProvidedByApi
+  instructions: Record<number, DojoCreatingTxInstructionsApi>
 }
 
 export interface DojoCreateTransactionResultApi {
-    inputs: Record<string, DojoCreatingTxInputsApi>,
-    outputs: DojoCreatingTxOutputApi[],
-    derivationPrefix: string
-    referenceNumber: string
-    paymailHandle: string
+  inputs: Record<string, DojoCreatingTxInputsApi>
+  outputs: DojoCreatingTxOutputApi[]
+  derivationPrefix: string
+  referenceNumber: string
+  paymailHandle: string
 }
 
 export interface DojoSubmitDirectTransactionOutputApi {
-    vout: number,
-    basket: string
-    suffix?: string,
-    customInstructions?: object
+  vout: number
+  basket: string
+  suffix?: string
+  customInstructions?: object
 }
 
 export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
-    /**
+  /**
      * sparse array of outputs of interest where indices match vout numbers.
      */
-    outputs: Record<number, DojoSubmitDirectTransactionOutputApi>
+  outputs: Record<number, DojoSubmitDirectTransactionOutputApi>
 }
 
 export interface DojoSubmitDirectTransactionResultApi {
-    transactionId: number
-    referenceNumber: string
+  transactionId: number
+  referenceNumber: string
 }
