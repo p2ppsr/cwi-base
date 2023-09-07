@@ -19,7 +19,7 @@ export class CwiError extends Error {
   constructor (code: string, description: string, stack?: string, public details?: Record<string, string>) {
     super(description)
     this.name = code
-    this.stack = stack
+    if (stack) this.stack = stack
   }
 
   // toString (): string { return `${this.code}: ${this.description}` }
