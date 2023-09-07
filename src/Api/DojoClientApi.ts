@@ -750,7 +750,7 @@ export interface DojoOutputApi {
   type: string
   transactionId: number
   userId: number
-  basketId: number | null
+  basketId?: number | null
   /**
      * transactionId of spending transaction or null if unspent
      * max 10 digits
