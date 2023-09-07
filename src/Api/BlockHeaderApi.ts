@@ -5,9 +5,13 @@ import { asBuffer, asString } from '../utils'
  * and the next block's previousHash value.
  *
  * All block hash values and merkleRoot values are 32 byte Buffer values with the byte order reversed from the serialized byte order.
+ * @public
  */
 export interface BaseBlockHeader {
-  // 4 bytes
+  /**
+   * 4 bytes
+   * @public
+   */
   version: number
   // 32 bytes
   previousHash: Buffer
@@ -23,6 +27,7 @@ export interface BaseBlockHeader {
 
 /**
  * Like BlockHeader but 32 byte fields are hex encoded strings.
+ * @public
  */
 export interface BaseBlockHeaderHex {
   version: number
@@ -35,6 +40,7 @@ export interface BaseBlockHeaderHex {
 
 /**
  * A `BaseBlockHeader` extended with its computed hash and height in its chain.
+ * @public
  */
 export interface BlockHeader extends BaseBlockHeader {
   /**
@@ -49,6 +55,7 @@ export interface BlockHeader extends BaseBlockHeader {
 
 /**
  * Like BlockHeader but 32 byte fields are hex encoded strings.
+ * @public
  */
 export interface BlockHeaderHex extends BaseBlockHeaderHex {
   height: number
@@ -58,6 +65,7 @@ export interface BlockHeaderHex extends BaseBlockHeaderHex {
 /**
  * The "live" portion of the block chain is recent history that can conceivably be subject to reorganizations.
  * The additional fields support tracking orphan blocks, chain forks, and chain reorgs.
+ * @public
  */
 export interface LiveBlockHeader extends BlockHeader {
   /**
@@ -90,6 +98,7 @@ export interface LiveBlockHeader extends BlockHeader {
 
 /**
  * Like LiveBlockHeader but 32 byte fields are hex encoded strings.
+ * @public
  */
 export interface LiveBlockHeaderHex extends BlockHeaderHex {
   chainWork: string

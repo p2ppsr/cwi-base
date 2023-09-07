@@ -1,15 +1,27 @@
 import { BaseBlockHeader, BaseBlockHeaderHex, BlockHeader, BlockHeaderHex } from './BlockHeaderApi'
 import { Chain } from './CwiBaseApi'
 
+/**
+ * @public
+ */
 export type HeaderListener = (header: BlockHeader) => void
 
+/**
+ * @public
+ */
 export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
 
+/**
+ * @public
+ */
 export interface ChaintracksPackageInfoApi {
   name: string
   version: string
 }
 
+/**
+ * @public
+ */
 export interface ChaintracksInfoApi {
   chain: Chain
   heightBulk: number
@@ -24,6 +36,7 @@ export interface ChaintracksInfoApi {
 
 /**
  * Chaintracks client API excluding events and callbacks
+ * @public
  */
 export interface ChaintracksClientApi {
   /**
