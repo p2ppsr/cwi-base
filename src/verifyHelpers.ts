@@ -30,11 +30,21 @@ export function verifyTruthy<T> (v: T | null | undefined, description?: string):
 /**
  * Helper function.
  *
- * Verifies that an optional number has a value.
+ * Verifies that an optional or null number has a numeric value.
  */
 export function verifyNumber (v: number | null | undefined): number {
   if (typeof v !== 'number') throw new ERR_INTERNAL('A number is required.')
   return v
+}
+
+/**
+ * Helper function.
+ * 
+ * Verifies that an optional numeric Id has a value.
+ */
+export function verifyId(id : number | undefined) : number {
+    if (id === undefined || typeof id !== 'number') throw new ERR_INTERNAL('id was expected to be defined.')
+    return id
 }
 
 /**
