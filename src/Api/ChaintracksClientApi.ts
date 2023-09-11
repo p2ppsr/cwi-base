@@ -196,17 +196,12 @@ export interface ChaintracksClientApi {
      * Returns true if `synchronize` has completed at least once.
      */
   isSynchronized: () => Promise<boolean>
-}
-
-/**
- * Full Chaintracks client API including events and callbacks
- */
-export interface ChaintracksApi extends ChaintracksClientApi {
 
   /**
      * Subscribe to "header" events.
      * @param listener
      * @returns identifier for this subscription
+     * @throws ERR_NOT_IMPLEMENTED if callback events are not supported
      */
   subscribeHeaders: (listener: HeaderListener) => Promise<string>
 
@@ -214,6 +209,7 @@ export interface ChaintracksApi extends ChaintracksClientApi {
      * Subscribe to "reorganization" events.
      * @param listener
      * @returns identifier for this subscription
+     * @throws ERR_NOT_IMPLEMENTED if callback events are not supported
      */
   subscribeReorgs: (listener: ReorgListener) => Promise<string>
 
@@ -222,8 +218,16 @@ export interface ChaintracksApi extends ChaintracksClientApi {
      * by a `subscribe` method.
      * @param subscriptionId value previously returned by subscribeToHeaders or subscribeToReorgs
      * @returns true if a subscription was canceled
+     * @throws ERR_NOT_IMPLEMENTED if callback events are not supported
      */
   unsubscribe: (subscriptionId: string) => Promise<boolean>
+
+}
+
+/**
+ * Full Chaintracks API including startListening with callbacks
+ */
+export interface ChaintracksApi extends ChaintracksClientApi {
 
   /**
      * Start or resume listening for new headers.
