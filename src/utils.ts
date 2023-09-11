@@ -5,8 +5,8 @@ import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 /**
  * Returns an await'able Promise that resolves in the given number of msecs.
  */
-export async function wait (msecs: number): Promise<void> {
-  return await new Promise(resolve => setTimeout(resolve, msecs))
+export function wait (msecs: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, msecs))
 }
 
 /**
