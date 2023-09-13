@@ -666,7 +666,12 @@ export interface DojoUserStateApi {
   user: DojoUserApi
 }
 
-export interface DojoAliasApi {
+export interface DojoEntityTimeStampApi {
+    created_at?: Date | null
+    updated_at?: Date | null
+}
+
+export interface DojoAliasApi extends DojoEntityTimeStampApi {
   aliasId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -702,7 +707,7 @@ export interface DojoAvatarApi {
   photoURL: string
 }
 
-export interface DojoCertificateFieldApi {
+export interface DojoCertificateFieldApi extends DojoEntityTimeStampApi {
   userId: number
   certificateId: number
   created_at?: Date | null
@@ -721,7 +726,7 @@ export interface DojoCertificateFieldApi {
   masterKey: string
 }
 
-export interface DojoCertificateApi {
+export interface DojoCertificateApi extends DojoEntityTimeStampApi {
   certificateId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -764,7 +769,7 @@ export interface DojoCertificateApi {
   masterKeyring?: Record<string, string>
 }
 
-export interface DojoCommissionApi {
+export interface DojoCommissionApi extends DojoEntityTimeStampApi {
   commissionId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -782,7 +787,7 @@ export interface DojoCommissionApi {
   satoshis: number
 }
 
-export interface DojoMapiResponseApi {
+export interface DojoMapiResponseApi extends DojoEntityTimeStampApi {
   responseId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -804,7 +809,7 @@ export interface DojoMapiResponseApi {
   doubleSpendResponse?: string | null
 }
 
-export interface DojoOutputApi {
+export interface DojoOutputApi extends DojoEntityTimeStampApi {
   outputId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -887,7 +892,7 @@ export interface DojoOutputApi {
   envelope?: EnvelopeApi
 }
 
-export interface DojoOutputBasketApi {
+export interface DojoOutputBasketApi extends DojoEntityTimeStampApi {
   basketId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -900,7 +905,7 @@ export interface DojoOutputBasketApi {
   userId: number
 }
 
-export interface DojoTransactionApi {
+export interface DojoTransactionApi extends DojoEntityTimeStampApi {
   transactionId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -990,7 +995,7 @@ export type DojoProvenTxReqStatusApi =
 'unmined' | 'callback' | 'unconfirmed' | 'notifying' |
 'completed' | 'invalid' | 'doubleSpend'
 
-export interface DojoProvenTxReqApi {
+export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
   provenTxReqId?: number
   userId?: number
   created_at?: Date | null
@@ -1022,7 +1027,7 @@ export interface DojoProvenTxReqApi {
   provenTxId?: number
 }
 
-export interface DojoProvenTxApi {
+export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
   provenTxId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -1038,7 +1043,7 @@ export interface DojoProvenTxApi {
   merkleRoot: Buffer
 }
 
-export interface DojoTxLabelApi {
+export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
   txLabelId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -1050,14 +1055,14 @@ export interface DojoTxLabelApi {
   userId: number
 }
 
-export interface DojoTxLabelMapApi {
+export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
   txLabelId: number
   transactionId: number
   created_at?: Date | null
   updated_at?: Date | null
 }
 
-export interface DojoClientUserApi {
+export interface DojoClientUserApi extends DojoEntityTimeStampApi {
   userId?: number
   created_at?: Date | null
   updated_at?: Date | null
@@ -1068,7 +1073,7 @@ export interface DojoClientUserApi {
   identityKey: string
 }
 
-export interface DojoUserApi extends DojoClientUserApi {
+export interface DojoUserApi extends DojoClientUserApi, DojoEntityTimeStampApi {
   userId?: number
   created_at?: Date | null
   updated_at?: Date | null

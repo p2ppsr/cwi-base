@@ -73,6 +73,15 @@ export function validateSecondsSinceEpoch (time: number): Date {
   return date
 }
 
+export function validateDate(date: Date | string | number | null | undefined) : Date | undefined {
+    let r: Date | undefined = undefined
+    if (date instanceof Date)
+        r = date
+    else if (date)
+        r = new Date(date)
+    return r
+}
+
 export function validateSatoshis (satoshis: number): void {
   if (!Number.isInteger(satoshis) || satoshis < 0 || satoshis > 21e14) { throw new ERR_DOJO_INVALID_SATOSHIS() }
 }

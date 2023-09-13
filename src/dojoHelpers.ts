@@ -1,4 +1,4 @@
-import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi } from '.'
+import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi, validateDate, DojoEntityTimeStampApi } from '.'
 
 /**
  * @param scriptSize byte length of input script
@@ -114,11 +114,11 @@ export function createBabbageServiceChargeOutput ():
 }
 
 /**
- * Entities sent across HTTP may not have Buffer properties restored as Buffers.
+ * Entities sent across HTTP may not have Date and Buffer properties restored correctly.
  *
- * Detect these situations and restore contained values as Buffers.
+ * Detect these situations and restore contained values as Dates and Buffers.
  */
-export function restoreUserStateBuffers (state: DojoUserStateApi): void {
+export function restoreUserStateEntities (state: DojoUserStateApi): void {
   const verifyBuffer = (v: Buffer | object): Buffer => {
     if (Buffer.isBuffer(v)) return v
     if ('type' in v && v.type === 'Buffer' && 'data' in v && Array.isArray(v.data)) {
@@ -135,6 +135,23 @@ export function restoreUserStateBuffers (state: DojoUserStateApi): void {
   const verifyBufferOrUndefined = (v: Buffer | object | undefined): Buffer | undefined => {
     if (v == null) return undefined
     return verifyBuffer(v)
+  }
+
+  state.user.created_at = validateDate(state.user.created_at)
+  state.user.updated_at = validateDate(state.user.updated_at)
+
+  // Run through entities with timestamps (ewts) to make sure they are Dates, not strings.
+  const ewts: DojoEntityTimeStampApi[][] = [
+    state.baskets, state.certificateFields, state.certificates, state.commissions, state.mapiResponses,
+    state.outputs, state.provenTxReqs, state.provenTxs, state.txLabelMaps, state.txLabels, state.txs
+  ]
+
+  for (const ewt of ewts) {
+    for (let i = 0; i < ewt.length; i++) {
+      const ei = ewt[i]
+      ei.created_at = validateDate(ei.created_at)
+      ei.updated_at = validateDate(ei.updated_at)
+    }
   }
 
   for (let i = 0; i < state.provenTxs.length; i++) {
