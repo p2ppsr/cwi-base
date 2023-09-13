@@ -33,6 +33,77 @@ export interface DojoPublicApi {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DojoLoggerApi = (...data: any) => void
 
+export type SyncDojoConfigType = '<custom>' | 'Cloud URL' | 'Sqlite File' | 'MySql Connection'
+
+/**
+ * Each syncDojo config has the following properties:
+ * 
+ * 'dojoType' one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection'
+ * 'dojoIdentityKey' the identity key of the syncDojo.
+ * 'dojoName' the name of the syncDojo.
+ */
+export interface SyncDojoConfigBaseApi {
+   /**
+    * one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection' | '<custom>'
+    */
+   dojoType: SyncDojoConfigType
+   /**
+    * the identity key of the syncDojo.
+    */
+   dojoIdentityKey: string
+   /**
+    * the name of the syncDojo.
+    */
+   dojoName?: string
+}
+
+/**
+ * The derived `SyncDojoConfigCloudUrl` interface adds:
+ * 
+ * 'url' the service URL of the cloud dojo with which to sync
+ * 
+ * 'clientPrivateKey' should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
+ * 
+ * 'useIdentityKey' may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
+ *
+ * The cloud dojo must exists and must already be configured with matching dojoIdentityKey.
+ *   
+ * If neither 'clientPrivateKey' or 'useIdentityKey' has a value, will attempt to use the Babbage signing strategy for Authrite.
+ */
+export interface SyncDojoConfigCloudUrl extends SyncDojoConfigBaseApi {
+   /**
+    * the service URL of the cloud dojo with which to sync
+    */
+   url: string
+   /**
+    * should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
+    */
+   clientPrivateKey?: string
+   /**
+    * may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
+    */
+   useIdentityKey?: boolean
+}
+
+export interface SyncDojoConfigMySqlConnection extends SyncDojoConfigBaseApi {
+    connection: string
+}
+
+export interface SyncDojoConfigSqliteFile extends SyncDojoConfigBaseApi {
+    filename: string
+}
+
+export interface DojoIdentityApi {
+    /**
+     * The identity key (public key) assigned to this dojo
+     */
+    dojoIdentityKey: string
+    /**
+     * The human readable name assigned to this dojo.
+     */
+    dojoName?: string
+}
+
 /**
  * success: Last sync of this user from this dojo was successful.
  *
@@ -52,7 +123,7 @@ export interface DojoSyncErrorApi {
 }
 
 /**
- * Receipt of `DojoSyncIdentiyParams` via the `syncIdentify` function starts a dojo to dojo sync.
+ * Receipt of `DojoSyncIdentityParams` via the `syncIdentify` function starts a dojo to dojo sync.
  *
  * It may also force a restart of the sync protocol.
  *
@@ -167,10 +238,16 @@ export interface DojoSyncApi {
      * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
      */
   authenticate: (identityKey?: string, addIfNew?: boolean) => Promise<void>
+
+  /**
+   * Returns the configuration of this dojo as a syncDojo
+   */
+  getSyncDojoConfig() : Promise<SyncDojoConfigBaseApi>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DojoSyncOptionsApi {
-  syncOnAuthenticate?: boolean
+   /* */
 }
 
 /**
@@ -197,8 +274,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      */
   authenticate: (identityKey?: string, addIfNew?: boolean) => Promise<void>
 
-  setSyncDojos: (dojos: DojoSyncApi[], options?: DojoSyncOptionsApi) => void
-  getSyncDojos: () => { dojos: DojoSyncApi[], options: DojoSyncOptionsApi }
+  getDojoIdentity() : Promise<DojoIdentityApi>
 
   /**
      * Sync's this dojo's state for the authenticated user with all of the configured syncDojos
@@ -210,6 +286,10 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param logger optional sync progress update logger
      */
   sync: (logger?: DojoLoggerApi) => Promise<void>
+
+  setSyncDojosByConfig: (syncDojoConfigs: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi) => Promise<void>
+
+  getSyncDojosByConfig: () => Promise<{ dojos: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi }>
 
   /**
      * Returns authenticated user.
