@@ -121,9 +121,10 @@ export type DojoSyncProtocolVersion = '0.1.0'
 export interface DojoSyncErrorApi {
   code: string
   description: string
+  stack?: string
 }
 
-export function toDojoSyncError(e: CwiError) : DojoSyncErrorApi { return { code: e.code, description: e.description } }
+export function toDojoSyncError(e: CwiError) : DojoSyncErrorApi { return { code: e.code, description: e.description, stack: e.stack ?? '' } }
 
 export interface DojoSyncMapApi {
     aliasIds: Record<number, number>
