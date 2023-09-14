@@ -122,6 +122,19 @@ export interface DojoSyncErrorApi {
   description: string
 }
 
+export interface DojoSyncMapApi {
+    aliasIds: Record<number, number>
+    certificateIds: Record<number, number>
+    commissionIds: Record<number, number>
+    responseIds: Record<number, number>
+    basketIds: Record<number, number>
+    outputIds: Record<number, number>
+    provenTxReqIds: Record<number, number>
+    provenTxIds: Record<number, number>
+    txIds: Record<number, number>
+    txLabelIds: Record<number, number>
+}
+
 /**
  * Receipt of `DojoSyncIdentityParams` via the `syncIdentify` function starts a dojo to dojo sync.
  *
@@ -167,11 +180,15 @@ export interface DojoSyncMergeParams {
   when?: Date
   state?: DojoUserStateApi
   total?: number
+  iSyncMap?: DojoSyncMapApi
+  error?: DojoSyncErrorApi
 }
 
 export interface DojoSyncMergeResultApi {
   refNum: string
   status: DojoSyncStatus
+  iSyncMap?: DojoSyncMapApi
+  total?: number
   error?: DojoSyncErrorApi
 }
 
