@@ -1,3 +1,4 @@
+import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
 import { EnvelopeApi, EnvelopeEvidenceApi } from './EnvelopeApi'
 import { MapiResponseApi } from './MerchantApi'
@@ -121,6 +122,8 @@ export interface DojoSyncErrorApi {
   code: string
   description: string
 }
+
+export function toDojoSyncError(e: CwiError) : DojoSyncErrorApi { return { code: e.code, description: e.description } }
 
 export interface DojoSyncMapApi {
     aliasIds: Record<number, number>
