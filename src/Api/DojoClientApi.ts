@@ -188,7 +188,6 @@ export interface DojoSyncMergeResultApi {
   refNum: string
   status: DojoSyncStatus
   iSyncMap?: DojoSyncMapApi
-  total?: number
   error?: DojoSyncErrorApi
 }
 
