@@ -19,7 +19,7 @@ export interface DojoPublicApi {
      *
      * Also serves to verifies that all dependent services are on same chain.
      */
-  getChain: () => Promise<Chain>
+  getChain() : Promise<Chain>
 
   //
   // Statistics
@@ -28,7 +28,7 @@ export interface DojoPublicApi {
   /**
      * @returns general storage statistics
      */
-  stats: () => Promise<DojoStatsApi>
+  stats() : Promise<DojoStatsApi>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -224,14 +224,14 @@ export interface DojoSyncApi {
      * @param params Parameters identifying the primary initiating dojo, user, sarting status and protocol version.
      * @returns Equivalent parameters for this syncDojo.
      */
-  syncIdentify: (params: DojoSyncIdentifyParams) => Promise<DojoSyncIdentifyResultApi>
+  syncIdentify(params: DojoSyncIdentifyParams) : Promise<DojoSyncIdentifyResultApi>
 
   /**
      * Receive a state update for the authenticated user from a remote dojo
      * and respond with merge result and any pre-merge local state update
      * for the data interval from `since` to `when`
      */
-  syncUpdate: (params: DojoSyncUpdateParams) => Promise<DojoSyncUpdateResultApi>
+  syncUpdate(params: DojoSyncUpdateParams) : Promise<DojoSyncUpdateResultApi>
 
   /**
      * Informs a syncDojo of the result of merging state received from them.
@@ -239,7 +239,7 @@ export interface DojoSyncApi {
      * This is the only valid way that the syncDojo's `when` field in `sync_state` is updated which is critical to
      * guaranteeing that un-merged changes are presented until successfully merged.
      */
-  syncMerge: (params: DojoSyncMergeParams) => Promise<DojoSyncMergeResultApi>
+  syncMerge(params: DojoSyncMergeParams) : Promise<DojoSyncMergeResultApi>
 
   /**
      * For Dojo scenarios where it is permissible for Dojo to directly act as
@@ -257,7 +257,7 @@ export interface DojoSyncApi {
      *
      * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
      */
-  authenticate: (identityKey?: string, addIfNew?: boolean) => Promise<void>
+  authenticate(identityKey?: string, addIfNew?: boolean) : Promise<void>
 
   /**
    * Returns the configuration of this dojo as a syncDojo
@@ -292,7 +292,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @throws ERR_UNAUTHORIZED if identityKey is required and invalid
      */
-  authenticate: (identityKey?: string, addIfNew?: boolean) => Promise<void>
+  authenticate(identityKey?: string, addIfNew?: boolean) : Promise<void>
 
   getDojoIdentity() : Promise<DojoIdentityApi>
 
@@ -305,28 +305,28 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @param logger optional sync progress update logger
      */
-  sync: (logger?: DojoLoggerApi) => Promise<void>
+  sync(logger?: DojoLoggerApi) : Promise<void>
 
-  setSyncDojosByConfig: (syncDojoConfigs: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi) => Promise<void>
+  setSyncDojosByConfig(syncDojoConfigs: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi) : Promise<void>
 
-  getSyncDojosByConfig: () => Promise<{ dojos: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi }>
+  getSyncDojosByConfig() : Promise<{ dojos: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi }>
 
   /**
      * Returns authenticated user.
      * Throws an error if isAuthenticated is false.
      */
-  getUser: () => DojoClientUserApi
+  getUser() : DojoClientUserApi
 
   /**
      * Returns the name and photo URL of the user
      * @returns {Promise<Avatar>} The avatar of the user
      */
-  getAvatar: () => Promise<DojoAvatarApi>
+  getAvatar() : Promise<DojoAvatarApi>
 
   /**
      * Update the avatar for the authenticated user.
      */
-  setAvatar: (avatar: DojoAvatarApi) => Promise<void>
+  setAvatar(avatar: DojoAvatarApi) : Promise<void>
 
   /**
      * Return array of paymail style identifiers for currently authenticated user in `alias`@`domain` format.
@@ -335,7 +335,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * and `reservationCompleted` is true
      */
-  getCurrentPaymails: () => Promise<string[]>
+  getCurrentPaymails() : Promise<string[]>
 
   /**
      * Save a new certificate with optional fields.
@@ -350,7 +350,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @returns the certificateId of the new certificate.
      */
-  saveCertificate: (certificate: DojoCertificateApi) => Promise<number>
+  saveCertificate(certificate: DojoCertificateApi) : Promise<number>
 
   /**
      * Returns all of the authenticated user's certificates,
@@ -358,7 +358,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param certifiers optional array of certifier identifiers, if provided results match at least one value.
      * @param types optional array of certificate types, if provided results match at least one value and only requested fields are returned.
      */
-  findCertificates: (certifiers?: string[], types?: Record<string, string[]>) => Promise<DojoCertificateApi[]>
+  findCertificates(certifiers?: string[], types?: Record<string, string[]>) : Promise<DojoCertificateApi[]>
 
   /**
      * Returns the total of spendable output amounts.
@@ -372,7 +372,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param basket name of existing outputs basket or undefined
      * @returns total of unspent outputs in named basket
      */
-  getTotalOfUnspentOutputs: (basket?: string) => Promise<number | undefined>
+  getTotalOfUnspentOutputs(basket?: string) : Promise<number | undefined>
 
   /**
      * Update `spendable` of an output that must exist,
@@ -384,21 +384,21 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param vout
      * @param spendable
      */
-  updateOutpointStatus: (txid: string, vout: number, spendable: boolean) => Promise<void>
+  updateOutpointStatus(txid: string, vout: number, spendable: boolean) : Promise<void>
 
   /**
      * Returns the sum of transaction amounts belonging to authenticated user,
      * matching the given direction,
      * and optionally matching conditions in `options`.
      */
-  getTotalOfAmounts: (direction: 'incoming' | 'outgoing', options?: DojoGetTotalOfAmountsOptions) => Promise<number>
+  getTotalOfAmounts(direction: 'incoming' | 'outgoing', options?: DojoGetTotalOfAmountsOptions) : Promise<number>
 
   /**
      * Returns the net sum of transaction amounts belonging to authenticated user,
      * incoming plus outgoing, as outgoing amounts are negative and incoming amounts are positive.
      * and optionally matching conditions in `options`.
      */
-  getNetOfAmounts: (options?: DojoGetTotalOfAmountsOptions) => Promise<number>
+  getNetOfAmounts(options?: DojoGetTotalOfAmountsOptions) : Promise<number>
 
   /**
      * Update transaction status and associated ouputs (both inputs and outputs) spendable and spentBy properties.
@@ -408,21 +408,21 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param reference
      * @param status New transaction status.
      */
-  updateTransactionStatus: (reference: string, status: DojoTransactionStatusApi) => Promise<void>
+  updateTransactionStatus(reference: string, status: DojoTransactionStatusApi) : Promise<void>
 
   /**
      * Returns transactions matching options and total matching count available.
      *
      * @param options limit defaults to 25, offset defaults to 0, addLabels defaults to true, order defaults to 'descending'
      */
-  getTransactions: (options?: DojoGetTransactionsOptions) => Promise<{ txs: DojoTransactionApi[], total: number }>
+  getTransactions(options?: DojoGetTransactionsOptions) : Promise<{ txs: DojoTransactionApi[], total: number }>
 
   /**
      * Returns transaction outputs matching options and total matching count available.
      *
      * @param options limit defaults to 25, offset defaults to 0, includeEnvelpe defaults to true
      */
-  getTransactionOutputs: (options?: DojoGetTransactionOutputsOptions) => Promise<{ outputs: DojoOutputApi[], total: number }>
+  getTransactionOutputs(options?: DojoGetTransactionOutputsOptions) : Promise<{ outputs: DojoOutputApi[], total: number }>
 
   /**
      * Returns an Everett Style envelope for the given txid.
@@ -438,7 +438,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @param txid
      */
-  getEnvelopeForTransaction: (txid: string) => Promise<EnvelopeApi | undefined>
+  getEnvelopeForTransaction(txid: string) : Promise<EnvelopeApi | undefined>
 
   /**
      * Returns transactions with status of 'waitingForSenderToSend' or 'unprocessed' for authenticated user
@@ -456,7 +456,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @param referenceNumber optional referenceNumber to also match
      */
-  getPendingTransactions: (referenceNumber?: string) => Promise<DojoPendingTxApi[]>
+  getPendingTransactions(referenceNumber?: string) : Promise<DojoPendingTxApi[]>
 
   /**
      * Constructs a new transaction spending known outputs (inputs) and creating new outputs.
@@ -486,7 +486,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param note Optional. A human-readable note detailing this transaction (Optional)
      * @param recipient Optional. The Paymail handle of the recipient of this transaction (Optional)
      */
-  createTransaction: (
+  createTransaction(
     inputs: Record<string, DojoTxInputsApi>,
     inputSelection: DojoTxInputSelectionApi | undefined,
     outputs: DojoCreateTxOutputApi[],
@@ -495,7 +495,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     labels?: string[],
     note?: string,
     recipient?: string
-  ) => Promise<DojoCreateTransactionResultApi>
+  ) : Promise<DojoCreateTransactionResultApi>
 
   /**
      * After creating a transaction with createTransaction and signing it, submit the serialized raw transaction
@@ -517,7 +517,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * @returns `DojoProcessTransactionResultApi` with txid and status of 'completed' or 'unknown'
      */
-  processTransaction: (rawTx: string | Buffer, reference: string, outputMap: Record<string, number>) => Promise<DojoProcessTransactionResultApi>
+  processTransaction(rawTx: string | Buffer, reference: string, outputMap: Record<string, number>) : Promise<DojoProcessTransactionResultApi>
 
   /**
      * This endpoint allows a recipient to submit a transactions that was directly given to them by a sender.
@@ -526,7 +526,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      *
      * Sets the transaction to completed and marks the outputs as spendable.
      */
-  submitDirectTransaction: (
+  submitDirectTransaction(
   /**
          * Specify the transaction submission payment protocol to use.
          *
@@ -552,13 +552,13 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
          */
     labels: string[],
     derivationPrefix?: string
-  ) => Promise<DojoSubmitDirectTransactionResultApi>
+  ) : Promise<DojoSubmitDirectTransactionResultApi>
 
   /**
      * Return a complete copy of all records for the authenticated user.
      * @param since optional, start of data interval if specified.
      */
-  copyState: (since?: Date) => Promise<DojoUserStateApi>
+  copyState(since?: Date) : Promise<DojoUserStateApi>
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'

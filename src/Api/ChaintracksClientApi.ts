@@ -42,17 +42,17 @@ export interface ChaintracksClientApi {
   /**
      * Confirms the chain
      */
-  getChain: () => Promise<Chain>
+  getChain() : Promise<Chain>
 
   /**
      * @returns Summary of configuration and state.
      */
-  getInfo: () => Promise<ChaintracksInfoApi>
+  getInfo() : Promise<ChaintracksInfoApi>
 
   /**
      * Return the latest chain height from configured bulk ingestors.
      */
-  getPresentHeight: () => Promise<number>
+  getPresentHeight() : Promise<number>
 
   /**
      * Adds headers in 80 byte serialized format to a buffer.
@@ -62,7 +62,7 @@ export interface ChaintracksClientApi {
      * @param height of first header
      * @param count of headers, maximum
      */
-  getHeaders: (height: number, count: number) => Promise<Buffer>
+  getHeaders(height: number, count: number) : Promise<Buffer>
 
   /**
      * Adds headers in 80 byte serialized format to a buffer.
@@ -72,27 +72,27 @@ export interface ChaintracksClientApi {
      * @param height of first header
      * @param count of headers, maximum
      */
-  getHeadersHex: (height: number, count: number) => Promise<string>
+  getHeadersHex(height: number, count: number) : Promise<string>
 
   /**
      * Returns the active chain tip header
      */
-  findChainTipHeader: () => Promise<BlockHeader>
+  findChainTipHeader() : Promise<BlockHeader>
 
   /**
      * Returns the active chain tip header
      */
-  findChainTipHeaderHex: () => Promise<BlockHeaderHex>
+  findChainTipHeaderHex() : Promise<BlockHeaderHex>
 
   /**
      * Returns the block hash of the active chain tip.
      */
-  findChainTipHash: () => Promise<Buffer>
+  findChainTipHash() : Promise<Buffer>
 
   /**
      * Returns the block hash of the active chain tip.
      */
-  findChainTipHashHex: () => Promise<string>
+  findChainTipHashHex() : Promise<string>
 
   /**
      * Only returns a value for headers in live storage.
@@ -100,7 +100,7 @@ export interface ChaintracksClientApi {
      * @param hash
      * @returns chainwork of block header with given hash
      */
-  findChainWorkForBlockHash: (hash: Buffer | string) => Promise<Buffer | undefined>
+  findChainWorkForBlockHash(hash: Buffer | string) : Promise<Buffer | undefined>
 
   /**
      * Only returns a value for headers in live storage.
@@ -108,29 +108,29 @@ export interface ChaintracksClientApi {
      * @param hash
      * @returns chainwork of block header with given hash
      */
-  findChainWorkHexForBlockHash: (hash: Buffer | string) => Promise<string | undefined>
+  findChainWorkHexForBlockHash(hash: Buffer | string) : Promise<string | undefined>
 
   /**
      * Returns block header for a given block hash
      * @param hash block hash
      */
-  findHeaderForBlockHash: (hash: Buffer | string) => Promise<BlockHeader | undefined>
+  findHeaderForBlockHash(hash: Buffer | string) : Promise<BlockHeader | undefined>
 
   /**
      * Returns block header for a given block hash
      * @param hash block hash
      */
-  findHeaderHexForBlockHash: (hash: Buffer | string) => Promise<BlockHeaderHex | undefined>
+  findHeaderHexForBlockHash(hash: Buffer | string) : Promise<BlockHeaderHex | undefined>
 
   /**
      * Returns block header for a given block height on active chain.
      */
-  findHeaderForHeight: (height: number) => Promise<BlockHeader | undefined>
+  findHeaderForHeight(height: number) : Promise<BlockHeader | undefined>
 
   /**
      * Returns block header for a given block height on active chain.
      */
-  findHeaderHexForHeight: (height: number) => Promise<BlockHeaderHex | undefined>
+  findHeaderHexForHeight(height: number) : Promise<BlockHeaderHex | undefined>
 
   /**
      * Returns block header for a given possible height and specific merkleRoot
@@ -140,7 +140,7 @@ export interface ChaintracksClientApi {
      * @param merkleRoot
      * @param height optional, may be required for bulk header lookup.
      */
-  findHeaderForMerkleRoot: (merkleRoot: Buffer | string, height?: number) => Promise<BlockHeader | undefined>
+  findHeaderForMerkleRoot(merkleRoot: Buffer | string, height?: number) : Promise<BlockHeader | undefined>
 
   /**
      * Returns block header for a given possible height and specific merkleRoot
@@ -150,7 +150,7 @@ export interface ChaintracksClientApi {
      * @param root
      * @param height optional, may be required for bulk header lookup.
      */
-  findHeaderHexForMerkleRoot: (root: Buffer | string, height?: number) => Promise<BlockHeaderHex | undefined>
+  findHeaderHexForMerkleRoot(root: Buffer | string, height?: number) : Promise<BlockHeaderHex | undefined>
 
   /**
      * Submit a possibly new header for adding
@@ -163,7 +163,7 @@ export interface ChaintracksClientApi {
      * @param header
      * @returns immediately
      */
-  addHeader: (header: BaseBlockHeader | BaseBlockHeaderHex) => Promise<void>
+  addHeader(header: BaseBlockHeader | BaseBlockHeaderHex) : Promise<void>
 
   /**
      * Start or resume listening for new headers.
@@ -179,23 +179,23 @@ export interface ChaintracksClientApi {
      *
      * The `listening` API function which returns a Promise can be awaited.
      */
-  startListening: () => Promise<void>
+  startListening() : Promise<void>
 
   /**
      * Returns a Promise that will resolve when the previous call to startListening
      * enters the listening-for-new-headers state.
      */
-  listening: () => Promise<void>
+  listening() : Promise<void>
 
   /**
      * Returns true if actively listening for new headers and client api is enabled.
      */
-  isListening: () => Promise<boolean>
+  isListening() : Promise<boolean>
 
   /**
      * Returns true if `synchronize` has completed at least once.
      */
-  isSynchronized: () => Promise<boolean>
+  isSynchronized() : Promise<boolean>
 
   /**
      * Subscribe to "header" events.
@@ -203,7 +203,7 @@ export interface ChaintracksClientApi {
      * @returns identifier for this subscription
      * @throws ERR_NOT_IMPLEMENTED if callback events are not supported
      */
-  subscribeHeaders: (listener: HeaderListener) => Promise<string>
+  subscribeHeaders(listener: HeaderListener) : Promise<string>
 
   /**
      * Subscribe to "reorganization" events.
@@ -211,7 +211,7 @@ export interface ChaintracksClientApi {
      * @returns identifier for this subscription
      * @throws ERR_NOT_IMPLEMENTED if callback events are not supported
      */
-  subscribeReorgs: (listener: ReorgListener) => Promise<string>
+  subscribeReorgs(listener: ReorgListener) : Promise<string>
 
   /**
      * Cancels all subscriptions with the given `subscriptionId` which was previously returned
@@ -220,7 +220,7 @@ export interface ChaintracksClientApi {
      * @returns true if a subscription was canceled
      * @throws ERR_NOT_IMPLEMENTED if callback events are not supported
      */
-  unsubscribe: (subscriptionId: string) => Promise<boolean>
+  unsubscribe(subscriptionId: string) : Promise<boolean>
 
 }
 
@@ -246,5 +246,5 @@ export interface ChaintracksApi extends ChaintracksClientApi {
      *
      * @param listening callback indicates when listening for new headers has started.
      */
-  startListening: (listening?: () => void) => Promise<void>
+  startListening(listening?: () => void) : Promise<void>
 }
