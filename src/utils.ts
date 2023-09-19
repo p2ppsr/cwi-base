@@ -4,6 +4,7 @@ import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 
 /**
  * Returns an await'able Promise that resolves in the given number of msecs.
+ * @publicbody
  */
 export function wait (msecs: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, msecs))
@@ -35,6 +36,7 @@ export function randomBytesBase64 (count: number): string {
  * @param max greater than maximum value returned
  * @returns a weakly randomized value in the range from min to less than max.
  * @throws ERR_INVALID_PARAMETER when max is less than min.
+ * @publicbody
  */
 export function randomMinMax (min: number, max: number): number {
   if (max < min) throw new ERR_INVALID_PARAMETER('max', `less than min (${min}). max is (${max})`)
@@ -42,10 +44,14 @@ export function randomMinMax (min: number, max: number): number {
 }
 
 /**
+ * Shuffle an array of items.
+ * 
  * This is not a cryptographically strong shuffle.
+ *
  * Run time is O(n)
- * Thanks to https://stackoverflow.com/a/2450976 for this
+*
  * @returns original `array` with contents shuffled
+ * @publicbody
  */
 export function shuffleArray<T> (array: T[]): T[] {
   let currentIndex = array.length
@@ -69,9 +75,9 @@ export function shuffleArray<T> (array: T[]): T[] {
 
 /**
  * Coerce a value to Buffer if currently encoded as a string
- * @param val
  * @param encoding defaults to 'hex'
  * @returns input val if it is a Buffer or new Buffer from string val
+ * @publicbody
  */
 export function asBuffer (val: Buffer | string, encoding?: BufferEncoding): Buffer {
   return Buffer.isBuffer(val) ? val : Buffer.from(val, encoding ?? 'hex')
@@ -79,42 +85,47 @@ export function asBuffer (val: Buffer | string, encoding?: BufferEncoding): Buff
 
 /**
  * Coerce a value to string if currently a Buffer
- * @param val
  * @param encoding defaults to 'hex'
  * @returns input val if it is a string or Buffer encoded as string
+ * @publicbody
  */
 export function asString (val: Buffer | string, encoding?: BufferEncoding): string {
   return Buffer.isBuffer(val) ? val.toString(encoding ?? 'hex') : val
 }
 
 /**
- *
- * @param buffer
+ * Calculate the SHA256 hash of a Buffer.
  * @returns sha256 hash of buffer contents.
+ * @publicbody
  */
-export const sha256Hash = (buffer: Buffer): Buffer => crypto.createHash('sha256').update(buffer).digest()
+export function sha256Hash(buffer: Buffer): Buffer {
+  return crypto.createHash('sha256').update(buffer).digest()
+}
 
 /**
- *
- * @param buffer
+ * Calculate the SHA256 hash of the SHA256 hash of a Buffer.
+ * @param data is Buffer or hex encoded string
  * @returns double sha256 hash of buffer contents, byte 0 of hash first.
+ * @publicbody
  */
 export function doubleSha256HashLE (data: string | Buffer, encoding?: BufferEncoding): Buffer {
   return sha256Hash(sha256Hash(asBuffer(data, encoding)))
 }
 
 /**
- * @param data string or Buffer
+ * Calculate the SHA256 hash of the SHA256 hash of a Buffer.
+ * @param data is Buffer or hex encoded string
  * @returns reversed (big-endian) double sha256 hash of data, byte 31 of hash first.
+ * @publicbody
  */
 export function doubleSha256BE (data: string | Buffer, encoding?: BufferEncoding): Buffer {
   return doubleSha256HashLE(data, encoding).reverse()
 }
 
 /**
- *
- * @param buffer
+ * Returns a copy of a Buffer with byte order reversed.
  * @returns new buffer with byte order reversed.
+ * @publicbody
  */
 export function swapByteOrder (buffer: Buffer): Buffer {
   return Buffer.from(buffer).reverse()
@@ -124,6 +135,7 @@ export function swapByteOrder (buffer: Buffer): Buffer {
  * @param num a number value in the Uint32 value range
  * @param littleEndian true for little-endian byte order in Buffer
  * @returns four byte buffer with Uint32 number encoded
+ * @publicbody
  */
 export function convertUint32ToBuffer (num: number, littleEndian = true): Buffer {
   const arr = new ArrayBuffer(4)
@@ -136,6 +148,7 @@ export function convertUint32ToBuffer (num: number, littleEndian = true): Buffer
  * @param buffer four byte buffer with Uint32 number encoded
  * @param littleEndian true for little-endian byte order in Buffer
  * @returns a number value in the Uint32 value range
+ * @publicbody
  */
 export function convertBufferToUint32 (buffer: Buffer, littleEndian = true): number {
   const arr = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength)
@@ -143,11 +156,21 @@ export function convertBufferToUint32 (buffer: Buffer, littleEndian = true): num
   return view.getUint32(0, littleEndian)
 }
 
-export function varUintSize (val: number): number {
+/**
+ * Returns the byte size required to encode number as Bitcoin VarUint
+ * @publicbody
+ */
+export function varUintSize (val: number): 1 | 3 | 5 | 9 {
   if (val < 0) throw new ERR_BAD_REQUEST()
   return (val <= 0xfc ? 1 : val <= 0xffff ? 3 : val <= 0xffffffff ? 5 : 9)
 }
 
+/**
+ * Reads a Bitcoin VarUInt from buffer at an offset.
+ * 
+ * Returns updated offset.
+ * @publicbody
+ */
 export function readVarUint32LE (buffer: Buffer, offset: number): { val: number, offset: number } {
   const b0 = buffer[offset++]
   switch (b0) {
@@ -162,6 +185,12 @@ export function readVarUint32LE (buffer: Buffer, offset: number): { val: number,
   }
 }
 
+/**
+ * Writes a Bitcoin VarUInt to a buffer at an offset.
+ * 
+ * Returns updated offset.
+ * @publicbody
+ */
 export function writeVarUint32LE (val: number, buffer: Buffer, offset: number): number {
   if (val < 0) { throw new Error(`val ${val} must be a non-negative integer.`) }
   if (val <= 0xfc) {
@@ -231,6 +260,13 @@ export function computeRootFromMerkleProofNodes (index: number, txid: string | B
   return c
 }
 
+/**
+ * Returns the 32 byte hash value for a merkle tree parent node given its left and right child node hashes.
+ * 
+ * @param leftNode 32 byte hash as hex string or Buffer
+ * @param rightNode 32 byte hash as hex string or Buffer
+ * @publicbody
+ */
 export function computeMerkleTreeParent (leftNode: string | Buffer, rightNode: string | Buffer): Buffer {
   // if inputs are strings, swap endianness before concatenating
   const leftConc = Buffer.from(asBuffer(leftNode)).reverse()
@@ -248,8 +284,7 @@ export function computeMerkleTreeParent (leftNode: string | Buffer, rightNode: s
 /**
  * Parse a bsv transaction encoded as a hex string, serialized Buffer to bsv.Tx
  * If tx is already a bsvTx, just return it.
- * @param tx
- * @returns bsv.Tx
+ * @publicbody
  */
 export function asBsvTx (tx: string | Buffer | bsv.Tx): bsv.Tx {
   if (Buffer.isBuffer(tx)) { tx = new bsv.Tx().fromBuffer(tx) } else if (typeof tx === 'string') { tx = new bsv.Tx().fromString(tx) }
@@ -257,8 +292,11 @@ export function asBsvTx (tx: string | Buffer | bsv.Tx): bsv.Tx {
 }
 
 /**
- * For a bitcoin transaction in hex string, Buffer or parsed bsv.Tx form:
- * Returns deduplicated array of the input's outpoint transaction hashes (txids).
+ * For a bitcoin transaction in hex string, Buffer or parsed bsv.Tx form,
+ * 
+ * returns deduplicated array of the input's outpoint transaction hashes (txids).
+ *
+ * @publicbody
  */
 export function getInputTxIds (tx: string | Buffer | bsv.Tx): string[] {
   tx = asBsvTx(tx)
@@ -269,6 +307,11 @@ export function getInputTxIds (tx: string | Buffer | bsv.Tx): string[] {
   return Object.keys(txids)
 }
 
+/**
+ * Returns the Identity Key value associated with a private key.
+ * @param privKey as hex encoded 32 byte value
+ * @returns hex encoded Identity Key.
+ */
 export function identityKeyFromPrivateKey (privKey: string): string {
   const priv = new bsv.PrivKey(new bsv.Bn(privKey, 'hex'), true)
   const identityKey = bsv.PubKey.fromPrivKey(priv).toDer(true).toString('hex')
@@ -277,10 +320,7 @@ export function identityKeyFromPrivateKey (privKey: string): string {
 
 /**
  * returns most recent of two dates or undefined if both are null or undefined.
- *
- * @param d1
- * @param d2
- * @returns
+ * @publicbody
  */
 export function maxDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
   if (d1 == null) return (d2 != null) ? d2 : undefined
@@ -290,10 +330,7 @@ export function maxDate (d1: Date | null | undefined, d2: Date | null | undefine
 
 /**
  * returns least recent of two dates or undefined if either date is null or undefined.
- *
- * @param d1
- * @param d2
- * @returns
+ * @publicbody
  */
 export function minDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
   if (d1 == null || d2 == null) return undefined

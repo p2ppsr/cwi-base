@@ -5,29 +5,36 @@ import { asBuffer, asString } from '../utils'
  * and the next block's previousHash value.
  *
  * All block hash values and merkleRoot values are 32 byte Buffer values with the byte order reversed from the serialized byte order.
- * @public
  */
 export interface BaseBlockHeader {
   /**
-   * 4 bytes
-   * @public
+   * Block header version value. Serialized length is 4 bytes.
    */
   version: number
-  // 32 bytes
+  /**
+   * Hash of previous block's block header. Serialized length is 32 bytes.
+   */
   previousHash: Buffer
-  // 32 bytes
+  /**
+   * Root hash of the merkle tree of all transactions in this block. Serialized length is 32 bytes.
+   */
   merkleRoot: Buffer
-  // 4  bytes
+  /**
+   * Block header time value. Serialized length is 4 bytes.
+   */
   time: number
-  // 4  bytes
+  /**
+   * Block header bits value. Serialized length is 4 bytes.
+   */
   bits: number
-  // 4  bytes
+  /**
+   * Block header nonce value. Serialized length is 4 bytes.
+   */
   nonce: number
 }
 
 /**
  * Like BlockHeader but 32 byte fields are hex encoded strings.
- * @public
  */
 export interface BaseBlockHeaderHex {
   version: number
@@ -40,7 +47,6 @@ export interface BaseBlockHeaderHex {
 
 /**
  * A `BaseBlockHeader` extended with its computed hash and height in its chain.
- * @public
  */
 export interface BlockHeader extends BaseBlockHeader {
   /**
@@ -55,7 +61,6 @@ export interface BlockHeader extends BaseBlockHeader {
 
 /**
  * Like BlockHeader but 32 byte fields are hex encoded strings.
- * @public
  */
 export interface BlockHeaderHex extends BaseBlockHeaderHex {
   height: number
@@ -65,7 +70,6 @@ export interface BlockHeaderHex extends BaseBlockHeaderHex {
 /**
  * The "live" portion of the block chain is recent history that can conceivably be subject to reorganizations.
  * The additional fields support tracking orphan blocks, chain forks, and chain reorgs.
- * @public
  */
 export interface LiveBlockHeader extends BlockHeader {
   /**
@@ -98,7 +102,6 @@ export interface LiveBlockHeader extends BlockHeader {
 
 /**
  * Like LiveBlockHeader but 32 byte fields are hex encoded strings.
- * @public
  */
 export interface LiveBlockHeaderHex extends BlockHeaderHex {
   chainWork: string
@@ -112,38 +115,66 @@ export interface LiveBlockHeaderHex extends BlockHeaderHex {
 // TYPE GUARDS
 //
 
+/**
+ * Type guard function.
+ * @publicbody
+ */
 export function isLive (header: BlockHeader | LiveBlockHeader): header is LiveBlockHeader {
   return (header as LiveBlockHeader).headerId !== undefined
 }
 
+/**
+ * Type guard function.
+ * @publicbody
+ */
 export function isBaseBlockHeader (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BaseBlockHeader {
   return Buffer.isBuffer(header.previousHash)
 }
 
+/**
+ * Type guard function.
+ * @publicbody
+ */
 export function isBlockHeader (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeader {
   return ('height' in header) && Buffer.isBuffer(header.previousHash)
 }
 
+/**
+ * Type guard function.
+ * @publicbody
+ */
 export function isLiveBlockHeader (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeader {
   return 'chainwork' in header && Buffer.isBuffer(header.previousHash)
 }
 
+/**
+ * Type guard function.
+ * @publicbody
+ */
 export function isBaseBlockHeaderHex (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BaseBlockHeaderHex {
   return (typeof header.previousHash === 'string')
 }
 
-export function isBlockHeaderHex (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeaderHex {
+/**
+ * Type guard function.
+ * @publicbody
+ */
+export function isBlockHeaderHex (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BlockHeaderHex {
   return ('height' in header) && (typeof header.previousHash === 'string')
 }
 
+/**
+ * Type guard function.
+ * @publicbody
+ */
 export function isLiveBlockHeaderHex (header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeaderHex {
   return 'chainwork' in header && (typeof header.previousHash === 'string')
 }
 
-//
-// TYPE CONVERSIONS
-//
-
+/**
+ * Type conversion function.
+ * @publicbody
+ */
 export function toBaseBlockHeaderHex (header: BaseBlockHeader | BlockHeader | LiveBlockHeader): BaseBlockHeaderHex {
   return {
     version: header.version,
@@ -155,6 +186,10 @@ export function toBaseBlockHeaderHex (header: BaseBlockHeader | BlockHeader | Li
   }
 }
 
+/**
+ * Type conversion function.
+ * @publicbody
+ */
 export function toBlockHeaderHex (header: BlockHeader | LiveBlockHeader): BlockHeaderHex {
   return {
     version: header.version,
@@ -168,6 +203,10 @@ export function toBlockHeaderHex (header: BlockHeader | LiveBlockHeader): BlockH
   }
 }
 
+/**
+ * Type conversion function.
+ * @publicbody
+ */
 export function toLiveBlockHeaderHex (header: LiveBlockHeader): LiveBlockHeaderHex {
   return {
     ...header,
@@ -178,6 +217,10 @@ export function toLiveBlockHeaderHex (header: LiveBlockHeader): LiveBlockHeaderH
   }
 }
 
+/**
+ * Type conversion function.
+ * @publicbody
+ */
 export function toBaseBlockHeader (header: BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): BaseBlockHeader {
   return {
     version: header.version,
@@ -189,6 +232,10 @@ export function toBaseBlockHeader (header: BaseBlockHeaderHex | BlockHeaderHex |
   }
 }
 
+/**
+ * Type conversion function.
+ * @publicbody
+ */
 export function toBlockHeader (header: BlockHeaderHex | LiveBlockHeaderHex): BlockHeader {
   return {
     version: header.version,
@@ -202,6 +249,10 @@ export function toBlockHeader (header: BlockHeaderHex | LiveBlockHeaderHex): Blo
   }
 }
 
+/**
+ * Type conversion function.
+ * @publicbody
+ */
 export function toLiveBlockHeader (header: LiveBlockHeaderHex): LiveBlockHeader {
   return {
     ...header,

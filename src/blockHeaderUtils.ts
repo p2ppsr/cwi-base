@@ -11,8 +11,8 @@ import { BaseBlockHeader, BlockHeaderHex, toBlockHeader } from './Api/BlockHeade
  * If header is a Buffer, it is required to 80 bytes long
  * and in standard block header serialized encoding.
  *
- * @param header
  * @returns doule sha256 hash of header bytes reversed
+ * @publicbody
  */
 export function blockHash (header: BaseBlockHeader | Buffer): Buffer {
   const data = !Buffer.isBuffer(header) ? serializeBlockHeader(header) : header
@@ -25,8 +25,8 @@ export function blockHash (header: BaseBlockHeader | Buffer): Buffer {
  * The exact serialized format is defined in the Bitcoin White Paper
  * such that computing a double sha256 hash of the buffer computes
  * the block hash for the header.
- * @param header
  * @returns 80 byte Buffer
+ * @publicbody
  */
 export function serializeBlockHeader (header: BaseBlockHeader, buffer?: Buffer, offset?: number): Buffer {
   if (buffer != null) {
@@ -53,8 +53,7 @@ export function serializeBlockHeader (header: BaseBlockHeader, buffer?: Buffer, 
 
 /**
  * Deserialize a block header from an 80 byte buffer
- * @param buffer
- * @returns
+ * @publicbody
  */
 export function deserializeBlockHeader (buffer: Buffer, offset = 0): BaseBlockHeader {
   const header: BaseBlockHeader = {
@@ -69,6 +68,10 @@ export function deserializeBlockHeader (buffer: Buffer, offset = 0): BaseBlockHe
   return header
 }
 
+/**
+ * Returns the genesis block for the specified chain.
+ * @publicbody
+ */
 export function genesisHeaderHex (chain: Chain): BlockHeaderHex {
   return chain === 'main'
     ? {
@@ -93,4 +96,8 @@ export function genesisHeaderHex (chain: Chain): BlockHeaderHex {
       }
 }
 
+/**
+ * Returns the genesis block for the specified chain.
+ * @publicbody
+ */
 export function genesisBuffer (chain: Chain): Buffer { return serializeBlockHeader(toBlockHeader(genesisHeaderHex(chain))) }
