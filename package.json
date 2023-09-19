@@ -30,7 +30,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "tonpm": "npm run build"
+    "tonpm": "npm i && npm run build",
+    "tolocal": "npm i && npm run build"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.1",
