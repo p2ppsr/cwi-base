@@ -57,7 +57,7 @@ export interface BaseBlockHeader {
 
 <details>
 
-<summary>Interface BaseBlockHeader Member Details</summary>
+<summary>Interface BaseBlockHeader Details</summary>
 
 ###### version
 
@@ -123,7 +123,7 @@ export interface BlockHeader extends BaseBlockHeader {
 
 <details>
 
-<summary>Interface BlockHeader Member Details</summary>
+<summary>Interface BlockHeader Details</summary>
 
 ###### height
 
@@ -173,7 +173,7 @@ export interface LiveBlockHeader extends BlockHeader {
 
 <details>
 
-<summary>Interface LiveBlockHeader Member Details</summary>
+<summary>Interface LiveBlockHeader Details</summary>
 
 ###### chainWork
 
@@ -298,7 +298,7 @@ export interface ChaintracksClientApi {
 
 <details>
 
-<summary>Interface ChaintracksClientApi Member Details</summary>
+<summary>Interface ChaintracksClientApi Details</summary>
 
 ###### getChain
 
@@ -447,7 +447,7 @@ export interface ChaintracksApi extends ChaintracksClientApi {
 
 <details>
 
-<summary>Interface ChaintracksApi Member Details</summary>
+<summary>Interface ChaintracksApi Details</summary>
 
 ###### startListening
 
@@ -484,7 +484,7 @@ export interface MapiResponseApi {
 
 <details>
 
-<summary>Interface MapiResponseApi Member Details</summary>
+<summary>Interface MapiResponseApi Details</summary>
 
 ###### payload
 
@@ -534,7 +534,7 @@ export interface TscMerkleProofApi {
 
 <details>
 
-<summary>Interface TscMerkleProofApi Member Details</summary>
+<summary>Interface TscMerkleProofApi Details</summary>
 
 ###### height
 
@@ -691,7 +691,7 @@ export interface EnvelopeApi extends EnvelopeEvidenceApi {
 
 <details>
 
-<summary>Interface EnvelopeApi Member Details</summary>
+<summary>Interface EnvelopeApi Details</summary>
 
 ###### headers
 
@@ -727,7 +727,7 @@ export interface EnvelopeEvidenceApi {
 
 <details>
 
-<summary>Interface EnvelopeEvidenceApi Member Details</summary>
+<summary>Interface EnvelopeEvidenceApi Details</summary>
 
 ###### rawTx
 
@@ -786,7 +786,7 @@ export interface DojoPublicApi {
 
 <details>
 
-<summary>Interface DojoPublicApi Member Details</summary>
+<summary>Interface DojoPublicApi Details</summary>
 
 ###### getChain
 
@@ -821,7 +821,7 @@ export interface SyncDojoConfigBaseApi {
 
 <details>
 
-<summary>Interface SyncDojoConfigBaseApi Member Details</summary>
+<summary>Interface SyncDojoConfigBaseApi Details</summary>
 
 ###### dojoType
 
@@ -866,7 +866,7 @@ export interface SyncDojoConfigCloudUrl extends SyncDojoConfigBaseApi {
 
 <details>
 
-<summary>Interface SyncDojoConfigCloudUrl Member Details</summary>
+<summary>Interface SyncDojoConfigCloudUrl Details</summary>
 
 ###### url
 
@@ -918,7 +918,7 @@ export interface DojoIdentityApi {
 
 <details>
 
-<summary>Interface DojoIdentityApi Member Details</summary>
+<summary>Interface DojoIdentityApi Details</summary>
 
 ###### dojoIdentityKey
 
@@ -1098,7 +1098,7 @@ export interface DojoSyncApi {
 
 <details>
 
-<summary>Interface DojoSyncApi Member Details</summary>
+<summary>Interface DojoSyncApi Details</summary>
 
 ###### syncIdentify
 
@@ -1198,7 +1198,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
 <details>
 
-<summary>Interface DojoClientApi Member Details</summary>
+<summary>Interface DojoClientApi Details</summary>
 
 ###### authenticate
 
@@ -1384,7 +1384,7 @@ export interface DojoGetTransactionsOptions {
 
 <details>
 
-<summary>Interface DojoGetTransactionsOptions Member Details</summary>
+<summary>Interface DojoGetTransactionsOptions Details</summary>
 
 ###### columns
 
@@ -1451,7 +1451,7 @@ export interface DojoGetTransactionOutputsOptions {
 
 <details>
 
-<summary>Interface DojoGetTransactionOutputsOptions Member Details</summary>
+<summary>Interface DojoGetTransactionOutputsOptions Details</summary>
 
 ###### basket
 
@@ -1500,7 +1500,7 @@ export interface DojoGetTotalOfAmountsOptions {
 
 <details>
 
-<summary>Interface DojoGetTotalOfAmountsOptions Member Details</summary>
+<summary>Interface DojoGetTotalOfAmountsOptions Details</summary>
 
 ###### label
 
@@ -1594,7 +1594,7 @@ export interface DojoAliasApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoAliasApi Member Details</summary>
+<summary>Interface DojoAliasApi Details</summary>
 
 ###### alias
 
@@ -1628,7 +1628,7 @@ export interface DojoAvatarApi {
 
 <details>
 
-<summary>Interface DojoAvatarApi Member Details</summary>
+<summary>Interface DojoAvatarApi Details</summary>
 
 ###### name
 
@@ -1659,7 +1659,7 @@ export interface DojoCertificateFieldApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoCertificateFieldApi Member Details</summary>
+<summary>Interface DojoCertificateFieldApi Details</summary>
 
 ###### fieldName
 
@@ -1700,7 +1700,7 @@ export interface DojoCertificateApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoCertificateApi Member Details</summary>
+<summary>Interface DojoCertificateApi Details</summary>
 
 ###### type
 
@@ -1761,7 +1761,7 @@ export interface DojoCommissionApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoCommissionApi Member Details</summary>
+<summary>Interface DojoCommissionApi Details</summary>
 
 ###### keyOffset
 
@@ -1795,7 +1795,7 @@ export interface DojoMapiResponseApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoMapiResponseApi Member Details</summary>
+<summary>Interface DojoMapiResponseApi Details</summary>
 
 ###### publicKey
 
@@ -1848,7 +1848,7 @@ export interface DojoOutputApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoOutputApi Member Details</summary>
+<summary>Interface DojoOutputApi Details</summary>
 
 ###### txid
 
@@ -1942,7 +1942,7 @@ export interface DojoOutputBasketApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoOutputBasketApi Member Details</summary>
+<summary>Interface DojoOutputBasketApi Details</summary>
 
 ###### name
 
@@ -1980,7 +1980,7 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoTransactionApi Member Details</summary>
+<summary>Interface DojoTransactionApi Details</summary>
 
 ###### txid
 
@@ -2050,7 +2050,7 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoProvenTxReqApi Member Details</summary>
+<summary>Interface DojoProvenTxReqApi Details</summary>
 
 ###### history
 
@@ -2098,7 +2098,7 @@ export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoProvenTxApi Member Details</summary>
+<summary>Interface DojoProvenTxApi Details</summary>
 
 ###### nodes
 
@@ -2123,7 +2123,7 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoTxLabelApi Member Details</summary>
+<summary>Interface DojoTxLabelApi Details</summary>
 
 ###### label
 
@@ -2162,7 +2162,7 @@ export interface DojoClientUserApi extends DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoClientUserApi Member Details</summary>
+<summary>Interface DojoClientUserApi Details</summary>
 
 ###### identityKey
 
@@ -2190,7 +2190,7 @@ export interface DojoUserApi extends DojoClientUserApi, DojoEntityTimeStampApi {
 
 <details>
 
-<summary>Interface DojoUserApi Member Details</summary>
+<summary>Interface DojoUserApi Details</summary>
 
 ###### identityKey
 
@@ -2229,7 +2229,7 @@ export interface DojoPendingTxInputInstructionsApi {
 
 <details>
 
-<summary>Interface DojoPendingTxInputInstructionsApi Member Details</summary>
+<summary>Interface DojoPendingTxInputInstructionsApi Details</summary>
 
 ###### type
 
@@ -2347,7 +2347,7 @@ export interface DojoOutputToRedeemApi {
 
 <details>
 
-<summary>Interface DojoOutputToRedeemApi Member Details</summary>
+<summary>Interface DojoOutputToRedeemApi Details</summary>
 
 ###### index
 
@@ -2392,7 +2392,7 @@ export interface DojoTxInputSelectionApi {
 
 <details>
 
-<summary>Interface DojoTxInputSelectionApi Member Details</summary>
+<summary>Interface DojoTxInputSelectionApi Details</summary>
 
 ###### disable
 
@@ -2443,7 +2443,7 @@ export interface DojoCreateTxOutputApi {
 
 <details>
 
-<summary>Interface DojoCreateTxOutputApi Member Details</summary>
+<summary>Interface DojoCreateTxOutputApi Details</summary>
 
 ###### script
 
@@ -2486,7 +2486,7 @@ export interface DojoOutputGenerationApi {
 
 <details>
 
-<summary>Interface DojoOutputGenerationApi Member Details</summary>
+<summary>Interface DojoOutputGenerationApi Details</summary>
 
 ###### basket
 
@@ -2522,7 +2522,7 @@ export interface DojoFeeModelApi {
 
 <details>
 
-<summary>Interface DojoFeeModelApi Member Details</summary>
+<summary>Interface DojoFeeModelApi Details</summary>
 
 ###### model
 
@@ -2621,7 +2621,7 @@ export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
 
 <details>
 
-<summary>Interface DojoSubmitDirectTransactionApi Member Details</summary>
+<summary>Interface DojoSubmitDirectTransactionApi Details</summary>
 
 ###### outputs
 
@@ -2704,17 +2704,39 @@ export class CwiError extends Error {
 
 <details>
 
-<summary>Class CwiError Member Details</summary>
+<summary>Class CwiError Details</summary>
 
-###### asStatus
+##### Class CwiError Constructor 
 
-###### code
+```ts
+constructor(code: string, description: string, stack?: string, public details?: Record<string, string>) 
+```
 
-Error class compatible accessor for  `code`.
+##### Class CwiError Method asStatus
 
-###### description
+```ts
+asStatus(): {
+    status: string;
+    code: string;
+    description: string;
+} 
+```
 
-Error class compatible accessor for `description`.
+<details>
+
+<summary>Class CwiError Method asStatus Details</summary>
+
+###### Returns
+
+standard HTTP error status object with status property set to 'error'.
+
+</details>
+
+##### Class CwiError Method fromUnknown
+
+```ts
+static fromUnknown(err: unknown): CwiError 
+```
 
 </details>
 
@@ -2733,6 +2755,18 @@ export class ERR_NOT_IMPLEMENTED extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_NOT_IMPLEMENTED Details</summary>
+
+##### Class ERR_NOT_IMPLEMENTED Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2747,6 +2781,18 @@ export class ERR_INTERNAL extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_INTERNAL Details</summary>
+
+##### Class ERR_INTERNAL Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2763,6 +2809,18 @@ export class ERR_UNAUTHORIZED extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_UNAUTHORIZED Details</summary>
+
+##### Class ERR_UNAUTHORIZED Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2777,6 +2835,18 @@ export class ERR_INVALID_PARAMETER extends CwiError {
     constructor(name: string, mustBe?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_INVALID_PARAMETER Details</summary>
+
+##### Class ERR_INVALID_PARAMETER Constructor 
+
+```ts
+constructor(name: string, mustBe?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2793,6 +2863,18 @@ export class ERR_MISSING_PARAMETER extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_MISSING_PARAMETER Details</summary>
+
+##### Class ERR_MISSING_PARAMETER Constructor 
+
+```ts
+constructor(name: string, mustBe: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2807,6 +2889,18 @@ export class ERR_BAD_REQUEST extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_BAD_REQUEST Details</summary>
+
+##### Class ERR_BAD_REQUEST Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2823,6 +2917,18 @@ export class ERR_CHAIN extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_CHAIN Details</summary>
+
+##### Class ERR_CHAIN Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2837,6 +2943,18 @@ export class ERR_CHAIN_INVALID extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_CHAIN_INVALID Details</summary>
+
+##### Class ERR_CHAIN_INVALID Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2853,6 +2971,18 @@ export class ERR_TXID_INVALID extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_TXID_INVALID Details</summary>
+
+##### Class ERR_TXID_INVALID Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2868,6 +2998,18 @@ export class ERR_TXID_UNKNOWN extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_TXID_UNKNOWN Details</summary>
+
+##### Class ERR_TXID_UNKNOWN Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2882,6 +3024,18 @@ export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_TX_BAD_AMOUNT Details</summary>
+
+##### Class ERR_DOJO_TX_BAD_AMOUNT Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2901,6 +3055,18 @@ export class ERR_DOJO_NOT_SUFFICIENT_FUNDS extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_NOT_SUFFICIENT_FUNDS Details</summary>
+
+##### Class ERR_DOJO_NOT_SUFFICIENT_FUNDS Constructor 
+
+```ts
+constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2915,6 +3081,18 @@ export class ERR_DOJO_UNKNOWN_FEE_MODEL extends CwiError {
     constructor(model: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_UNKNOWN_FEE_MODEL Details</summary>
+
+##### Class ERR_DOJO_UNKNOWN_FEE_MODEL Constructor 
+
+```ts
+constructor(model: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2931,6 +3109,18 @@ export class ERR_DOJO_BROADCAST_DUPE extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_BROADCAST_DUPE Details</summary>
+
+##### Class ERR_DOJO_BROADCAST_DUPE Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2945,6 +3135,18 @@ export class ERR_DOJO_CERT_DUPE extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_CERT_DUPE Details</summary>
+
+##### Class ERR_DOJO_CERT_DUPE Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2961,6 +3163,18 @@ export class ERR_DOJO_CERT_INVALID extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_CERT_INVALID Details</summary>
+
+##### Class ERR_DOJO_CERT_INVALID Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2975,6 +3189,18 @@ export class ERR_DOJO_CERT_SUBJECT extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_CERT_SUBJECT Details</summary>
+
+##### Class ERR_DOJO_CERT_SUBJECT Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2991,6 +3217,18 @@ export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_CREATE_TX_EMPTY Details</summary>
+
+##### Class ERR_DOJO_CREATE_TX_EMPTY Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3005,6 +3243,18 @@ export class ERR_DOJO_INVALID_REDEEM extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_REDEEM Details</summary>
+
+##### Class ERR_DOJO_INVALID_REDEEM Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3021,6 +3271,18 @@ export class ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS Details</summary>
+
+##### Class ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3035,6 +3297,18 @@ export class ERR_DOJO_INVALID_OUTPOINT extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_OUTPOINT Details</summary>
+
+##### Class ERR_DOJO_INVALID_OUTPOINT Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3051,6 +3325,18 @@ export class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION Details</summary>
+
+##### Class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3065,6 +3351,18 @@ export class ERR_DOJO_INVALID_PAYMAIL_HANDLE extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_PAYMAIL_HANDLE Details</summary>
+
+##### Class ERR_DOJO_INVALID_PAYMAIL_HANDLE Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3081,6 +3379,18 @@ export class ERR_DOJO_INVALID_PAYMAIL_DOMAIN extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_PAYMAIL_DOMAIN Details</summary>
+
+##### Class ERR_DOJO_INVALID_PAYMAIL_DOMAIN Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3095,6 +3405,18 @@ export class ERR_DOJO_INVALID_NOTE extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_NOTE Details</summary>
+
+##### Class ERR_DOJO_INVALID_NOTE Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3111,6 +3433,18 @@ export class ERR_DOJO_INVALID_REFERENCE extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_REFERENCE Details</summary>
+
+##### Class ERR_DOJO_INVALID_REFERENCE Constructor 
+
+```ts
+constructor(reference?: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3125,6 +3459,18 @@ export class ERR_DOJO_INVALID_SATOSHIS extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_SATOSHIS Details</summary>
+
+##### Class ERR_DOJO_INVALID_SATOSHIS Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3141,6 +3487,18 @@ export class ERR_DOJO_INVALID_SCRIPT extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_SCRIPT Details</summary>
+
+##### Class ERR_DOJO_INVALID_SCRIPT Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3155,6 +3513,18 @@ export class ERR_DOJO_INVALID_TIME extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_TIME Details</summary>
+
+##### Class ERR_DOJO_INVALID_TIME Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3171,6 +3541,18 @@ export class ERR_DOJO_INVALID_TRANSACTION_STATUS extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_TRANSACTION_STATUS Details</summary>
+
+##### Class ERR_DOJO_INVALID_TRANSACTION_STATUS Constructor 
+
+```ts
+constructor(stat: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3185,6 +3567,18 @@ export class ERR_DOJO_INVALID_BASKET_NAME extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_BASKET_NAME Details</summary>
+
+##### Class ERR_DOJO_INVALID_BASKET_NAME Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3201,6 +3595,18 @@ export class ERR_DOJO_INVALID_TX_RECIPIENT extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_TX_RECIPIENT Details</summary>
+
+##### Class ERR_DOJO_INVALID_TX_RECIPIENT Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3215,6 +3621,18 @@ export class ERR_DOJO_INVALID_TX_LABEL extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_INVALID_TX_LABEL Details</summary>
+
+##### Class ERR_DOJO_INVALID_TX_LABEL Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3231,6 +3649,18 @@ export class ERR_DOJO_INVALID_TXID extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_INVALID_TXID Details</summary>
+
+##### Class ERR_DOJO_INVALID_TXID Constructor 
+
+```ts
+constructor(txid: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3245,6 +3675,18 @@ export class ERR_DOJO_LABEL_NOT_FOUND extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_LABEL_NOT_FOUND Details</summary>
+
+##### Class ERR_DOJO_LABEL_NOT_FOUND Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3261,6 +3703,18 @@ export class ERR_DOJO_PAYMAIL_MISMATCH extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_PAYMAIL_MISMATCH Details</summary>
+
+##### Class ERR_DOJO_PAYMAIL_MISMATCH Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3275,6 +3729,18 @@ export class ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY Details</summary>
+
+##### Class ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3291,6 +3757,18 @@ export class ERR_DOJO_PAYMAIL_NOT_FOUND extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_PAYMAIL_NOT_FOUND Details</summary>
+
+##### Class ERR_DOJO_PAYMAIL_NOT_FOUND Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3305,6 +3783,18 @@ export class ERR_DOJO_PAYMAIL_UNAVAILABLE extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_PAYMAIL_UNAVAILABLE Details</summary>
+
+##### Class ERR_DOJO_PAYMAIL_UNAVAILABLE Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3321,6 +3811,18 @@ export class ERR_DOJO_REQUEST_EXPIRED extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_REQUEST_EXPIRED Details</summary>
+
+##### Class ERR_DOJO_REQUEST_EXPIRED Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3335,6 +3837,18 @@ export class ERR_DOJO_SENDER_SIGNATURE_CHECK extends CwiError {
     constructor() 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_SENDER_SIGNATURE_CHECK Details</summary>
+
+##### Class ERR_DOJO_SENDER_SIGNATURE_CHECK Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3351,6 +3865,18 @@ export class ERR_DOJO_TRANSACTION_NOT_FOUND extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_TRANSACTION_NOT_FOUND Details</summary>
+
+##### Class ERR_DOJO_TRANSACTION_NOT_FOUND Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3365,6 +3891,18 @@ export class ERR_DOJO_TRANSACTION_REJECTED extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_TRANSACTION_REJECTED Details</summary>
+
+##### Class ERR_DOJO_TRANSACTION_REJECTED Constructor 
+
+```ts
+constructor(description?: string) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3381,6 +3919,18 @@ export class ERR_DOJO_NO_ENVELOPE extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_NO_ENVELOPE Details</summary>
+
+##### Class ERR_DOJO_NO_ENVELOPE Constructor 
+
+```ts
+constructor(txid: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3396,6 +3946,18 @@ export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_PROCESS_PENDING_OUTGOING Details</summary>
+
+##### Class ERR_DOJO_PROCESS_PENDING_OUTGOING Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3406,6 +3968,18 @@ export class ERR_DOJO_SYNC_STATUS extends CwiError {
     constructor(step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_SYNC_STATUS Details</summary>
+
+##### Class ERR_DOJO_SYNC_STATUS Constructor 
+
+```ts
+constructor(step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3418,6 +3992,18 @@ export class ERR_DOJO_SYNC_REFNUM extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_SYNC_REFNUM Details</summary>
+
+##### Class ERR_DOJO_SYNC_REFNUM Constructor 
+
+```ts
+constructor(expected: string, actual: string) 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3429,6 +4015,18 @@ export class ERR_DOJO_SYNC_STATE extends CwiError {
 }
 ```
 
+<details>
+
+<summary>Class ERR_DOJO_SYNC_STATE Details</summary>
+
+##### Class ERR_DOJO_SYNC_STATE Constructor 
+
+```ts
+constructor() 
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -3439,6 +4037,18 @@ export class ERR_DOJO_SYNC_TOTAL extends CwiError {
     constructor(expected: number | undefined, actual: number | undefined) 
 }
 ```
+
+<details>
+
+<summary>Class ERR_DOJO_SYNC_TOTAL Details</summary>
+
+##### Class ERR_DOJO_SYNC_TOTAL Constructor 
+
+```ts
+constructor(expected: number | undefined, actual: number | undefined) 
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3496,9 +4106,15 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function randomBytes(count: number): Buffer 
 ```
 
+<details>
+
+<summary>Function randomBytes Details</summary>
+
 ##### Returns
 
 count cryptographically secure random bytes as Buffer
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3511,9 +4127,15 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function randomBytesHex(count: number): string 
 ```
 
+<details>
+
+<summary>Function randomBytesHex Details</summary>
+
 ##### Returns
 
 count cryptographically secure random bytes as hex encoded string
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3526,9 +4148,15 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function randomBytesBase64(count: number): string 
 ```
 
+<details>
+
+<summary>Function randomBytesBase64 Details</summary>
+
 ##### Returns
 
 count cryptographically secure random bytes as base64 encoded string
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3545,13 +4173,13 @@ export function randomMinMax(min: number, max: number): number {
 }
 ```
 
+<details>
+
+<summary>Function randomMinMax Details</summary>
+
 ##### Returns
 
 a weakly randomized value in the range from min to less than max.
-
-<details>
-
-<summary>Function randomMinMax Argument Details</summary>
 
 ###### min
 
@@ -3588,9 +4216,15 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 ```
 
+<details>
+
+<summary>Function shuffleArray Details</summary>
+
 ##### Returns
 
 original `array` with contents shuffled
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3607,13 +4241,13 @@ export function asBuffer(val: Buffer | string, encoding?: BufferEncoding): Buffe
 }
 ```
 
+<details>
+
+<summary>Function asBuffer Details</summary>
+
 ##### Returns
 
 input val if it is a Buffer or new Buffer from string val
-
-<details>
-
-<summary>Function asBuffer Argument Details</summary>
 
 ###### encoding
 
@@ -3634,13 +4268,13 @@ export function asString(val: Buffer | string, encoding?: BufferEncoding): strin
 }
 ```
 
+<details>
+
+<summary>Function asString Details</summary>
+
 ##### Returns
 
 input val if it is a string or Buffer encoded as string
-
-<details>
-
-<summary>Function asString Argument Details</summary>
 
 ###### encoding
 
@@ -3661,9 +4295,15 @@ export function sha256Hash(buffer: Buffer): Buffer {
 }
 ```
 
+<details>
+
+<summary>Function sha256Hash Details</summary>
+
 ##### Returns
 
 sha256 hash of buffer contents.
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3680,13 +4320,13 @@ export function doubleSha256HashLE(data: string | Buffer, encoding?: BufferEncod
 }
 ```
 
+<details>
+
+<summary>Function doubleSha256HashLE Details</summary>
+
 ##### Returns
 
 double sha256 hash of buffer contents, byte 0 of hash first.
-
-<details>
-
-<summary>Function doubleSha256HashLE Argument Details</summary>
 
 ###### data
 
@@ -3707,13 +4347,13 @@ export function doubleSha256BE(data: string | Buffer, encoding?: BufferEncoding)
 }
 ```
 
+<details>
+
+<summary>Function doubleSha256BE Details</summary>
+
 ##### Returns
 
 reversed (big-endian) double sha256 hash of data, byte 31 of hash first.
-
-<details>
-
-<summary>Function doubleSha256BE Argument Details</summary>
 
 ###### data
 
@@ -3734,9 +4374,15 @@ export function swapByteOrder(buffer: Buffer): Buffer {
 }
 ```
 
+<details>
+
+<summary>Function swapByteOrder Details</summary>
+
 ##### Returns
 
 new buffer with byte order reversed.
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3754,13 +4400,13 @@ export function convertUint32ToBuffer(num: number, littleEndian = true): Buffer 
 }
 ```
 
+<details>
+
+<summary>Function convertUint32ToBuffer Details</summary>
+
 ##### Returns
 
 four byte buffer with Uint32 number encoded
-
-<details>
-
-<summary>Function convertUint32ToBuffer Argument Details</summary>
 
 ###### num
 
@@ -3783,13 +4429,13 @@ export function convertBufferToUint32(buffer: Buffer, littleEndian = true): numb
 }
 ```
 
+<details>
+
+<summary>Function convertBufferToUint32 Details</summary>
+
 ##### Returns
 
 a number value in the Uint32 value range
-
-<details>
-
-<summary>Function convertBufferToUint32 Argument Details</summary>
 
 ###### buffer
 
@@ -3899,13 +4545,13 @@ Specification Reference: https://tsc.bitcoinassociation.net/standards/merkle-pro
 export function computeRootFromMerkleProofNodes(index: number, txid: string | Buffer, nodes: string[] | Buffer): Buffer 
 ```
 
+<details>
+
+<summary>Function computeRootFromMerkleProofNodes Details</summary>
+
 ##### Returns
 
 computed merkle tree root for comparison to known root.
-
-<details>
-
-<summary>Function computeRootFromMerkleProofNodes Argument Details</summary>
 
 ###### index
 
@@ -3936,7 +4582,7 @@ export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: st
 
 <details>
 
-<summary>Function computeMerkleTreeParent Argument Details</summary>
+<summary>Function computeMerkleTreeParent Details</summary>
 
 ###### leftNode
 
@@ -4001,13 +4647,13 @@ Returns the Identity Key value associated with a private key.
 export function identityKeyFromPrivateKey(privKey: string): string 
 ```
 
+<details>
+
+<summary>Function identityKeyFromPrivateKey Details</summary>
+
 ##### Returns
 
 hex encoded Identity Key.
-
-<details>
-
-<summary>Function identityKeyFromPrivateKey Argument Details</summary>
 
 ###### privKey
 
@@ -4319,9 +4965,15 @@ export function blockHash(header: BaseBlockHeader | Buffer): Buffer {
 }
 ```
 
+<details>
+
+<summary>Function blockHash Details</summary>
+
 ##### Returns
 
 doule sha256 hash of header bytes reversed
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -4361,9 +5013,15 @@ export function serializeBlockHeader(header: BaseBlockHeader, buffer?: Buffer, o
 }
 ```
 
+<details>
+
+<summary>Function serializeBlockHeader Details</summary>
+
 ##### Returns
 
 80 byte Buffer
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -4447,13 +5105,13 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function transactionInputSize(scriptSize: number): number 
 ```
 
+<details>
+
+<summary>Function transactionInputSize Details</summary>
+
 ##### Returns
 
 serialized byte length a transaction input
-
-<details>
-
-<summary>Function transactionInputSize Argument Details</summary>
 
 ###### scriptSize
 
@@ -4470,13 +5128,13 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function transactionOutputSize(scriptSize: number): number 
 ```
 
+<details>
+
+<summary>Function transactionOutputSize Details</summary>
+
 ##### Returns
 
 serialized byte length a transaction output
-
-<details>
-
-<summary>Function transactionOutputSize Argument Details</summary>
 
 ###### scriptSize
 
@@ -4497,13 +5155,13 @@ and the size of each script.
 export function transactionSize(inputs: number[], outputs: number[]): number 
 ```
 
+<details>
+
+<summary>Function transactionSize Details</summary>
+
 ##### Returns
 
 total transaction size in bytes
-
-<details>
-
-<summary>Function transactionSize Argument Details</summary>
 
 ###### inputs
 
@@ -4650,9 +5308,15 @@ throws ERR_BAD_REQUEST if results has length greater than one.
 export function verifyOneOrNone<T>(results: T[]): (T | undefined) 
 ```
 
+<details>
+
+<summary>Function verifyOneOrNone Details</summary>
+
 ##### Returns
 
 results[0] or undefined if length is zero.
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -4669,9 +5333,15 @@ throws ERR_BAD_REQUEST if results has length other than one.
 export function verifyOne<T>(results: T[], errorDescrition?: string): T 
 ```
 
+<details>
+
+<summary>Function verifyOne Details</summary>
+
 ##### Returns
 
 results[0].
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -4688,9 +5358,15 @@ throws ERR_BAD_REQUEST if results has length greater than one.
 export function verifyNone<T>(results: T[]): void 
 ```
 
+<details>
+
+<summary>Function verifyNone Details</summary>
+
 ##### Returns
 
 results[0] or undefined if length is zero.
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -4912,13 +5588,13 @@ computation to rederive the full point.
 export function pointToCompressed(point: Point): Buffer 
 ```
 
+<details>
+
+<summary>Function pointToCompressed Details</summary>
+
 ##### Returns
 
 A compressed point in the form of a buffer.
-
-<details>
-
-<summary>Function pointToCompressed Argument Details</summary>
 
 ###### point
 
