@@ -65,29 +65,53 @@ export interface BaseBlockHeader {
 
 <summary>Interface BaseBlockHeader Details</summary>
 
-###### version
-
-Block header version value. Serialized length is 4 bytes.
-
-###### previousHash
-
-Hash of previous block's block header. Serialized length is 32 bytes.
-
-###### merkleRoot
-
-Root hash of the merkle tree of all transactions in this block. Serialized length is 32 bytes.
-
-###### time
-
-Block header time value. Serialized length is 4 bytes.
-
-###### bits
+##### Interface BaseBlockHeader Property bits
 
 Block header bits value. Serialized length is 4 bytes.
 
-###### nonce
+```ts
+bits: number
+```
+
+##### Interface BaseBlockHeader Property merkleRoot
+
+Root hash of the merkle tree of all transactions in this block. Serialized length is 32 bytes.
+
+```ts
+merkleRoot: Buffer
+```
+
+##### Interface BaseBlockHeader Property nonce
 
 Block header nonce value. Serialized length is 4 bytes.
+
+```ts
+nonce: number
+```
+
+##### Interface BaseBlockHeader Property previousHash
+
+Hash of previous block's block header. Serialized length is 32 bytes.
+
+```ts
+previousHash: Buffer
+```
+
+##### Interface BaseBlockHeader Property time
+
+Block header time value. Serialized length is 4 bytes.
+
+```ts
+time: number
+```
+
+##### Interface BaseBlockHeader Property version
+
+Block header version value. Serialized length is 4 bytes.
+
+```ts
+version: number
+```
 
 </details>
 
@@ -111,6 +135,48 @@ export interface BaseBlockHeaderHex {
 }
 ```
 
+<details>
+
+<summary>Interface BaseBlockHeaderHex Details</summary>
+
+##### Interface BaseBlockHeaderHex Property bits
+
+```ts
+bits: number
+```
+
+##### Interface BaseBlockHeaderHex Property merkleRoot
+
+```ts
+merkleRoot: string
+```
+
+##### Interface BaseBlockHeaderHex Property nonce
+
+```ts
+nonce: number
+```
+
+##### Interface BaseBlockHeaderHex Property previousHash
+
+```ts
+previousHash: string
+```
+
+##### Interface BaseBlockHeaderHex Property time
+
+```ts
+time: number
+```
+
+##### Interface BaseBlockHeaderHex Property version
+
+```ts
+version: number
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -131,13 +197,21 @@ export interface BlockHeader extends BaseBlockHeader {
 
 <summary>Interface BlockHeader Details</summary>
 
-###### height
+##### Interface BlockHeader Property hash
+
+The double sha256 hash of the serialized `BaseBlockHeader` fields.
+
+```ts
+hash: Buffer
+```
+
+##### Interface BlockHeader Property height
 
 Height of the header, starting from zero.
 
-###### hash
-
-The double sha256 hash of the serialized `BaseBlockHeader` fields.
+```ts
+height: number
+```
 
 </details>
 
@@ -156,6 +230,24 @@ export interface BlockHeaderHex extends BaseBlockHeaderHex {
     hash: string;
 }
 ```
+
+<details>
+
+<summary>Interface BlockHeaderHex Details</summary>
+
+##### Interface BlockHeaderHex Property hash
+
+```ts
+hash: string
+```
+
+##### Interface BlockHeaderHex Property height
+
+```ts
+height: number
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -181,31 +273,51 @@ export interface LiveBlockHeader extends BlockHeader {
 
 <summary>Interface LiveBlockHeader Details</summary>
 
-###### chainWork
+##### Interface LiveBlockHeader Property chainWork
 
 The cummulative chainwork achieved by the addition of this block to the chain.
 Chainwork only matters in selecting the active chain.
 
-###### isChainTip
+```ts
+chainWork: Buffer
+```
 
-True only if this header is currently a chain tip. e.g. There is no header that follows it by previousHash or previousHeaderId.
-
-###### isActive
-
-True only if this header is currently on the active chain.
-
-###### headerId
+##### Interface LiveBlockHeader Property headerId
 
 As there may be more than one header with identical height values due to orphan tracking,
 headers are assigned a unique headerId while part of the "live" portion of the block chain.
 
-###### previousHeaderId
+```ts
+headerId: number
+```
+
+##### Interface LiveBlockHeader Property isActive
+
+True only if this header is currently on the active chain.
+
+```ts
+isActive: boolean
+```
+
+##### Interface LiveBlockHeader Property isChainTip
+
+True only if this header is currently a chain tip. e.g. There is no header that follows it by previousHash or previousHeaderId.
+
+```ts
+isChainTip: boolean
+```
+
+##### Interface LiveBlockHeader Property previousHeaderId
 
 Every header in the "live" portion of the block chain is linked to an ancestor header through
 both its previousHash and previousHeaderId properties.
 
 Due to forks, there may be multiple headers with identical `previousHash` and `previousHeaderId` values.
 Of these, only one (the header on the active chain) will have `isActive` === true.
+
+```ts
+previousHeaderId: number | null
+```
 
 </details>
 
@@ -228,6 +340,42 @@ export interface LiveBlockHeaderHex extends BlockHeaderHex {
 }
 ```
 
+<details>
+
+<summary>Interface LiveBlockHeaderHex Details</summary>
+
+##### Interface LiveBlockHeaderHex Property chainWork
+
+```ts
+chainWork: string
+```
+
+##### Interface LiveBlockHeaderHex Property headerId
+
+```ts
+headerId: number
+```
+
+##### Interface LiveBlockHeaderHex Property isActive
+
+```ts
+isActive: boolean
+```
+
+##### Interface LiveBlockHeaderHex Property isChainTip
+
+```ts
+isChainTip: boolean
+```
+
+##### Interface LiveBlockHeaderHex Property previousHeaderId
+
+```ts
+previousHeaderId: number | null
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -241,6 +389,24 @@ export interface ChaintracksPackageInfoApi {
     version: string;
 }
 ```
+
+<details>
+
+<summary>Interface ChaintracksPackageInfoApi Details</summary>
+
+##### Interface ChaintracksPackageInfoApi Property name
+
+```ts
+name: string
+```
+
+##### Interface ChaintracksPackageInfoApi Property version
+
+```ts
+version: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -262,6 +428,66 @@ export interface ChaintracksInfoApi {
     packages: ChaintracksPackageInfoApi[];
 }
 ```
+
+<details>
+
+<summary>Interface ChaintracksInfoApi Details</summary>
+
+##### Interface ChaintracksInfoApi Property bulkIndex
+
+```ts
+bulkIndex: string | undefined
+```
+
+##### Interface ChaintracksInfoApi Property bulkIngestors
+
+```ts
+bulkIngestors: string[]
+```
+
+##### Interface ChaintracksInfoApi Property bulkStorage
+
+```ts
+bulkStorage: string | undefined
+```
+
+##### Interface ChaintracksInfoApi Property chain
+
+```ts
+chain: Chain
+```
+
+##### Interface ChaintracksInfoApi Property heightBulk
+
+```ts
+heightBulk: number
+```
+
+##### Interface ChaintracksInfoApi Property heightLive
+
+```ts
+heightLive: number
+```
+
+##### Interface ChaintracksInfoApi Property liveIngestors
+
+```ts
+liveIngestors: string[]
+```
+
+##### Interface ChaintracksInfoApi Property packages
+
+```ts
+packages: ChaintracksPackageInfoApi[]
+```
+
+##### Interface ChaintracksInfoApi Property storageEngine
+
+```ts
+storageEngine: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -306,85 +532,7 @@ export interface ChaintracksClientApi {
 
 <summary>Interface ChaintracksClientApi Details</summary>
 
-###### getChain
-
-Confirms the chain
-
-###### getInfo
-
-###### getPresentHeight
-
-Return the latest chain height from configured bulk ingestors.
-
-###### getHeaders
-
-Adds headers in 80 byte serialized format to a buffer.
-Only adds active headers.
-Buffer length divided by 80 is the actual number returned.
-
-###### getHeadersHex
-
-Adds headers in 80 byte serialized format to a buffer.
-Only adds active headers.
-Buffer length divided by 80 is the actual number returned.
-
-###### findChainTipHeader
-
-Returns the active chain tip header
-
-###### findChainTipHeaderHex
-
-Returns the active chain tip header
-
-###### findChainTipHash
-
-Returns the block hash of the active chain tip.
-
-###### findChainTipHashHex
-
-Returns the block hash of the active chain tip.
-
-###### findChainWorkForBlockHash
-
-Only returns a value for headers in live storage.
-Returns undefined if `hash` is unknown or in bulk storage.
-
-###### findChainWorkHexForBlockHash
-
-Only returns a value for headers in live storage.
-Returns undefined if `hash` is unknown or in bulk storage.
-
-###### findHeaderForBlockHash
-
-Returns block header for a given block hash
-
-###### findHeaderHexForBlockHash
-
-Returns block header for a given block hash
-
-###### findHeaderForHeight
-
-Returns block header for a given block height on active chain.
-
-###### findHeaderHexForHeight
-
-Returns block header for a given block height on active chain.
-
-###### findHeaderForMerkleRoot
-
-Returns block header for a given possible height and specific merkleRoot
-The height, available for all mined blocks, allows fast and compact indexing of
-bulk headers.
-Confirms that the found header has the request merkleRoot or returns undefined.
-
-###### findHeaderHexForMerkleRoot
-
-Returns block header for a given possible height and specific merkleRoot
-The height, available for all mined blocks, allows fast and compact indexing of
-bulk headers.
-Confirms that the found header has the request merkleRoot or returns undefined.
-
-###### addHeader
+##### Interface ChaintracksClientApi Method addHeader
 
 Submit a possibly new header for adding
 
@@ -393,7 +541,290 @@ If the header is invalid or a duplicate it will not be added.
 This header will be ignored if the previous header has not already been inserted when this header
 is considered for insertion.
 
-###### startListening
+```ts
+addHeader(header: BaseBlockHeader | BaseBlockHeaderHex): Promise<void>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method addHeader Details</summary>
+
+###### Returns
+
+immediately
+
+</details>
+
+##### Interface ChaintracksClientApi Method findChainTipHash
+
+Returns the block hash of the active chain tip.
+
+```ts
+findChainTipHash(): Promise<Buffer>
+```
+
+##### Interface ChaintracksClientApi Method findChainTipHashHex
+
+Returns the block hash of the active chain tip.
+
+```ts
+findChainTipHashHex(): Promise<string>
+```
+
+##### Interface ChaintracksClientApi Method findChainTipHeader
+
+Returns the active chain tip header
+
+```ts
+findChainTipHeader(): Promise<BlockHeader>
+```
+
+##### Interface ChaintracksClientApi Method findChainTipHeaderHex
+
+Returns the active chain tip header
+
+```ts
+findChainTipHeaderHex(): Promise<BlockHeaderHex>
+```
+
+##### Interface ChaintracksClientApi Method findChainWorkForBlockHash
+
+Only returns a value for headers in live storage.
+Returns undefined if `hash` is unknown or in bulk storage.
+
+```ts
+findChainWorkForBlockHash(hash: Buffer | string): Promise<Buffer | undefined>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method findChainWorkForBlockHash Details</summary>
+
+###### Returns
+
+chainwork of block header with given hash
+
+</details>
+
+##### Interface ChaintracksClientApi Method findChainWorkHexForBlockHash
+
+Only returns a value for headers in live storage.
+Returns undefined if `hash` is unknown or in bulk storage.
+
+```ts
+findChainWorkHexForBlockHash(hash: Buffer | string): Promise<string | undefined>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method findChainWorkHexForBlockHash Details</summary>
+
+###### Returns
+
+chainwork of block header with given hash
+
+</details>
+
+##### Interface ChaintracksClientApi Method findHeaderForBlockHash
+
+Returns block header for a given block hash
+
+```ts
+findHeaderForBlockHash(hash: Buffer | string): Promise<BlockHeader | undefined>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method findHeaderForBlockHash Details</summary>
+
+###### hash
+
+block hash
+
+</details>
+
+##### Interface ChaintracksClientApi Method findHeaderForHeight
+
+Returns block header for a given block height on active chain.
+
+```ts
+findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
+```
+
+##### Interface ChaintracksClientApi Method findHeaderForMerkleRoot
+
+Returns block header for a given possible height and specific merkleRoot
+The height, available for all mined blocks, allows fast and compact indexing of
+bulk headers.
+Confirms that the found header has the request merkleRoot or returns undefined.
+
+```ts
+findHeaderForMerkleRoot(merkleRoot: Buffer | string, height?: number): Promise<BlockHeader | undefined>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method findHeaderForMerkleRoot Details</summary>
+
+###### height
+
+optional, may be required for bulk header lookup.
+
+</details>
+
+##### Interface ChaintracksClientApi Method findHeaderHexForBlockHash
+
+Returns block header for a given block hash
+
+```ts
+findHeaderHexForBlockHash(hash: Buffer | string): Promise<BlockHeaderHex | undefined>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method findHeaderHexForBlockHash Details</summary>
+
+###### hash
+
+block hash
+
+</details>
+
+##### Interface ChaintracksClientApi Method findHeaderHexForHeight
+
+Returns block header for a given block height on active chain.
+
+```ts
+findHeaderHexForHeight(height: number): Promise<BlockHeaderHex | undefined>
+```
+
+##### Interface ChaintracksClientApi Method findHeaderHexForMerkleRoot
+
+Returns block header for a given possible height and specific merkleRoot
+The height, available for all mined blocks, allows fast and compact indexing of
+bulk headers.
+Confirms that the found header has the request merkleRoot or returns undefined.
+
+```ts
+findHeaderHexForMerkleRoot(root: Buffer | string, height?: number): Promise<BlockHeaderHex | undefined>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method findHeaderHexForMerkleRoot Details</summary>
+
+###### height
+
+optional, may be required for bulk header lookup.
+
+</details>
+
+##### Interface ChaintracksClientApi Method getChain
+
+Confirms the chain
+
+```ts
+getChain(): Promise<Chain>
+```
+
+##### Interface ChaintracksClientApi Method getHeaders
+
+Adds headers in 80 byte serialized format to a buffer.
+Only adds active headers.
+Buffer length divided by 80 is the actual number returned.
+
+```ts
+getHeaders(height: number, count: number): Promise<Buffer>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method getHeaders Details</summary>
+
+###### height
+
+of first header
+
+###### count
+
+of headers, maximum
+
+</details>
+
+##### Interface ChaintracksClientApi Method getHeadersHex
+
+Adds headers in 80 byte serialized format to a buffer.
+Only adds active headers.
+Buffer length divided by 80 is the actual number returned.
+
+```ts
+getHeadersHex(height: number, count: number): Promise<string>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method getHeadersHex Details</summary>
+
+###### height
+
+of first header
+
+###### count
+
+of headers, maximum
+
+</details>
+
+##### Interface ChaintracksClientApi Method getInfo
+
+```ts
+getInfo(): Promise<ChaintracksInfoApi>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method getInfo Details</summary>
+
+###### Returns
+
+Summary of configuration and state.
+
+</details>
+
+##### Interface ChaintracksClientApi Method getPresentHeight
+
+Return the latest chain height from configured bulk ingestors.
+
+```ts
+getPresentHeight(): Promise<number>
+```
+
+##### Interface ChaintracksClientApi Method isListening
+
+Returns true if actively listening for new headers and client api is enabled.
+
+```ts
+isListening(): Promise<boolean>
+```
+
+##### Interface ChaintracksClientApi Method isSynchronized
+
+Returns true if `synchronize` has completed at least once.
+
+```ts
+isSynchronized(): Promise<boolean>
+```
+
+##### Interface ChaintracksClientApi Method listening
+
+Returns a Promise that will resolve when the previous call to startListening
+enters the listening-for-new-headers state.
+
+```ts
+listening(): Promise<void>
+```
+
+##### Interface ChaintracksClientApi Method startListening
 
 Start or resume listening for new headers.
 
@@ -408,31 +839,68 @@ May be called if already listening or synchronizing to listen.
 
 The `listening` API function which returns a Promise can be awaited.
 
-###### listening
+```ts
+startListening(): Promise<void>
+```
 
-Returns a Promise that will resolve when the previous call to startListening
-enters the listening-for-new-headers state.
-
-###### isListening
-
-Returns true if actively listening for new headers and client api is enabled.
-
-###### isSynchronized
-
-Returns true if `synchronize` has completed at least once.
-
-###### subscribeHeaders
+##### Interface ChaintracksClientApi Method subscribeHeaders
 
 Subscribe to "header" events.
 
-###### subscribeReorgs
+```ts
+subscribeHeaders(listener: HeaderListener): Promise<string>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method subscribeHeaders Details</summary>
+
+###### Returns
+
+identifier for this subscription
+
+</details>
+
+##### Interface ChaintracksClientApi Method subscribeReorgs
 
 Subscribe to "reorganization" events.
 
-###### unsubscribe
+```ts
+subscribeReorgs(listener: ReorgListener): Promise<string>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method subscribeReorgs Details</summary>
+
+###### Returns
+
+identifier for this subscription
+
+</details>
+
+##### Interface ChaintracksClientApi Method unsubscribe
 
 Cancels all subscriptions with the given `subscriptionId` which was previously returned
 by a `subscribe` method.
+
+```ts
+unsubscribe(subscriptionId: string): Promise<boolean>
+```
+
+<details>
+
+<summary>Interface ChaintracksClientApi Method unsubscribe Details</summary>
+
+###### Returns
+
+true if a subscription was canceled
+
+###### subscriptionId
+
+value previously returned by subscribeToHeaders or subscribeToReorgs
+
+</details>
 
 </details>
 
@@ -455,7 +923,7 @@ export interface ChaintracksApi extends ChaintracksClientApi {
 
 <summary>Interface ChaintracksApi Details</summary>
 
-###### startListening
+##### Interface ChaintracksApi Method startListening
 
 Start or resume listening for new headers.
 
@@ -470,6 +938,20 @@ May be called if already listening or synchronizing to listen.
 
 `listening` callback will be called after listening for new live headers has begun.
 Alternatively, the `listening` API function which returns a Promise can be awaited.
+
+```ts
+startListening(listening?: () => void): Promise<void>
+```
+
+<details>
+
+<summary>Interface ChaintracksApi Method startListening Details</summary>
+
+###### listening
+
+callback indicates when listening for new headers has started.
+
+</details>
 
 </details>
 
@@ -492,27 +974,35 @@ export interface MapiResponseApi {
 
 <summary>Interface MapiResponseApi Details</summary>
 
-###### payload
+##### Interface MapiResponseApi Property encoding
 
-Contents of the envelope.
-Validate using signature and publicKey.
-encoding and mimetype may assist with decoding validated payload.
+```ts
+encoding?: string
+```
 
-###### signature
+##### Interface MapiResponseApi Property mimetype
 
-signature producted by correpsonding private key on payload data
+```ts
+mimetype?: string
+```
 
-###### publicKey
+##### Interface MapiResponseApi Property payload
 
-public key to use to verify signature of payload data
+```ts
+payload: string
+```
 
-###### encoding
+##### Interface MapiResponseApi Property publicKey
 
-encoding of the payload data
+```ts
+publicKey: string
+```
 
-###### mimetype
+##### Interface MapiResponseApi Property signature
 
-mime type of the payload data
+```ts
+signature: string
+```
 
 </details>
 
@@ -542,31 +1032,69 @@ export interface TscMerkleProofApi {
 
 <summary>Interface TscMerkleProofApi Details</summary>
 
-###### height
+##### Interface TscMerkleProofApi Property composite
+
+```ts
+composite?: boolean
+```
+
+##### Interface TscMerkleProofApi Property height
 
 The most efficient way of confirming a proof should also be the most common,
 when the containing block's height is known.
 
-###### index
+```ts
+height?: number
+```
+
+##### Interface TscMerkleProofApi Property index
 
 Index of transaction in its block. First transaction is index zero.
 
-###### txOrId
+```ts
+index: number
+```
 
-Full transaction (length > 32 bytes) or just its double SHA256 hash (length === 32 bytes).
-If string, encoding is hex.
-
-###### target
-
-Merkle root (length === 32) or serialized block header containing it (length === 80).
-If string, encoding is hex.
-
-###### nodes
+##### Interface TscMerkleProofApi Property nodes
 
 Merkle tree sibling hash values required to compute root from txid.
 Duplicates (sibling hash === computed hash) are indicated by "*" or type byte === 1.
 type byte === 2...
 Strings are encoded as hex.
+
+```ts
+nodes: string[] | Buffer
+```
+
+##### Interface TscMerkleProofApi Property proofType
+
+```ts
+proofType?: "branch" | "tree"
+```
+
+##### Interface TscMerkleProofApi Property target
+
+Merkle root (length === 32) or serialized block header containing it (length === 80).
+If string, encoding is hex.
+
+```ts
+target: string | Buffer
+```
+
+##### Interface TscMerkleProofApi Property targetType
+
+```ts
+targetType?: "hash" | "header" | "merkleRoot" | "height"
+```
+
+##### Interface TscMerkleProofApi Property txOrId
+
+Full transaction (length > 32 bytes) or just its double SHA256 hash (length === 32 bytes).
+If string, encoding is hex.
+
+```ts
+txOrId: string | Buffer
+```
 
 </details>
 
@@ -594,6 +1122,72 @@ export interface MapiTxStatusPayloadApi {
 }
 ```
 
+<details>
+
+<summary>Interface MapiTxStatusPayloadApi Details</summary>
+
+##### Interface MapiTxStatusPayloadApi Property apiVersion
+
+```ts
+apiVersion: string
+```
+
+##### Interface MapiTxStatusPayloadApi Property blockHash
+
+```ts
+blockHash: string
+```
+
+##### Interface MapiTxStatusPayloadApi Property blockHeight
+
+```ts
+blockHeight: number
+```
+
+##### Interface MapiTxStatusPayloadApi Property confirmations
+
+```ts
+confirmations: number
+```
+
+##### Interface MapiTxStatusPayloadApi Property merkleProof
+
+```ts
+merkleProof?: TscMerkleProofApi
+```
+
+##### Interface MapiTxStatusPayloadApi Property minerId
+
+```ts
+minerId: string
+```
+
+##### Interface MapiTxStatusPayloadApi Property returnResult
+
+```ts
+returnResult: string
+```
+
+##### Interface MapiTxStatusPayloadApi Property timestamp
+
+```ts
+timestamp: string
+```
+
+##### Interface MapiTxStatusPayloadApi Property txSecondMempoolExpiry
+
+```ts
+txSecondMempoolExpiry: number
+```
+
+##### Interface MapiTxStatusPayloadApi Property txid
+
+```ts
+txid: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -615,6 +1209,54 @@ export interface MapiCallbackPayloadApi {
 }
 ```
 
+<details>
+
+<summary>Interface MapiCallbackPayloadApi Details</summary>
+
+##### Interface MapiCallbackPayloadApi Property apiVersion
+
+```ts
+apiVersion: string
+```
+
+##### Interface MapiCallbackPayloadApi Property blockHash
+
+```ts
+blockHash: string
+```
+
+##### Interface MapiCallbackPayloadApi Property blockHeight
+
+```ts
+blockHeight: number
+```
+
+##### Interface MapiCallbackPayloadApi Property callbackPayload
+
+```ts
+callbackPayload: string
+```
+
+##### Interface MapiCallbackPayloadApi Property callbackReason
+
+```ts
+callbackReason: string
+```
+
+##### Interface MapiCallbackPayloadApi Property callbackTxId
+
+```ts
+callbackTxId: string
+```
+
+##### Interface MapiCallbackPayloadApi Property timestamp
+
+```ts
+timestamp: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -632,6 +1274,36 @@ export interface MapiTxidReturnResultApi {
     returnResult: string;
 }
 ```
+
+<details>
+
+<summary>Interface MapiTxidReturnResultApi Details</summary>
+
+##### Interface MapiTxidReturnResultApi Property apiVersion
+
+```ts
+apiVersion?: string
+```
+
+##### Interface MapiTxidReturnResultApi Property returnResult
+
+```ts
+returnResult: string
+```
+
+##### Interface MapiTxidReturnResultApi Property timestamp
+
+```ts
+timestamp?: string
+```
+
+##### Interface MapiTxidReturnResultApi Property txid
+
+```ts
+txid: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -658,6 +1330,84 @@ export interface MapiPostTxPayloadApi {
     conflictedWith?: unknown[];
 }
 ```
+
+<details>
+
+<summary>Interface MapiPostTxPayloadApi Details</summary>
+
+##### Interface MapiPostTxPayloadApi Property apiVersion
+
+```ts
+apiVersion: string
+```
+
+##### Interface MapiPostTxPayloadApi Property conflictedWith
+
+```ts
+conflictedWith?: unknown[]
+```
+
+##### Interface MapiPostTxPayloadApi Property currentHighestBlockHash
+
+```ts
+currentHighestBlockHash?: string
+```
+
+##### Interface MapiPostTxPayloadApi Property currentHighestBlockHeight
+
+```ts
+currentHighestBlockHeight?: number
+```
+
+##### Interface MapiPostTxPayloadApi Property failureRetryable
+
+```ts
+failureRetryable?: boolean
+```
+
+##### Interface MapiPostTxPayloadApi Property minerId
+
+```ts
+minerId: string
+```
+
+##### Interface MapiPostTxPayloadApi Property resultDescription
+
+```ts
+resultDescription: string
+```
+
+##### Interface MapiPostTxPayloadApi Property returnResult
+
+```ts
+returnResult: string
+```
+
+##### Interface MapiPostTxPayloadApi Property timestamp
+
+```ts
+timestamp: string
+```
+
+##### Interface MapiPostTxPayloadApi Property txSecondMempoolExpiry
+
+```ts
+txSecondMempoolExpiry?: number
+```
+
+##### Interface MapiPostTxPayloadApi Property txid
+
+```ts
+txid: string
+```
+
+##### Interface MapiPostTxPayloadApi Property warnings
+
+```ts
+warnings?: unknown[]
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -699,15 +1449,23 @@ export interface EnvelopeApi extends EnvelopeEvidenceApi {
 
 <summary>Interface EnvelopeApi Details</summary>
 
-###### headers
+##### Interface EnvelopeApi Property headers
 
 For root nodes only.
 Array of 80 byte block headers encoded as 160 character hex strings
 Include headers the envelope creator is aware of but which the resipient may not have.
 
-###### reference
+```ts
+headers?: string[]
+```
+
+##### Interface EnvelopeApi Property reference
 
 Arbitrary reference string associated with the envelope, typically root node only.
+
+```ts
+reference?: string
+```
 
 </details>
 
@@ -735,28 +1493,25 @@ export interface EnvelopeEvidenceApi {
 
 <summary>Interface EnvelopeEvidenceApi Details</summary>
 
-###### rawTx
+##### Interface EnvelopeEvidenceApi Property depth
 
-A valid bitcoin transaction encoded as a hex string.
+count of maximum number of chained unproven transactions before a proven leaf node
+proof nodes have depth zero.
 
-###### proof
+```ts
+depth?: number
+```
 
-Either proof, or inputs, must have a value.
-Leaf nodes have proofs.
-
-If value is a Buffer, content is binary encoded serialized proof
-see: chaintracks-spv.utils.serializeTscMerkleProof
-
-###### inputs
+##### Interface EnvelopeEvidenceApi Property inputs
 
 Only one of proof or inputs must be valid.
 Branching nodes have inputs with a sub envelope (values) for every input transaction txid (keys)
 
-###### txid
+```ts
+inputs?: EnvelopeInputMapApi
+```
 
-double SHA256 hash of serialized rawTx. Optional.
-
-###### mapiResponses
+##### Interface EnvelopeEvidenceApi Property mapiResponses
 
 Array of mapi transaction status update responses
 Only the payload, signature, and publicKey properties are relevant.
@@ -765,10 +1520,37 @@ Branching inputs nodes only.
 Array of mapi transaction status update responses confirming
 unproven transctions have at least been submitted for processing.
 
-###### depth
+```ts
+mapiResponses?: MapiResponseApi[]
+```
 
-count of maximum number of chained unproven transactions before a proven leaf node
-proof nodes have depth zero.
+##### Interface EnvelopeEvidenceApi Property proof
+
+Either proof, or inputs, must have a value.
+Leaf nodes have proofs.
+
+If value is a Buffer, content is binary encoded serialized proof
+see: chaintracks-spv.utils.serializeTscMerkleProof
+
+```ts
+proof?: TscMerkleProofApi | Buffer
+```
+
+##### Interface EnvelopeEvidenceApi Property rawTx
+
+A valid bitcoin transaction encoded as a hex string.
+
+```ts
+rawTx: string
+```
+
+##### Interface EnvelopeEvidenceApi Property txid
+
+double SHA256 hash of serialized rawTx. Optional.
+
+```ts
+txid?: string
+```
 
 </details>
 
@@ -794,13 +1576,31 @@ export interface DojoPublicApi {
 
 <summary>Interface DojoPublicApi Details</summary>
 
-###### getChain
+##### Interface DojoPublicApi Method getChain
 
 Return the chain served by this Dojo
 
 Also serves to verifies that all dependent services are on same chain.
 
-###### stats
+```ts
+getChain(): Promise<Chain>
+```
+
+##### Interface DojoPublicApi Method stats
+
+```ts
+stats(): Promise<DojoStatsApi>
+```
+
+<details>
+
+<summary>Interface DojoPublicApi Method stats Details</summary>
+
+###### Returns
+
+general storage statistics
+
+</details>
 
 </details>
 
@@ -829,17 +1629,29 @@ export interface SyncDojoConfigBaseApi {
 
 <summary>Interface SyncDojoConfigBaseApi Details</summary>
 
-###### dojoType
-
-one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection' | '<custom>'
-
-###### dojoIdentityKey
+##### Interface SyncDojoConfigBaseApi Property dojoIdentityKey
 
 the identity key of the syncDojo.
 
-###### dojoName
+```ts
+dojoIdentityKey: string
+```
+
+##### Interface SyncDojoConfigBaseApi Property dojoName
 
 the name of the syncDojo.
+
+```ts
+dojoName?: string
+```
+
+##### Interface SyncDojoConfigBaseApi Property dojoType
+
+one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection' | '<custom>'
+
+```ts
+dojoType: SyncDojoConfigType
+```
 
 </details>
 
@@ -874,17 +1686,29 @@ export interface SyncDojoConfigCloudUrl extends SyncDojoConfigBaseApi {
 
 <summary>Interface SyncDojoConfigCloudUrl Details</summary>
 
-###### url
-
-the service URL of the cloud dojo with which to sync
-
-###### clientPrivateKey
+##### Interface SyncDojoConfigCloudUrl Property clientPrivateKey
 
 should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
 
-###### useIdentityKey
+```ts
+clientPrivateKey?: string
+```
+
+##### Interface SyncDojoConfigCloudUrl Property url
+
+the service URL of the cloud dojo with which to sync
+
+```ts
+url: string
+```
+
+##### Interface SyncDojoConfigCloudUrl Property useIdentityKey
 
 may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
+
+```ts
+useIdentityKey?: boolean
+```
 
 </details>
 
@@ -899,6 +1723,18 @@ export interface SyncDojoConfigMySqlConnection extends SyncDojoConfigBaseApi {
 }
 ```
 
+<details>
+
+<summary>Interface SyncDojoConfigMySqlConnection Details</summary>
+
+##### Interface SyncDojoConfigMySqlConnection Property connection
+
+```ts
+connection: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -909,6 +1745,18 @@ export interface SyncDojoConfigSqliteFile extends SyncDojoConfigBaseApi {
     filename: string;
 }
 ```
+
+<details>
+
+<summary>Interface SyncDojoConfigSqliteFile Details</summary>
+
+##### Interface SyncDojoConfigSqliteFile Property filename
+
+```ts
+filename: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -926,13 +1774,17 @@ export interface DojoIdentityApi {
 
 <summary>Interface DojoIdentityApi Details</summary>
 
-###### dojoIdentityKey
+##### Interface DojoIdentityApi Property dojoIdentityKey
 
-The identity key (public key) assigned to this dojo
+```ts
+dojoIdentityKey: string
+```
 
-###### dojoName
+##### Interface DojoIdentityApi Property dojoName
 
-The human readable name assigned to this dojo.
+```ts
+dojoName?: string
+```
 
 </details>
 
@@ -948,6 +1800,30 @@ export interface DojoSyncErrorApi {
     stack?: string;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSyncErrorApi Details</summary>
+
+##### Interface DojoSyncErrorApi Property code
+
+```ts
+code: string
+```
+
+##### Interface DojoSyncErrorApi Property description
+
+```ts
+description: string
+```
+
+##### Interface DojoSyncErrorApi Property stack
+
+```ts
+stack?: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -968,6 +1844,72 @@ export interface DojoSyncMapApi {
     txLabelIds: Record<number, number>;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSyncMapApi Details</summary>
+
+##### Interface DojoSyncMapApi Property aliasIds
+
+```ts
+aliasIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property basketIds
+
+```ts
+basketIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property certificateIds
+
+```ts
+certificateIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property commissionIds
+
+```ts
+commissionIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property outputIds
+
+```ts
+outputIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property provenTxIds
+
+```ts
+provenTxIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property provenTxReqIds
+
+```ts
+provenTxReqIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property responseIds
+
+```ts
+responseIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property txIds
+
+```ts
+txIds: Record<number, number>
+```
+
+##### Interface DojoSyncMapApi Property txLabelIds
+
+```ts
+txLabelIds: Record<number, number>
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -993,6 +1935,42 @@ export interface DojoSyncIdentifyParams {
 }
 ```
 
+<details>
+
+<summary>Interface DojoSyncIdentifyParams Details</summary>
+
+##### Interface DojoSyncIdentifyParams Property dojoIdentityKey
+
+```ts
+dojoIdentityKey: string
+```
+
+##### Interface DojoSyncIdentifyParams Property dojoName
+
+```ts
+dojoName?: string
+```
+
+##### Interface DojoSyncIdentifyParams Property protocolVersion
+
+```ts
+protocolVersion: DojoSyncProtocolVersion
+```
+
+##### Interface DojoSyncIdentifyParams Property refNum
+
+```ts
+refNum: string
+```
+
+##### Interface DojoSyncIdentifyParams Property userIdentityKey
+
+```ts
+userIdentityKey: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -1009,6 +1987,48 @@ export interface DojoSyncIdentifyResultApi {
 }
 ```
 
+<details>
+
+<summary>Interface DojoSyncIdentifyResultApi Details</summary>
+
+##### Interface DojoSyncIdentifyResultApi Property error
+
+```ts
+error?: DojoSyncErrorApi
+```
+
+##### Interface DojoSyncIdentifyResultApi Property identityKey
+
+```ts
+identityKey: string
+```
+
+##### Interface DojoSyncIdentifyResultApi Property name
+
+```ts
+name?: string
+```
+
+##### Interface DojoSyncIdentifyResultApi Property refNum
+
+```ts
+refNum: string
+```
+
+##### Interface DojoSyncIdentifyResultApi Property status
+
+```ts
+status: DojoSyncStatus
+```
+
+##### Interface DojoSyncIdentifyResultApi Property when
+
+```ts
+when?: Date
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -1021,6 +2041,30 @@ export interface DojoSyncUpdateParams {
     since?: Date;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSyncUpdateParams Details</summary>
+
+##### Interface DojoSyncUpdateParams Property protocolVersion
+
+```ts
+protocolVersion: DojoSyncProtocolVersion
+```
+
+##### Interface DojoSyncUpdateParams Property refNum
+
+```ts
+refNum: string
+```
+
+##### Interface DojoSyncUpdateParams Property since
+
+```ts
+since?: Date
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1036,6 +2080,42 @@ export interface DojoSyncUpdateResultApi {
     error?: DojoSyncErrorApi;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSyncUpdateResultApi Details</summary>
+
+##### Interface DojoSyncUpdateResultApi Property error
+
+```ts
+error?: DojoSyncErrorApi
+```
+
+##### Interface DojoSyncUpdateResultApi Property refNum
+
+```ts
+refNum: string
+```
+
+##### Interface DojoSyncUpdateResultApi Property since
+
+```ts
+since?: Date
+```
+
+##### Interface DojoSyncUpdateResultApi Property state
+
+```ts
+state?: DojoUserStateApi
+```
+
+##### Interface DojoSyncUpdateResultApi Property status
+
+```ts
+status: DojoSyncStatus
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1054,6 +2134,54 @@ export interface DojoSyncMergeParams {
 }
 ```
 
+<details>
+
+<summary>Interface DojoSyncMergeParams Details</summary>
+
+##### Interface DojoSyncMergeParams Property error
+
+```ts
+error?: DojoSyncErrorApi
+```
+
+##### Interface DojoSyncMergeParams Property iSyncMap
+
+```ts
+iSyncMap?: DojoSyncMapApi
+```
+
+##### Interface DojoSyncMergeParams Property protocolVersion
+
+```ts
+protocolVersion: DojoSyncProtocolVersion
+```
+
+##### Interface DojoSyncMergeParams Property refNum
+
+```ts
+refNum: string
+```
+
+##### Interface DojoSyncMergeParams Property state
+
+```ts
+state?: DojoUserStateApi
+```
+
+##### Interface DojoSyncMergeParams Property total
+
+```ts
+total?: number
+```
+
+##### Interface DojoSyncMergeParams Property when
+
+```ts
+when?: Date
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -1067,6 +2195,36 @@ export interface DojoSyncMergeResultApi {
     error?: DojoSyncErrorApi;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSyncMergeResultApi Details</summary>
+
+##### Interface DojoSyncMergeResultApi Property error
+
+```ts
+error?: DojoSyncErrorApi
+```
+
+##### Interface DojoSyncMergeResultApi Property iSyncMap
+
+```ts
+iSyncMap?: DojoSyncMapApi
+```
+
+##### Interface DojoSyncMergeResultApi Property refNum
+
+```ts
+refNum: string
+```
+
+##### Interface DojoSyncMergeResultApi Property status
+
+```ts
+status: DojoSyncStatus
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1106,27 +2264,7 @@ export interface DojoSyncApi {
 
 <summary>Interface DojoSyncApi Details</summary>
 
-###### syncIdentify
-
-Called to initiate the sync protocol.
-
-This is the initial protocol step to exchange dojo identityKeys and
-configure the records in the sync_state and sync_history tables to support the sync protocol.
-
-###### syncUpdate
-
-Receive a state update for the authenticated user from a remote dojo
-and respond with merge result and any pre-merge local state update
-for the data interval from `since` to `when`
-
-###### syncMerge
-
-Informs a syncDojo of the result of merging state received from them.
-
-This is the only valid way that the syncDojo's `when` field in `sync_state` is updated which is critical to
-guaranteeing that un-merged changes are presented until successfully merged.
-
-###### authenticate
+##### Interface DojoSyncApi Method authenticate
 
 For Dojo scenarios where it is permissible for Dojo to directly act as
 a specified user, authenticate that user by supplying their identityKey
@@ -1138,9 +2276,77 @@ to a potentially remote Dojo server:
 
 Sets userId and identityKey
 
-###### getSyncDojoConfig
+```ts
+authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+```
+
+<details>
+
+<summary>Interface DojoSyncApi Method authenticate Details</summary>
+
+###### identityKey
+
+optional, 33 hex encoded bytes, the user to authenticate's identity key
+
+###### addIfNew
+
+optional, if true, unknown identityKey is added as new user.
+
+</details>
+
+##### Interface DojoSyncApi Method getSyncDojoConfig
 
 Returns the configuration of this dojo as a syncDojo
+
+```ts
+getSyncDojoConfig(): Promise<SyncDojoConfigBaseApi>
+```
+
+##### Interface DojoSyncApi Method syncIdentify
+
+Called to initiate the sync protocol.
+
+This is the initial protocol step to exchange dojo identityKeys and
+configure the records in the sync_state and sync_history tables to support the sync protocol.
+
+```ts
+syncIdentify(params: DojoSyncIdentifyParams): Promise<DojoSyncIdentifyResultApi>
+```
+
+<details>
+
+<summary>Interface DojoSyncApi Method syncIdentify Details</summary>
+
+###### Returns
+
+Equivalent parameters for this syncDojo.
+
+###### params
+
+Parameters identifying the primary initiating dojo, user, sarting status and protocol version.
+
+</details>
+
+##### Interface DojoSyncApi Method syncMerge
+
+Informs a syncDojo of the result of merging state received from them.
+
+This is the only valid way that the syncDojo's `when` field in `sync_state` is updated which is critical to
+guaranteeing that un-merged changes are presented until successfully merged.
+
+```ts
+syncMerge(params: DojoSyncMergeParams): Promise<DojoSyncMergeResultApi>
+```
+
+##### Interface DojoSyncApi Method syncUpdate
+
+Receive a state update for the authenticated user from a remote dojo
+and respond with merge result and any pre-merge local state update
+for the data interval from `since` to `when`
+
+```ts
+syncUpdate(params: DojoSyncUpdateParams): Promise<DojoSyncUpdateResultApi>
+```
 
 </details>
 
@@ -1206,7 +2412,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
 <summary>Interface DojoClientApi Details</summary>
 
-###### authenticate
+##### Interface DojoClientApi Method authenticate
 
 For Dojo scenarios where it is permissible for Dojo to directly act as
 a specified user, authenticate that user by supplying their identityKey
@@ -1218,28 +2424,145 @@ to a potentially remote Dojo server:
 
 Sets userId and identityKey
 
-###### sync
+```ts
+authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+```
 
-Sync's this dojo's state for the authenticated user with all of the configured syncDojos
+<details>
 
-This method must be called when either a local or remote state change occurs, or may have occurred.
+<summary>Interface DojoClientApi Method authenticate Details</summary>
 
-User state changes are propagated across all configured syncDojos.
+###### identityKey
 
-###### getUser
+optional, 33 hex encoded bytes, the user to authenticate's identity key
 
-Returns authenticated user.
-Throws an error if isAuthenticated is false.
+###### addIfNew
 
-###### getAvatar
+optional, if true, unknown identityKey is added as new user.
+
+</details>
+
+##### Interface DojoClientApi Method copyState
+
+Return a complete copy of all records for the authenticated user.
+
+```ts
+copyState(since?: Date): Promise<DojoUserStateApi>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method copyState Details</summary>
+
+###### since
+
+optional, start of data interval if specified.
+
+</details>
+
+##### Interface DojoClientApi Method createTransaction
+
+Constructs a new transaction spending known outputs (inputs) and creating new outputs.
+
+If the inputs to the transaction go beyond what is needed to fund these outputs (plus the transaction fee),
+additional Dojo-managed UTXOs will be generated to collect the remainder
+(see the "outputGeneration" parameter for more on this).
+
+```ts
+createTransaction(inputs: Record<string, DojoTxInputsApi>, inputSelection: DojoTxInputSelectionApi | undefined, outputs: DojoCreateTxOutputApi[], outputGeneration?: DojoOutputGenerationApi, feeModel?: DojoFeeModelApi, labels?: string[], note?: string, recipient?: string): Promise<DojoCreateTransactionResultApi>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method createTransaction Details</summary>
+
+###### inputs
+
+An object whose keys are TXIDs and whose values are payment envelopes
+for external inputs to use when funding this transaction.
+
+If more funding is needed beyond what is given here to pay for the specified outputs
+(plus the transaction fee), Dojo will select them from your baskets of unspent outputs
+(see the "inputSelection" parameter for more on this).
+
+inputs[TXID]: Must be a payment envelope containing the transaction with output(s)
+that will be spent and used as input.
+
+inputs[TXID].outputsToRedeem: An additional field, an array of outputs
+from that transaction to be spent.
+
+###### inputSelection
+
+Optional. Algorithmic control over source of additional inputs that may be needed.
+
+###### outputs
+
+Possibly empty, explicit outputs, typically external, to create as part of this transaction.
+
+###### outputGeneration
+
+Optional. Algorithmic control over additional outputs that may be needed.
+
+###### feeModel
+
+Optional. An object representing the fee the transaction will pay.
+
+###### labels
+
+Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
+
+###### note
+
+Optional. A human-readable note detailing this transaction (Optional)
+
+###### recipient
+
+Optional. The Paymail handle of the recipient of this transaction (Optional)
+
+</details>
+
+##### Interface DojoClientApi Method findCertificates
+
+Returns all of the authenticated user's certificates,
+where the certifier and type values match one of the optionaly
+
+```ts
+findCertificates(certifiers?: string[], types?: Record<string, string[]>): Promise<DojoCertificateApi[]>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method findCertificates Details</summary>
+
+###### certifiers
+
+optional array of certifier identifiers, if provided results match at least one value.
+
+###### types
+
+optional array of certificate types, if provided results match at least one value and only requested fields are returned.
+
+</details>
+
+##### Interface DojoClientApi Method getAvatar
 
 Returns the name and photo URL of the user
 
-###### setAvatar
+```ts
+getAvatar(): Promise<DojoAvatarApi>
+```
 
-Update the avatar for the authenticated user.
+<details>
 
-###### getCurrentPaymails
+<summary>Interface DojoClientApi Method getAvatar Details</summary>
+
+###### Returns
+
+The avatar of the user
+
+</details>
+
+##### Interface DojoClientApi Method getCurrentPaymails
 
 Return array of paymail style identifiers for currently authenticated user in `alias`@`domain` format.
 
@@ -1247,67 +2570,17 @@ Where `alias` and `domain` come from the aliases table.
 
 and `reservationCompleted` is true
 
-###### saveCertificate
+```ts
+getCurrentPaymails(): Promise<string[]>
+```
 
-Save a new certificate with optional fields.
+##### Interface DojoClientApi Method getDojoIdentity
 
-certificate must belong to aunthenticated user.
+```ts
+getDojoIdentity(): Promise<DojoIdentityApi>
+```
 
-certificate.subject must match authenticated user's idenitityKey or throws ERR_DOJO_CERT_SUBJECT
-
-certificate.signature must be valid or throws ERR_DOJO_CERT_INVALID
-
-If { type, subject, validationKey, serialNumber, userId } already exist, throw ERR_DOJO_CERT_DUPE
-
-###### findCertificates
-
-Returns all of the authenticated user's certificates,
-where the certifier and type values match one of the optionaly
-
-###### getTotalOfUnspentOutputs
-
-Returns the total of spendable output amounts.
-
-Returns undefined if basket is not undefined and doesn't match an existing basket name.
-
-If basket is not undefined, total is restricted to outputs in that basket.
-
-If basket is undefined, total is over all spendable outputs.
-
-###### updateOutpointStatus
-
-Update `spendable` of an output that must exist,
-belonging to the authenticated user,
-in transaction with txid,
-at index vout.
-
-###### getTotalOfAmounts
-
-Returns the sum of transaction amounts belonging to authenticated user,
-matching the given direction,
-and optionally matching conditions in `options`.
-
-###### getNetOfAmounts
-
-Returns the net sum of transaction amounts belonging to authenticated user,
-incoming plus outgoing, as outgoing amounts are negative and incoming amounts are positive.
-and optionally matching conditions in `options`.
-
-###### updateTransactionStatus
-
-Update transaction status and associated ouputs (both inputs and outputs) spendable and spentBy properties.
-
-Updated transaction userId must match authenticated user and referenceNumber must match reference.
-
-###### getTransactions
-
-Returns transactions matching options and total matching count available.
-
-###### getTransactionOutputs
-
-Returns transaction outputs matching options and total matching count available.
-
-###### getEnvelopeForTransaction
+##### Interface DojoClientApi Method getEnvelopeForTransaction
 
 Returns an Everett Style envelope for the given txid.
 
@@ -1320,7 +2593,21 @@ in which case the envelope is:
 - mapiResponses from transaction processors (optional)
 - inputs object where keys are this transaction's input txids and values are recursive envelope for those txids.
 
-###### getPendingTransactions
+```ts
+getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>
+```
+
+##### Interface DojoClientApi Method getNetOfAmounts
+
+Returns the net sum of transaction amounts belonging to authenticated user,
+incoming plus outgoing, as outgoing amounts are negative and incoming amounts are positive.
+and optionally matching conditions in `options`.
+
+```ts
+getNetOfAmounts(options?: DojoGetTotalOfAmountsOptions): Promise<number>
+```
+
+##### Interface DojoClientApi Method getPendingTransactions
 
 Returns transactions with status of 'waitingForSenderToSend' or 'unprocessed' for authenticated user
 
@@ -1335,15 +2622,119 @@ Original Dojo returned only these properties:
   'isOutgoing',
   'rawTransaction'
 
-###### createTransaction
+```ts
+getPendingTransactions(referenceNumber?: string): Promise<DojoPendingTxApi[]>
+```
 
-Constructs a new transaction spending known outputs (inputs) and creating new outputs.
+<details>
 
-If the inputs to the transaction go beyond what is needed to fund these outputs (plus the transaction fee),
-additional Dojo-managed UTXOs will be generated to collect the remainder
-(see the "outputGeneration" parameter for more on this).
+<summary>Interface DojoClientApi Method getPendingTransactions Details</summary>
 
-###### processTransaction
+###### referenceNumber
+
+optional referenceNumber to also match
+
+</details>
+
+##### Interface DojoClientApi Method getSyncDojosByConfig
+
+```ts
+getSyncDojosByConfig(): Promise<{
+    dojos: SyncDojoConfigBaseApi[];
+    options?: DojoSyncOptionsApi;
+}>
+```
+
+##### Interface DojoClientApi Method getTotalOfAmounts
+
+Returns the sum of transaction amounts belonging to authenticated user,
+matching the given direction,
+and optionally matching conditions in `options`.
+
+```ts
+getTotalOfAmounts(direction: "incoming" | "outgoing", options?: DojoGetTotalOfAmountsOptions): Promise<number>
+```
+
+##### Interface DojoClientApi Method getTotalOfUnspentOutputs
+
+Returns the total of spendable output amounts.
+
+Returns undefined if basket is not undefined and doesn't match an existing basket name.
+
+If basket is not undefined, total is restricted to outputs in that basket.
+
+If basket is undefined, total is over all spendable outputs.
+
+```ts
+getTotalOfUnspentOutputs(basket?: string): Promise<number | undefined>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method getTotalOfUnspentOutputs Details</summary>
+
+###### Returns
+
+total of unspent outputs in named basket
+
+###### basket
+
+name of existing outputs basket or undefined
+
+</details>
+
+##### Interface DojoClientApi Method getTransactionOutputs
+
+Returns transaction outputs matching options and total matching count available.
+
+```ts
+getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<{
+    outputs: DojoOutputApi[];
+    total: number;
+}>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method getTransactionOutputs Details</summary>
+
+###### options
+
+limit defaults to 25, offset defaults to 0, includeEnvelpe defaults to true
+
+</details>
+
+##### Interface DojoClientApi Method getTransactions
+
+Returns transactions matching options and total matching count available.
+
+```ts
+getTransactions(options?: DojoGetTransactionsOptions): Promise<{
+    txs: DojoTransactionApi[];
+    total: number;
+}>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method getTransactions Details</summary>
+
+###### options
+
+limit defaults to 25, offset defaults to 0, addLabels defaults to true, order defaults to 'descending'
+
+</details>
+
+##### Interface DojoClientApi Method getUser
+
+Returns authenticated user.
+Throws an error if isAuthenticated is false.
+
+```ts
+getUser(): DojoClientUserApi
+```
+
+##### Interface DojoClientApi Method processTransaction
 
 After creating a transaction with createTransaction and signing it, submit the serialized raw transaction
 to transaction processors for processing.
@@ -1353,7 +2744,74 @@ The reference number uniquely identifies the transaction in the database.
 Differences from v1:
 1. mapi_responses records are created when callbackIDs are generated, they exist before callbackID is given to external transaction processing service.
 
-###### submitDirectTransaction
+```ts
+processTransaction(rawTx: string | Buffer, reference: string, outputMap: Record<string, number>): Promise<DojoProcessTransactionResultApi>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method processTransaction Details</summary>
+
+###### Returns
+
+`DojoProcessTransactionResultApi` with txid and status of 'completed' or 'unknown'
+
+###### rawTx
+
+The signed transaction serialized as a hex string or Buffer, not yet stored in database.
+
+###### reference
+
+The reference number that you received from createTransaction uniquely identifying the database record.
+
+###### outputMap
+
+An object whose keys are change output derivation suffixes
+and whose values are the corresponding output (vout) numbers within the transaction.
+
+</details>
+
+##### Interface DojoClientApi Method saveCertificate
+
+Save a new certificate with optional fields.
+
+certificate must belong to aunthenticated user.
+
+certificate.subject must match authenticated user's idenitityKey or throws ERR_DOJO_CERT_SUBJECT
+
+certificate.signature must be valid or throws ERR_DOJO_CERT_INVALID
+
+If { type, subject, validationKey, serialNumber, userId } already exist, throw ERR_DOJO_CERT_DUPE
+
+```ts
+saveCertificate(certificate: DojoCertificateApi): Promise<number>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method saveCertificate Details</summary>
+
+###### Returns
+
+the certificateId of the new certificate.
+
+</details>
+
+##### Interface DojoClientApi Method setAvatar
+
+Update the avatar for the authenticated user.
+
+```ts
+setAvatar(avatar: DojoAvatarApi): Promise<void>
+```
+
+##### Interface DojoClientApi Method setSyncDojosByConfig
+
+```ts
+setSyncDojosByConfig(syncDojoConfigs: SyncDojoConfigBaseApi[], options?: DojoSyncOptionsApi): Promise<void>
+```
+
+##### Interface DojoClientApi Method submitDirectTransaction
 
 This endpoint allows a recipient to submit a transactions that was directly given to them by a sender.
 
@@ -1361,9 +2819,62 @@ Saves the inputs and key derivation information, allowing the UTXOs to be redeem
 
 Sets the transaction to completed and marks the outputs as spendable.
 
-###### copyState
+```ts
+submitDirectTransaction(protocol: string, transaction: DojoSubmitDirectTransactionApi, senderIdentityKey: string, note: string, labels: string[], derivationPrefix?: string): Promise<DojoSubmitDirectTransactionResultApi>
+```
 
-Return a complete copy of all records for the authenticated user.
+##### Interface DojoClientApi Method sync
+
+Sync's this dojo's state for the authenticated user with all of the configured syncDojos
+
+This method must be called when either a local or remote state change occurs, or may have occurred.
+
+User state changes are propagated across all configured syncDojos.
+
+```ts
+sync(logger?: DojoLoggerApi): Promise<void>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method sync Details</summary>
+
+###### logger
+
+optional sync progress update logger
+
+</details>
+
+##### Interface DojoClientApi Method updateOutpointStatus
+
+Update `spendable` of an output that must exist,
+belonging to the authenticated user,
+in transaction with txid,
+at index vout.
+
+```ts
+updateOutpointStatus(txid: string, vout: number, spendable: boolean): Promise<void>
+```
+
+##### Interface DojoClientApi Method updateTransactionStatus
+
+Update transaction status and associated ouputs (both inputs and outputs) spendable and spentBy properties.
+
+Updated transaction userId must match authenticated user and referenceNumber must match reference.
+
+```ts
+updateTransactionStatus(reference: string, status: DojoTransactionStatusApi): Promise<void>
+```
+
+<details>
+
+<summary>Interface DojoClientApi Method updateTransactionStatus Details</summary>
+
+###### status
+
+New transaction status.
+
+</details>
 
 </details>
 
@@ -1392,49 +2903,71 @@ export interface DojoGetTransactionsOptions {
 
 <summary>Interface DojoGetTransactionsOptions Details</summary>
 
-###### columns
+##### Interface DojoGetTransactionsOptions Property addLabels
 
-Columns to return for each transaction. If undefined or empty, all columns are returned.
+```ts
+addLabels?: boolean
+```
 
-###### referenceNumber
+##### Interface DojoGetTransactionsOptions Property columns
 
-Optional. Match transactions with this referenceNumber.
+```ts
+columns?: string[]
+```
 
-###### status
+##### Interface DojoGetTransactionsOptions Property endTime
 
-Optional. Match transactions with this status.
+```ts
+endTime?: Date | string | number
+```
 
-###### label
+##### Interface DojoGetTransactionsOptions Property involving
 
-Optional. Match transactions with this label.
+```ts
+involving?: string
+```
 
-###### startTime
+##### Interface DojoGetTransactionsOptions Property label
 
-Optional. Match transactions created on or after this time. Date, ISO string, or seconds since the epoch.
+```ts
+label?: string
+```
 
-###### endTime
+##### Interface DojoGetTransactionsOptions Property limit
 
-Optional. Match transactions created on or before this time. Date, ISO string, or seconds since the epoch.
+```ts
+limit?: number
+```
 
-###### involving
+##### Interface DojoGetTransactionsOptions Property offset
 
-Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
+```ts
+offset?: number
+```
 
-###### addLabels
+##### Interface DojoGetTransactionsOptions Property order
 
-Optional. If true, array of mapped `labels` is added to each transaction.
+```ts
+order?: "ascending" | "descending"
+```
 
-###### limit
+##### Interface DojoGetTransactionsOptions Property referenceNumber
 
-Optional. How many transactions to return.
+```ts
+referenceNumber?: string
+```
 
-###### offset
+##### Interface DojoGetTransactionsOptions Property startTime
 
-Optional. How many transactions to skip.
+```ts
+startTime?: Date | string | number
+```
 
-###### order
+##### Interface DojoGetTransactionsOptions Property status
 
-Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
+```ts
+status?: DojoTransactionStatusApi
+```
 
 </details>
 
@@ -1459,33 +2992,47 @@ export interface DojoGetTransactionOutputsOptions {
 
 <summary>Interface DojoGetTransactionOutputsOptions Details</summary>
 
-###### basket
+##### Interface DojoGetTransactionOutputsOptions Property basket
 
-If provided, indicates which basket the outputs should be selected from.
+```ts
+basket?: string
+```
 
-###### tracked
+##### Interface DojoGetTransactionOutputsOptions Property includeEnvelope
 
-If provided, only outputs with the corresponding tracked value will be returned (true/false).
+```ts
+includeEnvelope?: boolean
+```
 
-###### includeEnvelope
+##### Interface DojoGetTransactionOutputsOptions Property limit
 
-If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
+```ts
+limit?: number
+```
 
-###### spendable
+##### Interface DojoGetTransactionOutputsOptions Property offset
 
-If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
+```ts
+offset?: number
+```
 
-###### type
+##### Interface DojoGetTransactionOutputsOptions Property spendable
 
-If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
+```ts
+spendable?: boolean
+```
 
-###### limit
+##### Interface DojoGetTransactionOutputsOptions Property tracked
 
-Provide a limit on the number of outputs that will be returned.
+```ts
+tracked?: boolean
+```
 
-###### offset
+##### Interface DojoGetTransactionOutputsOptions Property type
 
-Provide an offset into the list of outputs.
+```ts
+type?: string
+```
 
 </details>
 
@@ -1508,25 +3055,35 @@ export interface DojoGetTotalOfAmountsOptions {
 
 <summary>Interface DojoGetTotalOfAmountsOptions Details</summary>
 
-###### label
+##### Interface DojoGetTotalOfAmountsOptions Property direction
 
-Optional. Match transactions with this label.
+```ts
+direction?: "incoming" | "outgoing"
+```
 
-###### startTime
+##### Interface DojoGetTotalOfAmountsOptions Property endTime
 
-Optional. Match transactions created on or after this time. Seconds since the epoch.
+```ts
+endTime?: Date | string | number
+```
 
-###### endTime
+##### Interface DojoGetTotalOfAmountsOptions Property involving
 
-Optional. Match transactions created on or before this time. Seconds since the epoch.
+```ts
+involving?: string
+```
 
-###### involving
+##### Interface DojoGetTotalOfAmountsOptions Property label
 
-Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
+```ts
+label?: string
+```
 
-###### direction
+##### Interface DojoGetTotalOfAmountsOptions Property startTime
 
-Direction of value flow.
+```ts
+startTime?: Date | string | number
+```
 
 </details>
 
@@ -1543,6 +3100,36 @@ export interface DojoStatsApi {
     chain: Chain;
 }
 ```
+
+<details>
+
+<summary>Interface DojoStatsApi Details</summary>
+
+##### Interface DojoStatsApi Property chain
+
+```ts
+chain: Chain
+```
+
+##### Interface DojoStatsApi Property transactions
+
+```ts
+transactions: number
+```
+
+##### Interface DojoStatsApi Property txLabels
+
+```ts
+txLabels: number
+```
+
+##### Interface DojoStatsApi Property users
+
+```ts
+users: number
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1566,6 +3153,84 @@ export interface DojoUserStateApi {
 }
 ```
 
+<details>
+
+<summary>Interface DojoUserStateApi Details</summary>
+
+##### Interface DojoUserStateApi Property baskets
+
+```ts
+baskets: DojoOutputBasketApi[]
+```
+
+##### Interface DojoUserStateApi Property certificateFields
+
+```ts
+certificateFields: DojoCertificateFieldApi[]
+```
+
+##### Interface DojoUserStateApi Property certificates
+
+```ts
+certificates: DojoCertificateApi[]
+```
+
+##### Interface DojoUserStateApi Property commissions
+
+```ts
+commissions: DojoCommissionApi[]
+```
+
+##### Interface DojoUserStateApi Property mapiResponses
+
+```ts
+mapiResponses: DojoMapiResponseApi[]
+```
+
+##### Interface DojoUserStateApi Property outputs
+
+```ts
+outputs: DojoOutputApi[]
+```
+
+##### Interface DojoUserStateApi Property provenTxReqs
+
+```ts
+provenTxReqs: DojoProvenTxReqApi[]
+```
+
+##### Interface DojoUserStateApi Property provenTxs
+
+```ts
+provenTxs: DojoProvenTxApi[]
+```
+
+##### Interface DojoUserStateApi Property txLabelMaps
+
+```ts
+txLabelMaps: DojoTxLabelMapApi[]
+```
+
+##### Interface DojoUserStateApi Property txLabels
+
+```ts
+txLabels: DojoTxLabelApi[]
+```
+
+##### Interface DojoUserStateApi Property txs
+
+```ts
+txs: DojoTransactionApi[]
+```
+
+##### Interface DojoUserStateApi Property user
+
+```ts
+user: DojoUserApi
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -1577,6 +3242,24 @@ export interface DojoEntityTimeStampApi {
     updated_at?: Date | null;
 }
 ```
+
+<details>
+
+<summary>Interface DojoEntityTimeStampApi Details</summary>
+
+##### Interface DojoEntityTimeStampApi Property created_at
+
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoEntityTimeStampApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1602,21 +3285,65 @@ export interface DojoAliasApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoAliasApi Details</summary>
 
-###### alias
+##### Interface DojoAliasApi Property alias
 
-max length of 30
+```ts
+alias: string
+```
 
-###### domain
+##### Interface DojoAliasApi Property aliasId
 
-max length of 30
+```ts
+aliasId?: number
+```
 
-###### avatarName
+##### Interface DojoAliasApi Property avatarName
 
-max length of 30
+```ts
+avatarName?: string
+```
 
-###### avatarPhotoURL
+##### Interface DojoAliasApi Property avatarPhotoURL
 
-max length of 100
+```ts
+avatarPhotoURL?: string
+```
+
+##### Interface DojoAliasApi Property created_at
+
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoAliasApi Property destinationBasketId
+
+```ts
+destinationBasketId: number
+```
+
+##### Interface DojoAliasApi Property domain
+
+```ts
+domain: string
+```
+
+##### Interface DojoAliasApi Property reservationCompleted
+
+```ts
+reservationCompleted: boolean
+```
+
+##### Interface DojoAliasApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoAliasApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -1636,13 +3363,17 @@ export interface DojoAvatarApi {
 
 <summary>Interface DojoAvatarApi Details</summary>
 
-###### name
+##### Interface DojoAvatarApi Property name
 
-The name of the user
+```ts
+name: string
+```
 
-###### photoURL
+##### Interface DojoAvatarApi Property photoURL
 
-An HTTPS or UHRP URL to a photo of the user
+```ts
+photoURL: string
+```
 
 </details>
 
@@ -1667,17 +3398,47 @@ export interface DojoCertificateFieldApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoCertificateFieldApi Details</summary>
 
-###### fieldName
+##### Interface DojoCertificateFieldApi Property certificateId
 
-max length of 100
+```ts
+certificateId: number
+```
 
-###### fieldValue
+##### Interface DojoCertificateFieldApi Property created_at
 
-max length of 255
+```ts
+created_at?: Date | null
+```
 
-###### masterKey
+##### Interface DojoCertificateFieldApi Property fieldName
 
-base64 encrypted master field revelation key
+```ts
+fieldName: string
+```
+
+##### Interface DojoCertificateFieldApi Property fieldValue
+
+```ts
+fieldValue: string
+```
+
+##### Interface DojoCertificateFieldApi Property masterKey
+
+```ts
+masterKey: string
+```
+
+##### Interface DojoCertificateFieldApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoCertificateFieldApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -1708,41 +3469,83 @@ export interface DojoCertificateApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoCertificateApi Details</summary>
 
-###### type
+##### Interface DojoCertificateApi Property certificateId
 
-max length of 255
+```ts
+certificateId?: number
+```
 
-###### subject
+##### Interface DojoCertificateApi Property certifier
 
-max length of 255
+```ts
+certifier: string
+```
 
-###### validationKey
+##### Interface DojoCertificateApi Property created_at
 
-max length of 255
+```ts
+created_at?: Date | null
+```
 
-###### serialNumber
+##### Interface DojoCertificateApi Property fields
 
-max length of 255
+```ts
+fields?: Record<string, string>
+```
 
-###### certifier
+##### Interface DojoCertificateApi Property masterKeyring
 
-max length of 255
+```ts
+masterKeyring?: Record<string, string>
+```
 
-###### revocationOutpoint
+##### Interface DojoCertificateApi Property revocationOutpoint
 
-max length of 255
+```ts
+revocationOutpoint: string
+```
 
-###### signature
+##### Interface DojoCertificateApi Property serialNumber
 
-max length of 255
+```ts
+serialNumber: string
+```
 
-###### fields
+##### Interface DojoCertificateApi Property signature
 
-Certificate fields object constructed from fieldName and fieldValue properties of DojoCertificateFieldApi instances associated with this certificate.
+```ts
+signature: string
+```
 
-###### masterKeyring
+##### Interface DojoCertificateApi Property subject
 
-Certificate masterKeyring object constructed from fieldName and masterKey properties of DojoCertificateFieldApi instances associated with this certificate.
+```ts
+subject: string
+```
+
+##### Interface DojoCertificateApi Property type
+
+```ts
+type: string
+```
+
+##### Interface DojoCertificateApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoCertificateApi Property userId
+
+```ts
+userId: number
+```
+
+##### Interface DojoCertificateApi Property validationKey
+
+```ts
+validationKey: string
+```
 
 </details>
 
@@ -1769,13 +3572,59 @@ export interface DojoCommissionApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoCommissionApi Details</summary>
 
-###### keyOffset
+##### Interface DojoCommissionApi Property commissionId
 
-max length of 130
+```ts
+commissionId?: number
+```
 
-###### satoshis
+##### Interface DojoCommissionApi Property created_at
 
-15 integer digits
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoCommissionApi Property isRedeemed
+
+```ts
+isRedeemed: boolean
+```
+
+##### Interface DojoCommissionApi Property keyOffset
+
+```ts
+keyOffset: string
+```
+
+##### Interface DojoCommissionApi Property outputScript
+
+```ts
+outputScript: Buffer | null
+```
+
+##### Interface DojoCommissionApi Property satoshis
+
+```ts
+satoshis: number
+```
+
+##### Interface DojoCommissionApi Property transactionId
+
+```ts
+transactionId: number
+```
+
+##### Interface DojoCommissionApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoCommissionApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -1803,17 +3652,65 @@ export interface DojoMapiResponseApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoMapiResponseApi Details</summary>
 
-###### publicKey
+##### Interface DojoMapiResponseApi Property callbackID
 
-max length of 255
+```ts
+callbackID?: string
+```
 
-###### signature
+##### Interface DojoMapiResponseApi Property created_at
 
-max length of 255
+```ts
+created_at?: Date | null
+```
 
-###### doubleSpendResponse
+##### Interface DojoMapiResponseApi Property doubleSpendResponse
 
-max length of 16
+```ts
+doubleSpendResponse?: string | null
+```
+
+##### Interface DojoMapiResponseApi Property payload
+
+```ts
+payload?: string
+```
+
+##### Interface DojoMapiResponseApi Property publicKey
+
+```ts
+publicKey?: string
+```
+
+##### Interface DojoMapiResponseApi Property responseId
+
+```ts
+responseId?: number
+```
+
+##### Interface DojoMapiResponseApi Property signature
+
+```ts
+signature?: string
+```
+
+##### Interface DojoMapiResponseApi Property transactionId
+
+```ts
+transactionId: number
+```
+
+##### Interface DojoMapiResponseApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoMapiResponseApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -1856,76 +3753,155 @@ export interface DojoOutputApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoOutputApi Details</summary>
 
-###### txid
+##### Interface DojoOutputApi Property amount
 
-length 64 hex encoded
+```ts
+amount: number | null
+```
 
-###### vout
+##### Interface DojoOutputApi Property basketId
 
-max 10 digits
+```ts
+basketId?: number | null
+```
 
-###### amount
+##### Interface DojoOutputApi Property change
 
-max 15 digits
+```ts
+change: boolean
+```
 
-###### type
+##### Interface DojoOutputApi Property created_at
 
-max length of 50
-e.g. P2PKH, custom
+```ts
+created_at?: Date | null
+```
 
-###### spentBy
+##### Interface DojoOutputApi Property customInstructions
 
-transactionId of spending transaction or null if unspent
-max 10 digits
+```ts
+customInstructions: string | null
+```
 
-###### derivationPrefix
+##### Interface DojoOutputApi Property derivationPrefix
 
-max length of 32
-base64 encoded
+```ts
+derivationPrefix: string | null
+```
 
-###### derivationSuffix
+##### Interface DojoOutputApi Property derivationSuffix
 
-max length of 32
-base64 encoded
+```ts
+derivationSuffix: string | null
+```
 
-###### paymailHandle
+##### Interface DojoOutputApi Property description
 
-max length of 64
+```ts
+description: string | null
+```
 
-###### senderIdentityKey
+##### Interface DojoOutputApi Property envelope
 
-max length of 130
-hex encoded
+```ts
+envelope?: EnvelopeApi
+```
 
-###### customInstructions
+##### Interface DojoOutputApi Property outputId
 
-max length of 2500
+```ts
+outputId?: number
+```
 
-###### tracked
+##### Interface DojoOutputApi Property outputScript
 
-true if output was put in a basket for tracking
+```ts
+outputScript: Buffer | null
+```
 
-###### providedBy
+##### Interface DojoOutputApi Property paymailHandle
 
-max length of 130
-e.g. you, dojo
+```ts
+paymailHandle: string | null
+```
 
-###### purpose
+##### Interface DojoOutputApi Property providedBy
 
-max length of 20
-e.g. change
+```ts
+providedBy: string | null
+```
 
-###### description
+##### Interface DojoOutputApi Property purpose
 
-max length of 255
+```ts
+purpose: string | null
+```
 
-###### spendingDescription
+##### Interface DojoOutputApi Property senderIdentityKey
 
-max length of 255
+```ts
+senderIdentityKey: string | null
+```
 
-###### envelope
+##### Interface DojoOutputApi Property spendable
 
-optional envelope for transaction containing output
+```ts
+spendable: boolean
+```
+
+##### Interface DojoOutputApi Property spendingDescription
+
+```ts
+spendingDescription: string | null
+```
+
+##### Interface DojoOutputApi Property spentBy
+
+```ts
+spentBy: number | null
+```
+
+##### Interface DojoOutputApi Property tracked
+
+```ts
+tracked: boolean | null
+```
+
+##### Interface DojoOutputApi Property transactionId
+
+```ts
+transactionId: number
+```
+
+##### Interface DojoOutputApi Property txid
+
+```ts
+txid: string | null
+```
+
+##### Interface DojoOutputApi Property type
+
+```ts
+type: string
+```
+
+##### Interface DojoOutputApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoOutputApi Property userId
+
+```ts
+userId: number
+```
+
+##### Interface DojoOutputApi Property vout
+
+```ts
+vout: number | null
+```
 
 </details>
 
@@ -1950,9 +3926,47 @@ export interface DojoOutputBasketApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoOutputBasketApi Details</summary>
 
-###### name
+##### Interface DojoOutputBasketApi Property basketId
 
-max length of 1000
+```ts
+basketId?: number
+```
+
+##### Interface DojoOutputBasketApi Property created_at
+
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoOutputBasketApi Property minimumDesiredUTXOValue
+
+```ts
+minimumDesiredUTXOValue: number
+```
+
+##### Interface DojoOutputBasketApi Property name
+
+```ts
+name: string
+```
+
+##### Interface DojoOutputBasketApi Property numberOfDesiredUTXOs
+
+```ts
+numberOfDesiredUTXOs: number
+```
+
+##### Interface DojoOutputBasketApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoOutputBasketApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -1988,47 +4002,113 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoTransactionApi Details</summary>
 
-###### txid
+##### Interface DojoTransactionApi Property amount
 
-length 64 hex encoded
+```ts
+amount: number
+```
 
-###### status
+##### Interface DojoTransactionApi Property created_at
 
-max length of 64
-e.g. completed, failed, unprocessed, waitingForSenderToSend
+```ts
+created_at?: Date | null
+```
 
-###### referenceNumber
+##### Interface DojoTransactionApi Property isOutgoing
 
-max length of 64, hex encoded
+```ts
+isOutgoing: boolean
+```
 
-###### amount
+##### Interface DojoTransactionApi Property labels
 
-max 15 digits
+```ts
+labels?: string[]
+```
 
-###### senderPaymail
+##### Interface DojoTransactionApi Property note
 
-max length of 100
+```ts
+note: string | null
+```
 
-###### recipientPaymail
+##### Interface DojoTransactionApi Property proof
 
-max length of 100
+```ts
+proof: string | null
+```
 
-###### note
+##### Interface DojoTransactionApi Property provenTxId
 
-max length of 500
+```ts
+provenTxId?: number | null
+```
 
-###### isOutgoing
+##### Interface DojoTransactionApi Property rawTransaction
 
-true if transaction originated in this wallet, change returns to it.
-false for a transaction created externally and handed in to this wallet.
+```ts
+rawTransaction: Buffer | null
+```
 
-###### provenTxId
+##### Interface DojoTransactionApi Property recipientPaymail
 
-Is valid when transaction proof record exists in DojoProvenTxApi table.
+```ts
+recipientPaymail: string | null
+```
 
-###### labels
+##### Interface DojoTransactionApi Property referenceNumber
 
-When not undefined, array of assigned tx_labels.label values.
+```ts
+referenceNumber: string | null
+```
+
+##### Interface DojoTransactionApi Property senderPaymail
+
+```ts
+senderPaymail: string | null
+```
+
+##### Interface DojoTransactionApi Property status
+
+```ts
+status: DojoTransactionStatusApi
+```
+
+##### Interface DojoTransactionApi Property transactionId
+
+```ts
+transactionId?: number
+```
+
+##### Interface DojoTransactionApi Property truncatedExternalInputs
+
+```ts
+truncatedExternalInputs: string | null
+```
+
+##### Interface DojoTransactionApi Property txid
+
+```ts
+txid: string
+```
+
+##### Interface DojoTransactionApi Property unconfirmedInputChainLength
+
+```ts
+unconfirmedInputChainLength: number
+```
+
+##### Interface DojoTransactionApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoTransactionApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -2058,27 +4138,77 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoProvenTxReqApi Details</summary>
 
-###### history
+##### Interface DojoProvenTxReqApi Property attempts
 
-JSON string of processing history.
-Parses to `DojoProvenTxReqHistoryApi`.
+```ts
+attempts: number
+```
 
-###### notify
+##### Interface DojoProvenTxReqApi Property callbackID
 
-JSON string of data to drive notifications when this request completes.
-Parses to `DojoProvenTxReqNotifyApi`.
+```ts
+callbackID?: string
+```
 
-###### status
+##### Interface DojoProvenTxReqApi Property created_at
 
-See `DojoProvenTxReqStatusApi`
+```ts
+created_at?: Date | null
+```
 
-###### attempts
+##### Interface DojoProvenTxReqApi Property history
 
-Count of how many times a service has been asked about this txid
+```ts
+history: string
+```
 
-###### provenTxId
+##### Interface DojoProvenTxReqApi Property notify
 
-Once a DojoProvenTxApi record has been validated and added to database, the provenTxId value.
+```ts
+notify: string
+```
+
+##### Interface DojoProvenTxReqApi Property provenTxId
+
+```ts
+provenTxId?: number
+```
+
+##### Interface DojoProvenTxReqApi Property provenTxReqId
+
+```ts
+provenTxReqId?: number
+```
+
+##### Interface DojoProvenTxReqApi Property rawTx
+
+```ts
+rawTx?: Buffer
+```
+
+##### Interface DojoProvenTxReqApi Property status
+
+```ts
+status: DojoProvenTxReqStatusApi
+```
+
+##### Interface DojoProvenTxReqApi Property txid
+
+```ts
+txid: string
+```
+
+##### Interface DojoProvenTxReqApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoProvenTxReqApi Property userId
+
+```ts
+userId?: number
+```
 
 </details>
 
@@ -2106,9 +4236,65 @@ export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoProvenTxApi Details</summary>
 
-###### nodes
+##### Interface DojoProvenTxApi Property blockHash
 
-Serialized 32 bytes per node.
+```ts
+blockHash: Buffer
+```
+
+##### Interface DojoProvenTxApi Property created_at
+
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoProvenTxApi Property height
+
+```ts
+height: number
+```
+
+##### Interface DojoProvenTxApi Property index
+
+```ts
+index: number
+```
+
+##### Interface DojoProvenTxApi Property merkleRoot
+
+```ts
+merkleRoot: Buffer
+```
+
+##### Interface DojoProvenTxApi Property nodes
+
+```ts
+nodes: Buffer
+```
+
+##### Interface DojoProvenTxApi Property provenTxId
+
+```ts
+provenTxId?: number
+```
+
+##### Interface DojoProvenTxApi Property rawTx
+
+```ts
+rawTx: Buffer
+```
+
+##### Interface DojoProvenTxApi Property txid
+
+```ts
+txid: string
+```
+
+##### Interface DojoProvenTxApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
 
 </details>
 
@@ -2131,10 +4317,35 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoTxLabelApi Details</summary>
 
-###### label
+##### Interface DojoTxLabelApi Property created_at
 
-max length of 150
-e.g. babbage_app_..., babbage_protocol_..., babbage_spend_..., babbage_basket_..., babbage_cert_...., babbage_certificate_, nanostore
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoTxLabelApi Property label
+
+```ts
+label: string
+```
+
+##### Interface DojoTxLabelApi Property txLabelId
+
+```ts
+txLabelId?: number
+```
+
+##### Interface DojoTxLabelApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoTxLabelApi Property userId
+
+```ts
+userId: number
+```
 
 </details>
 
@@ -2151,6 +4362,36 @@ export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
     updated_at?: Date | null;
 }
 ```
+
+<details>
+
+<summary>Interface DojoTxLabelMapApi Details</summary>
+
+##### Interface DojoTxLabelMapApi Property created_at
+
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoTxLabelMapApi Property transactionId
+
+```ts
+transactionId: number
+```
+
+##### Interface DojoTxLabelMapApi Property txLabelId
+
+```ts
+txLabelId: number
+```
+
+##### Interface DojoTxLabelMapApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2170,10 +4411,29 @@ export interface DojoClientUserApi extends DojoEntityTimeStampApi {
 
 <summary>Interface DojoClientUserApi Details</summary>
 
-###### identityKey
+##### Interface DojoClientUserApi Property created_at
 
-max length of 130
-hex encoded
+```ts
+created_at?: Date | null
+```
+
+##### Interface DojoClientUserApi Property identityKey
+
+```ts
+identityKey: string
+```
+
+##### Interface DojoClientUserApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoClientUserApi Property userId
+
+```ts
+userId?: number
+```
 
 </details>
 
@@ -2198,22 +4458,47 @@ export interface DojoUserApi extends DojoClientUserApi, DojoEntityTimeStampApi {
 
 <summary>Interface DojoUserApi Details</summary>
 
-###### identityKey
+##### Interface DojoUserApi Property bandwidthUsed
 
-max length of 130
-hex encoded
+```ts
+bandwidthUsed?: number
+```
 
-###### timeSpentProcessingRequests
+##### Interface DojoUserApi Property created_at
 
-max 12 digits
+```ts
+created_at?: Date | null
+```
 
-###### bandwidthUsed
+##### Interface DojoUserApi Property identityKey
 
-max 18 digits
+```ts
+identityKey: string
+```
 
-###### storageSpaceUsedByHostedData
+##### Interface DojoUserApi Property storageSpaceUsedByHostedData
 
-max 15 digits
+```ts
+storageSpaceUsedByHostedData?: number
+```
+
+##### Interface DojoUserApi Property timeSpentProcessingRequests
+
+```ts
+timeSpentProcessingRequests?: number
+```
+
+##### Interface DojoUserApi Property updated_at
+
+```ts
+updated_at?: Date | null
+```
+
+##### Interface DojoUserApi Property userId
+
+```ts
+userId?: number
+```
 
 </details>
 
@@ -2237,33 +4522,41 @@ export interface DojoPendingTxInputInstructionsApi {
 
 <summary>Interface DojoPendingTxInputInstructionsApi Details</summary>
 
-###### type
+##### Interface DojoPendingTxInputInstructionsApi Property customInstructions
 
-max length of 50
-e.g. P2PKH, custom
+```ts
+customInstructions: string | null
+```
 
-###### derivationPrefix
+##### Interface DojoPendingTxInputInstructionsApi Property derivationPrefix
 
-max length of 32
-base64 encoded
+```ts
+derivationPrefix: string | null
+```
 
-###### derivationSuffix
+##### Interface DojoPendingTxInputInstructionsApi Property derivationSuffix
 
-max length of 32
-base64 encoded
+```ts
+derivationSuffix: string | null
+```
 
-###### paymailHandle
+##### Interface DojoPendingTxInputInstructionsApi Property paymailHandle
 
-max length of 64
+```ts
+paymailHandle: string | null
+```
 
-###### senderIdentityKey
+##### Interface DojoPendingTxInputInstructionsApi Property senderIdentityKey
 
-max length of 130
-hex encoded
+```ts
+senderIdentityKey: string | null
+```
 
-###### customInstructions
+##### Interface DojoPendingTxInputInstructionsApi Property type
 
-max length of 2500
+```ts
+type: string
+```
 
 </details>
 
@@ -2278,6 +4571,24 @@ export interface DojoPendingTxInputApi extends EnvelopeEvidenceApi {
     instructions?: Record<number, DojoPendingTxInputInstructionsApi>;
 }
 ```
+
+<details>
+
+<summary>Interface DojoPendingTxInputApi Details</summary>
+
+##### Interface DojoPendingTxInputApi Property instructions
+
+```ts
+instructions?: Record<number, DojoPendingTxInputInstructionsApi>
+```
+
+##### Interface DojoPendingTxInputApi Property outputsToRedeem
+
+```ts
+outputsToRedeem?: number[]
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2299,6 +4610,78 @@ export interface DojoPendingTxOutputApi {
     vout?: number;
 }
 ```
+
+<details>
+
+<summary>Interface DojoPendingTxOutputApi Details</summary>
+
+##### Interface DojoPendingTxOutputApi Property derivationPrefix
+
+```ts
+derivationPrefix?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property derivationSuffix
+
+```ts
+derivationSuffix?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property paymailHandle
+
+```ts
+paymailHandle?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property providedBy
+
+```ts
+providedBy?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property purpose
+
+```ts
+purpose?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property satoshis
+
+```ts
+satoshis: number
+```
+
+##### Interface DojoPendingTxOutputApi Property script
+
+```ts
+script?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property senderIdentityKey
+
+```ts
+senderIdentityKey?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property txid
+
+```ts
+txid?: string
+```
+
+##### Interface DojoPendingTxOutputApi Property type
+
+```ts
+type: string
+```
+
+##### Interface DojoPendingTxOutputApi Property vout
+
+```ts
+vout?: number
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2325,6 +4708,78 @@ export interface DojoPendingTxApi {
 }
 ```
 
+<details>
+
+<summary>Interface DojoPendingTxApi Details</summary>
+
+##### Interface DojoPendingTxApi Property amount
+
+```ts
+amount: number
+```
+
+##### Interface DojoPendingTxApi Property created_at
+
+```ts
+created_at: string
+```
+
+##### Interface DojoPendingTxApi Property derivationPrefix
+
+```ts
+derivationPrefix?: string
+```
+
+##### Interface DojoPendingTxApi Property inputs
+
+```ts
+inputs: Record<string, DojoPendingTxInputApi>
+```
+
+##### Interface DojoPendingTxApi Property isOutgoing
+
+```ts
+isOutgoing: boolean
+```
+
+##### Interface DojoPendingTxApi Property outputs
+
+```ts
+outputs: DojoPendingTxOutputApi[]
+```
+
+##### Interface DojoPendingTxApi Property paymailHandle
+
+```ts
+paymailHandle?: string
+```
+
+##### Interface DojoPendingTxApi Property rawTransaction
+
+```ts
+rawTransaction?: string
+```
+
+##### Interface DojoPendingTxApi Property referenceNumber
+
+```ts
+referenceNumber: string
+```
+
+##### Interface DojoPendingTxApi Property senderPaymail
+
+```ts
+senderPaymail?: string
+```
+
+##### Interface DojoPendingTxApi Property status
+
+```ts
+status: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2337,6 +4792,30 @@ export interface DojoProcessTransactionResultApi {
     mapiResponses: MapiResponseApi[];
 }
 ```
+
+<details>
+
+<summary>Interface DojoProcessTransactionResultApi Details</summary>
+
+##### Interface DojoProcessTransactionResultApi Property mapiResponses
+
+```ts
+mapiResponses: MapiResponseApi[]
+```
+
+##### Interface DojoProcessTransactionResultApi Property status
+
+```ts
+status: "completed" | "unknown"
+```
+
+##### Interface DojoProcessTransactionResultApi Property txid
+
+```ts
+txid: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2355,15 +4834,23 @@ export interface DojoOutputToRedeemApi {
 
 <summary>Interface DojoOutputToRedeemApi Details</summary>
 
-###### index
+##### Interface DojoOutputToRedeemApi Property index
 
-Zero based output index within its transaction to spend.
+```ts
+index: number
+```
 
-###### unlockingScriptLength
+##### Interface DojoOutputToRedeemApi Property spendingDescription
 
-byte length of unlocking script
+```ts
+spendingDescription?: string
+```
 
-Note: To protect client keys and utxo control, unlocking scripts are never shared with Dojo.
+##### Interface DojoOutputToRedeemApi Property unlockingScriptLength
+
+```ts
+unlockingScriptLength: number
+```
 
 </details>
 
@@ -2377,6 +4864,18 @@ export interface DojoTxInputsApi extends EnvelopeEvidenceApi {
     outputsToRedeem: DojoOutputToRedeemApi[];
 }
 ```
+
+<details>
+
+<summary>Interface DojoTxInputsApi Details</summary>
+
+##### Interface DojoTxInputsApi Property outputsToRedeem
+
+```ts
+outputsToRedeem: DojoOutputToRedeemApi[]
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2400,21 +4899,29 @@ export interface DojoTxInputSelectionApi {
 
 <summary>Interface DojoTxInputSelectionApi Details</summary>
 
-###### disable
-
-This is a boolean that, when true, will forbid Dojo from adding any additional inputs to your transaction,
-beyond what you specified in the "inputs" parameter.
-Thus, if you have not sufficiently funded the transaction yourself,
-or if the "inputs" array is empty, you will get an error.
-
-###### baskets
+##### Interface DojoTxInputSelectionApi Property baskets
 
 TODO (coming soon).
 This is an array of UTXO basket names from which UTXOs can be selected for spending.
 To only select UTXOs of a certain type, configure the source basket only to accept those types of UTXOs.
 By default, UTXOs will only be selected if they are in the "default" basket.
 
-###### maxUnconfirmedChainLength
+```ts
+baskets: string[]
+```
+
+##### Interface DojoTxInputSelectionApi Property disable
+
+This is a boolean that, when true, will forbid Dojo from adding any additional inputs to your transaction,
+beyond what you specified in the "inputs" parameter.
+Thus, if you have not sufficiently funded the transaction yourself,
+or if the "inputs" array is empty, you will get an error.
+
+```ts
+disable: boolean
+```
+
+##### Interface DojoTxInputSelectionApi Property maxUnconfirmedChainLength
 
 An integer representing the maximum length for any chain of unconfirmed parents
 that a selected input can have.
@@ -2424,6 +4931,10 @@ When 1, indicates that the input must itself be confirmed.
 When 2, input parents must be confirmed.
 When 3 denotes grandparents.
 When 4 great-grandparents and so forth.
+
+```ts
+maxUnconfirmedChainLength?: number
+```
 
 </details>
 
@@ -2451,25 +4962,45 @@ export interface DojoCreateTxOutputApi {
 
 <summary>Interface DojoCreateTxOutputApi Details</summary>
 
-###### script
-
-The output script that will be included, hex encoded
-
-###### satoshis
-
-The amount of the output in satoshis
-
-###### description
-
-Human-readable output line-item description
-
-###### basket
+##### Interface DojoCreateTxOutputApi Property basket
 
 Destination output basket name for the new UTXO
 
-###### customInstructions
+```ts
+basket?: string
+```
+
+##### Interface DojoCreateTxOutputApi Property customInstructions
 
 Custom spending instructions (metadata, string, optional)
+
+```ts
+customInstructions?: string
+```
+
+##### Interface DojoCreateTxOutputApi Property description
+
+Human-readable output line-item description
+
+```ts
+description?: string
+```
+
+##### Interface DojoCreateTxOutputApi Property satoshis
+
+The amount of the output in satoshis
+
+```ts
+satoshis: number
+```
+
+##### Interface DojoCreateTxOutputApi Property script
+
+The output script that will be included, hex encoded
+
+```ts
+script: string
+```
 
 </details>
 
@@ -2494,19 +5025,27 @@ export interface DojoOutputGenerationApi {
 
 <summary>Interface DojoOutputGenerationApi Details</summary>
 
-###### basket
+##### Interface DojoOutputGenerationApi Property basket
 
 TODO (coming soon).
 Specify the basket where the generated outputs will be kept.
 Only output types compatible with the destination basket will be generated.
 
-###### method
+```ts
+basket: string
+```
+
+##### Interface DojoOutputGenerationApi Property method
 
 The method used to generate outputs.
 "auto" (the default) selects the amount and types of generated outputs based on the selected basket's
 configuration for how many of each type to keep on hand,
 then uses Benford's law to distribute the satoshis across them.
 "single" just uses one output, randomly selected from the available types, that contains all the satoshis.
+
+```ts
+method: "auto" | "single"
+```
 
 </details>
 
@@ -2530,16 +5069,24 @@ export interface DojoFeeModelApi {
 
 <summary>Interface DojoFeeModelApi Details</summary>
 
-###### model
+##### Interface DojoFeeModelApi Property model
 
 The fee model to use, default "sat/kb"
 
-###### value
+```ts
+model: "sat/kb"
+```
+
+##### Interface DojoFeeModelApi Property value
 
 When "fee.model" is "sat/kb", this is an integer representing the number of satoshis per kb of block space
 the transaction will pay in fees.
 
 If undefined, the default value is used which may vary with market conditions.
+
+```ts
+value?: number
+```
 
 </details>
 
@@ -2558,6 +5105,42 @@ export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
 }
 ```
 
+<details>
+
+<summary>Interface DojoCreatingTxOutputApi Details</summary>
+
+##### Interface DojoCreatingTxOutputApi Property derivationSuffix
+
+```ts
+derivationSuffix?: string
+```
+
+##### Interface DojoCreatingTxOutputApi Property destinationBasket
+
+```ts
+destinationBasket?: string
+```
+
+##### Interface DojoCreatingTxOutputApi Property keyOffset
+
+```ts
+keyOffset?: string
+```
+
+##### Interface DojoCreatingTxOutputApi Property providedBy
+
+```ts
+providedBy: DojoProvidedByApi
+```
+
+##### Interface DojoCreatingTxOutputApi Property purpose
+
+```ts
+purpose?: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2573,6 +5156,42 @@ export interface DojoCreatingTxInstructionsApi {
 }
 ```
 
+<details>
+
+<summary>Interface DojoCreatingTxInstructionsApi Details</summary>
+
+##### Interface DojoCreatingTxInstructionsApi Property derivationPrefix
+
+```ts
+derivationPrefix?: string
+```
+
+##### Interface DojoCreatingTxInstructionsApi Property derivationSuffix
+
+```ts
+derivationSuffix?: string
+```
+
+##### Interface DojoCreatingTxInstructionsApi Property paymailHandle
+
+```ts
+paymailHandle?: string
+```
+
+##### Interface DojoCreatingTxInstructionsApi Property senderIdentityKey
+
+```ts
+senderIdentityKey?: string
+```
+
+##### Interface DojoCreatingTxInstructionsApi Property type
+
+```ts
+type: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2584,6 +5203,24 @@ export interface DojoCreatingTxInputsApi extends DojoTxInputsApi {
     instructions: Record<number, DojoCreatingTxInstructionsApi>;
 }
 ```
+
+<details>
+
+<summary>Interface DojoCreatingTxInputsApi Details</summary>
+
+##### Interface DojoCreatingTxInputsApi Property instructions
+
+```ts
+instructions: Record<number, DojoCreatingTxInstructionsApi>
+```
+
+##### Interface DojoCreatingTxInputsApi Property providedBy
+
+```ts
+providedBy: DojoProvidedByApi
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2600,6 +5237,42 @@ export interface DojoCreateTransactionResultApi {
 }
 ```
 
+<details>
+
+<summary>Interface DojoCreateTransactionResultApi Details</summary>
+
+##### Interface DojoCreateTransactionResultApi Property derivationPrefix
+
+```ts
+derivationPrefix: string
+```
+
+##### Interface DojoCreateTransactionResultApi Property inputs
+
+```ts
+inputs: Record<string, DojoCreatingTxInputsApi>
+```
+
+##### Interface DojoCreateTransactionResultApi Property outputs
+
+```ts
+outputs: DojoCreatingTxOutputApi[]
+```
+
+##### Interface DojoCreateTransactionResultApi Property paymailHandle
+
+```ts
+paymailHandle: string
+```
+
+##### Interface DojoCreateTransactionResultApi Property referenceNumber
+
+```ts
+referenceNumber: string
+```
+
+</details>
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
@@ -2613,6 +5286,36 @@ export interface DojoSubmitDirectTransactionOutputApi {
     customInstructions?: object;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSubmitDirectTransactionOutputApi Details</summary>
+
+##### Interface DojoSubmitDirectTransactionOutputApi Property basket
+
+```ts
+basket: string
+```
+
+##### Interface DojoSubmitDirectTransactionOutputApi Property customInstructions
+
+```ts
+customInstructions?: object
+```
+
+##### Interface DojoSubmitDirectTransactionOutputApi Property suffix
+
+```ts
+suffix?: string
+```
+
+##### Interface DojoSubmitDirectTransactionOutputApi Property vout
+
+```ts
+vout: number
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -2629,9 +5332,11 @@ export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
 
 <summary>Interface DojoSubmitDirectTransactionApi Details</summary>
 
-###### outputs
+##### Interface DojoSubmitDirectTransactionApi Property outputs
 
-sparse array of outputs of interest where indices match vout numbers.
+```ts
+outputs: Record<number, DojoSubmitDirectTransactionOutputApi>
+```
 
 </details>
 
@@ -2646,6 +5351,24 @@ export interface DojoSubmitDirectTransactionResultApi {
     referenceNumber: string;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSubmitDirectTransactionResultApi Details</summary>
+
+##### Interface DojoSubmitDirectTransactionResultApi Property referenceNumber
+
+```ts
+referenceNumber: string
+```
+
+##### Interface DojoSubmitDirectTransactionResultApi Property transactionId
+
+```ts
+transactionId: number
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
