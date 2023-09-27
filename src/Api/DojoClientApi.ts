@@ -641,6 +641,27 @@ export interface DojoGetTransactionOutputsOptions {
   offset?: number
 }
 
+export interface DojoGetTransactionLabels {
+   /**
+      * Optional. How many transactions to return.
+      */
+   limit?: number
+   /**
+      * Optional. How many transactions to skip.
+      */
+   offset?: number
+   /**
+      * Optional. Sort order for labels based on creation date.
+      * Use 'ascending' to sort labels in ascending order (oldest first).
+      * Use 'descending' to sort labels in descending order (newest first).
+      */
+   order?: 'ascending' | 'descending'
+   /**
+      * Optional. Filters labels to include only those starting with the specified prefix.
+      */
+   prefix?: string
+ }
+
 export interface DojoGetTotalOfAmountsOptions {
   /**
      * Optional. Match transactions with this label.
