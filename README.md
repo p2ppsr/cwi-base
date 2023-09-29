@@ -1983,12 +1983,22 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
     endTime?: Date | string | number;
     involving?: string;
     addLabels?: boolean;
+    addInputsAndOutputs?: boolean;
 }
 ```
 
 <details>
 
 <summary>Interface DojoGetTransactionsOptions Details</summary>
+
+##### Property addInputsAndOutputs
+
+Optional. If true, include the list of transaction inputs and outputs when retrieving transactions.
+Enabling this option adds the 'inputs' and 'outputs' properties to each transaction, providing detailed information about the transaction's inputs and outputs.
+
+```ts
+addInputsAndOutputs?: boolean
+```
 
 ##### Property addLabels
 
@@ -2832,6 +2842,8 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
     truncatedExternalInputs: string | null;
     provenTxId?: number | null;
     labels?: string[];
+    inputSpendingDescription?: string | null;
+    outputDescription?: string | null;
 }
 ```
 
@@ -2845,6 +2857,14 @@ max 15 digits
 
 ```ts
 amount: number
+```
+
+##### Property inputSpendingDescription
+
+Description of how the input of the transaction was spent (if available).
+
+```ts
+inputSpendingDescription?: string | null
 ```
 
 ##### Property isOutgoing
@@ -2870,6 +2890,14 @@ max length of 500
 
 ```ts
 note: string | null
+```
+
+##### Property outputDescription
+
+Description of the output of the transaction (if available).
+
+```ts
+outputDescription?: string | null
 ```
 
 ##### Property provenTxId

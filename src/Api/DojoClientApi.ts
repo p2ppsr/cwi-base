@@ -616,6 +616,11 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
       * Optional. If true, array of mapped `labels` is added to each transaction.
       */
    addLabels?: boolean
+   /**
+      * Optional. If true, include the list of transaction inputs and outputs when retrieving transactions.
+      * Enabling this option adds the 'inputs' and 'outputs' properties to each transaction, providing detailed information about the transaction's inputs and outputs.
+      */
+   addInputsAndOutputs?: boolean
 }
 
 export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
@@ -997,6 +1002,14 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       * When not undefined, array of assigned tx_labels.label values.
       */
    labels?: string[]
+   /**
+      * Description of how the input of the transaction was spent (if available).
+      */
+   inputSpendingDescription?: string | null
+   /**
+      * Description of the output of the transaction (if available).
+      */
+   outputDescription?: string | null
 }
 
 /**
