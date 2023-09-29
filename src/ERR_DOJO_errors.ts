@@ -168,3 +168,12 @@ export class ERR_DOJO_SYNC_STATUS extends CwiError { constructor (step: string, 
 export class ERR_DOJO_SYNC_REFNUM extends CwiError { constructor (expected: string, actual: string) { super('ERR_DOJO_SYNC_REFNUM', `refNum '${expected}' expected, '${actual}' received`) } }
 export class ERR_DOJO_SYNC_STATE extends CwiError { constructor () { super('ERR_DOJO_SYNC_STATE', 'missing valid update state from syncDojo') } }
 export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: number | undefined, actual: number | undefined) { super('ERR_DOJO_SYNC_TOTAL', `sync total '${expected ?? 0}' expected, '${actual ?? 0}' received`) } }
+
+/**
+ * Cannot sort by 'whenLastUsed' when 'txid' is specified.
+ */
+export class ERR_CANNOT_SORT_BY_WHEN_LAST_USED_WITH_TXID extends CwiError {
+  constructor() {
+    super('ERR_CANNOT_SORT_BY_WHEN_LAST_USED_WITH_TXID', "Cannot sort by 'whenLastUsed' when 'txid' is specified.");
+  }
+}

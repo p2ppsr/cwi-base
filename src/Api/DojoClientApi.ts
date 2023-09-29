@@ -425,6 +425,13 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<{ outputs: DojoOutputApi[], total: number }>
 
    /**
+      * Returns transaction labels matching options and total matching count available.
+      *
+      * @param options limit defaults to 25, offset defaults to 0, order defaults to 'descending'
+      */
+   getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<{ labels: DojoTxLabelApi[], total: number }>
+
+   /**
       * Returns an Everett Style envelope for the given txid.
       *
       * A transaction envelope is a tree of inputs where all the leaves are proven transactions.
@@ -563,10 +570,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
 
-export const ASCENDING = 'ascending';
-export const DESCENDING = 'descending';
-
-export type DojoRecordOrder =  typeof ASCENDING | typeof DESCENDING
+export type DojoRecordOrder =  'ascending' | 'descending'
 
 export interface DojoGetTransactionsBaseOptions {
   /**
@@ -618,7 +622,7 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
    addLabels?: boolean
 }
 
-export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
+export interface DojoGetTransactionOutputsOptions {
   /**
      *  If provided, indicates which basket the outputs should be selected from.
      */
@@ -639,12 +643,18 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
      */
   type?: string
+  /**
+     * Optional. How many transactions to return.
+     */
+  limit?: number
+  /**
+     * Optional. How many transactions to skip.
+     */
+  offset?: number
 }
 
-export const LABEL = 'label';
-export const USE = 'use';
 
-export type DojoTransactionLabelsSortByType = typeof LABEL | typeof USE;
+export type DojoTransactionLabelsSortByType = 'label' | 'whenLastUsed';
 
 export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBaseOptions {
    /**
@@ -656,7 +666,7 @@ export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBase
       */
    txid?: number
    /**
-      * Optional. Specify whether to sort by 'label' or 'use'.
+      * Optional. Specify whether to sort by 'label' or 'whenLastUsed'.
       */
    sortBy?: DojoTransactionLabelsSortByType
 }
