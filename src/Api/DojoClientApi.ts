@@ -554,11 +554,11 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     derivationPrefix?: string
   ) : Promise<DojoSubmitDirectTransactionResultApi>
 
-  /**
-     * Return a complete copy of all records for the authenticated user.
-     * @param since optional, start of data interval if specified.
-     */
-  copyState(since?: Date) : Promise<DojoUserStateApi>
+   /**
+      * Return a complete copy of all records for the authenticated user.
+      * @param since optional, start of data interval if specified.
+      */
+   copyState(since?: Date): Promise<DojoUserStateApi>
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
@@ -566,79 +566,79 @@ export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 
 export const ASCENDING = 'ascending';
 export const DESCENDING = 'descending';
 
-export type DojoRecordOrder =  typeof ASCENDING | typeof DESCENDING
+export type DojoRecordOrder = typeof ASCENDING | typeof DESCENDING
 
 export interface DojoGetTransactionsBaseOptions {
-  /**
-     * Optional. How many transactions to return.
-     */
-  limit?: number
-  /**
-     * Optional. How many transactions to skip.
-     */
-  offset?: number
-  /**
-     * Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
-     */
-  order?: DojoRecordOrder
+   /**
+      * Optional. How many transactions to return.
+      */
+   limit?: number
+   /**
+      * Optional. How many transactions to skip.
+      */
+   offset?: number
+   /**
+      * Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
+      */
+   order?: DojoRecordOrder
 }
 
 export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptions {
-  /**
-     * Columns to return for each transaction. If undefined or empty, all columns are returned.
-     */
-  columns?: string[]
-  /**
-     * Optional. Match transactions with this referenceNumber.
-     */
-  referenceNumber?: string
-  /**
-     * Optional. Match transactions with this status.
-     */
-  status?: DojoTransactionStatusApi
-  /**
-     * Optional. Match transactions with this label.
-     */
-  label?: string
-  /**
-     * Optional. Match transactions created on or after this time. Date, ISO string, or seconds since the epoch.
-     */
-  startTime?: Date | string | number
-  /**
-     * Optional. Match transactions created on or before this time. Date, ISO string, or seconds since the epoch.
-     */
-  endTime?: Date | string | number
-  /**
-     * Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
-     */
-  involving?: string
-  /**
-     * Optional. If true, array of mapped `labels` is added to each transaction.
-     */
-  addLabels?: boolean
+   /**
+      * Columns to return for each transaction. If undefined or empty, all columns are returned.
+      */
+   columns?: string[]
+   /**
+      * Optional. Match transactions with this referenceNumber.
+      */
+   referenceNumber?: string
+   /**
+      * Optional. Match transactions with this status.
+      */
+   status?: DojoTransactionStatusApi
+   /**
+      * Optional. Match transactions with this label.
+      */
+   label?: string
+   /**
+      * Optional. Match transactions created on or after this time. Date, ISO string, or seconds since the epoch.
+      */
+   startTime?: Date | string | number
+   /**
+      * Optional. Match transactions created on or before this time. Date, ISO string, or seconds since the epoch.
+      */
+   endTime?: Date | string | number
+   /**
+      * Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
+      */
+   involving?: string
+   /**
+      * Optional. If true, array of mapped `labels` is added to each transaction.
+      */
+   addLabels?: boolean
 }
 
 export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
-  /**
-     *  If provided, indicates which basket the outputs should be selected from.
-     */
-  basket?: string
-  /**
-     *  If provided, only outputs with the corresponding tracked value will be returned (true/false).
-     */
-  tracked?: boolean
-  /**
-     * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
-     */
-  includeEnvelope?: boolean
-  /**
-     * If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
-     */
-  spendable?: boolean
-  /**
-     * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
-     */
-  type?: string
+   /**
+      *  If provided, indicates which basket the outputs should be selected from.
+      */
+   basket?: string
+   /**
+      *  If provided, only outputs with the corresponding tracked value will be returned (true/false).
+      */
+   tracked?: boolean
+   /**
+      * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
+      */
+   includeEnvelope?: boolean
+   /**
+      * If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
+      */
+   spendable?: boolean
+   /**
+      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
+      */
+   type?: string
 }
 
 export const LABEL = 'label';
