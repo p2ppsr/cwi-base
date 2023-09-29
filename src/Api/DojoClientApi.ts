@@ -563,7 +563,27 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
 
-export interface DojoGetTransactionsOptions {
+export const ASCENDING = 'ascending';
+export const DESCENDING = 'descending';
+
+export type DojoRecordOrder =  typeof ASCENDING | typeof DESCENDING
+
+export interface DojoGetTransactionsBaseOptions {
+  /**
+     * Optional. How many transactions to return.
+     */
+  limit?: number
+  /**
+     * Optional. How many transactions to skip.
+     */
+  offset?: number
+  /**
+     * Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
+     */
+  order?: DojoRecordOrder
+}
+
+export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptions {
   /**
      * Columns to return for each transaction. If undefined or empty, all columns are returned.
      */
@@ -596,21 +616,9 @@ export interface DojoGetTransactionsOptions {
      * Optional. If true, array of mapped `labels` is added to each transaction.
      */
   addLabels?: boolean
-  /**
-     * Optional. How many transactions to return.
-     */
-  limit?: number
-  /**
-     * Optional. How many transactions to skip.
-     */
-  offset?: number
-  /**
-     * Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
-     */
-  order?: 'ascending' | 'descending'
 }
 
-export interface DojoGetTransactionOutputsOptions {
+export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
   /**
      *  If provided, indicates which basket the outputs should be selected from.
      */
@@ -631,35 +639,26 @@ export interface DojoGetTransactionOutputsOptions {
      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
      */
   type?: string
-  /**
-     * Provide a limit on the number of outputs that will be returned.
-     */
-  limit?: number
-  /**
-     * Provide an offset into the list of outputs.
-     */
-  offset?: number
 }
 
-export interface DojoGetTransactionLabels {
-   /**
-      * Optional. How many transactions to return.
-      */
-   limit?: number
-   /**
-      * Optional. How many transactions to skip.
-      */
-   offset?: number
-   /**
-      * Optional. Sort order for labels based on creation date.
-      * Use 'ascending' to sort labels in ascending order (oldest first).
-      * Use 'descending' to sort labels in descending order (newest first).
-      */
-   order?: 'ascending' | 'descending'
+export const LABEL = 'label';
+export const USE = 'use';
+
+export type DojoTransactionLabelsSortByType = typeof LABEL | typeof USE;
+
+export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBaseOptions {
    /**
       * Optional. Filters labels to include only those starting with the specified prefix.
       */
    prefix?: string
+   /**
+      * Optional. Filters labels to include only those associated with the specified transaction ID.
+      */
+   txid?: number
+   /**
+      * Optional. Specify whether to sort by 'label' or 'use'.
+      */
+   sortBy?: DojoTransactionLabelsSortByType
  }
 
 export interface DojoGetTotalOfAmountsOptions {
