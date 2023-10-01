@@ -1012,6 +1012,9 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       * When not undefined, array of assigned tx_labels.label values.
       */
    labels?: string[]
+}
+
+export interface DojoTransactionApiExtended extends DojoTransactionApi {
    /**
     * When not undefined, prior outputs now serving as inputs to this transaction
     */
