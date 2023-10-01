@@ -11,31 +11,32 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [BaseBlockHeader](#interface-baseblockheader) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
-| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
-| [BlockHeader](#interface-blockheader) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
-| [BlockHeaderHex](#interface-blockheaderhex) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
-| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
-| [DojoAliasApi](#interface-dojoaliasapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserApi](#interface-dojouserapi) |
-| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
-| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [EnvelopeApi](#interface-envelopeapi) |
-| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [EnvelopeEvidenceApi](#interface-envelopeevidenceapi) |
-| [DojoClientApi](#interface-dojoclientapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [LiveBlockHeader](#interface-liveblockheader) |
-| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPublicApi](#interface-dojopublicapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
-| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
-| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
-| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiResponseApi](#interface-mapiresponseapi) |
-| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
-| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoSyncApi](#interface-dojosyncapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
-| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
-| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
-| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
-| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
-| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
-| [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |  |
+| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
+| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
+| [BlockHeader](#interface-blockheader) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
+| [BlockHeaderHex](#interface-blockheaderhex) | [DojoOutputApi](#interface-dojooutputapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
+| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
+| [DojoAliasApi](#interface-dojoaliasapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserApi](#interface-dojouserapi) |
+| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [EnvelopeApi](#interface-envelopeapi) |
+| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [EnvelopeEvidenceApi](#interface-envelopeevidenceapi) |
+| [DojoClientApi](#interface-dojoclientapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeader](#interface-liveblockheader) |
+| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
+| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
+| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
+| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiResponseApi](#interface-mapiresponseapi) |
+| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
+| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
+| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
+| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
+| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
+| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
+| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
+| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |  |
+| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1543,6 +1544,10 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
         outputs: DojoOutputApi[];
         total: number;
     }>;
+    getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<{
+        labels: DojoTxLabelApi[];
+        total: number;
+    }>;
     getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>;
     getPendingTransactions(referenceNumber?: string): Promise<DojoPendingTxApi[]>;
     createTransaction(inputs: Record<string, DojoTxInputsApi>, inputSelection: DojoTxInputSelectionApi | undefined, outputs: DojoCreateTxOutputApi[], outputGeneration?: DojoOutputGenerationApi, feeModel?: DojoFeeModelApi, labels?: string[], note?: string, recipient?: string): Promise<DojoCreateTransactionResultApi>;
@@ -1762,6 +1767,22 @@ Argument Details
 + **basket**
   + name of existing outputs basket or undefined
 
+##### Method getTransactionLabels
+
+Returns transaction labels matching options and total matching count available.
+
+```ts
+getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<{
+    labels: DojoTxLabelApi[];
+    total: number;
+}>
+```
+
+Argument Details
+
++ **options**
+  + limit defaults to 25, offset defaults to 0, order defaults to 'descending'
+
 ##### Method getTransactionOutputs
 
 Returns transaction outputs matching options and total matching count available.
@@ -1927,10 +1948,53 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ---
+#### Interface: DojoGetTransactionsBaseOptions
+
+```ts
+export interface DojoGetTransactionsBaseOptions {
+    limit?: number;
+    offset?: number;
+    order?: DojoRecordOrder;
+}
+```
+
+<details>
+
+<summary>Interface DojoGetTransactionsBaseOptions Details</summary>
+
+##### Property limit
+
+Optional. How many transactions to return.
+
+```ts
+limit?: number
+```
+
+##### Property offset
+
+Optional. How many transactions to skip.
+
+```ts
+offset?: number
+```
+
+##### Property order
+
+Optional. Set sort order of results.
+
+```ts
+order?: DojoRecordOrder
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+
+---
 #### Interface: DojoGetTransactionsOptions
 
 ```ts
-export interface DojoGetTransactionsOptions {
+export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptions {
     columns?: string[];
     referenceNumber?: string;
     status?: DojoTransactionStatusApi;
@@ -1939,15 +2003,22 @@ export interface DojoGetTransactionsOptions {
     endTime?: Date | string | number;
     involving?: string;
     addLabels?: boolean;
-    limit?: number;
-    offset?: number;
-    order?: "ascending" | "descending";
+    addInputsAndOutputs?: boolean;
 }
 ```
 
 <details>
 
 <summary>Interface DojoGetTransactionsOptions Details</summary>
+
+##### Property addInputsAndOutputs
+
+Optional. If true, include the list of transaction inputs and outputs when retrieving transactions.
+Enabling this option adds the 'inputs' and 'outputs' properties to each transaction, providing detailed information about the transaction's inputs and outputs.
+
+```ts
+addInputsAndOutputs?: boolean
+```
 
 ##### Property addLabels
 
@@ -1987,30 +2058,6 @@ Optional. Match transactions with this label.
 
 ```ts
 label?: string
-```
-
-##### Property limit
-
-Optional. How many transactions to return.
-
-```ts
-limit?: number
-```
-
-##### Property offset
-
-Optional. How many transactions to skip.
-
-```ts
-offset?: number
-```
-
-##### Property order
-
-Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
-
-```ts
-order?: "ascending" | "descending"
 ```
 
 ##### Property referenceNumber
@@ -2078,7 +2125,7 @@ includeEnvelope?: boolean
 
 ##### Property limit
 
-Provide a limit on the number of outputs that will be returned.
+Optional. How many transactions to return.
 
 ```ts
 limit?: number
@@ -2086,7 +2133,7 @@ limit?: number
 
 ##### Property offset
 
-Provide an offset into the list of outputs.
+Optional. How many transactions to skip.
 
 ```ts
 offset?: number
@@ -2114,6 +2161,49 @@ If provided, only outputs of the specified type will be returned. If not provide
 
 ```ts
 type?: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+
+---
+#### Interface: DojoGetTransactionLabelsOptions
+
+```ts
+export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBaseOptions {
+    prefix?: string;
+    txid?: number;
+    sortBy?: DojoTransactionLabelsSortBy;
+}
+```
+
+<details>
+
+<summary>Interface DojoGetTransactionLabelsOptions Details</summary>
+
+##### Property prefix
+
+Optional. Filters labels to include only those starting with the specified prefix.
+
+```ts
+prefix?: string
+```
+
+##### Property sortBy
+
+Optional. Specify whether to sort by 'label' or 'whenLastUsed'.
+
+```ts
+sortBy?: DojoTransactionLabelsSortBy
+```
+
+##### Property txid
+
+Optional. Filters labels to include only those associated with the specified transaction ID.
+
+```ts
+txid?: number
 ```
 
 </details>
@@ -2790,6 +2880,8 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
     truncatedExternalInputs: string | null;
     provenTxId?: number | null;
     labels?: string[];
+    inputs?: DojoOutputApi[];
+    outputs?: DojoOutputApi[];
 }
 ```
 
@@ -2803,6 +2895,14 @@ max 15 digits
 
 ```ts
 amount: number
+```
+
+##### Property inputs
+
+When not undefined, prior outputs now serving as inputs to this transaction
+
+```ts
+inputs?: DojoOutputApi[]
 ```
 
 ##### Property isOutgoing
@@ -2828,6 +2928,14 @@ max length of 500
 
 ```ts
 note: string | null
+```
+
+##### Property outputs
+
+When not undefined, outputs created by this transaction
+
+```ts
+outputs?: DojoOutputApi[]
 ```
 
 ##### Property provenTxId
@@ -5894,19 +6002,15 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 ### Types
 
-| |
-| --- |
-| [Chain](#type-chain) |
-| [DojoLoggerApi](#type-dojologgerapi) |
-| [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi) |
-| [DojoProvidedByApi](#type-dojoprovidedbyapi) |
-| [DojoSyncProtocolVersion](#type-dojosyncprotocolversion) |
-| [DojoSyncStatus](#type-dojosyncstatus) |
-| [DojoTransactionStatusApi](#type-dojotransactionstatusapi) |
-| [EnvelopeInputMapApi](#type-envelopeinputmapapi) |
-| [HeaderListener](#type-headerlistener) |
-| [ReorgListener](#type-reorglistener) |
-| [SyncDojoConfigType](#type-syncdojoconfigtype) |
+| | |
+| --- | --- |
+| [Chain](#type-chain) | [DojoTransactionLabelsSortBy](#type-dojotransactionlabelssortby) |
+| [DojoLoggerApi](#type-dojologgerapi) | [DojoTransactionStatusApi](#type-dojotransactionstatusapi) |
+| [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi) | [EnvelopeInputMapApi](#type-envelopeinputmapapi) |
+| [DojoProvidedByApi](#type-dojoprovidedbyapi) | [HeaderListener](#type-headerlistener) |
+| [DojoRecordOrder](#type-dojorecordorder) | [ReorgListener](#type-reorglistener) |
+| [DojoSyncProtocolVersion](#type-dojosyncprotocolversion) | [SyncDojoConfigType](#type-syncdojoconfigtype) |
+| [DojoSyncStatus](#type-dojosyncstatus) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -5998,6 +6102,24 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "waitingForSenderToSend"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+
+---
+#### Type: DojoRecordOrder
+
+```ts
+export type DojoRecordOrder = "ascending" | "descending"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+
+---
+#### Type: DojoTransactionLabelsSortBy
+
+```ts
+export type DojoTransactionLabelsSortBy = "label" | "whenLastUsed"
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)

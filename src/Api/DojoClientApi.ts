@@ -425,6 +425,13 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<{ outputs: DojoOutputApi[], total: number }>
 
    /**
+      * Returns transaction labels matching options and total matching count available.
+      *
+      * @param options limit defaults to 25, offset defaults to 0, order defaults to 'descending'
+      */
+   getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<{ labels: DojoTxLabelApi[], total: number }>
+
+   /**
       * Returns an Everett Style envelope for the given txid.
       *
       * A transaction envelope is a tree of inputs where all the leaves are proven transactions.
@@ -552,18 +559,35 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
              */
       labels: string[],
       derivationPrefix?: string
-   ): Promise<DojoSubmitDirectTransactionResultApi>
+  ) : Promise<DojoSubmitDirectTransactionResultApi>
 
    /**
       * Return a complete copy of all records for the authenticated user.
       * @param since optional, start of data interval if specified.
       */
-   copyState(since?: Date): Promise<DojoUserStateApi>
+  copyState(since?: Date) : Promise<DojoUserStateApi>
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
 
-export interface DojoGetTransactionsOptions {
+export type DojoRecordOrder =  'ascending' | 'descending'
+
+export interface DojoGetTransactionsBaseOptions {
+  /**
+     * Optional. How many transactions to return.
+     */
+  limit?: number
+  /**
+     * Optional. How many transactions to skip.
+     */
+  offset?: number
+  /**
+     * Optional. Set sort order of results.
+     */
+  order?: DojoRecordOrder
+}
+
+export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptions {
    /**
       * Columns to return for each transaction. If undefined or empty, all columns are returned.
       */
@@ -597,48 +621,59 @@ export interface DojoGetTransactionsOptions {
       */
    addLabels?: boolean
    /**
-      * Optional. How many transactions to return.
+      * Optional. If true, include the list of transaction inputs and outputs when retrieving transactions.
+      * Enabling this option adds the 'inputs' and 'outputs' properties to each transaction, providing detailed information about the transaction's inputs and outputs.
       */
-   limit?: number
-   /**
-      * Optional. How many transactions to skip.
-      */
-   offset?: number
-   /**
-      * Optional. Set sort order of results. Transactions are ordered by transactionId ascending by default.
-      */
-   order?: 'ascending' | 'descending'
+   addInputsAndOutputs?: boolean
 }
 
 export interface DojoGetTransactionOutputsOptions {
+  /**
+     *  If provided, indicates which basket the outputs should be selected from.
+     */
+  basket?: string
+  /**
+     *  If provided, only outputs with the corresponding tracked value will be returned (true/false).
+     */
+  tracked?: boolean
+  /**
+     * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
+     */
+  includeEnvelope?: boolean
+  /**
+     * If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
+     */
+  spendable?: boolean
+  /**
+     * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
+     */
+  type?: string
+  /**
+     * Optional. How many transactions to return.
+     */
+  limit?: number
+  /**
+     * Optional. How many transactions to skip.
+     */
+  offset?: number
+}
+
+
+export type DojoTransactionLabelsSortBy = 'label' | 'whenLastUsed';
+
+export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBaseOptions {
    /**
-      *  If provided, indicates which basket the outputs should be selected from.
+      * Optional. Filters labels to include only those starting with the specified prefix.
       */
-   basket?: string
+   prefix?: string
    /**
-      *  If provided, only outputs with the corresponding tracked value will be returned (true/false).
+      * Optional. Filters labels to include only those associated with the specified transaction ID.
       */
-   tracked?: boolean
+   txid?: number
    /**
-      * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
+      * Optional. Specify whether to sort by 'label' or 'whenLastUsed'.
       */
-   includeEnvelope?: boolean
-   /**
-      * If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
-      */
-   spendable?: boolean
-   /**
-      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
-      */
-   type?: string
-   /**
-      * Provide a limit on the number of outputs that will be returned.
-      */
-   limit?: number
-   /**
-      * Provide an offset into the list of outputs.
-      */
-   offset?: number
+   sortBy?: DojoTransactionLabelsSortBy
 }
 
 export interface DojoGetTotalOfAmountsOptions {
@@ -977,6 +1012,14 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       * When not undefined, array of assigned tx_labels.label values.
       */
    labels?: string[]
+   /**
+    * When not undefined, prior outputs now serving as inputs to this transaction
+    */
+   inputs?: DojoOutputApi[]
+   /**
+    * When not undefined, outputs created by this transaction
+    */
+   outputs?: DojoOutputApi[]
 }
 
 /**
