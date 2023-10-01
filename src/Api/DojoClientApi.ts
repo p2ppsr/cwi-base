@@ -415,7 +415,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * @param options limit defaults to 25, offset defaults to 0, addLabels defaults to true, order defaults to 'descending'
       */
-   getTransactions(options?: DojoGetTransactionsOptions): Promise<{ txs: DojoTransactionApi[], total: number }>
+   getTransactions(options?: DojoGetTransactionsOptions): Promise<{ txs: DojoTransactionApiExtended[], total: number }>
 
    /**
       * Returns transaction outputs matching options and total matching count available.
@@ -1012,14 +1012,18 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       * When not undefined, array of assigned tx_labels.label values.
       */
    labels?: string[]
+}
+
+export interface DojoTransactionApiExtended extends DojoTransactionApi {
    /**
-      * Description of how the input of the transaction was spent (if available).
-      */
-   inputSpendingDescription?: string | null
+     * Optional array of input transactions.
+     */
+   inputs?: DojoTransactionApi[];
+
    /**
-      * Description of the output of the transaction (if available).
-      */
-   outputDescription?: string | null
+     * Optional array of output transactions.
+     */
+   outputs?: DojoOutputApi[];
 }
 
 /**
