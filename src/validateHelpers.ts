@@ -1,6 +1,7 @@
 import { bsv } from '.'
 import { DojoCreateTxOutputApi, DojoFeeModelApi, DojoOutputGenerationApi, DojoOutputToRedeemApi, DojoSubmitDirectTransactionApi, DojoTxInputSelectionApi } from './Api/DojoClientApi'
-import { ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS, ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, ERR_DOJO_UNKNOWN_FEE_MODEL } from './ERR_DOJO_errors'
+import { ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION, ERR_DOJO_INVALID_OUTPUT_TAG, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS, ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, 
+ERR_DOJO_UNKNOWN_FEE_MODEL } from './ERR_DOJO_errors'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORIZED } from './ERR_errors'
 
 export function validateIdentityKey (identityKey?: string | null): string {
@@ -149,6 +150,23 @@ export function validateTxLabels (v?: string[]): string[] {
     if (v.length > 30) throw new ERR_BAD_REQUEST('No more than 30 labels per transaction are allowed')
     if (new Set(v).size !== v.length) throw new ERR_BAD_REQUEST('Duplicate transaction labels are not allowed')
     for (let i = 0; i < v.length; i++) { r[i] = validateTxLabel(v[i]) }
+  }
+  return r
+}
+
+export function validateOutputTag (tag: string): string {
+  tag = tag.trim()
+  if (tag.length > 150) { throw new ERR_DOJO_INVALID_OUTPUT_TAG() }
+  return tag
+}
+
+export function validateOutputTags (v?: string[]): string[] {
+  const r: string[] = []
+  if (typeof v !== 'undefined') {
+    if (!Array.isArray(v)) throw new ERR_BAD_REQUEST('Output tags must be an array')
+    if (v.length > 30) throw new ERR_BAD_REQUEST('No more than 30 tags per output are allowed')
+    if (new Set(v).size !== v.length) throw new ERR_BAD_REQUEST('Duplicate output tags are not allowed')
+    for (let i = 0; i < v.length; i++) { r[i] = validateOutputTag(v[i]) }
   }
   return r
 }

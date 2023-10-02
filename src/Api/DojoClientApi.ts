@@ -137,6 +137,7 @@ export interface DojoSyncMapApi {
    provenTxIds: Record<number, number>
    txIds: Record<number, number>
    txLabelIds: Record<number, number>
+   outputTagIds: Record<number, number>
 }
 
 /**
@@ -703,6 +704,7 @@ export interface DojoStatsApi {
    users: number
    transactions: number
    txLabels: number
+   outputTags: number
    chain: Chain
 }
 
@@ -718,6 +720,8 @@ export interface DojoUserStateApi {
    txs: DojoTransactionApi[]
    txLabels: DojoTxLabelApi[]
    txLabelMaps: DojoTxLabelMapApi[]
+   outputTags: DojoOutputTagApi[]
+   outputTagMaps: DojoOutputTagMapApi[]
    user: DojoUserApi
 }
 
@@ -1112,8 +1116,6 @@ export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
 
 export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
    txLabelId?: number
-   created_at?: Date | null
-   updated_at?: Date | null
    /**
       * max length of 150
       * e.g. babbage_app_..., babbage_protocol_..., babbage_spend_..., babbage_basket_..., babbage_cert_...., babbage_certificate_, nanostore
@@ -1125,8 +1127,17 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
 export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
    txLabelId: number
    transactionId: number
-   created_at?: Date | null
-   updated_at?: Date | null
+}
+
+export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
+   outputTagId?: number
+   tag: string
+   userId: number
+}
+
+export interface DojoOutputTagMapApi extends DojoEntityTimeStampApi {
+   outputTagId: number
+   outputId: number
 }
 
 export interface DojoClientUserApi extends DojoEntityTimeStampApi {
