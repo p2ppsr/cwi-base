@@ -137,6 +137,7 @@ export interface DojoSyncMapApi {
    provenTxIds: Record<number, number>
    txIds: Record<number, number>
    txLabelIds: Record<number, number>
+   outputTagIds: Record<number, number>
 }
 
 /**
@@ -703,6 +704,7 @@ export interface DojoStatsApi {
    users: number
    transactions: number
    txLabels: number
+   outputTags: number
    chain: Chain
 }
 
@@ -718,6 +720,8 @@ export interface DojoUserStateApi {
    txs: DojoTransactionApi[]
    txLabels: DojoTxLabelApi[]
    txLabelMaps: DojoTxLabelMapApi[]
+   outputTags: DojoOutputTagApi[]
+   outputTagMaps: DojoOutputTagMapApi[]
    user: DojoUserApi
 }
 
@@ -1129,10 +1133,25 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
 }
 
 export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
-   txLabelId: number
-   transactionId: number
    created_at?: Date | null
    updated_at?: Date | null
+   txLabelId: number
+   transactionId: number
+}
+
+export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
+   outputTagId?: number
+   created_at?: Date | null
+   updated_at?: Date | null
+   tag: string
+   userId: number
+}
+
+export interface DojoOutputTagMapApi extends DojoEntityTimeStampApi {
+   created_at?: Date | null
+   updated_at?: Date | null
+   outputTagId: number
+   outputId: number
 }
 
 export interface DojoClientUserApi extends DojoEntityTimeStampApi {
