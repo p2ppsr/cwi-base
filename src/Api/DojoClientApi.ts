@@ -669,7 +669,7 @@ export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBase
    /**
       * Optional. Filters labels to include only those associated with the specified transaction ID.
       */
-   txid?: number
+   transactionId?: number
    /**
       * Optional. Specify whether to sort by 'label' or 'whenLastUsed'.
       */
@@ -1122,6 +1122,10 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
       */
    label: string
    userId: number
+   /**
+    * valid only when retreived by with the 'whenLastUsed' sort option.
+    */
+   whenLastUsed?: Date | null
 }
 
 export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
