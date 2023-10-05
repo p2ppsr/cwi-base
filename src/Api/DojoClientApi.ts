@@ -826,6 +826,10 @@ export interface DojoCertificateApi extends DojoEntityTimeStampApi {
       * Certificate masterKeyring object constructed from fieldName and masterKey properties of DojoCertificateFieldApi instances associated with this certificate.
       */
    masterKeyring?: Record<string, string>
+   /**
+      * Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+      */
+   isDeleted?: boolean
 }
 
 export interface DojoCommissionApi extends DojoEntityTimeStampApi {
@@ -1130,6 +1134,10 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
     * valid only when retreived by with the 'whenLastUsed' sort option.
     */
    whenLastUsed?: Date | null
+   /**
+    * Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+    */
+   isDeleted?: boolean
 }
 
 export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
@@ -1145,6 +1153,10 @@ export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
    updated_at?: Date | null
    tag: string
    userId: number
+   /**
+    * Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+    */
+   isDeleted?: boolean
 }
 
 export interface DojoOutputTagMapApi extends DojoEntityTimeStampApi {
