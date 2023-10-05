@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "bn.js": "^5.2.1",
-    "cwi-bitcoin": "^1.0.1"
+    "cwi-bitcoin": "^1.0.1",
+    "hi-base32": "^0.5.1"
   }
 }
