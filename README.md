@@ -2480,6 +2480,7 @@ export interface DojoCertificateApi extends DojoEntityTimeStampApi {
     signature: string;
     fields?: Record<string, string>;
     masterKeyring?: Record<string, string>;
+    isDeleted?: boolean;
 }
 ```
 
@@ -2501,6 +2502,14 @@ Certificate fields object constructed from fieldName and fieldValue properties o
 
 ```ts
 fields?: Record<string, string>
+```
+
+##### Property isDeleted
+
+Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+
+```ts
+isDeleted?: boolean
 ```
 
 ##### Property masterKeyring
@@ -3116,12 +3125,21 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
     label: string;
     userId: number;
     whenLastUsed?: Date | null;
+    isDeleted?: boolean;
 }
 ```
 
 <details>
 
 <summary>Interface DojoTxLabelApi Details</summary>
+
+##### Property isDeleted
+
+Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+
+```ts
+isDeleted?: boolean
+```
 
 ##### Property label
 
@@ -3168,8 +3186,23 @@ export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
     updated_at?: Date | null;
     tag: string;
     userId: number;
+    isDeleted?: boolean;
 }
 ```
+
+<details>
+
+<summary>Interface DojoOutputTagApi Details</summary>
+
+##### Property isDeleted
+
+Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+
+```ts
+isDeleted?: boolean
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -4294,7 +4327,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Class: ERR_DOJO_INVALID_OUTPUT_TAG
 
-Transaction labels must have one visible character and not more than 150.
+Output tags must have one visible character and not more than 150.
 
 ```ts
 export class ERR_DOJO_INVALID_OUTPUT_TAG extends CwiError {

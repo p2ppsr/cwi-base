@@ -111,7 +111,7 @@ export class ERR_DOJO_INVALID_TX_RECIPIENT extends CwiError { constructor () { s
 export class ERR_DOJO_INVALID_TX_LABEL extends CwiError { constructor () { super('ERR_DOJO_INVALID_TX_LABEL', 'Transaction labels must have one visible character and not more than 150.') } }
 
 /**
- * Transaction labels must have one visible character and not more than 150.
+ * Output tags must have one visible character and not more than 150.
  */
 export class ERR_DOJO_INVALID_OUTPUT_TAG extends CwiError { constructor () { super('ERR_DOJO_INVALID_OUTPUT_TAG', 'Output tags must have one visible character and not more than 150.') } }
 
