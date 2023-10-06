@@ -567,6 +567,27 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * @param since optional, start of data interval if specified.
       */
   copyState(since?: Date) : Promise<DojoUserStateApi>
+
+   /**
+    * Deletes a certificate.
+    *
+    * @param partial The partial certificate data identifying the certificate to delete.
+    */
+   deleteCertificate(partial: Partial<DojoCertificateApi>): Promise<number>;
+
+   /**
+    * Deletes an output tag.
+    *
+    * @param partial The partial output tag data identifying the tag to delete.
+    */
+   deleteOutputTag(partial: Partial<DojoOutputTagApi>): Promise<number>;
+
+   /**
+    * Deletes a transaction label.
+    *
+    * @param partial The partial transaction label data identifying the label to delete.
+    */
+   deleteTxLabel(partial: Partial<DojoTxLabelApi>): Promise<number>;
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
