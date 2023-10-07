@@ -1555,6 +1555,9 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     processTransaction(rawTx: string | Buffer, reference: string, outputMap: Record<string, number>): Promise<DojoProcessTransactionResultApi>;
     submitDirectTransaction(protocol: string, transaction: DojoSubmitDirectTransactionApi, senderIdentityKey: string, note: string, labels: string[], derivationPrefix?: string): Promise<DojoSubmitDirectTransactionResultApi>;
     copyState(since?: Date): Promise<DojoUserStateApi>;
+    deleteCertificate(partial: Partial<DojoCertificateApi>): Promise<number>;
+    deleteOutputTag(partial: Partial<DojoOutputTagApi>): Promise<number>;
+    deleteTxLabel(partial: Partial<DojoTxLabelApi>): Promise<number>;
 }
 ```
 
@@ -1643,6 +1646,45 @@ from that transaction to be spent.
   + Optional. A human-readable note detailing this transaction (Optional)
 + **recipient**
   + Optional. The Paymail handle of the recipient of this transaction (Optional)
+
+##### Method deleteCertificate
+
+Deletes a certificate.
+
+```ts
+deleteCertificate(partial: Partial<DojoCertificateApi>): Promise<number>
+```
+
+Argument Details
+
++ **partial**
+  + The partial certificate data identifying the certificate to delete.
+
+##### Method deleteOutputTag
+
+Deletes an output tag.
+
+```ts
+deleteOutputTag(partial: Partial<DojoOutputTagApi>): Promise<number>
+```
+
+Argument Details
+
++ **partial**
+  + The partial output tag data identifying the tag to delete.
+
+##### Method deleteTxLabel
+
+Deletes a transaction label.
+
+```ts
+deleteTxLabel(partial: Partial<DojoTxLabelApi>): Promise<number>
+```
+
+Argument Details
+
++ **partial**
+  + The partial transaction label data identifying the label to delete.
 
 ##### Method findCertificates
 
