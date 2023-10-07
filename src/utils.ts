@@ -3,6 +3,17 @@ import * as bsv from 'cwi-bitcoin'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 
 /**
+ * Tests if all `bits` are set in `what`.
+ * 
+ * @param what value being tested for set bits.
+ * @param bits union of bits to test.
+ * @returns true iff all `bits` are set in `what`
+ */
+export function bitsAreSet(what: number, bits: number) : boolean {
+  return (what & bits) === bits
+}
+
+/**
  * Returns an await'able Promise that resolves in the given number of msecs.
  * @publicbody
  */

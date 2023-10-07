@@ -173,3 +173,6 @@ export class ERR_DOJO_SYNC_STATUS extends CwiError { constructor (step: string, 
 export class ERR_DOJO_SYNC_REFNUM extends CwiError { constructor (expected: string, actual: string) { super('ERR_DOJO_SYNC_REFNUM', `refNum '${expected}' expected, '${actual}' received`) } }
 export class ERR_DOJO_SYNC_STATE extends CwiError { constructor () { super('ERR_DOJO_SYNC_STATE', 'missing valid update state from syncDojo') } }
 export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: number | undefined, actual: number | undefined) { super('ERR_DOJO_SYNC_TOTAL', `sync total '${expected ?? 0}' expected, '${actual ?? 0}' received`) } }
+
+export class ERR_DOJO_FOREIGN_KEY extends CwiError { constructor (description?: string) { super('ERR_DOJO_FOREIGN_KEY', description || `Dojo foreign key validation error.`) } }
+export class ERR_DOJO_VALIDATION extends CwiError { constructor (description?: string) { super('ERR_DOJO_VALIDATION', description || `Dojo validation error.`) } }
