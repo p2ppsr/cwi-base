@@ -588,6 +588,13 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     * @param partial The partial transaction label data identifying the label to delete.
     */
    deleteTxLabel(partial: Partial<DojoTxLabelApi>): Promise<number>;
+
+   /**
+    * Deletes an output basket.
+    *
+    * @param partial The partial output basket data identifying the basket to delete.
+    */
+   deleteOutputBasket(partial: Partial<DojoOutputBasketApi>): Promise<number>;
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
@@ -987,6 +994,10 @@ export interface DojoOutputBasketApi extends DojoEntityTimeStampApi {
    numberOfDesiredUTXOs: number
    minimumDesiredUTXOValue: number
    userId: number
+   /**
+    * Optional. Indicates whether the basket is deleted. isDeleted defaults to false.
+    */
+   isDeleted?: boolean
 }
 
 export interface DojoTransactionApi extends DojoEntityTimeStampApi {
@@ -1152,11 +1163,11 @@ export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
    label: string
    userId: number
    /**
-    * valid only when retreived by with the 'whenLastUsed' sort option.
+    * valid only when retrieved by with the 'whenLastUsed' sort option.
     */
    whenLastUsed?: Date | null
    /**
-    * Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+    * Optional. Indicates whether the label is deleted. isDeleted defaults to false.
     */
    isDeleted?: boolean
 }
@@ -1166,6 +1177,10 @@ export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
    updated_at?: Date | null
    txLabelId: number
    transactionId: number
+   /**
+    * Optional. Indicates whether the label is deleted. isDeleted defaults to false.
+    */
+   isDeleted?: boolean
 }
 
 export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
@@ -1175,7 +1190,7 @@ export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
    tag: string
    userId: number
    /**
-    * Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+    * Optional. Indicates whether the tag is deleted. isDeleted defaults to false.
     */
    isDeleted?: boolean
 }
@@ -1185,6 +1200,10 @@ export interface DojoOutputTagMapApi extends DojoEntityTimeStampApi {
    updated_at?: Date | null
    outputTagId: number
    outputId: number
+   /**
+    * Optional. Indicates whether the tag is deleted. isDeleted defaults to false.
+    */
+   isDeleted?: boolean
 }
 
 export interface DojoClientUserApi extends DojoEntityTimeStampApi {
