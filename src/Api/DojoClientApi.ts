@@ -595,6 +595,54 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     * @param partial The partial output basket data identifying the basket to delete.
     */
    deleteOutputBasket(partial: Partial<DojoOutputBasketApi>): Promise<number>;
+
+    /**
+     * Labels a transaction
+     * 
+     * Validates user is authenticated, txid matches an exsiting user transaction, and label value.
+     * 
+     * Creates new label if necessary.
+     * 
+     * Adds label to transaction if not already labeled.
+     * Note: previously if transaction was already labeled, an error was thrown.
+     * 
+     * @param txid either a transaction txid (32 bytes encoded as hex) or a transactionId number
+     * @param label 
+     */
+    labelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string): Promise<void>
+
+    /**
+     * Removes a label from a transaction
+     * 
+     * Validates user is authenticated, txid matches an exsiting user transaction, and label already exits.
+     * 
+     * Does nothing if transaction is not labeled.
+     * 
+     * @param txid
+     * @param label 
+     */
+    unlabelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string): Promise<void>
+
+    /**
+     * Tags an output
+     * 
+     * Validates user is authenticated, partial identifies a single output, and tag value.
+     * 
+     * Creates new tag if necessary.
+     * 
+     * Adds tag to output if not already tagged.
+     */
+    tagOutput(partial: Partial<DojoOutputApi>, tag: string): Promise<void>
+
+    /**
+     * Removes a tag from an output
+     * 
+     * Validates user is authenticated, partial identifies a single output, and tag already exits.
+     * 
+     * Does nothing if output is not tagged.
+     */
+    untagOutput(partial: Partial<DojoOutputApi>, tag: string): Promise<void>
+
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
