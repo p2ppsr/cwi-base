@@ -169,10 +169,32 @@ export class ERR_DOJO_NO_ENVELOPE extends CwiError { constructor (txid: string) 
  */
 export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError { constructor () { super('ERR_DOJO_PROCESS_PENDING_OUTGOING', 'processPendingOuputs of outgoing transactions is not suported at this time.') } }
 
+/**
+ * dojo sync ${step} status expected '${expected}' but received '${actual}'
+ */
 export class ERR_DOJO_SYNC_STATUS extends CwiError { constructor (step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) { super('ERR_DOJO_SYNC_STATUS', `dojo sync ${step} status expected '${expected}' but received '${actual}'`) } }
+/**
+* refNum '${expected}' expected, '${actual}' received
+*/
 export class ERR_DOJO_SYNC_REFNUM extends CwiError { constructor (expected: string, actual: string) { super('ERR_DOJO_SYNC_REFNUM', `refNum '${expected}' expected, '${actual}' received`) } }
+/**
+* missing valid update state from syncDojo
+*/
 export class ERR_DOJO_SYNC_STATE extends CwiError { constructor () { super('ERR_DOJO_SYNC_STATE', 'missing valid update state from syncDojo') } }
+/**
+* sync total '${expected ?? 0}' expected, '${actual ?? 0}' received
+*/
 export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: number | undefined, actual: number | undefined) { super('ERR_DOJO_SYNC_TOTAL', `sync total '${expected ?? 0}' expected, '${actual ?? 0}' received`) } }
+/**
+* description || 'Dojo sync merge error.'
+*/
+export class ERR_DOJO_SYNC_MERGE extends CwiError { constructor (description?: string) { super('ERR_DOJO_SYNC_MERGE', description || 'Dojo sync merge error.') } }
 
+/**
+* description || `Dojo foreign key validation error.'
+*/
 export class ERR_DOJO_FOREIGN_KEY extends CwiError { constructor (description?: string) { super('ERR_DOJO_FOREIGN_KEY', description || `Dojo foreign key validation error.`) } }
+/**
+* description || `Dojo validation error.'
+*/
 export class ERR_DOJO_VALIDATION extends CwiError { constructor (description?: string) { super('ERR_DOJO_VALIDATION', description || `Dojo validation error.`) } }
