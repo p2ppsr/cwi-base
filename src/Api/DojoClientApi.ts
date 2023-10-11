@@ -272,6 +272,13 @@ export interface DojoSyncOptionsApi {
 }
 
 /**
+ * Place holder for the transaction control object used by actual storage provider implementation.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TrxToken {
+}
+
+/**
  * User specific public Dojo API accessible from all Dojo implementations
  * including `DojoExpressClient` HTTP client
  */
@@ -573,28 +580,28 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     *
     * @param partial The partial certificate data identifying the certificate to delete.
     */
-   deleteCertificate(partial: Partial<DojoCertificateApi>): Promise<number>;
+   deleteCertificate(partial: Partial<DojoCertificateApi>, trx?: TrxToken): Promise<number>;
 
    /**
     * Deletes an output tag.
     *
     * @param partial The partial output tag data identifying the tag to delete.
     */
-   deleteOutputTag(partial: Partial<DojoOutputTagApi>): Promise<number>;
+   deleteOutputTag(partial: Partial<DojoOutputTagApi>, trx?: TrxToken): Promise<number>;
 
    /**
     * Deletes a transaction label.
     *
     * @param partial The partial transaction label data identifying the label to delete.
     */
-   deleteTxLabel(partial: Partial<DojoTxLabelApi>): Promise<number>;
+   deleteTxLabel(partial: Partial<DojoTxLabelApi>, trx?: TrxToken): Promise<number>;
 
    /**
     * Deletes an output basket.
     *
     * @param partial The partial output basket data identifying the basket to delete.
     */
-   deleteOutputBasket(partial: Partial<DojoOutputBasketApi>): Promise<number>;
+   deleteOutputBasket(partial: Partial<DojoOutputBasketApi>, trx?: TrxToken): Promise<number>;
 
     /**
      * Labels a transaction
@@ -606,10 +613,10 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * Adds label to transaction if not already labeled.
      * Note: previously if transaction was already labeled, an error was thrown.
      * 
-     * @param txid either a transaction txid (32 bytes encoded as hex) or a transactionId number
-     * @param label 
+     * @param txid unique transaction identifier, either transactionId, txid, or a partial pattern.
+     * @param label the label to be added, will be created if it doesn't already exist
      */
-    labelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string): Promise<void>
+    labelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string, trx?: TrxToken): Promise<void>
 
     /**
      * Removes a label from a transaction
@@ -618,10 +625,10 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * 
      * Does nothing if transaction is not labeled.
      * 
-     * @param txid
-     * @param label 
+     * @param txid unique transaction identifier, either transactionId, txid, or a partial pattern.
+     * @param label the label to be removed from the transaction
      */
-    unlabelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string): Promise<void>
+    unlabelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string, trx?: TrxToken): Promise<void>
 
     /**
      * Tags an output
@@ -631,8 +638,11 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * Creates new tag if necessary.
      * 
      * Adds tag to output if not already tagged.
+     * 
+     * @param partial unique output identifier as a partial pattern. 
+     * @param tag the tag to add, will be created if it doesn't already exist
      */
-    tagOutput(partial: Partial<DojoOutputApi>, tag: string): Promise<void>
+    tagOutput(partial: Partial<DojoOutputApi>, tag: string, trx?: TrxToken): Promise<void>
 
     /**
      * Removes a tag from an output
@@ -640,9 +650,22 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * Validates user is authenticated, partial identifies a single output, and tag already exits.
      * 
      * Does nothing if output is not tagged.
+     * 
+     * @param partial unique output identifier as a partial pattern. 
+     * @param tag the tag to be removed from the output
      */
-    untagOutput(partial: Partial<DojoOutputApi>, tag: string): Promise<void>
+    untagOutput(partial: Partial<DojoOutputApi>, tag: string, trx?: TrxToken): Promise<void>
 
+    /**
+     * Removes the uniquely identified output's basket assignment.
+     * 
+     * The output will no longer belong to any basket.
+     * 
+     * This is typically only useful for outputs that are no longer usefull.
+     *
+     * @param partial unique output identifier as a partial pattern. 
+     */
+    unbasketOutput(partial: Partial<DojoOutputApi>, trx?: TrxToken): Promise<void>
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
