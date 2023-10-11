@@ -576,32 +576,32 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
   copyState(since?: Date) : Promise<DojoUserStateApi>
 
    /**
-    * Deletes a certificate.
+    * Soft deletes a certificate.
     *
-    * @param partial The partial certificate data identifying the certificate to delete.
+    * @param partial The partial certificate data identifying the certificate to soft delete.
     */
-   deleteCertificate(partial: Partial<DojoCertificateApi>, trx?: TrxToken): Promise<number>;
+   softDeleteCertificate(partial: Partial<DojoCertificateApi>, trx?: TrxToken): Promise<number>;
 
    /**
-    * Deletes an output tag.
+    * Soft deletes an output tag.
     *
-    * @param partial The partial output tag data identifying the tag to delete.
+    * @param partial The partial output tag data identifying the tag to soft delete.
     */
-   deleteOutputTag(partial: Partial<DojoOutputTagApi>, trx?: TrxToken): Promise<number>;
+   softDeleteOutputTag(partial: Partial<DojoOutputTagApi>, trx?: TrxToken): Promise<number>;
 
    /**
-    * Deletes a transaction label.
+    * Soft deletes a transaction label.
     *
-    * @param partial The partial transaction label data identifying the label to delete.
+    * @param partial The partial transaction label data identifying the label to soft delete.
     */
-   deleteTxLabel(partial: Partial<DojoTxLabelApi>, trx?: TrxToken): Promise<number>;
+   softDeleteTxLabel(partial: Partial<DojoTxLabelApi>, trx?: TrxToken): Promise<number>;
 
    /**
-    * Deletes an output basket.
+    * Soft deletes an output basket.
     *
-    * @param partial The partial output basket data identifying the basket to delete.
+    * @param partial The partial output basket data identifying the basket to soft delete.
     */
-   deleteOutputBasket(partial: Partial<DojoOutputBasketApi>, trx?: TrxToken): Promise<number>;
+   softDeleteOutputBasket(partial: Partial<DojoOutputBasketApi>, trx?: TrxToken): Promise<number>;
 
     /**
      * Labels a transaction
