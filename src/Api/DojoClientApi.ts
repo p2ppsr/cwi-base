@@ -1160,8 +1160,6 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
  *
  * unconfirmed: Potential proof has not been confirmed by chaintracks
  *
- * notifying: proven_txs record added, while notifications are being processed.
- *
  * Terminal status:
  *
  * doubleSpend: Transaction spends same input as another transaction.
@@ -1172,7 +1170,7 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
  */
 export type DojoProvenTxReqStatusApi =
    'sending' | 'unsent' | 'unknown' | 'nonfinal' |
-   'unmined' | 'callback' | 'unconfirmed' | 'notifying' |
+   'unmined' | 'callback' | 'unconfirmed' |
    'completed' | 'invalid' | 'doubleSpend'
 
 export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
@@ -1193,6 +1191,10 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
       * Parses to `DojoProvenTxReqNotifyApi`.
       */
    notify: string
+   /**
+    * Set to true when a terminal status has been set and notification has occurred.
+    */
+   notified: boolean
    /**
       * See `DojoProvenTxReqStatusApi`
       */
