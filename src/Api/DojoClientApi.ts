@@ -430,7 +430,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * @param options limit defaults to 25, offset defaults to 0, includeEnvelpe defaults to true
       */
-   getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<{ outputs: DojoOutputApi[], total: number }>
+   getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>
 
    /**
       * Returns transaction labels matching options and total matching count available.
@@ -745,6 +745,14 @@ export interface DojoGetTransactionOutputsOptions {
      */
   spendable?: boolean
   /**
+   * If true, the `DojoOutputXApi` `basket` property will be included in results.
+   */
+  includeBasket?: boolean
+  /**
+   * If true, the `DojoOutputXApi` `tags` property will be included in results.
+   */
+  includeTags?: boolean
+  /**
      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
      */
   type?: string
@@ -758,6 +766,10 @@ export interface DojoGetTransactionOutputsOptions {
   offset?: number
 }
 
+export interface DojoGetTransactionOutputsResultApi {
+   outputs: DojoOutputXApi[],
+   total: number
+}
 
 export type DojoTransactionLabelsSortBy = 'label' | 'whenLastUsed';
 
@@ -1052,6 +1064,11 @@ export interface DojoOutputApi extends DojoEntityTimeStampApi {
       * optional envelope for transaction containing output
       */
    envelope?: EnvelopeApi
+}
+
+export interface DojoOutputXApi extends DojoOutputApi {
+   basket?: DojoOutputBasketApi
+   tags?: DojoOutputTagApi[]
 }
 
 export interface DojoOutputBasketApi extends DojoEntityTimeStampApi {
