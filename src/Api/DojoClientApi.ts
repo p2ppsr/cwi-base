@@ -1173,6 +1173,10 @@ export type DojoProvenTxReqStatusApi =
    'unmined' | 'callback' | 'unconfirmed' |
    'completed' | 'invalid' | 'doubleSpend'
 
+export const DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
+   'completed', 'invalid', 'doubleSpend'
+]
+
 export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
    provenTxReqId?: number
    userId?: number
