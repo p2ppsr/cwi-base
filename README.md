@@ -11,33 +11,33 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [BaseBlockHeader](#interface-baseblockheader) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
-| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
-| [BlockHeader](#interface-blockheader) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
-| [BlockHeaderHex](#interface-blockheaderhex) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
-| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
-| [DojoAliasApi](#interface-dojoaliasapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoUserApi](#interface-dojouserapi) |
-| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
-| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [EnvelopeApi](#interface-envelopeapi) |
-| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [EnvelopeEvidenceApi](#interface-envelopeevidenceapi) |
-| [DojoClientApi](#interface-dojoclientapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
-| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
-| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
-| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
-| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiResponseApi](#interface-mapiresponseapi) |
-| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
-| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
-| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
-| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
-| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
-| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
-| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TrxToken](#interface-trxtoken) |
-| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
-| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |  |
-| [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |  |
+| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
+| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
+| [BlockHeader](#interface-blockheader) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
+| [BlockHeaderHex](#interface-blockheaderhex) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
+| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
+| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
+| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
+| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoUserApi](#interface-dojouserapi) |
+| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [EnvelopeApi](#interface-envelopeapi) |
+| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [EnvelopeEvidenceApi](#interface-envelopeevidenceapi) |
+| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
+| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
+| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
+| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
+| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiResponseApi](#interface-mapiresponseapi) |
+| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
+| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
+| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
+| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
+| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
+| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
+| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TrxToken](#interface-trxtoken) |
+| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -1554,10 +1554,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
         txs: DojoTransactionApi[];
         total: number;
     }>;
-    getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<{
-        outputs: DojoOutputApi[];
-        total: number;
-    }>;
+    getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>;
     getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<{
         labels: DojoTxLabelApi[];
         total: number;
@@ -1811,10 +1808,7 @@ Argument Details
 Returns transaction outputs matching options and total matching count available.
 
 ```ts
-getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<{
-    outputs: DojoOutputApi[];
-    total: number;
-}>
+getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>
 ```
 
 Argument Details
@@ -2270,6 +2264,8 @@ export interface DojoGetTransactionOutputsOptions {
     tracked?: boolean;
     includeEnvelope?: boolean;
     spendable?: boolean;
+    includeBasket?: boolean;
+    includeTags?: boolean;
     type?: string;
     limit?: number;
     offset?: number;
@@ -2288,12 +2284,28 @@ If provided, indicates which basket the outputs should be selected from.
 basket?: string
 ```
 
+##### Property includeBasket
+
+If true, the `DojoOutputXApi` `basket` property will be included in results.
+
+```ts
+includeBasket?: boolean
+```
+
 ##### Property includeEnvelope
 
 If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
 
 ```ts
 includeEnvelope?: boolean
+```
+
+##### Property includeTags
+
+If true, the `DojoOutputXApi` `tags` property will be included in results.
+
+```ts
+includeTags?: boolean
 ```
 
 ##### Property limit
@@ -2337,6 +2349,18 @@ type?: string
 ```
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+
+---
+#### Interface: DojoGetTransactionOutputsResultApi
+
+```ts
+export interface DojoGetTransactionOutputsResultApi {
+    outputs: DojoOutputXApi[];
+    total: number;
+}
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
@@ -3008,6 +3032,18 @@ vout: number | null
 ```
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+
+---
+#### Interface: DojoOutputXApi
+
+```ts
+export interface DojoOutputXApi extends DojoOutputApi {
+    basket?: DojoOutputBasketApi;
+    tags?: DojoOutputTagApi[];
+}
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
