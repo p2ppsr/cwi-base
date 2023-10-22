@@ -5,6 +5,7 @@ Base classes, types, utilities for implementation support of CWI components, Pro
 ## API
 
 <!--#region ts2md-api-merged-here-->
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
 
 ### Interfaces
@@ -5716,7 +5717,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Function: toDojoSyncError
 
 ```ts
-export function toDojoSyncError(e: CwiError): DojoSyncError
+export function toDojoSyncError(e: CwiError): DojoSyncErrorApi 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
@@ -6378,7 +6379,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Function: pointToBuffer
 
 ```ts
-export function pointToBuffer(point: Point): Buf
+export function pointToBuffer(point: Point): Buffer 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
