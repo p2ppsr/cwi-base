@@ -666,6 +666,13 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      * @param partial unique output identifier as a partial pattern. 
      */
     unbasketOutput(partial: Partial<DojoOutputApi>, trx?: TrxToken): Promise<void>
+    
+    /**
+     * Releases any persistent resources held by this dojo.
+     * 
+     * No further access must occur after `destroy()` has been called.
+     */
+    destroy() : Promise<void>
 }
 
 export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
