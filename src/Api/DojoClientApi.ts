@@ -423,7 +423,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * @param options limit defaults to 25, offset defaults to 0, addLabels defaults to true, order defaults to 'descending'
       */
-   getTransactions(options?: DojoGetTransactionsOptions): Promise<{ txs: DojoTransactionApi[], total: number }>
+   getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
 
    /**
       * Returns transaction outputs matching options and total matching count available.
@@ -437,7 +437,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * @param options limit defaults to 25, offset defaults to 0, order defaults to 'descending'
       */
-   getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<{ labels: DojoTxLabelApi[], total: number }>
+   getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>
 
    /**
       * Returns an Everett Style envelope for the given txid.
@@ -732,6 +732,14 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
       * Enabling this option adds the 'inputs' and 'outputs' properties to each transaction, providing detailed information about the transaction's inputs and outputs.
       */
    addInputsAndOutputs?: boolean
+   /**
+    * If true and `addInputsAndOutputs` is true, the `DojoOutputXApi` `basket` property will be included in inputs and outputs.
+    */
+   includeBasket?: boolean
+   /**
+    * If true and `addInputsAndOutputs` is true, the `DojoOutputXApi` `tags` property will be included in inputs and outputs.
+    */
+   includeTags?: boolean
 }
 
 export interface DojoGetTransactionOutputsOptions {
@@ -744,21 +752,13 @@ export interface DojoGetTransactionOutputsOptions {
      */
   tracked?: boolean
   /**
-     * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
-     */
-  includeEnvelope?: boolean
-  /**
      * If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
      */
   spendable?: boolean
   /**
-   * If true, the `DojoOutputXApi` `basket` property will be included in results.
+   * An optional array of output tag names
    */
-  includeBasket?: boolean
-  /**
-   * If true, the `DojoOutputXApi` `tags` property will be included in results.
-   */
-  includeTags?: boolean
+  tags?: string[]
   /**
      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
      */
@@ -771,10 +771,32 @@ export interface DojoGetTransactionOutputsOptions {
      * Optional. How many transactions to skip.
      */
   offset?: number
+  /**
+     * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
+     */
+  includeEnvelope?: boolean
+  /**
+   * If true, the `DojoOutputXApi` `basket` property will be included in results.
+   */
+  includeBasket?: boolean
+  /**
+   * If true, the `DojoOutputXApi` `tags` property will be included in results.
+   */
+  includeTags?: boolean
+}
+
+export interface DojoGetTransactionsResultApi {
+   txs: DojoTransactionXApi[],
+   total: number
 }
 
 export interface DojoGetTransactionOutputsResultApi {
    outputs: DojoOutputXApi[],
+   total: number
+}
+
+export interface DojoGetTransactionLabelsResultApi {
+   labels: DojoTxLabelApi[],
    total: number
 }
 
@@ -1149,18 +1171,21 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       * This is an extended property with data from dependent label entities.
       */
    labels?: string[]
+}
+
+export interface DojoTransactionXApi extends DojoTransactionApi {
    /**
     * When not undefined, prior outputs now serving as inputs to this transaction
       * 
       * This is an extended property with data from dependent output entities.
     */
-   inputs?: DojoOutputApi[]
+   inputs?: DojoOutputXApi[]
    /**
     * When not undefined, outputs created by this transaction
     * 
     * This is an extended property with data from dependent output entities.
     */
-   outputs?: DojoOutputApi[]
+   outputs?: DojoOutputXApi[]
 }
 
 /**
