@@ -18,6 +18,14 @@ export function verifyBuffer (b: Buffer | undefined | null, length?: number): Bu
 }
 
 /**
+ * true iff both b1 and b2 are undefined or null, or both are Buffers and are equal.
+ */
+export function verifyBufferEquals (b1: Buffer | undefined | null, b2: Buffer | undefined | null): boolean {
+  if (b1 && b2) return b1.equals(b2)
+  return !(b1 || b2)
+}
+
+/**
  * Helper function.
  *
  * Verifies that a possibly optional value has a value.
@@ -42,7 +50,7 @@ export function verifyNumber (v: number | null | undefined): number {
  * 
  * Verifies that an optional numeric Id has a value.
  */
-export function verifyId(id : number | undefined) : number {
+export function verifyId(id : number | undefined | null) : number {
     if (id === undefined || typeof id !== 'number') throw new ERR_INTERNAL('id was expected to be defined.')
     return id
 }

@@ -849,6 +849,13 @@ export interface DojoStatsApi {
 }
 
 export interface DojoUserStateApi {
+   /**
+    * If undefined, this is the complete state for the given `user`.
+    * 
+    * If a valid `Date`, these are the entities updated since that date.
+    */
+   since?: Date
+   user: DojoUserApi
    certificates: DojoCertificateApi[]
    certificateFields: DojoCertificateFieldApi[]
    commissions: DojoCommissionApi[]
@@ -862,7 +869,6 @@ export interface DojoUserStateApi {
    txLabelMaps: DojoTxLabelMapApi[]
    outputTags: DojoOutputTagApi[]
    outputTagMaps: DojoOutputTagMapApi[]
-   user: DojoUserApi
 }
 
 export interface DojoEntityTimeStampApi {
