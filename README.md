@@ -6,7 +6,7 @@ Base classes, types, utilities for implementation support of CWI components, Pro
 
 <!--#region ts2md-api-merged-here-->
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ### Interfaces
 
@@ -41,7 +41,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TrxToken](#interface-trxtoken) |
 | [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
@@ -117,7 +117,7 @@ version: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: BaseBlockHeaderHex
@@ -135,7 +135,7 @@ export interface BaseBlockHeaderHex {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: BlockHeader
@@ -171,7 +171,7 @@ height: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: BlockHeaderHex
@@ -185,7 +185,7 @@ export interface BlockHeaderHex extends BaseBlockHeaderHex {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: LiveBlockHeader
@@ -255,7 +255,7 @@ previousHeaderId: number | null
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: LiveBlockHeaderHex
@@ -272,7 +272,7 @@ export interface LiveBlockHeaderHex extends BlockHeaderHex {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: ChaintracksPackageInfoApi
@@ -284,7 +284,7 @@ export interface ChaintracksPackageInfoApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: ChaintracksInfoApi
@@ -303,7 +303,7 @@ export interface ChaintracksInfoApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: ChaintracksClientApi
@@ -653,7 +653,7 @@ ERR_NOT_IMPLEMENTED if callback events are not supported
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: ChaintracksApi
@@ -697,7 +697,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: MapiResponseApi
@@ -760,7 +760,7 @@ signature: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: TscMerkleProofApi
@@ -832,7 +832,7 @@ txOrId: string | Buffer
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: MapiTxStatusPayloadApi
@@ -854,7 +854,7 @@ export interface MapiTxStatusPayloadApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: MapiCallbackPayloadApi
@@ -873,7 +873,7 @@ export interface MapiCallbackPayloadApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: MapiTxidReturnResultApi
@@ -889,7 +889,7 @@ export interface MapiTxidReturnResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: MapiPostTxPayloadApi
@@ -913,7 +913,7 @@ export interface MapiPostTxPayloadApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: EnvelopeApi
@@ -971,7 +971,7 @@ reference?: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: EnvelopeEvidenceApi
@@ -1054,7 +1054,7 @@ txid?: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoPublicApi
@@ -1096,7 +1096,7 @@ general storage statistics
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: SyncDojoConfigBaseApi
@@ -1145,7 +1145,7 @@ dojoType: SyncDojoConfigType
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: SyncDojoConfigCloudUrl
@@ -1200,7 +1200,7 @@ useIdentityKey?: boolean
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: SyncDojoConfigMySqlConnection
@@ -1211,7 +1211,7 @@ export interface SyncDojoConfigMySqlConnection extends SyncDojoConfigBaseApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: SyncDojoConfigSqliteFile
@@ -1222,7 +1222,7 @@ export interface SyncDojoConfigSqliteFile extends SyncDojoConfigBaseApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoIdentityApi
@@ -1256,7 +1256,7 @@ dojoName?: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncErrorApi
@@ -1269,7 +1269,7 @@ export interface DojoSyncErrorApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncMapApi
@@ -1290,7 +1290,7 @@ export interface DojoSyncMapApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncIdentifyParams
@@ -1312,7 +1312,7 @@ export interface DojoSyncIdentifyParams {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncIdentifyResultApi
@@ -1328,7 +1328,7 @@ export interface DojoSyncIdentifyResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncUpdateParams
@@ -1341,7 +1341,7 @@ export interface DojoSyncUpdateParams {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncUpdateResultApi
@@ -1356,7 +1356,7 @@ export interface DojoSyncUpdateResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncMergeParams
@@ -1373,7 +1373,7 @@ export interface DojoSyncMergeParams {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncMergeResultApi
@@ -1387,7 +1387,7 @@ export interface DojoSyncMergeResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncApi
@@ -1501,7 +1501,7 @@ syncUpdate(params: DojoSyncUpdateParams): Promise<DojoSyncUpdateResultApi>
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSyncOptionsApi
@@ -1511,7 +1511,7 @@ export interface DojoSyncOptionsApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: TrxToken
@@ -1523,7 +1523,7 @@ export interface TrxToken {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoClientApi
@@ -1570,6 +1570,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     tagOutput(partial: Partial<DojoOutputApi>, tag: string, trx?: TrxToken): Promise<void>;
     untagOutput(partial: Partial<DojoOutputApi>, tag: string, trx?: TrxToken): Promise<void>;
     unbasketOutput(partial: Partial<DojoOutputApi>, trx?: TrxToken): Promise<void>;
+    destroy(): Promise<void>;
 }
 ```
 
@@ -1658,6 +1659,16 @@ from that transaction to be spent.
   + Optional. A human-readable note detailing this transaction (Optional)
 + **recipient**
   + Optional. The Paymail handle of the recipient of this transaction (Optional)
+
+##### Method destroy
+
+Releases any persistent resources held by this dojo.
+
+No further access must occur after `destroy()` has been called.
+
+```ts
+destroy(): Promise<void>
+```
 
 ##### Method findCertificates
 
@@ -2102,7 +2113,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionsBaseOptions
@@ -2145,7 +2156,7 @@ order?: DojoRecordOrder
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionsOptions
@@ -2261,7 +2272,7 @@ status?: DojoTransactionStatusApi
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionOutputsOptions
@@ -2367,7 +2378,7 @@ type?: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionsResultApi
@@ -2379,7 +2390,7 @@ export interface DojoGetTransactionsResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionOutputsResultApi
@@ -2391,7 +2402,7 @@ export interface DojoGetTransactionOutputsResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionLabelsResultApi
@@ -2403,7 +2414,7 @@ export interface DojoGetTransactionLabelsResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTransactionLabelsOptions
@@ -2446,7 +2457,7 @@ transactionId?: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoGetTotalOfAmountsOptions
@@ -2507,7 +2518,7 @@ startTime?: Date | string | number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoStatsApi
@@ -2522,13 +2533,15 @@ export interface DojoStatsApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoUserStateApi
 
 ```ts
 export interface DojoUserStateApi {
+    since?: Date;
+    user: DojoUserApi;
     certificates: DojoCertificateApi[];
     certificateFields: DojoCertificateFieldApi[];
     commissions: DojoCommissionApi[];
@@ -2542,11 +2555,26 @@ export interface DojoUserStateApi {
     txLabelMaps: DojoTxLabelMapApi[];
     outputTags: DojoOutputTagApi[];
     outputTagMaps: DojoOutputTagMapApi[];
-    user: DojoUserApi;
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+<details>
+
+<summary>Interface DojoUserStateApi Details</summary>
+
+##### Property since
+
+If undefined, this is the complete state for the given `user`.
+
+If a valid `Date`, these are the entities updated since that date.
+
+```ts
+since?: Date
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoEntityTimeStampApi
@@ -2558,7 +2586,7 @@ export interface DojoEntityTimeStampApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoAliasApi
@@ -2616,7 +2644,7 @@ domain: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoAvatarApi
@@ -2650,7 +2678,7 @@ photoURL: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCertificateFieldApi
@@ -2697,7 +2725,7 @@ masterKey: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCertificateApi
@@ -2807,7 +2835,7 @@ validationKey: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCommissionApi
@@ -2848,7 +2876,7 @@ satoshis: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoMapiResponseApi
@@ -2898,7 +2926,7 @@ signature?: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputApi
@@ -3074,7 +3102,7 @@ vout: number | null
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputXApi
@@ -3086,7 +3114,7 @@ export interface DojoOutputXApi extends DojoOutputApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputBasketApi
@@ -3126,7 +3154,7 @@ name: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoTransactionApi
@@ -3244,7 +3272,7 @@ txid: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoTransactionXApi
@@ -3282,7 +3310,7 @@ outputs?: DojoOutputXApi[]
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoProvenTxReqApi
@@ -3298,6 +3326,7 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
     rawTx?: Buffer;
     history: string;
     notify: string;
+    notified: boolean;
     status: DojoProvenTxReqStatusApi;
     attempts: number;
     provenTxId?: number;
@@ -3323,6 +3352,14 @@ Parses to `DojoProvenTxReqHistoryApi`.
 
 ```ts
 history: string
+```
+
+##### Property notified
+
+Set to true when a terminal status has been set and notification has occurred.
+
+```ts
+notified: boolean
 ```
 
 ##### Property notify
@@ -3352,7 +3389,7 @@ status: DojoProvenTxReqStatusApi
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoProvenTxApi
@@ -3386,7 +3423,7 @@ nodes: Buffer
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoTxLabelApi
@@ -3434,7 +3471,7 @@ whenLastUsed?: Date | null
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoTxLabelMapApi
@@ -3463,7 +3500,7 @@ isDeleted?: boolean
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputTagApi
@@ -3493,7 +3530,7 @@ isDeleted?: boolean
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputTagMapApi
@@ -3522,7 +3559,7 @@ isDeleted?: boolean
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoClientUserApi
@@ -3551,7 +3588,7 @@ identityKey: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoUserApi
@@ -3607,7 +3644,7 @@ timeSpentProcessingRequests?: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoPendingTxInputInstructionsApi
@@ -3681,7 +3718,7 @@ type: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoPendingTxInputApi
@@ -3693,7 +3730,7 @@ export interface DojoPendingTxInputApi extends EnvelopeEvidenceApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoPendingTxOutputApi
@@ -3714,7 +3751,7 @@ export interface DojoPendingTxOutputApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoPendingTxApi
@@ -3737,7 +3774,7 @@ export interface DojoPendingTxApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoProcessTransactionResultApi
@@ -3750,7 +3787,7 @@ export interface DojoProcessTransactionResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputToRedeemApi
@@ -3787,7 +3824,7 @@ unlockingScriptLength: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoTxInputsApi
@@ -3798,7 +3835,7 @@ export interface DojoTxInputsApi extends EnvelopeEvidenceApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoTxInputSelectionApi
@@ -3857,7 +3894,7 @@ maxUnconfirmedChainLength?: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCreateTxOutputApi
@@ -3921,7 +3958,7 @@ script: string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoOutputGenerationApi
@@ -3964,7 +4001,7 @@ method: "auto" | "single"
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoFeeModelApi
@@ -4003,7 +4040,7 @@ value?: number
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCreatingTxOutputApi
@@ -4018,7 +4055,7 @@ export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCreatingTxInstructionsApi
@@ -4033,7 +4070,7 @@ export interface DojoCreatingTxInstructionsApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCreatingTxInputsApi
@@ -4045,7 +4082,7 @@ export interface DojoCreatingTxInputsApi extends DojoTxInputsApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoCreateTransactionResultApi
@@ -4060,7 +4097,7 @@ export interface DojoCreateTransactionResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSubmitDirectTransactionOutputApi
@@ -4074,7 +4111,7 @@ export interface DojoSubmitDirectTransactionOutputApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSubmitDirectTransactionApi
@@ -4099,7 +4136,7 @@ outputs: Record<number, DojoSubmitDirectTransactionOutputApi>
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Interface: DojoSubmitDirectTransactionResultApi
@@ -4111,7 +4148,7 @@ export interface DojoSubmitDirectTransactionResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 ### Classes
@@ -4137,7 +4174,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [ERR_DOJO_INVALID_PAYMAIL_DOMAIN](#class-err_dojo_invalid_paymail_domain) | [ERR_DOJO_PROCESS_PENDING_OUTGOING](#class-err_dojo_process_pending_outgoing) | [ERR_TXID_UNKNOWN](#class-err_txid_unknown) |
 | [ERR_DOJO_INVALID_PAYMAIL_HANDLE](#class-err_dojo_invalid_paymail_handle) | [ERR_DOJO_REQUEST_EXPIRED](#class-err_dojo_request_expired) | [ERR_UNAUTHORIZED](#class-err_unauthorized) |
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
@@ -4195,7 +4232,7 @@ standard HTTP error status object with status property set to 'error'.
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_NOT_IMPLEMENTED
@@ -4208,7 +4245,7 @@ export class ERR_NOT_IMPLEMENTED extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_INTERNAL
@@ -4221,7 +4258,7 @@ export class ERR_INTERNAL extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_UNAUTHORIZED
@@ -4234,7 +4271,7 @@ export class ERR_UNAUTHORIZED extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_INVALID_PARAMETER
@@ -4247,7 +4284,7 @@ export class ERR_INVALID_PARAMETER extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_MISSING_PARAMETER
@@ -4260,7 +4297,7 @@ export class ERR_MISSING_PARAMETER extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_BAD_REQUEST
@@ -4273,7 +4310,7 @@ export class ERR_BAD_REQUEST extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_CHAIN
@@ -4286,7 +4323,7 @@ export class ERR_CHAIN extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_CHAIN_INVALID
@@ -4299,7 +4336,7 @@ export class ERR_CHAIN_INVALID extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_TXID_INVALID
@@ -4312,7 +4349,7 @@ export class ERR_TXID_INVALID extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_TXID_UNKNOWN
@@ -4325,7 +4362,7 @@ export class ERR_TXID_UNKNOWN extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_TX_BAD_AMOUNT
@@ -4338,7 +4375,7 @@ export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_NOT_SUFFICIENT_FUNDS
@@ -4354,7 +4391,7 @@ export class ERR_DOJO_NOT_SUFFICIENT_FUNDS extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_UNKNOWN_FEE_MODEL
@@ -4367,7 +4404,7 @@ export class ERR_DOJO_UNKNOWN_FEE_MODEL extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_BROADCAST_DUPE
@@ -4380,7 +4417,7 @@ export class ERR_DOJO_BROADCAST_DUPE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_CERT_DUPE
@@ -4393,7 +4430,7 @@ export class ERR_DOJO_CERT_DUPE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_CERT_INVALID
@@ -4406,7 +4443,7 @@ export class ERR_DOJO_CERT_INVALID extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_CERT_SUBJECT
@@ -4419,7 +4456,7 @@ export class ERR_DOJO_CERT_SUBJECT extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_CREATE_TX_EMPTY
@@ -4432,7 +4469,7 @@ export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_REDEEM
@@ -4445,7 +4482,7 @@ export class ERR_DOJO_INVALID_REDEEM extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS
@@ -4458,7 +4495,7 @@ export class ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_OUTPOINT
@@ -4471,7 +4508,7 @@ export class ERR_DOJO_INVALID_OUTPOINT extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_OUTPUT_DESCRIPTION
@@ -4484,7 +4521,7 @@ export class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_PAYMAIL_HANDLE
@@ -4497,7 +4534,7 @@ export class ERR_DOJO_INVALID_PAYMAIL_HANDLE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_PAYMAIL_DOMAIN
@@ -4510,7 +4547,7 @@ export class ERR_DOJO_INVALID_PAYMAIL_DOMAIN extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_NOTE
@@ -4523,7 +4560,7 @@ export class ERR_DOJO_INVALID_NOTE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_REFERENCE
@@ -4536,7 +4573,7 @@ export class ERR_DOJO_INVALID_REFERENCE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_SATOSHIS
@@ -4549,7 +4586,7 @@ export class ERR_DOJO_INVALID_SATOSHIS extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_SCRIPT
@@ -4562,7 +4599,7 @@ export class ERR_DOJO_INVALID_SCRIPT extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_TIME
@@ -4575,7 +4612,7 @@ export class ERR_DOJO_INVALID_TIME extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_TRANSACTION_STATUS
@@ -4588,7 +4625,7 @@ export class ERR_DOJO_INVALID_TRANSACTION_STATUS extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_BASKET_NAME
@@ -4601,7 +4638,7 @@ export class ERR_DOJO_INVALID_BASKET_NAME extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_TX_RECIPIENT
@@ -4614,7 +4651,7 @@ export class ERR_DOJO_INVALID_TX_RECIPIENT extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_TX_LABEL
@@ -4627,7 +4664,7 @@ export class ERR_DOJO_INVALID_TX_LABEL extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_OUTPUT_TAG
@@ -4640,7 +4677,7 @@ export class ERR_DOJO_INVALID_OUTPUT_TAG extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_INVALID_TXID
@@ -4653,7 +4690,7 @@ export class ERR_DOJO_INVALID_TXID extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_LABEL_NOT_FOUND
@@ -4666,7 +4703,7 @@ export class ERR_DOJO_LABEL_NOT_FOUND extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_PAYMAIL_MISMATCH
@@ -4679,7 +4716,7 @@ export class ERR_DOJO_PAYMAIL_MISMATCH extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY
@@ -4692,7 +4729,7 @@ export class ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_PAYMAIL_NOT_FOUND
@@ -4705,7 +4742,7 @@ export class ERR_DOJO_PAYMAIL_NOT_FOUND extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_PAYMAIL_UNAVAILABLE
@@ -4718,7 +4755,7 @@ export class ERR_DOJO_PAYMAIL_UNAVAILABLE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_REQUEST_EXPIRED
@@ -4731,7 +4768,7 @@ export class ERR_DOJO_REQUEST_EXPIRED extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_SENDER_SIGNATURE_CHECK
@@ -4744,7 +4781,7 @@ export class ERR_DOJO_SENDER_SIGNATURE_CHECK extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_TRANSACTION_NOT_FOUND
@@ -4757,7 +4794,7 @@ export class ERR_DOJO_TRANSACTION_NOT_FOUND extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_TRANSACTION_REJECTED
@@ -4770,7 +4807,7 @@ export class ERR_DOJO_TRANSACTION_REJECTED extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_NO_ENVELOPE
@@ -4783,7 +4820,7 @@ export class ERR_DOJO_NO_ENVELOPE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_PROCESS_PENDING_OUTGOING
@@ -4796,7 +4833,7 @@ export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_SYNC_STATUS
@@ -4809,7 +4846,7 @@ export class ERR_DOJO_SYNC_STATUS extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_SYNC_REFNUM
@@ -4822,7 +4859,7 @@ export class ERR_DOJO_SYNC_REFNUM extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_SYNC_STATE
@@ -4835,7 +4872,7 @@ export class ERR_DOJO_SYNC_STATE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_SYNC_TOTAL
@@ -4848,7 +4885,7 @@ export class ERR_DOJO_SYNC_TOTAL extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_SYNC_MERGE
@@ -4861,7 +4898,7 @@ export class ERR_DOJO_SYNC_MERGE extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_FOREIGN_KEY
@@ -4874,7 +4911,7 @@ export class ERR_DOJO_FOREIGN_KEY extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Class: ERR_DOJO_VALIDATION
@@ -4887,7 +4924,7 @@ export class ERR_DOJO_VALIDATION extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 ### Functions
@@ -4913,18 +4950,18 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toBlockHeaderHex](#function-toblockheaderhex) | [validateTxRecipient](#function-validatetxrecipient) |
 | [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [toDojoSyncError](#function-todojosyncerror) | [varUintSize](#function-varuintsize) |
 | [isBaseBlockHeader](#function-isbaseblockheader) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBuffer](#function-verifybuffer) |
-| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyId](#function-verifyid) |
-| [isBlockHeader](#function-isblockheader) | [transactionInputSize](#function-transactioninputsize) | [verifyNone](#function-verifynone) |
-| [isBlockHeaderHex](#function-isblockheaderhex) | [transactionOutputSize](#function-transactionoutputsize) | [verifyNumber](#function-verifynumber) |
-| [isLive](#function-islive) | [transactionSize](#function-transactionsize) | [verifyOne](#function-verifyone) |
-| [isLiveBlockHeader](#function-isliveblockheader) | [validateBasketName](#function-validatebasketname) | [verifyOneOrNone](#function-verifyoneornone) |
-| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyTruthy](#function-verifytruthy) |
-| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateCustomInstructions](#function-validatecustominstructions) | [wait](#function-wait) |
-| [maxDate](#function-maxdate) | [validateDate](#function-validatedate) | [writeVarUint32LE](#function-writevaruint32le) |
-| [minDate](#function-mindate) | [validateFeeModel](#function-validatefeemodel) |  |
+| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferEquals](#function-verifybufferequals) |
+| [isBlockHeader](#function-isblockheader) | [transactionInputSize](#function-transactioninputsize) | [verifyId](#function-verifyid) |
+| [isBlockHeaderHex](#function-isblockheaderhex) | [transactionOutputSize](#function-transactionoutputsize) | [verifyNone](#function-verifynone) |
+| [isLive](#function-islive) | [transactionSize](#function-transactionsize) | [verifyNumber](#function-verifynumber) |
+| [isLiveBlockHeader](#function-isliveblockheader) | [validateBasketName](#function-validatebasketname) | [verifyOne](#function-verifyone) |
+| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyOneOrNone](#function-verifyoneornone) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyTruthy](#function-verifytruthy) |
+| [maxDate](#function-maxdate) | [validateDate](#function-validatedate) | [wait](#function-wait) |
+| [minDate](#function-mindate) | [validateFeeModel](#function-validatefeemodel) | [writeVarUint32LE](#function-writevaruint32le) |
 | [offsetPrivKey](#function-offsetprivkey) | [validateIdentityKey](#function-validateidentitykey) |  |
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
@@ -4953,7 +4990,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: wait
@@ -4966,7 +5003,7 @@ export function wait(msecs: number): Promise<void> {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: randomBytes
@@ -4985,7 +5022,7 @@ count cryptographically secure random bytes as Buffer
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: randomBytesHex
@@ -5004,7 +5041,7 @@ count cryptographically secure random bytes as hex encoded string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: randomBytesBase64
@@ -5023,7 +5060,7 @@ count cryptographically secure random bytes as base64 encoded string
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: randomMinMax
@@ -5057,7 +5094,7 @@ ERR_INVALID_PARAMETER when max is less than min.
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: shuffleArray
@@ -5094,7 +5131,7 @@ original `array` with contents shuffled
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: asBuffer
@@ -5122,7 +5159,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: asString
@@ -5150,7 +5187,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: sha256Hash
@@ -5173,7 +5210,7 @@ sha256 hash of buffer contents.
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: doubleSha256HashLE
@@ -5201,7 +5238,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: doubleSha256BE
@@ -5229,7 +5266,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: swapByteOrder
@@ -5252,7 +5289,7 @@ new buffer with byte order reversed.
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: convertUint32ToBuffer
@@ -5283,7 +5320,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: convertBufferToUint32
@@ -5313,7 +5350,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: varUintSize
@@ -5328,7 +5365,7 @@ export function varUintSize(val: number): 1 | 3 | 5 | 9 {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: readVarUint32LE
@@ -5356,7 +5393,7 @@ export function readVarUint32LE(buffer: Buffer, offset: number): {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: writeVarUint32LE
@@ -5388,7 +5425,7 @@ export function writeVarUint32LE(val: number, buffer: Buffer, offset: number): n
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: computeRootFromMerkleProofNodes
@@ -5426,7 +5463,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: computeMerkleTreeParent
@@ -5456,7 +5493,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: asBsvTx
@@ -5476,7 +5513,7 @@ export function asBsvTx(tx: string | Buffer | bsv.Tx): bsv.Tx {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: getInputTxIds
@@ -5496,7 +5533,7 @@ export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: identityKeyFromPrivateKey
@@ -5522,7 +5559,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: maxDate
@@ -5539,7 +5576,7 @@ export function maxDate(d1: Date | null | undefined, d2: Date | null | undefined
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: minDate
@@ -5554,7 +5591,7 @@ export function minDate(d1: Date | null | undefined, d2: Date | null | undefined
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isLive
@@ -5567,7 +5604,7 @@ export function isLive(header: BlockHeader | LiveBlockHeader): header is LiveBlo
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isBaseBlockHeader
@@ -5580,7 +5617,7 @@ export function isBaseBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBl
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isBlockHeader
@@ -5593,7 +5630,7 @@ export function isBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockH
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isLiveBlockHeader
@@ -5606,7 +5643,7 @@ export function isLiveBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBl
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isBaseBlockHeaderHex
@@ -5619,7 +5656,7 @@ export function isBaseBlockHeaderHex(header: BaseBlockHeader | BlockHeader | Liv
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isBlockHeaderHex
@@ -5632,7 +5669,7 @@ export function isBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlo
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: isLiveBlockHeaderHex
@@ -5645,7 +5682,7 @@ export function isLiveBlockHeaderHex(header: BaseBlockHeader | BlockHeader | Liv
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toBaseBlockHeaderHex
@@ -5665,7 +5702,7 @@ export function toBaseBlockHeaderHex(header: BaseBlockHeader | BlockHeader | Liv
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toBlockHeaderHex
@@ -5687,7 +5724,7 @@ export function toBlockHeaderHex(header: BlockHeader | LiveBlockHeader): BlockHe
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toLiveBlockHeaderHex
@@ -5706,7 +5743,7 @@ export function toLiveBlockHeaderHex(header: LiveBlockHeader): LiveBlockHeaderHe
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toBaseBlockHeader
@@ -5726,7 +5763,7 @@ export function toBaseBlockHeader(header: BaseBlockHeaderHex | BlockHeaderHex | 
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toBlockHeader
@@ -5748,7 +5785,7 @@ export function toBlockHeader(header: BlockHeaderHex | LiveBlockHeaderHex): Bloc
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toLiveBlockHeader
@@ -5767,7 +5804,7 @@ export function toLiveBlockHeader(header: LiveBlockHeaderHex): LiveBlockHeader {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: toDojoSyncError
@@ -5776,7 +5813,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function toDojoSyncError(e: CwiError): DojoSyncErrorApi 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: blockHash
@@ -5806,7 +5843,7 @@ doule sha256 hash of header bytes reversed
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: serializeBlockHeader
@@ -5852,7 +5889,7 @@ Returns
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: deserializeBlockHeader
@@ -5873,7 +5910,7 @@ export function deserializeBlockHeader(buffer: Buffer, offset = 0): BaseBlockHea
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: genesisHeaderHex
@@ -5906,7 +5943,7 @@ export function genesisHeaderHex(chain: Chain): BlockHeaderHex {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: genesisBuffer
@@ -5917,7 +5954,7 @@ Returns the genesis block for the specified chain.
 export function genesisBuffer(chain: Chain): Buffer { return serializeBlockHeader(toBlockHeader(genesisHeaderHex(chain))); }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: transactionInputSize
@@ -5941,7 +5978,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: transactionOutputSize
@@ -5965,7 +6002,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: transactionSize
@@ -5995,7 +6032,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: offsetPrivKey
@@ -6007,7 +6044,7 @@ export function offsetPrivKey(privKey: string, keyOffset?: string): {
 } 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: offsetPubKey
@@ -6019,7 +6056,7 @@ export function offsetPubKey(pubKey: string, keyOffset?: string): {
 } 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: lockScriptWithKeyOffsetFromPubKey
@@ -6031,7 +6068,7 @@ export function lockScriptWithKeyOffsetFromPubKey(pubKey: string, keyOffset?: st
 } 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: createBabbageServiceChargeOutput
@@ -6044,7 +6081,7 @@ export function createBabbageServiceChargeOutput(): {
 } 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: restoreUserStateEntities
@@ -6057,7 +6094,7 @@ Detect these situations and restore contained values as Dates and Buffers.
 export function restoreUserStateEntities(state: DojoUserStateApi): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyBuffer
@@ -6070,7 +6107,18 @@ Verifies the value of b is a Buffer and optionally also its length.
 export function verifyBuffer(b: Buffer | undefined | null, length?: number): Buffer 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyBufferEquals
+
+true iff both b1 and b2 are undefined or null, or both are Buffers and are equal.
+
+```ts
+export function verifyBufferEquals(b1: Buffer | undefined | null, b2: Buffer | undefined | null): boolean 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyTruthy
@@ -6083,7 +6131,7 @@ Verifies that a possibly optional value has a value.
 export function verifyTruthy<T>(v: T | null | undefined, description?: string): T 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyNumber
@@ -6096,7 +6144,7 @@ Verifies that an optional or null number has a numeric value.
 export function verifyNumber(v: number | null | undefined): number 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyId
@@ -6106,10 +6154,10 @@ Helper function.
 Verifies that an optional numeric Id has a value.
 
 ```ts
-export function verifyId(id: number | undefined): number 
+export function verifyId(id: number | undefined | null): number 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyOneOrNone
@@ -6132,7 +6180,7 @@ results[0] or undefined if length is zero.
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyOne
@@ -6155,7 +6203,7 @@ results[0].
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: verifyNone
@@ -6178,7 +6226,7 @@ results[0] or undefined if length is zero.
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateIdentityKey
@@ -6187,7 +6235,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateIdentityKey(identityKey?: string | null): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateTXID
@@ -6196,7 +6244,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateTXID(txid: string): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateBasketName
@@ -6205,7 +6253,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateBasketName(name: string): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateTxRecipient
@@ -6214,7 +6262,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateTxRecipient(recipient?: string): string | undefined 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateTxNote
@@ -6223,7 +6271,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateTxNote(note?: string): string | undefined 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateCustomInstructions
@@ -6232,7 +6280,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateCustomInstructions(s: string): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateOutputDescription
@@ -6241,7 +6289,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateOutputDescription(s: string): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateCreateTxOutput
@@ -6250,7 +6298,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateCreateTxOutput(o: DojoCreateTxOutputApi): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateSecondsSinceEpoch
@@ -6259,7 +6307,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateSecondsSinceEpoch(time: number): Date 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateDate
@@ -6268,7 +6316,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateDate(date: Date | string | number | null | undefined): Date | undefined 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateSatoshis
@@ -6277,7 +6325,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateSatoshis(satoshis: number): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateScript
@@ -6286,7 +6334,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateScript(script: string): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateInputSelection
@@ -6295,7 +6343,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateInputSelection(v: DojoTxInputSelectionApi | undefined): DojoTxInputSelectionApi 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateOutputGeneration
@@ -6304,7 +6352,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateOutputGeneration(v: DojoOutputGenerationApi | undefined): DojoOutputGenerationApi 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateTxLabel
@@ -6313,7 +6361,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateTxLabel(label: string): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateTxLabels
@@ -6322,7 +6370,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateTxLabels(v?: string[]): string[] 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateOutputTag
@@ -6331,7 +6379,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateOutputTag(tag: string): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateOutputTags
@@ -6340,7 +6388,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateOutputTags(v?: string[]): string[] 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateFeeModel
@@ -6349,7 +6397,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateFeeModel(v?: DojoFeeModelApi): DojoFeeModelApi 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateOutputToRedeem
@@ -6358,7 +6406,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateOutputToRedeem(output: DojoOutputToRedeemApi): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validatePaymail
@@ -6367,7 +6415,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validatePaymail(paymailHandle: string | null): void 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateSABPPPTransaction
@@ -6376,7 +6424,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateSABPPPTransaction(transaction: DojoSubmitDirectTransactionApi): DojoSubmitDirectTransactionApi 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: validateSubmitDirectCustomTransaction
@@ -6385,7 +6433,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function validateSubmitDirectCustomTransaction(transaction: DojoSubmitDirectTransactionApi): DojoSubmitDirectTransactionApi 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: getProtocolInvoiceNumber
@@ -6400,7 +6448,7 @@ export function getProtocolInvoiceNumber(params: {
 }): string 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: pointToCompressed
@@ -6429,7 +6477,7 @@ Argument Details
 
 </details>
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Function: pointToBuffer
@@ -6438,7 +6486,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export function pointToBuffer(point: Point): Buffer 
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 ### Types
@@ -6453,7 +6501,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [DojoSyncProtocolVersion](#type-dojosyncprotocolversion) | [SyncDojoConfigType](#type-syncdojoconfigtype) |
 | [DojoSyncStatus](#type-dojosyncstatus) |  |
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
@@ -6463,7 +6511,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type Chain = "main" | "test"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: HeaderListener
@@ -6472,7 +6520,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type HeaderListener = (header: BlockHeader) => void
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: ReorgListener
@@ -6481,7 +6529,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: EnvelopeInputMapApi
@@ -6492,7 +6540,7 @@ keys are txids
 export type EnvelopeInputMapApi = Record<string, EnvelopeEvidenceApi>
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoLoggerApi
@@ -6501,7 +6549,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type DojoLoggerApi = (...data: any) => void
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: SyncDojoConfigType
@@ -6510,7 +6558,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type SyncDojoConfigType = "<custom>" | "Cloud URL" | "Sqlite File" | "MySql Connection"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoSyncStatus
@@ -6527,7 +6575,7 @@ unknown: Sync protocol state is unknown.
 export type DojoSyncStatus = "success" | "error" | "identified" | "updated" | "unknown"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoSyncProtocolVersion
@@ -6536,7 +6584,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type DojoSyncProtocolVersion = "0.1.0"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoTransactionStatusApi
@@ -6545,7 +6593,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "waitingForSenderToSend"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoRecordOrder
@@ -6554,7 +6602,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type DojoRecordOrder = "ascending" | "descending"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoTransactionLabelsSortBy
@@ -6563,7 +6611,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type DojoTransactionLabelsSortBy = "label" | "whenLastUsed"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoProvenTxReqStatusApi
@@ -6588,8 +6636,6 @@ callback: Waiting for proof confirmation callback from transaction processor.
 
 unconfirmed: Potential proof has not been confirmed by chaintracks
 
-notifying: proven_txs record added, while notifications are being processed.
-
 Terminal status:
 
 doubleSpend: Transaction spends same input as another transaction.
@@ -6599,10 +6645,10 @@ invalid: rawTx is structuraly invalid or was rejected by the network. Will never
 completed: proven_txs record added, and notifications are complete.
 
 ```ts
-export type DojoProvenTxReqStatusApi = "sending" | "unsent" | "unknown" | "nonfinal" | "unmined" | "callback" | "unconfirmed" | "notifying" | "completed" | "invalid" | "doubleSpend"
+export type DojoProvenTxReqStatusApi = "sending" | "unsent" | "unknown" | "nonfinal" | "unmined" | "callback" | "unconfirmed" | "completed" | "invalid" | "doubleSpend"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 #### Type: DojoProvidedByApi
@@ -6611,7 +6657,22 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export type DojoProvidedByApi = "you" | "dojo" | "you-and-dojo"
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types)
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+### Variables
+
+#### Variable: DojoProvenTxReqTerminalStatus
+
+```ts
+DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
+    "completed",
+    "invalid",
+    "doubleSpend"
+]
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
