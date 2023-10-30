@@ -493,24 +493,15 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * inputs[TXID].outputsToRedeem: An additional field, an array of outputs
       * from that transaction to be spent.
       *
-      * @param inputSelection Optional. Algorithmic control over source of additional inputs that may be needed.
-      * @param outputs Possibly empty, explicit outputs, typically external, to create as part of this transaction.
-      * @param outputGeneration Optional. Algorithmic control over additional outputs that may be needed.
-      * @param feeModel Optional. An object representing the fee the transaction will pay.
-      * @param labels Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
-      * @param note Optional. A human-readable note detailing this transaction (Optional)
-      * @param recipient Optional. The Paymail handle of the recipient of this transaction (Optional)
+      * @param params.inputSelection Optional. Algorithmic control over source of additional inputs that may be needed.
+      * @param params.outputs Possibly empty, explicit outputs, typically external, to create as part of this transaction.
+      * @param params.outputGeneration Optional. Algorithmic control over additional outputs that may be needed.
+      * @param params.feeModel Optional. An object representing the fee the transaction will pay.
+      * @param params.labels Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
+      * @param params.note Optional. A human-readable note detailing this transaction (Optional)
+      * @param params.recipient Optional. The Paymail handle of the recipient of this transaction (Optional)
       */
-   createTransaction(
-      inputs: Record<string, DojoTxInputsApi>,
-      inputSelection: DojoTxInputSelectionApi | undefined,
-      outputs: DojoCreateTxOutputApi[],
-      outputGeneration?: DojoOutputGenerationApi,
-      feeModel?: DojoFeeModelApi,
-      labels?: string[],
-      note?: string,
-      recipient?: string
-   ): Promise<DojoCreateTransactionResultApi>
+   createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>
 
    /**
       * After creating a transaction with createTransaction and signing it, submit the serialized raw transaction
@@ -541,33 +532,8 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * Sets the transaction to completed and marks the outputs as spendable.
       */
-   submitDirectTransaction(
-      /**
-             * Specify the transaction submission payment protocol to use.
-             *
-             * Currently, the only supported protocol is that with BRFC ID "3241645161d8"
-             */
-      protocol: string,
-      /**
-             * The transaction envelope to submit, including key derivation information.
-             */
-      transaction: DojoSubmitDirectTransactionApi,
-      /**
-             * Provide the identity key for the person who sent the transaction
-             */
-      senderIdentityKey: string,
-      /**
-             * Human-readable description for the transaction.
-             */
-      note: string,
-      /**
-             * An array of transaction label strings, each at most 150 characters.
-             *
-             * Labels can be used to tag transactions into categories.
-             */
-      labels: string[],
-      derivationPrefix?: string
-  ) : Promise<DojoSubmitDirectTransactionResultApi>
+   submitDirectTransaction(params: DojoSubmitDirectTransactionParams)
+   : Promise<DojoSubmitDirectTransactionResultApi>
 
    /**
       * Return a complete copy of all records for the authenticated user.
@@ -1564,6 +1530,41 @@ export interface DojoFeeModelApi {
    value?: number
 }
 
+export interface DojoCreateTransactionParams {
+   /**
+    * Possibly empty, explicit outputs, typically external, to create as part of this transaction.
+    */
+   outputs: DojoCreateTxOutputApi[],
+   /**
+    * Optional. Specific inputs to draw on when creating outputs.
+    */
+   inputs?: Record<string, DojoTxInputsApi>,
+   /**
+    * Optional. Algorithmic control over source of additional inputs that may be needed.
+    */
+   inputSelection?: DojoTxInputSelectionApi,
+   /**
+    * Optional. Algorithmic control over additional outputs that may be needed.
+    */
+   outputGeneration?: DojoOutputGenerationApi,
+   /**
+    * Optional. An object representing the fee the transaction will pay.
+    */
+   feeModel?: DojoFeeModelApi,
+   /**
+    * Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
+    */
+   labels?: string[],
+   /**
+    * Optional. A human-readable note detailing this transaction (Optional)
+    */
+   note?: string,
+   /**
+    * Optional. The Paymail handle of the recipient of this transaction (Optional)
+    */
+   recipient?: string
+}
+
 export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
    providedBy: DojoProvidedByApi
    purpose?: string
@@ -1591,12 +1592,15 @@ export interface DojoCreateTransactionResultApi {
    derivationPrefix: string
    referenceNumber: string
    paymailHandle: string
+   note?: string
 }
 
 export interface DojoSubmitDirectTransactionOutputApi {
    vout: number
-   basket: string
-   suffix?: string
+   satoshis: number
+   basket?: string
+   derivationPrefix?: string
+   derivationSuffix?: string
    customInstructions?: object
 }
 
@@ -1604,8 +1608,52 @@ export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
    /**
       * sparse array of outputs of interest where indices match vout numbers.
       */
-   outputs: Record<number, DojoSubmitDirectTransactionOutputApi>
+   outputs: DojoSubmitDirectTransactionOutputApi[]
+   referenceNumber?: string
 }
+
+/**
+ * Input parameters to submitDirectTransaction method.
+ */
+export interface DojoSubmitDirectTransactionParams {
+  /**
+     * Specify the transaction submission payment protocol to use.
+     * Currently, the only supported protocol is that with BRFC ID "3241645161d8"
+     */
+  protocol: string
+  /**
+     * The transaction envelope to submit, including key derivation information.
+     *
+     * transaction.outputs is an array of outputs, each containing:
+     *  `vout`,
+     *  `satoshis`,
+     *  `derivationSuffix`,
+     *  and (optionally), `derivationPrefix`.
+     *
+     * If a global `derivationPrefix` is used (recommended),
+     * output-specific derivation prefixes should be omitted.
+     */
+  transaction: DojoSubmitDirectTransactionApi
+  /**
+     * Provide the identity key for the person who sent the transaction
+     */
+  senderIdentityKey: string
+  /**
+     * Human-readable description for the transaction
+     */
+  note: string
+  /**
+     * Labels to assign to transaction.
+     */
+  labels?: string[]
+  /**
+     * A derivation prefix used for all outputs. If provided, derivation prefixes on all outputs are optional.
+     */
+  derivationPrefix?: string
+  amount?: number
+}
+
+
 
 export interface DojoSubmitDirectTransactionResultApi {
    transactionId: number

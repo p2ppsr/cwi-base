@@ -201,8 +201,8 @@ export function validateSABPPPTransaction (transaction: DojoSubmitDirectTransact
   if (transaction.outputs.length < 1) throw new ERR_INVALID_PARAMETER('transaction.outputs', 'of length greater than zero')
   if (!transaction.outputs.every(x =>
     typeof x === 'object' &&
-        typeof x.suffix === 'string'
-  )) throw new ERR_INVALID_PARAMETER('transaction.outputs', 'have derivation suffix')
+        typeof x.derivationSuffix === 'string'
+  )) throw new ERR_INVALID_PARAMETER('transaction.outputs', 'have derivationSuffix')
 
   return transaction
 }

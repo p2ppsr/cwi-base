@@ -27,19 +27,20 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
 | [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [EnvelopeApi](#interface-envelopeapi) |
 | [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [EnvelopeEvidenceApi](#interface-envelopeevidenceapi) |
-| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
-| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
-| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
-| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
-| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiResponseApi](#interface-mapiresponseapi) |
-| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
-| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
-| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
-| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
-| [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
-| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
-| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TrxToken](#interface-trxtoken) |
-| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
+| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
+| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
+| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
+| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
+| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiResponseApi](#interface-mapiresponseapi) |
+| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
+| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
+| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
+| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
+| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
+| [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
+| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [TrxToken](#interface-trxtoken) |
+| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
+| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1557,9 +1558,9 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>;
     getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>;
     getPendingTransactions(referenceNumber?: string): Promise<DojoPendingTxApi[]>;
-    createTransaction(inputs: Record<string, DojoTxInputsApi>, inputSelection: DojoTxInputSelectionApi | undefined, outputs: DojoCreateTxOutputApi[], outputGeneration?: DojoOutputGenerationApi, feeModel?: DojoFeeModelApi, labels?: string[], note?: string, recipient?: string): Promise<DojoCreateTransactionResultApi>;
+    createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>;
     processTransaction(rawTx: string | Buffer, reference: string, outputMap: Record<string, number>): Promise<DojoProcessTransactionResultApi>;
-    submitDirectTransaction(protocol: string, transaction: DojoSubmitDirectTransactionApi, senderIdentityKey: string, note: string, labels: string[], derivationPrefix?: string): Promise<DojoSubmitDirectTransactionResultApi>;
+    submitDirectTransaction(params: DojoSubmitDirectTransactionParams): Promise<DojoSubmitDirectTransactionResultApi>;
     copyState(since?: Date): Promise<DojoUserStateApi>;
     softDeleteCertificate(partial: Partial<DojoCertificateApi>, trx?: TrxToken): Promise<number>;
     softDeleteOutputTag(partial: Partial<DojoOutputTagApi>, trx?: TrxToken): Promise<number>;
@@ -1627,7 +1628,7 @@ additional Dojo-managed UTXOs will be generated to collect the remainder
 (see the "outputGeneration" parameter for more on this).
 
 ```ts
-createTransaction(inputs: Record<string, DojoTxInputsApi>, inputSelection: DojoTxInputSelectionApi | undefined, outputs: DojoCreateTxOutputApi[], outputGeneration?: DojoOutputGenerationApi, feeModel?: DojoFeeModelApi, labels?: string[], note?: string, recipient?: string): Promise<DojoCreateTransactionResultApi>
+createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>
 ```
 
 Argument Details
@@ -1645,19 +1646,19 @@ that will be spent and used as input.
 
 inputs[TXID].outputsToRedeem: An additional field, an array of outputs
 from that transaction to be spent.
-+ **inputSelection**
++ **params.inputSelection**
   + Optional. Algorithmic control over source of additional inputs that may be needed.
-+ **outputs**
++ **params.outputs**
   + Possibly empty, explicit outputs, typically external, to create as part of this transaction.
-+ **outputGeneration**
++ **params.outputGeneration**
   + Optional. Algorithmic control over additional outputs that may be needed.
-+ **feeModel**
++ **params.feeModel**
   + Optional. An object representing the fee the transaction will pay.
-+ **labels**
++ **params.labels**
   + Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
-+ **note**
++ **params.note**
   + Optional. A human-readable note detailing this transaction (Optional)
-+ **recipient**
++ **params.recipient**
   + Optional. The Paymail handle of the recipient of this transaction (Optional)
 
 ##### Method destroy
@@ -1989,7 +1990,7 @@ Saves the inputs and key derivation information, allowing the UTXOs to be redeem
 Sets the transaction to completed and marks the outputs as spendable.
 
 ```ts
-submitDirectTransaction(protocol: string, transaction: DojoSubmitDirectTransactionApi, senderIdentityKey: string, note: string, labels: string[], derivationPrefix?: string): Promise<DojoSubmitDirectTransactionResultApi>
+submitDirectTransaction(params: DojoSubmitDirectTransactionParams): Promise<DojoSubmitDirectTransactionResultApi>
 ```
 
 ##### Method sync
@@ -4043,6 +4044,94 @@ value?: number
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+#### Interface: DojoCreateTransactionParams
+
+```ts
+export interface DojoCreateTransactionParams {
+    outputs: DojoCreateTxOutputApi[];
+    inputs?: Record<string, DojoTxInputsApi>;
+    inputSelection?: DojoTxInputSelectionApi;
+    outputGeneration?: DojoOutputGenerationApi;
+    feeModel?: DojoFeeModelApi;
+    labels?: string[];
+    note?: string;
+    recipient?: string;
+}
+```
+
+<details>
+
+<summary>Interface DojoCreateTransactionParams Details</summary>
+
+##### Property feeModel
+
+Optional. An object representing the fee the transaction will pay.
+
+```ts
+feeModel?: DojoFeeModelApi
+```
+
+##### Property inputSelection
+
+Optional. Algorithmic control over source of additional inputs that may be needed.
+
+```ts
+inputSelection?: DojoTxInputSelectionApi
+```
+
+##### Property inputs
+
+Optional. Specific inputs to draw on when creating outputs.
+
+```ts
+inputs?: Record<string, DojoTxInputsApi>
+```
+
+##### Property labels
+
+Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
+
+```ts
+labels?: string[]
+```
+
+##### Property note
+
+Optional. A human-readable note detailing this transaction (Optional)
+
+```ts
+note?: string
+```
+
+##### Property outputGeneration
+
+Optional. Algorithmic control over additional outputs that may be needed.
+
+```ts
+outputGeneration?: DojoOutputGenerationApi
+```
+
+##### Property outputs
+
+Possibly empty, explicit outputs, typically external, to create as part of this transaction.
+
+```ts
+outputs: DojoCreateTxOutputApi[]
+```
+
+##### Property recipient
+
+Optional. The Paymail handle of the recipient of this transaction (Optional)
+
+```ts
+recipient?: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Interface: DojoCreatingTxOutputApi
 
 ```ts
@@ -4094,6 +4183,7 @@ export interface DojoCreateTransactionResultApi {
     derivationPrefix: string;
     referenceNumber: string;
     paymailHandle: string;
+    note?: string;
 }
 ```
 
@@ -4105,8 +4195,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export interface DojoSubmitDirectTransactionOutputApi {
     vout: number;
-    basket: string;
-    suffix?: string;
+    satoshis: number;
+    basket?: string;
+    derivationPrefix?: string;
+    derivationSuffix?: string;
     customInstructions?: object;
 }
 ```
@@ -4118,7 +4210,8 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
-    outputs: Record<number, DojoSubmitDirectTransactionOutputApi>;
+    outputs: DojoSubmitDirectTransactionOutputApi[];
+    referenceNumber?: string;
 }
 ```
 
@@ -4131,7 +4224,90 @@ export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
 sparse array of outputs of interest where indices match vout numbers.
 
 ```ts
-outputs: Record<number, DojoSubmitDirectTransactionOutputApi>
+outputs: DojoSubmitDirectTransactionOutputApi[]
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSubmitDirectTransactionParams
+
+Input parameters to submitDirectTransaction method.
+
+```ts
+export interface DojoSubmitDirectTransactionParams {
+    protocol: string;
+    transaction: DojoSubmitDirectTransactionApi;
+    senderIdentityKey: string;
+    note: string;
+    labels?: string[];
+    derivationPrefix?: string;
+    amount?: number;
+}
+```
+
+<details>
+
+<summary>Interface DojoSubmitDirectTransactionParams Details</summary>
+
+##### Property derivationPrefix
+
+A derivation prefix used for all outputs. If provided, derivation prefixes on all outputs are optional.
+
+```ts
+derivationPrefix?: string
+```
+
+##### Property labels
+
+Labels to assign to transaction.
+
+```ts
+labels?: string[]
+```
+
+##### Property note
+
+Human-readable description for the transaction
+
+```ts
+note: string
+```
+
+##### Property protocol
+
+Specify the transaction submission payment protocol to use.
+Currently, the only supported protocol is that with BRFC ID "3241645161d8"
+
+```ts
+protocol: string
+```
+
+##### Property senderIdentityKey
+
+Provide the identity key for the person who sent the transaction
+
+```ts
+senderIdentityKey: string
+```
+
+##### Property transaction
+
+The transaction envelope to submit, including key derivation information.
+
+transaction.outputs is an array of outputs, each containing:
+ `vout`,
+ `satoshis`,
+ `derivationSuffix`,
+ and (optionally), `derivationPrefix`.
+
+If a global `derivationPrefix` is used (recommended),
+output-specific derivation prefixes should be omitted.
+
+```ts
+transaction: DojoSubmitDirectTransactionApi
 ```
 
 </details>

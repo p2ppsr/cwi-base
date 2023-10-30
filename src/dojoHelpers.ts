@@ -1,5 +1,10 @@
 import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi, validateDate, DojoEntityTimeStampApi } from '.'
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const ENV_DOJO_SERVICE_FEE = process.env.DOJO_SERVICE_FEE ? Number.parseInt(process.env.DOJO_SERVICE_FEE) : 0
+
 /**
  * @param scriptSize byte length of input script
  * @returns serialized byte length a transaction input
@@ -108,7 +113,7 @@ export function createBabbageServiceChargeOutput ():
 
   return {
     script,
-    satoshis: DOJO_SERVICE_FEE,
+    satoshis: ENV_DOJO_SERVICE_FEE || DOJO_SERVICE_FEE,
     keyOffset
   }
 }
