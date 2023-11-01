@@ -191,10 +191,14 @@ export class ERR_DOJO_SYNC_TOTAL extends CwiError { constructor (expected: numbe
 export class ERR_DOJO_SYNC_MERGE extends CwiError { constructor (description?: string) { super('ERR_DOJO_SYNC_MERGE', description || 'Dojo sync merge error.') } }
 
 /**
-* description || `Dojo foreign key validation error.'
+* description || 'Dojo foreign key validation error.'
 */
 export class ERR_DOJO_FOREIGN_KEY extends CwiError { constructor (description?: string) { super('ERR_DOJO_FOREIGN_KEY', description || `Dojo foreign key validation error.`) } }
 /**
-* description || `Dojo validation error.'
+* description || 'Dojo validation error.'
 */
 export class ERR_DOJO_VALIDATION extends CwiError { constructor (description?: string) { super('ERR_DOJO_VALIDATION', description || `Dojo validation error.`) } }
+/**
+* description || 'Dojo transaction broadcast failed.'
+*/
+export class ERR_DOJO_BROADCAST_FAILED extends CwiError { constructor (description?: string) { super('ERR_DOJO_BROADCAST_FAILED', description || `Dojo transaction broadcast failed.`) } }
