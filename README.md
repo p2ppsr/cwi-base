@@ -6264,7 +6264,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Function: createBabbageServiceChargeOutput
 
 ```ts
-export function createBabbageServiceChargeOutput(): {
+export function createBabbageServiceChargeOutput(fee = 200): {
     script: string;
     satoshis: number;
     keyOffset: string;
