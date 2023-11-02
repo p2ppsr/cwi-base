@@ -1,10 +1,5 @@
 import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi, validateDate, DojoEntityTimeStampApi } from '.'
 
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-const ENV_DOJO_SERVICE_FEE = process.env.DOJO_SERVICE_FEE ? Number.parseInt(process.env.DOJO_SERVICE_FEE) : 0
-
 /**
  * @param scriptSize byte length of input script
  * @returns serialized byte length a transaction input
@@ -98,7 +93,7 @@ export function lockScriptWithKeyOffsetFromPubKey (pubKey: string, keyOffset?: s
   return { script, keyOffset: r.keyOffset }
 }
 
-export function createBabbageServiceChargeOutput ():
+export function createBabbageServiceChargeOutput (fee = 200):
 {
   script: string
   satoshis: number
@@ -106,14 +101,13 @@ export function createBabbageServiceChargeOutput ():
 } {
   // Derive a new public key to use for each commission to increase privacy
   const BABBAGE_PUBLIC_KEY_HEX = '0397742eaef6c7f08c4aa057397d45529f93ab90345b84ce5a5aac06ea9cdd132e'
-  const DOJO_SERVICE_FEE = 200 // TODO: Calculate this fee rate based on average monthly users / costs?
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { script, keyOffset } = lockScriptWithKeyOffsetFromPubKey(BABBAGE_PUBLIC_KEY_HEX)
 
   return {
     script,
-    satoshis: ENV_DOJO_SERVICE_FEE || DOJO_SERVICE_FEE,
+    satoshis: fee,
     keyOffset
   }
 }
