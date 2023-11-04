@@ -3910,6 +3910,7 @@ export interface DojoCreateTxOutputApi {
     description?: string;
     basket?: string;
     customInstructions?: string;
+    tags?: string[];
 }
 ```
 
@@ -3955,6 +3956,14 @@ The output script that will be included, hex encoded
 
 ```ts
 script: string
+```
+
+##### Property tags
+
+Optional array of output tags to assign to this output.
+
+```ts
+tags?: string[]
 ```
 
 </details>
