@@ -1490,6 +1490,11 @@ export interface DojoCreateTxOutputApi {
       * Custom spending instructions (metadata, string, optional)
       */
    customInstructions?: string
+   
+   /**
+    * Optional array of output tags to assign to this output.
+    */
+   tags?: string[]
 }
 
 /**

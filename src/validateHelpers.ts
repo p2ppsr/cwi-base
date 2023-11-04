@@ -66,6 +66,7 @@ export function validateCreateTxOutput (o: DojoCreateTxOutputApi): void {
   if (o.description !== undefined) o.description = validateOutputDescription(o.description)
   if (o.basket !== undefined) o.basket = validateTxLabel(o.basket)
   if (o.customInstructions !== undefined) o.customInstructions = validateCustomInstructions(o.customInstructions)
+  if (o.tags) o.tags = validateOutputTags(o.tags)
 }
 
 export function validateSecondsSinceEpoch (time: number): Date {
