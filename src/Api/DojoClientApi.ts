@@ -708,7 +708,7 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
    includeTags?: boolean
 }
 
-export interface DojoGetTransactionOutputsOptions {
+export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
   /**
      *  If provided, indicates which basket the outputs should be selected from.
      */
@@ -729,14 +729,6 @@ export interface DojoGetTransactionOutputsOptions {
      * If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
      */
   type?: string
-  /**
-     * Optional. How many transactions to return.
-     */
-  limit?: number
-  /**
-     * Optional. How many transactions to skip.
-     */
-  offset?: number
   /**
      * If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
      */
