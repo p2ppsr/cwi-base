@@ -2279,14 +2279,12 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Interface: DojoGetTransactionOutputsOptions
 
 ```ts
-export interface DojoGetTransactionOutputsOptions {
+export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
     basket?: string;
     tracked?: boolean;
     spendable?: boolean;
     tags?: string[];
     type?: string;
-    limit?: number;
-    offset?: number;
     includeEnvelope?: boolean;
     includeBasket?: boolean;
     includeTags?: boolean;
@@ -2327,22 +2325,6 @@ If true, the `DojoOutputXApi` `tags` property will be included in results.
 
 ```ts
 includeTags?: boolean
-```
-
-##### Property limit
-
-Optional. How many transactions to return.
-
-```ts
-limit?: number
-```
-
-##### Property offset
-
-Optional. How many transactions to skip.
-
-```ts
-offset?: number
 ```
 
 ##### Property spendable
