@@ -1509,8 +1509,23 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface DojoSyncOptionsApi {
+    disableSync?: boolean;
 }
 ```
+
+<details>
+
+<summary>Interface DojoSyncOptionsApi Details</summary>
+
+##### Property disableSync
+
+If true, sync is disabled.
+
+```ts
+disableSync?: boolean
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
