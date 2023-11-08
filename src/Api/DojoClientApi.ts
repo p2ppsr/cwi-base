@@ -268,7 +268,10 @@ export interface DojoSyncApi {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DojoSyncOptionsApi {
-   /* */
+   /**
+    * If true, sync is disabled.
+    */
+   disableSync?: boolean
 }
 
 /**
