@@ -288,6 +288,11 @@ export interface TrxToken {
 export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
    /**
+    * Returns true iff and instance of DojoExpressClient (or derived from it)
+    */
+   isDojoExpressClient() : boolean
+   
+   /**
       * For Dojo scenarios where it is permissible for Dojo to directly act as
       * a specified user, authenticate that user by supplying their identityKey
       *
