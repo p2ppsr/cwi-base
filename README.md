@@ -1549,6 +1549,7 @@ including `DojoExpressClient` HTTP client
 
 ```ts
 export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
+    isDojoExpressClient(): boolean;
     authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>;
     getDojoIdentity(): Promise<DojoIdentityApi>;
     sync(logger?: DojoLoggerApi): Promise<void>;
@@ -1856,6 +1857,14 @@ Throws an error if isAuthenticated is false.
 
 ```ts
 getUser(): DojoClientUserApi
+```
+
+##### Method isDojoExpressClient
+
+Returns true iff and instance of DojoExpressClient (or derived from it)
+
+```ts
+isDojoExpressClient(): boolean
 ```
 
 ##### Method labelTransaction
