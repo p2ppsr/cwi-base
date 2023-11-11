@@ -1163,9 +1163,9 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
 /**
  * Initial status (attempts === 0):
  *
- * sending: rawTx is about to be sent to transaction processors.
- *
  * unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
+ *
+ * sending: At least one attempt to send rawTx to transaction processors has occured without confirmation of acceptance.
  *
  * unknown: rawTx status is unknown but is believed to have been previously sent to the network.
  *
