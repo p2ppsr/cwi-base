@@ -464,7 +464,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>
 
    /**
-      * Returns transactions with status of 'waitingForSenderToSend' or 'unprocessed' for authenticated user
+      * Returns transactions with status of 'unproven' or 'unprocessed' for authenticated user
       *
       * Original Dojo returned only these properties:
       *   'transactionId',
@@ -531,7 +531,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * @returns `DojoProcessTransactionResultApi` with txid and status of 'completed' or 'unknown'
       */
-   processTransaction(rawTx: string | Buffer, reference: string, outputMap: Record<string, number>): Promise<DojoProcessTransactionResultApi>
+   processTransaction(params: DojoProcessTransactionParams): Promise<DojoProcessTransactionResultApi>
 
    /**
       * This endpoint allows a recipient to submit a transactions that was directly given to them by a sender.
@@ -649,7 +649,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     destroy() : Promise<void>
 }
 
-export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'waitingForSenderToSend'
+export type DojoTransactionStatusApi = 'completed' | 'failed' | 'unprocessed' | 'unproven' | 'unsigned'
 
 export type DojoRecordOrder =  'ascending' | 'descending'
 
@@ -1100,7 +1100,7 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
    rawTransaction: Buffer | null
    /**
       * max length of 64
-      * e.g. completed, failed, unprocessed, waitingForSenderToSend
+      * e.g. completed, failed, unprocessed, unproven, unsigned
       */
    status: DojoTransactionStatusApi
    /**
@@ -1409,9 +1409,61 @@ export interface DojoPendingTxApi {
    outputs: DojoPendingTxOutputApi[]
 }
 
+/**
+ * Input parameters for Dojo and Ninja processTransaction
+ */
+export interface DojoProcessTransactionParams {
+   /**
+    * The transaction that has been created and signed
+    */
+   submittedTransaction: string | Buffer
+   /**
+    * The reference number provided by `createTransaction` or `getTransactionWithOutputs`
+    */
+   reference: string
+   /**
+    * An object whose keys are derivation prefixes and whose values are corresponding change output numbers from the transaction.
+    */
+   outputMap: Record<string, number>
+   /**
+    * Inputs to spend as part of this transaction (only used for doublespend processing)
+    */
+   inputs?: Record<string, EnvelopeEvidenceApi>
+   /**
+    * Set to true for normal, high performance operation and offline
+    * operation if running locally.
+    *
+    * Always validates `submittedTransaction` and remaining inputs.
+    *
+    * If true, creates a self-signed MapiResponse for the transaction
+    * and queues it for repeated broadcast attempts and proof validation.
+    * The `status` of the transaction will be set to `unproven`.
+    * 
+    * If not true, attempts one broadcast and fails the transaction
+    * if it is not accepted by at least one external transaction processor.
+    * If it is accepted, status is set to `unproven'.
+    * The transaction may still fail at a later time if a merkle
+    * proof is not confirmed.
+    *
+    * The transaction status will be set to `completed` or `failed`
+    * depending on the success or failure of broadcast attempts
+    * and Chaintracks validation of a merkle proof.
+    * 
+    * When status is set to `unproven` or `completed`:
+    * - Inputs are confirmed to be spendable false, spentBy this transaction.
+    * - Outputs are set to spendable true unless already spent (spentBy is non-null).
+    *
+    * If the transaction fails, status is set to `failed`:
+    * - Inputs are returned to spendable true, spentBy null
+    * - Outputs are set to spendable false
+    * - If spentBy is non-null, failure propagates to that transaction.
+    */
+   acceptDelayedBroadcast?: boolean
+}
+
 export interface DojoProcessTransactionResultApi {
    txid: string
-   status: 'completed' | 'unknown'
+   status: 'unproven' | 'failed'
    mapiResponses: MapiResponseApi[]
 }
 
