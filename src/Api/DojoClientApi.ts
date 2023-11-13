@@ -464,7 +464,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>
 
    /**
-      * Returns transactions with status of 'unproven' or 'unprocessed' for authenticated user
+      * Returns transactions with status of 'unsigned' or 'unprocessed' for authenticated user
       *
       * Original Dojo returned only these properties:
       *   'transactionId',
