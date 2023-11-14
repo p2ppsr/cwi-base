@@ -679,8 +679,10 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
    referenceNumber?: string
    /**
       * Optional. Match transactions with this status.
+      *
+      * Defaults to ['unproven', 'completed']
       */
-   status?: DojoTransactionStatusApi
+   status?: DojoTransactionStatusApi | DojoTransactionStatusApi[]
    /**
       * Optional. Match transactions with this label.
       */
