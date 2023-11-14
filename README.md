@@ -2190,7 +2190,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptions {
     columns?: string[];
     referenceNumber?: string;
-    status?: DojoTransactionStatusApi;
+    status?: DojoTransactionStatusApi | DojoTransactionStatusApi[];
     label?: string;
     startTime?: Date | string | number;
     endTime?: Date | string | number;
@@ -2291,8 +2291,10 @@ startTime?: Date | string | number
 
 Optional. Match transactions with this status.
 
+Defaults to ['unproven', 'completed']
+
 ```ts
-status?: DojoTransactionStatusApi
+status?: DojoTransactionStatusApi | DojoTransactionStatusApi[]
 ```
 
 </details>
@@ -4490,6 +4492,7 @@ export class CwiError extends Error {
         code: string;
         description: string;
     } 
+    toJSON(): object 
 }
 ```
 
