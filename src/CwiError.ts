@@ -62,4 +62,14 @@ export class CwiError extends Error {
       description: this.description
     }
   }
+
+  toJSON() : object {
+    const json = {
+      code: this.code,
+      description: this.description,
+    }
+    if (this.stack) json["stack"] = this.stack
+    if (this.details) json["details"] = this.details
+    return json
+  }
 }
