@@ -1,5 +1,6 @@
 import { DojoSyncStatus } from './Api/DojoClientApi'
 import { CwiError } from './CwiError'
+import { asString } from './utils'
 
 /**
  * Transaction amount is not correct!
@@ -202,3 +203,11 @@ export class ERR_DOJO_VALIDATION extends CwiError { constructor (description?: s
 * description || 'Dojo transaction broadcast failed.'
 */
 export class ERR_DOJO_BROADCAST_FAILED extends CwiError { constructor (description?: string) { super('ERR_DOJO_BROADCAST_FAILED', description || `Dojo transaction broadcast failed.`) } }
+/**
+* `Update is invalid on completed transaction txid=${asString(txid)}`
+*/
+export class ERR_DOJO_COMPLETED_TX extends CwiError { constructor (txid: string | Buffer) { super('ERR_DOJO_COMPLETED_TX', `Update is invalid on completed transaction txid=${asString(txid)}`) } }
+/**
+* `Update is invalid on proven transaction txid=${asString(txid)}`
+*/
+export class ERR_DOJO_PROVEN_TX extends CwiError { constructor (txid: string | Buffer) { super('ERR_DOJO_PROVEN_TX', `Update is invalid on proven transaction txid=${asString(txid)}`) } }
