@@ -751,6 +751,13 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
    * If true, the `DojoOutputXApi` `tags` property will be included in results.
    */
   includeTags?: boolean
+  /**
+   * When `tags` contains more than one value, determines if each output returned
+   * must have `all` of the tags or `any` of the tags.
+   * 
+   * The default is `all`
+   */
+  tagQueryMode?: 'all' | 'any'
 }
 
 export interface DojoGetTransactionsResultApi {
