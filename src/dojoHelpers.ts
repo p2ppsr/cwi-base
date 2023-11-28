@@ -113,29 +113,34 @@ export function createBabbageServiceChargeOutput (fee = 200):
 }
 
 /**
+ * Buffers sent across HTTP may not be restored correctly.
+ *
+ * Detect these situations and restore and Buffers.
+ */
+export function verifyBufferOrObject(v: Buffer | object): Buffer {
+  if (Buffer.isBuffer(v)) return v
+  if ('type' in v && v.type === 'Buffer' && 'data' in v && Array.isArray(v.data)) {
+    return Buffer.from(v.data)
+  }
+  throw new ERR_INTERNAL('Unexpected buffer encoding')
+}
+
+export function verifyBufferOrObjectOrNull(v: Buffer | object | null): Buffer | null {
+  if (v == null) return null
+  return verifyBufferOrObject(v)
+}
+
+export function verifyBufferOrObjectOrUndefined(v: Buffer | object | undefined): Buffer | undefined {
+  if (v == null) return undefined
+  return verifyBufferOrObject(v)
+}
+
+/**
  * Entities sent across HTTP may not have Date and Buffer properties restored correctly.
  *
  * Detect these situations and restore contained values as Dates and Buffers.
  */
 export function restoreUserStateEntities (state: DojoUserStateApi): void {
-  const verifyBuffer = (v: Buffer | object): Buffer => {
-    if (Buffer.isBuffer(v)) return v
-    if ('type' in v && v.type === 'Buffer' && 'data' in v && Array.isArray(v.data)) {
-      return Buffer.from(v.data)
-    }
-    throw new ERR_INTERNAL('Unexpected buffer encoding')
-  }
-
-  const verifyBufferOrNull = (v: Buffer | object | null): Buffer | null => {
-    if (v == null) return null
-    return verifyBuffer(v)
-  }
-
-  const verifyBufferOrUndefined = (v: Buffer | object | undefined): Buffer | undefined => {
-    if (v == null) return undefined
-    return verifyBuffer(v)
-  }
-
   state.user.created_at = validateDate(state.user.created_at)
   state.user.updated_at = validateDate(state.user.updated_at)
 
@@ -158,29 +163,29 @@ export function restoreUserStateEntities (state: DojoUserStateApi): void {
          * entityIn: The incoming entity from state being merged.
          */
     const ei = state.provenTxs[i]
-    ei.nodes = verifyBuffer(ei.nodes)
-    ei.rawTx = verifyBuffer(ei.rawTx)
-    ei.blockHash = verifyBuffer(ei.blockHash)
-    ei.merkleRoot = verifyBuffer(ei.merkleRoot)
+    ei.nodes = verifyBufferOrObject(ei.nodes)
+    ei.rawTx = verifyBufferOrObject(ei.rawTx)
+    ei.blockHash = verifyBufferOrObject(ei.blockHash)
+    ei.merkleRoot = verifyBufferOrObject(ei.merkleRoot)
   }
 
   for (let i = 0; i < state.provenTxReqs.length; i++) {
     const ei = state.provenTxReqs[i]
-    ei.rawTx = verifyBufferOrUndefined(ei.rawTx)
+    ei.rawTx = verifyBufferOrObjectOrUndefined(ei.rawTx)
   }
 
   for (let i = 0; i < state.txs.length; i++) {
     const ei = state.txs[i]
-    ei.rawTransaction = verifyBufferOrNull(ei.rawTransaction)
+    ei.rawTransaction = verifyBufferOrObjectOrNull(ei.rawTransaction)
   }
 
   for (let i = 0; i < state.commissions.length; i++) {
     const ei = state.commissions[i]
-    ei.outputScript = verifyBufferOrNull(ei.outputScript)
+    ei.outputScript = verifyBufferOrObjectOrNull(ei.outputScript)
   }
 
   for (let i = 0; i < state.outputs.length; i++) {
     const ei = state.outputs[i]
-    ei.outputScript = verifyBufferOrNull(ei.outputScript)
+    ei.outputScript = verifyBufferOrObjectOrNull(ei.outputScript)
   }
 }
