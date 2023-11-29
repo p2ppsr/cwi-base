@@ -1207,6 +1207,11 @@ export const DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
    'completed', 'invalid', 'doubleSpend'
 ]
 
+export const DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
+   'sending', 'unsent', 'unknown', 'nonfinal',
+   'unmined', 'callback', 'unconfirmed'
+]
+
 export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
    provenTxReqId?: number
    userId?: number
