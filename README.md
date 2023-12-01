@@ -7029,6 +7029,15 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 ### Variables
 
+| |
+| --- |
+| [DojoProvenTxReqNonTerminalStatus](#variable-dojoproventxreqnonterminalstatus) |
+| [DojoProvenTxReqTerminalStatus](#variable-dojoproventxreqterminalstatus) |
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+
 #### Variable: DojoProvenTxReqTerminalStatus
 
 ```ts
@@ -7036,6 +7045,23 @@ DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
     "completed",
     "invalid",
     "doubleSpend"
+]
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Variable: DojoProvenTxReqNonTerminalStatus
+
+```ts
+DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
+    "sending",
+    "unsent",
+    "unknown",
+    "nonfinal",
+    "unmined",
+    "callback",
+    "unconfirmed"
 ]
 ```
 
