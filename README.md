@@ -1,6 +1,6 @@
 # cwi-base
 
-Base classes, types, utilities for implementation support of CWI components, Project Babbage applications and services.
+Base classes, types, utilities for implementation support of CWI components, Project Babbage applications and services..
 
 ## API
 
