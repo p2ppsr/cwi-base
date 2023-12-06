@@ -4504,7 +4504,7 @@ export class CwiError extends Error {
         code: string;
         description: string;
     } 
-    toJSON(): object 
+    toJSON_old(): object 
 }
 ```
 
