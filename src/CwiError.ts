@@ -31,13 +31,46 @@ export class CwiError extends Error {
     let stack: string | undefined
     const details: Record<string, string> = {}
     if (err !== null && typeof err === 'object') {
-      if ('name' in err && typeof err.name === 'string') { code = err.name } else if ('code' in err && typeof err.code === 'string') { code = err.code } else if ('status' in err && typeof err.status === 'string') { code = err.status }
-      if ('description' in err && typeof err.description === 'string') { description = err.description } else if ('message' in err && typeof err.message === 'string') { description = err.message }
-      if ('stack' in err && typeof err.stack === 'string') { stack = err.stack }
-      if ('sql' in err && typeof err.sql === 'string') { details.sql = err.sql }
-      if ('sqlMessage' in err && typeof err.sqlMessage === 'string') { details.sqlMessage = err.sqlMessage }
+      for (const [key, value] of Object.entries(err)) {
+        switch (key) {
+          case 'status': code = value as string; break
+          case 'name': code = value as string; break
+          case 'code': code = value as string; break
+          case 'message': description = value as string; break
+          case 'description': description = value as string; break
+          case 'stack': stack = value as string; break
+          case 'sql': details.sql = value as string; break
+          case 'sqlMessage': details.sqlMessage = value as string; break
+          default: break
+        }
+      }
     }
-    return new CwiError(code, description, stack, Object.keys(details).length > 0 ? details : undefined)
+    const e = new CwiError(
+      code,
+      description,
+      stack,
+      Object.keys(details).length > 0 ? details : undefined
+    )
+    if (err !== null && typeof err === 'object') {
+      for (const [key, value] of Object.entries(err)) {
+        if (typeof value !== 'string' && typeof value !== 'number')
+          continue
+        switch (key) {
+          case 'status': break
+          case 'name': break
+          case 'code': break
+          case 'message': break
+          case 'description': break
+          case 'stack': break
+          case 'sql': break
+          case 'sqlMessage': break
+          default:
+            e[key] = value;
+            break
+        }
+      }
+    }
+    return e
   }
 
   /**
@@ -63,7 +96,7 @@ export class CwiError extends Error {
     }
   }
 
-  toJSON() : object {
+  toJSON_old() : object {
     const json = {
       code: this.code,
       description: this.description,
