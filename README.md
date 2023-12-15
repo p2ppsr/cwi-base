@@ -6811,7 +6811,7 @@ export function getProtocolInvoiceNumber(params: {
         number,
         string
     ];
-    keyID: string;
+    keyID: number | string;
 }): string 
 ```
 
