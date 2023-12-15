@@ -78,7 +78,7 @@ const normalizeProtocolName = (input?: string): string => {
   return input
 }
 
-export function getProtocolInvoiceNumber (params: { protocolID: string | [number, string], keyID: string }): string {
+export function getProtocolInvoiceNumber (params: { protocolID: string | [number, string], keyID: number | string }): string {
   const npID = normalizeProtocol(params.protocolID)
   return `${npID[0]}-${npID[1]}-${params.keyID}`
 }
