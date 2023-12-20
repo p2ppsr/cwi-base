@@ -31,19 +31,16 @@ export class CwiError extends Error {
     let stack: string | undefined
     const details: Record<string, string> = {}
     if (err !== null && typeof err === 'object') {
-      for (const [key, value] of Object.entries(err)) {
-        switch (key) {
-          case 'status': code = value as string; break
-          case 'name': code = value as string; break
-          case 'code': code = value as string; break
-          case 'message': description = value as string; break
-          case 'description': description = value as string; break
-          case 'stack': stack = value as string; break
-          case 'sql': details.sql = value as string; break
-          case 'sqlMessage': details.sqlMessage = value as string; break
-          default: break
-        }
-      }
+      code = err["code"] || err["name"] || err["status"] || "ERR_UNKNOWN"
+      if (typeof code !== 'string') code = "ERR_UNKNOWN"
+
+      description = err["description"] || err["message"] || ''
+      if (typeof description !== 'string') description = "ERR_UNKNOWN"
+
+      if (typeof err["stack"] === 'string') stack = err["stack"]
+
+      if (typeof err["sql"] === 'string') details.sql = err["sql"]
+      if (typeof err["sqlMessage"] === 'string') details.sqlMessage = err["sqlMessage"]
     }
     const e = new CwiError(
       code,
