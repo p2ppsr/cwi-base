@@ -459,9 +459,19 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * - mapiResponses from transaction processors (optional)
       * - inputs object where keys are this transaction's input txids and values are recursive envelope for those txids.
       *
-      * @param txid
+      * @param txid double hash of raw transaction as hex string
       */
    getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>
+
+   /**
+    * Returns array of Everett Style envelopes for transactions that spend one or
+    * more of the inputs to transaction with `txid`, which must exist in Dojo.
+    * 
+    * This method supports double spend resolution.
+    * 
+    * @param txid  double hash of raw transaction as hex string
+    */
+   getEnvelopesOfConflictingTransactions(txid: string): Promise<EnvelopeApi[]>
 
    /**
       * Returns transactions with status of 'unsigned' or 'unprocessed' for authenticated user
