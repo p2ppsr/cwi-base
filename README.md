@@ -1573,6 +1573,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>;
     getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>;
     getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>;
+    getEnvelopesOfConflictingTransactions(txid: string): Promise<EnvelopeApi[]>;
     getPendingTransactions(referenceNumber?: string): Promise<DojoPendingTxApi[]>;
     createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>;
     processTransaction(params: DojoProcessTransactionParams): Promise<DojoProcessTransactionResultApi>;
@@ -1743,6 +1744,27 @@ in which case the envelope is:
 ```ts
 getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>
 ```
+
+Argument Details
+
++ **txid**
+  + double hash of raw transaction as hex string
+
+##### Method getEnvelopesOfConflictingTransactions
+
+Returns array of Everett Style envelopes for transactions that spend one or
+more of the inputs to transaction with `txid`, which must exist in Dojo.
+
+This method supports double spend resolution.
+
+```ts
+getEnvelopesOfConflictingTransactions(txid: string): Promise<EnvelopeApi[]>
+```
+
+Argument Details
+
++ **txid**
+  + double hash of raw transaction as hex string
 
 ##### Method getNetOfAmounts
 
