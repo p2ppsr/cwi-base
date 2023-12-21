@@ -8,6 +8,9 @@
  * Derived class constructors should use the derived class name as the value for `code`,
  * and an internationalizable constant string for `description`.
  *
+ * If a derived class intends to wrap another CwiError, the public property should
+ * be named `cwiError` and will be recovered by `fromUnknown`.
+ * 
  * Optionaly, the derived class `description` can include template parameters passed in
  * to the constructor. See ERR_MISSING_PARAMETER for an example.
  *
@@ -16,6 +19,7 @@
  * classes.
  */
 export class CwiError extends Error {
+
   constructor (code: string, description: string, stack?: string, public details?: Record<string, string>) {
     super(description)
     this.name = code
@@ -24,6 +28,11 @@ export class CwiError extends Error {
 
   // toString (): string { return `${this.code}: ${this.description}` }
 
+  /**
+   * Recovers all public fields from CwiError derived error classes and relevant Error derived errors.
+   * 
+   * Critical client data fields are preserved across HTTP DojoExpress / DojoExpressClient encoding.
+   */
   static fromUnknown (err: unknown): CwiError {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let code = 'ERR_UNKNOWN'
@@ -50,9 +59,12 @@ export class CwiError extends Error {
     )
     if (err !== null && typeof err === 'object') {
       for (const [key, value] of Object.entries(err)) {
-        if (typeof value !== 'string' && typeof value !== 'number')
+        if (key !== 'cwiError' && typeof value !== 'string' && typeof value !== 'number' && !Array.isArray(value))
           continue
         switch (key) {
+          case 'cwiError':
+            e[key] = CwiError.fromUnknown(value);
+            break
           case 'status': break
           case 'name': break
           case 'code': break

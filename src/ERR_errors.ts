@@ -1,3 +1,4 @@
+import { EnvelopeApi } from './Api/EnvelopeApi'
 import { CwiError } from './CwiError'
 
 /**
@@ -48,3 +49,11 @@ export class ERR_TXID_INVALID extends CwiError { constructor () { super('ERR_TXI
  * TXID failed to correspond to a known transaction.
  */
 export class ERR_TXID_UNKNOWN extends CwiError { constructor (description?: string) { super('ERR_TXID_UNKNOWN', description ?? 'TXID failed to correspond to a known transaction.') } }
+
+/**
+ * Transaction is a double spend.
+ * 
+ * This exception includes `spendingTransactions`, an array of transaction envelopes
+ * of conflicting transactions.
+ */
+export class ERR_DOUBLE_SPEND extends CwiError { constructor(public spendingTransactions: EnvelopeApi[], description?: string) { super('ERR_DOUBLE_SPEND', description ?? 'Transaction is a double spend.') } }
