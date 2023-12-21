@@ -46,6 +46,363 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ---
 
+#### Interface: MapiResponseApi
+
+```ts
+export interface MapiResponseApi {
+    payload: string;
+    signature: string;
+    publicKey: string;
+    encoding?: string;
+    mimetype?: string;
+}
+```
+
+<details>
+
+<summary>Interface MapiResponseApi Details</summary>
+
+##### Property encoding
+
+encoding of the payload data
+
+```ts
+encoding?: string
+```
+
+##### Property mimetype
+
+mime type of the payload data
+
+```ts
+mimetype?: string
+```
+
+##### Property payload
+
+Contents of the envelope.
+Validate using signature and publicKey.
+encoding and mimetype may assist with decoding validated payload.
+
+```ts
+payload: string
+```
+
+##### Property publicKey
+
+public key to use to verify signature of payload data
+
+```ts
+publicKey: string
+```
+
+##### Property signature
+
+signature producted by correpsonding private key on payload data
+
+```ts
+signature: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: TscMerkleProofApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface TscMerkleProofApi {
+    height?: number;
+    index: number;
+    txOrId: string | Buffer;
+    target: string | Buffer;
+    nodes: string[] | Buffer;
+    targetType?: "hash" | "header" | "merkleRoot" | "height";
+    proofType?: "branch" | "tree";
+    composite?: boolean;
+}
+```
+
+<details>
+
+<summary>Interface TscMerkleProofApi Details</summary>
+
+##### Property height
+
+The most efficient way of confirming a proof should also be the most common,
+when the containing block's height is known.
+
+```ts
+height?: number
+```
+
+##### Property index
+
+Index of transaction in its block. First transaction is index zero.
+
+```ts
+index: number
+```
+
+##### Property nodes
+
+Merkle tree sibling hash values required to compute root from txid.
+Duplicates (sibling hash === computed hash) are indicated by "*" or type byte === 1.
+type byte === 2...
+Strings are encoded as hex.
+
+```ts
+nodes: string[] | Buffer
+```
+
+##### Property target
+
+Merkle root (length === 32) or serialized block header containing it (length === 80).
+If string, encoding is hex.
+
+```ts
+target: string | Buffer
+```
+
+##### Property txOrId
+
+Full transaction (length > 32 bytes) or just its double SHA256 hash (length === 32 bytes).
+If string, encoding is hex.
+
+```ts
+txOrId: string | Buffer
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiTxStatusPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiTxStatusPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    txid: string;
+    returnResult: string;
+    blockHash: string;
+    blockHeight: number;
+    confirmations: number;
+    minerId: string;
+    txSecondMempoolExpiry: number;
+    merkleProof?: TscMerkleProofApi;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiCallbackPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiCallbackPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    blockHash: string;
+    blockHeight: number;
+    callbackTxId: string;
+    callbackReason: string;
+    callbackPayload: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiTxidReturnResultApi
+
+Used to parse payloads when only confirmation that a miner acknowledges a specific txid matters.
+
+```ts
+export interface MapiTxidReturnResultApi {
+    apiVersion?: string;
+    timestamp?: string;
+    txid: string;
+    returnResult: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiPostTxPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiPostTxPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    txid: string;
+    returnResult: string;
+    resultDescription: string;
+    minerId: string;
+    currentHighestBlockHash?: string;
+    currentHighestBlockHeight?: number;
+    txSecondMempoolExpiry?: number;
+    failureRetryable?: boolean;
+    warnings?: unknown[];
+    conflictedWith?: unknown[];
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: EnvelopeApi
+
+Simplest case of an envelope is a `rawTx` and merkle `proof` that ties the transaction to a known block header.
+This will be the case for any sufficiently old transaction.
+
+If the transaction has been mined but for some reason the block headers may not be known, an array of `headers` linking
+known headers to the one needed by the `proof` may be provided. They must be in height order and need to overlap
+a known header.
+
+If the transaction has not been minded yet but it has been submitted to one or more miners then the mapi responses
+received, proving that specific miners have received the transaction for processing, are included in the
+mapiResponses array.
+Note that the miner reputations must be checked to give weight to these responses.
+
+Additionally, when the transaction hasn't been mined or a `proof` is unavailable and mapi responses proving miner
+acceptance are unavailable, then all the transactions providing inputs can be submitted in an inputs object.
+
+The keys of the inputs object are the transaction hashes (txids) of each of the input transactions.
+The value of each inputs object property is another envelope object.
+
+References:
+Section 2 of https://projectbabbage.com/assets/simplified-payments.pdf
+https://gist.github.com/ty-everett/44b6a0e7f3d6c48439f9ff26068f8d8b
+
+```ts
+export interface EnvelopeApi extends EnvelopeEvidenceApi {
+    headers?: string[];
+    reference?: string;
+}
+```
+
+<details>
+
+<summary>Interface EnvelopeApi Details</summary>
+
+##### Property headers
+
+For root nodes only.
+Array of 80 byte block headers encoded as 160 character hex strings
+Include headers the envelope creator is aware of but which the resipient may not have.
+
+```ts
+headers?: string[]
+```
+
+##### Property reference
+
+Arbitrary reference string associated with the envelope, typically root node only.
+
+```ts
+reference?: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: EnvelopeEvidenceApi
+
+Either inputs or proof are required.
+
+```ts
+export interface EnvelopeEvidenceApi {
+    rawTx: string;
+    proof?: TscMerkleProofApi | Buffer;
+    inputs?: EnvelopeInputMapApi;
+    txid?: string;
+    mapiResponses?: MapiResponseApi[];
+    depth?: number;
+}
+```
+
+<details>
+
+<summary>Interface EnvelopeEvidenceApi Details</summary>
+
+##### Property depth
+
+count of maximum number of chained unproven transactions before a proven leaf node
+proof nodes have depth zero.
+
+```ts
+depth?: number
+```
+
+##### Property inputs
+
+Only one of proof or inputs must be valid.
+Branching nodes have inputs with a sub envelope (values) for every input transaction txid (keys)
+
+```ts
+inputs?: EnvelopeInputMapApi
+```
+
+##### Property mapiResponses
+
+Array of mapi transaction status update responses
+Only the payload, signature, and publicKey properties are relevant.
+
+Branching inputs nodes only.
+Array of mapi transaction status update responses confirming
+unproven transctions have at least been submitted for processing.
+
+```ts
+mapiResponses?: MapiResponseApi[]
+```
+
+##### Property proof
+
+Either proof, or inputs, must have a value.
+Leaf nodes have proofs.
+
+If value is a Buffer, content is binary encoded serialized proof
+see: chaintracks-spv.utils.serializeTscMerkleProof
+
+```ts
+proof?: TscMerkleProofApi | Buffer
+```
+
+##### Property rawTx
+
+A valid bitcoin transaction encoded as a hex string.
+
+```ts
+rawTx: string
+```
+
+##### Property txid
+
+double SHA256 hash of serialized rawTx. Optional.
+
+```ts
+txid?: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Interface: BaseBlockHeader
 
 These are fields of 80 byte serialized header in order whose double sha256 hash is a block's hash value
@@ -695,363 +1052,6 @@ Argument Details
 
 + **listening**
   + callback indicates when listening for new headers has started.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiResponseApi
-
-```ts
-export interface MapiResponseApi {
-    payload: string;
-    signature: string;
-    publicKey: string;
-    encoding?: string;
-    mimetype?: string;
-}
-```
-
-<details>
-
-<summary>Interface MapiResponseApi Details</summary>
-
-##### Property encoding
-
-encoding of the payload data
-
-```ts
-encoding?: string
-```
-
-##### Property mimetype
-
-mime type of the payload data
-
-```ts
-mimetype?: string
-```
-
-##### Property payload
-
-Contents of the envelope.
-Validate using signature and publicKey.
-encoding and mimetype may assist with decoding validated payload.
-
-```ts
-payload: string
-```
-
-##### Property publicKey
-
-public key to use to verify signature of payload data
-
-```ts
-publicKey: string
-```
-
-##### Property signature
-
-signature producted by correpsonding private key on payload data
-
-```ts
-signature: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: TscMerkleProofApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface TscMerkleProofApi {
-    height?: number;
-    index: number;
-    txOrId: string | Buffer;
-    target: string | Buffer;
-    nodes: string[] | Buffer;
-    targetType?: "hash" | "header" | "merkleRoot" | "height";
-    proofType?: "branch" | "tree";
-    composite?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface TscMerkleProofApi Details</summary>
-
-##### Property height
-
-The most efficient way of confirming a proof should also be the most common,
-when the containing block's height is known.
-
-```ts
-height?: number
-```
-
-##### Property index
-
-Index of transaction in its block. First transaction is index zero.
-
-```ts
-index: number
-```
-
-##### Property nodes
-
-Merkle tree sibling hash values required to compute root from txid.
-Duplicates (sibling hash === computed hash) are indicated by "*" or type byte === 1.
-type byte === 2...
-Strings are encoded as hex.
-
-```ts
-nodes: string[] | Buffer
-```
-
-##### Property target
-
-Merkle root (length === 32) or serialized block header containing it (length === 80).
-If string, encoding is hex.
-
-```ts
-target: string | Buffer
-```
-
-##### Property txOrId
-
-Full transaction (length > 32 bytes) or just its double SHA256 hash (length === 32 bytes).
-If string, encoding is hex.
-
-```ts
-txOrId: string | Buffer
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiTxStatusPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface MapiTxStatusPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    txid: string;
-    returnResult: string;
-    blockHash: string;
-    blockHeight: number;
-    confirmations: number;
-    minerId: string;
-    txSecondMempoolExpiry: number;
-    merkleProof?: TscMerkleProofApi;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiCallbackPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface MapiCallbackPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    blockHash: string;
-    blockHeight: number;
-    callbackTxId: string;
-    callbackReason: string;
-    callbackPayload: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiTxidReturnResultApi
-
-Used to parse payloads when only confirmation that a miner acknowledges a specific txid matters.
-
-```ts
-export interface MapiTxidReturnResultApi {
-    apiVersion?: string;
-    timestamp?: string;
-    txid: string;
-    returnResult: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiPostTxPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface MapiPostTxPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    txid: string;
-    returnResult: string;
-    resultDescription: string;
-    minerId: string;
-    currentHighestBlockHash?: string;
-    currentHighestBlockHeight?: number;
-    txSecondMempoolExpiry?: number;
-    failureRetryable?: boolean;
-    warnings?: unknown[];
-    conflictedWith?: unknown[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: EnvelopeApi
-
-Simplest case of an envelope is a `rawTx` and merkle `proof` that ties the transaction to a known block header.
-This will be the case for any sufficiently old transaction.
-
-If the transaction has been mined but for some reason the block headers may not be known, an array of `headers` linking
-known headers to the one needed by the `proof` may be provided. They must be in height order and need to overlap
-a known header.
-
-If the transaction has not been minded yet but it has been submitted to one or more miners then the mapi responses
-received, proving that specific miners have received the transaction for processing, are included in the
-mapiResponses array.
-Note that the miner reputations must be checked to give weight to these responses.
-
-Additionally, when the transaction hasn't been mined or a `proof` is unavailable and mapi responses proving miner
-acceptance are unavailable, then all the transactions providing inputs can be submitted in an inputs object.
-
-The keys of the inputs object are the transaction hashes (txids) of each of the input transactions.
-The value of each inputs object property is another envelope object.
-
-References:
-Section 2 of https://projectbabbage.com/assets/simplified-payments.pdf
-https://gist.github.com/ty-everett/44b6a0e7f3d6c48439f9ff26068f8d8b
-
-```ts
-export interface EnvelopeApi extends EnvelopeEvidenceApi {
-    headers?: string[];
-    reference?: string;
-}
-```
-
-<details>
-
-<summary>Interface EnvelopeApi Details</summary>
-
-##### Property headers
-
-For root nodes only.
-Array of 80 byte block headers encoded as 160 character hex strings
-Include headers the envelope creator is aware of but which the resipient may not have.
-
-```ts
-headers?: string[]
-```
-
-##### Property reference
-
-Arbitrary reference string associated with the envelope, typically root node only.
-
-```ts
-reference?: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: EnvelopeEvidenceApi
-
-Either inputs or proof are required.
-
-```ts
-export interface EnvelopeEvidenceApi {
-    rawTx: string;
-    proof?: TscMerkleProofApi | Buffer;
-    inputs?: EnvelopeInputMapApi;
-    txid?: string;
-    mapiResponses?: MapiResponseApi[];
-    depth?: number;
-}
-```
-
-<details>
-
-<summary>Interface EnvelopeEvidenceApi Details</summary>
-
-##### Property depth
-
-count of maximum number of chained unproven transactions before a proven leaf node
-proof nodes have depth zero.
-
-```ts
-depth?: number
-```
-
-##### Property inputs
-
-Only one of proof or inputs must be valid.
-Branching nodes have inputs with a sub envelope (values) for every input transaction txid (keys)
-
-```ts
-inputs?: EnvelopeInputMapApi
-```
-
-##### Property mapiResponses
-
-Array of mapi transaction status update responses
-Only the payload, signature, and publicKey properties are relevant.
-
-Branching inputs nodes only.
-Array of mapi transaction status update responses confirming
-unproven transctions have at least been submitted for processing.
-
-```ts
-mapiResponses?: MapiResponseApi[]
-```
-
-##### Property proof
-
-Either proof, or inputs, must have a value.
-Leaf nodes have proofs.
-
-If value is a Buffer, content is binary encoded serialized proof
-see: chaintracks-spv.utils.serializeTscMerkleProof
-
-```ts
-proof?: TscMerkleProofApi | Buffer
-```
-
-##### Property rawTx
-
-A valid bitcoin transaction encoded as a hex string.
-
-```ts
-rawTx: string
-```
-
-##### Property txid
-
-double SHA256 hash of serialized rawTx. Optional.
-
-```ts
-txid?: string
-```
 
 </details>
 
@@ -1945,7 +1945,7 @@ ERR_DOJO_INVALID_REFERENCE if reference is unknown
 
 ERR_DOJO_TRANSACTION_REJECTED if processors reject the transaction
 
-ERR_EXTSVS_DOUBLE_SPEND if transaction double spends an input
+ERR_DOUBLE_SPEND if transaction double spends an input
 
 ##### Method saveCertificate
 
@@ -4471,25 +4471,26 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [CwiError](#class-cwierror) | [ERR_DOJO_INVALID_PAYMAIL_HANDLE](#class-err_dojo_invalid_paymail_handle) | [ERR_DOJO_REQUEST_EXPIRED](#class-err_dojo_request_expired) |
-| [ERR_BAD_REQUEST](#class-err_bad_request) | [ERR_DOJO_INVALID_REDEEM](#class-err_dojo_invalid_redeem) | [ERR_DOJO_SENDER_SIGNATURE_CHECK](#class-err_dojo_sender_signature_check) |
-| [ERR_CHAIN](#class-err_chain) | [ERR_DOJO_INVALID_REFERENCE](#class-err_dojo_invalid_reference) | [ERR_DOJO_SYNC_MERGE](#class-err_dojo_sync_merge) |
-| [ERR_CHAIN_INVALID](#class-err_chain_invalid) | [ERR_DOJO_INVALID_SATOSHIS](#class-err_dojo_invalid_satoshis) | [ERR_DOJO_SYNC_REFNUM](#class-err_dojo_sync_refnum) |
-| [ERR_DOJO_BROADCAST_DUPE](#class-err_dojo_broadcast_dupe) | [ERR_DOJO_INVALID_SCRIPT](#class-err_dojo_invalid_script) | [ERR_DOJO_SYNC_STATE](#class-err_dojo_sync_state) |
-| [ERR_DOJO_BROADCAST_FAILED](#class-err_dojo_broadcast_failed) | [ERR_DOJO_INVALID_TIME](#class-err_dojo_invalid_time) | [ERR_DOJO_SYNC_STATUS](#class-err_dojo_sync_status) |
-| [ERR_DOJO_CERT_DUPE](#class-err_dojo_cert_dupe) | [ERR_DOJO_INVALID_TRANSACTION_STATUS](#class-err_dojo_invalid_transaction_status) | [ERR_DOJO_SYNC_TOTAL](#class-err_dojo_sync_total) |
-| [ERR_DOJO_CERT_INVALID](#class-err_dojo_cert_invalid) | [ERR_DOJO_INVALID_TXID](#class-err_dojo_invalid_txid) | [ERR_DOJO_TRANSACTION_NOT_FOUND](#class-err_dojo_transaction_not_found) |
-| [ERR_DOJO_CERT_SUBJECT](#class-err_dojo_cert_subject) | [ERR_DOJO_INVALID_TX_LABEL](#class-err_dojo_invalid_tx_label) | [ERR_DOJO_TRANSACTION_REJECTED](#class-err_dojo_transaction_rejected) |
-| [ERR_DOJO_COMPLETED_TX](#class-err_dojo_completed_tx) | [ERR_DOJO_INVALID_TX_RECIPIENT](#class-err_dojo_invalid_tx_recipient) | [ERR_DOJO_TX_BAD_AMOUNT](#class-err_dojo_tx_bad_amount) |
-| [ERR_DOJO_CREATE_TX_EMPTY](#class-err_dojo_create_tx_empty) | [ERR_DOJO_LABEL_NOT_FOUND](#class-err_dojo_label_not_found) | [ERR_DOJO_UNKNOWN_FEE_MODEL](#class-err_dojo_unknown_fee_model) |
-| [ERR_DOJO_FOREIGN_KEY](#class-err_dojo_foreign_key) | [ERR_DOJO_NOT_SUFFICIENT_FUNDS](#class-err_dojo_not_sufficient_funds) | [ERR_DOJO_VALIDATION](#class-err_dojo_validation) |
-| [ERR_DOJO_INVALID_BASKET_NAME](#class-err_dojo_invalid_basket_name) | [ERR_DOJO_NO_ENVELOPE](#class-err_dojo_no_envelope) | [ERR_INTERNAL](#class-err_internal) |
-| [ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS](#class-err_dojo_invalid_custom_instructions) | [ERR_DOJO_PAYMAIL_MISMATCH](#class-err_dojo_paymail_mismatch) | [ERR_INVALID_PARAMETER](#class-err_invalid_parameter) |
-| [ERR_DOJO_INVALID_NOTE](#class-err_dojo_invalid_note) | [ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY](#class-err_dojo_paymail_not_formatted_correctly) | [ERR_MISSING_PARAMETER](#class-err_missing_parameter) |
-| [ERR_DOJO_INVALID_OUTPOINT](#class-err_dojo_invalid_outpoint) | [ERR_DOJO_PAYMAIL_NOT_FOUND](#class-err_dojo_paymail_not_found) | [ERR_NOT_IMPLEMENTED](#class-err_not_implemented) |
-| [ERR_DOJO_INVALID_OUTPUT_DESCRIPTION](#class-err_dojo_invalid_output_description) | [ERR_DOJO_PAYMAIL_UNAVAILABLE](#class-err_dojo_paymail_unavailable) | [ERR_TXID_INVALID](#class-err_txid_invalid) |
-| [ERR_DOJO_INVALID_OUTPUT_TAG](#class-err_dojo_invalid_output_tag) | [ERR_DOJO_PROCESS_PENDING_OUTGOING](#class-err_dojo_process_pending_outgoing) | [ERR_TXID_UNKNOWN](#class-err_txid_unknown) |
-| [ERR_DOJO_INVALID_PAYMAIL_DOMAIN](#class-err_dojo_invalid_paymail_domain) | [ERR_DOJO_PROVEN_TX](#class-err_dojo_proven_tx) | [ERR_UNAUTHORIZED](#class-err_unauthorized) |
+| [CwiError](#class-cwierror) | [ERR_DOJO_INVALID_REDEEM](#class-err_dojo_invalid_redeem) | [ERR_DOJO_SYNC_MERGE](#class-err_dojo_sync_merge) |
+| [ERR_BAD_REQUEST](#class-err_bad_request) | [ERR_DOJO_INVALID_REFERENCE](#class-err_dojo_invalid_reference) | [ERR_DOJO_SYNC_REFNUM](#class-err_dojo_sync_refnum) |
+| [ERR_CHAIN](#class-err_chain) | [ERR_DOJO_INVALID_SATOSHIS](#class-err_dojo_invalid_satoshis) | [ERR_DOJO_SYNC_STATE](#class-err_dojo_sync_state) |
+| [ERR_CHAIN_INVALID](#class-err_chain_invalid) | [ERR_DOJO_INVALID_SCRIPT](#class-err_dojo_invalid_script) | [ERR_DOJO_SYNC_STATUS](#class-err_dojo_sync_status) |
+| [ERR_DOJO_BROADCAST_DUPE](#class-err_dojo_broadcast_dupe) | [ERR_DOJO_INVALID_TIME](#class-err_dojo_invalid_time) | [ERR_DOJO_SYNC_TOTAL](#class-err_dojo_sync_total) |
+| [ERR_DOJO_BROADCAST_FAILED](#class-err_dojo_broadcast_failed) | [ERR_DOJO_INVALID_TRANSACTION_STATUS](#class-err_dojo_invalid_transaction_status) | [ERR_DOJO_TRANSACTION_NOT_FOUND](#class-err_dojo_transaction_not_found) |
+| [ERR_DOJO_CERT_DUPE](#class-err_dojo_cert_dupe) | [ERR_DOJO_INVALID_TXID](#class-err_dojo_invalid_txid) | [ERR_DOJO_TRANSACTION_REJECTED](#class-err_dojo_transaction_rejected) |
+| [ERR_DOJO_CERT_INVALID](#class-err_dojo_cert_invalid) | [ERR_DOJO_INVALID_TX_LABEL](#class-err_dojo_invalid_tx_label) | [ERR_DOJO_TX_BAD_AMOUNT](#class-err_dojo_tx_bad_amount) |
+| [ERR_DOJO_CERT_SUBJECT](#class-err_dojo_cert_subject) | [ERR_DOJO_INVALID_TX_RECIPIENT](#class-err_dojo_invalid_tx_recipient) | [ERR_DOJO_UNKNOWN_FEE_MODEL](#class-err_dojo_unknown_fee_model) |
+| [ERR_DOJO_COMPLETED_TX](#class-err_dojo_completed_tx) | [ERR_DOJO_LABEL_NOT_FOUND](#class-err_dojo_label_not_found) | [ERR_DOJO_VALIDATION](#class-err_dojo_validation) |
+| [ERR_DOJO_CREATE_TX_EMPTY](#class-err_dojo_create_tx_empty) | [ERR_DOJO_NOT_SUFFICIENT_FUNDS](#class-err_dojo_not_sufficient_funds) | [ERR_DOUBLE_SPEND](#class-err_double_spend) |
+| [ERR_DOJO_FOREIGN_KEY](#class-err_dojo_foreign_key) | [ERR_DOJO_NO_ENVELOPE](#class-err_dojo_no_envelope) | [ERR_INTERNAL](#class-err_internal) |
+| [ERR_DOJO_INVALID_BASKET_NAME](#class-err_dojo_invalid_basket_name) | [ERR_DOJO_PAYMAIL_MISMATCH](#class-err_dojo_paymail_mismatch) | [ERR_INVALID_PARAMETER](#class-err_invalid_parameter) |
+| [ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS](#class-err_dojo_invalid_custom_instructions) | [ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY](#class-err_dojo_paymail_not_formatted_correctly) | [ERR_MISSING_PARAMETER](#class-err_missing_parameter) |
+| [ERR_DOJO_INVALID_NOTE](#class-err_dojo_invalid_note) | [ERR_DOJO_PAYMAIL_NOT_FOUND](#class-err_dojo_paymail_not_found) | [ERR_NOT_IMPLEMENTED](#class-err_not_implemented) |
+| [ERR_DOJO_INVALID_OUTPOINT](#class-err_dojo_invalid_outpoint) | [ERR_DOJO_PAYMAIL_UNAVAILABLE](#class-err_dojo_paymail_unavailable) | [ERR_TXID_INVALID](#class-err_txid_invalid) |
+| [ERR_DOJO_INVALID_OUTPUT_DESCRIPTION](#class-err_dojo_invalid_output_description) | [ERR_DOJO_PROCESS_PENDING_OUTGOING](#class-err_dojo_process_pending_outgoing) | [ERR_TXID_UNKNOWN](#class-err_txid_unknown) |
+| [ERR_DOJO_INVALID_OUTPUT_TAG](#class-err_dojo_invalid_output_tag) | [ERR_DOJO_PROVEN_TX](#class-err_dojo_proven_tx) | [ERR_UNAUTHORIZED](#class-err_unauthorized) |
+| [ERR_DOJO_INVALID_PAYMAIL_DOMAIN](#class-err_dojo_invalid_paymail_domain) | [ERR_DOJO_REQUEST_EXPIRED](#class-err_dojo_request_expired) |  |
+| [ERR_DOJO_INVALID_PAYMAIL_HANDLE](#class-err_dojo_invalid_paymail_handle) | [ERR_DOJO_SENDER_SIGNATURE_CHECK](#class-err_dojo_sender_signature_check) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4505,6 +4506,9 @@ This supports catch handlers that might catch both
 
 Derived class constructors should use the derived class name as the value for `code`,
 and an internationalizable constant string for `description`.
+
+If a derived class intends to wrap another CwiError, the public property should
+be named `cwiError` and will be recovered by `fromUnknown`.
 
 Optionaly, the derived class `description` can include template parameters passed in
 to the constructor. See ERR_MISSING_PARAMETER for an example.
@@ -4547,6 +4551,16 @@ asStatus(): {
 Returns
 
 standard HTTP error status object with status property set to 'error'.
+
+##### Method fromUnknown
+
+Recovers all public fields from CwiError derived error classes and relevant Error derived errors.
+
+Critical client data fields are preserved across HTTP DojoExpress / DojoExpressClient encoding.
+
+```ts
+static fromUnknown(err: unknown): CwiError 
+```
 
 </details>
 
@@ -4677,6 +4691,22 @@ TXID failed to correspond to a known transaction.
 ```ts
 export class ERR_TXID_UNKNOWN extends CwiError {
     constructor(description?: string) 
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOUBLE_SPEND
+
+Transaction is a double spend.
+
+This exception includes `spendingTransactions`, an array of transaction envelopes
+of conflicting transactions.
+
+```ts
+export class ERR_DOUBLE_SPEND extends CwiError {
+    constructor(public spendingTransactions: EnvelopeApi[], description?: string) 
 }
 ```
 
@@ -6903,6 +6933,17 @@ export type Chain = "main" | "test"
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+#### Type: EnvelopeInputMapApi
+
+keys are txids
+
+```ts
+export type EnvelopeInputMapApi = Record<string, EnvelopeEvidenceApi>
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Type: HeaderListener
 
 ```ts
@@ -6916,17 +6957,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: EnvelopeInputMapApi
-
-keys are txids
-
-```ts
-export type EnvelopeInputMapApi = Record<string, EnvelopeEvidenceApi>
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
