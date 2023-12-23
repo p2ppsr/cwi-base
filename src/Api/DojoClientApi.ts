@@ -537,7 +537,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       *
       * @throws ERR_DOJO_INVALID_REFERENCE if reference is unknown
       * @throws ERR_DOJO_TRANSACTION_REJECTED if processors reject the transaction
-      * @throws ERR_DOUBLE_SPEND if transaction double spends an input
+      * @throws ERR_EXTSVS_DOUBLE_SPEND if transaction double spends an input
       *
       * @returns `DojoProcessTransactionResultApi` with txid and status of 'completed' or 'unknown'
       */
