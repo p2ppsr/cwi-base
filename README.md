@@ -1945,7 +1945,7 @@ ERR_DOJO_INVALID_REFERENCE if reference is unknown
 
 ERR_DOJO_TRANSACTION_REJECTED if processors reject the transaction
 
-ERR_DOUBLE_SPEND if transaction double spends an input
+ERR_EXTSVS_DOUBLE_SPEND if transaction double spends an input
 
 ##### Method saveCertificate
 
