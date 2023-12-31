@@ -105,16 +105,19 @@ export function validateInputSelection (v: DojoTxInputSelectionApi | undefined):
     r = {
       disable: false,
       baskets: ['default'],
-      maxUnconfirmedChainLength: -1
+      maxUnconfirmedChainLength: -1,
+      includeSending: false
     }
   } else {
     if (typeof v.disable !== 'boolean') v.disable = false
+    if (typeof v.includeSending !== 'boolean') v.includeSending = false
     if (!Array.isArray(v.baskets)) v.baskets = ['default']
     if (typeof v.maxUnconfirmedChainLength !== 'number') v.maxUnconfirmedChainLength = -1
     r = {
       disable: v.baskets.length === 0 || v.disable,
       baskets: v.baskets,
-      maxUnconfirmedChainLength: v.maxUnconfirmedChainLength
+      maxUnconfirmedChainLength: v.maxUnconfirmedChainLength,
+      includeSending: v.includeSending
     }
   }
   return r
