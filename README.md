@@ -3914,7 +3914,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export interface DojoProcessTransactionResultApi {
     txid: string;
-    status: "unproven" | "failed";
+    status: "sending" | "unproven" | "failed";
     mapiResponses: MapiResponseApi[];
 }
 ```
@@ -3980,6 +3980,7 @@ export interface DojoTxInputSelectionApi {
     disable: boolean;
     baskets: string[];
     maxUnconfirmedChainLength?: number;
+    includeSending?: boolean;
 }
 ```
 
@@ -3989,7 +3990,6 @@ export interface DojoTxInputSelectionApi {
 
 ##### Property baskets
 
-TODO (coming soon).
 This is an array of UTXO basket names from which UTXOs can be selected for spending.
 To only select UTXOs of a certain type, configure the source basket only to accept those types of UTXOs.
 By default, UTXOs will only be selected if they are in the "default" basket.
@@ -4007,6 +4007,17 @@ or if the "inputs" array is empty, you will get an error.
 
 ```ts
 disable: boolean
+```
+
+##### Property includeSending
+
+If true, UTXOS from transactions with status 'sending' are included.
+Transactions with status 'sending' have not yet been successfully sent to the network.
+Their outputs are only acceptable for the `acceptDelayedBroadcast = true` mode of transaction
+processing.
+
+```ts
+includeSending?: boolean
 ```
 
 ##### Property maxUnconfirmedChainLength
@@ -7009,7 +7020,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Type: DojoTransactionStatusApi
 
 ```ts
-export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "unproven" | "unsigned"
+export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "sending" | "unproven" | "unsigned"
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
