@@ -1688,7 +1688,7 @@ export interface DojoSubmitDirectTransactionOutputApi {
    basket?: string
    derivationPrefix?: string
    derivationSuffix?: string
-   customInstructions?: object
+   customInstructions?: string
 }
 
 export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
