@@ -1689,6 +1689,7 @@ export interface DojoSubmitDirectTransactionOutputApi {
    derivationPrefix?: string
    derivationSuffix?: string
    customInstructions?: string
+   senderIdentityKey?: string
 }
 
 export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
@@ -1707,7 +1708,7 @@ export interface DojoSubmitDirectTransactionParams {
      * Specify the transaction submission payment protocol to use.
      * Currently, the only supported protocol is that with BRFC ID "3241645161d8"
      */
-  protocol: string
+  protocol?: string
   /**
      * The transaction envelope to submit, including key derivation information.
      *
