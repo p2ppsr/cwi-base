@@ -4351,6 +4351,7 @@ export interface DojoSubmitDirectTransactionOutputApi {
     derivationPrefix?: string;
     derivationSuffix?: string;
     customInstructions?: string;
+    senderIdentityKey?: string;
 }
 ```
 
@@ -4389,7 +4390,7 @@ Input parameters to submitDirectTransaction method.
 
 ```ts
 export interface DojoSubmitDirectTransactionParams {
-    protocol: string;
+    protocol?: string;
     transaction: DojoSubmitDirectTransactionApi;
     senderIdentityKey: string;
     note: string;
@@ -4433,7 +4434,7 @@ Specify the transaction submission payment protocol to use.
 Currently, the only supported protocol is that with BRFC ID "3241645161d8"
 
 ```ts
-protocol: string
+protocol?: string
 ```
 
 ##### Property senderIdentityKey
