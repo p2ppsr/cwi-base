@@ -754,6 +754,11 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
      */
   includeEnvelope?: boolean
   /**
+     * If provided, returns customInstructions for each output.
+     * Note that includeEnvelope also enables including customInstructions
+     */
+  includeCustomInstructions?: boolean
+  /**
    * If true, the `DojoOutputXApi` `basket` property will be included in results.
    */
   includeBasket?: boolean

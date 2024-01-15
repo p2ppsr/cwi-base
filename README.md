@@ -2334,6 +2334,7 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
     tags?: string[];
     type?: string;
     includeEnvelope?: boolean;
+    includeCustomInstructions?: boolean;
     includeBasket?: boolean;
     includeTags?: boolean;
     tagQueryMode?: "all" | "any";
@@ -2358,6 +2359,15 @@ If true, the `DojoOutputXApi` `basket` property will be included in results.
 
 ```ts
 includeBasket?: boolean
+```
+
+##### Property includeCustomInstructions
+
+If provided, returns customInstructions for each output.
+Note that includeEnvelope also enables including customInstructions
+
+```ts
+includeCustomInstructions?: boolean
 ```
 
 ##### Property includeEnvelope
