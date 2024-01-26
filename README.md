@@ -4362,6 +4362,7 @@ export interface DojoSubmitDirectTransactionOutputApi {
     derivationSuffix?: string;
     customInstructions?: string;
     senderIdentityKey?: string;
+    tags?: string[];
 }
 ```
 
