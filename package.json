@@ -50,7 +50,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@babbage/sdk-ts": "^0.1.1",
+    "@babbage/sdk-ts": "^0.1.2",
     "bn.js": "^5.2.1",
     "cwi-bitcoin": "^1.0.5",
     "hi-base32": "^0.5.1"

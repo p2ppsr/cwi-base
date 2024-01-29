@@ -12,397 +12,39 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) |
-| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
-| [BlockHeader](#interface-blockheader) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
-| [BlockHeaderHex](#interface-blockheaderhex) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
-| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
-| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
-| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
-| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
-| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
-| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserApi](#interface-dojouserapi) |
-| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
-| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [EnvelopeApi](#interface-envelopeapi) |
-| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams) | [EnvelopeEvidenceApi](#interface-envelopeevidenceapi) |
-| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
-| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
-| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
-| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
-| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiResponseApi](#interface-mapiresponseapi) |
-| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
-| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
-| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
-| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
-| [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
-| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
-| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [TrxToken](#interface-trxtoken) |
-| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TscMerkleProofApi](#interface-tscmerkleproofapi) |
+| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) |
+| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) |
+| [BlockHeader](#interface-blockheader) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMapApi](#interface-dojosyncmapapi) |
+| [BlockHeaderHex](#interface-blockheaderhex) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
+| [ChaintracksApi](#interface-chaintracksapi) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
+| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
+| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
+| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
+| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
+| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
+| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
+| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserApi](#interface-dojouserapi) |
+| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams) | [LiveBlockHeader](#interface-liveblockheader) |
+| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
+| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
+| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
+| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
+| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
+| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
+| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
+| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
+| [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
+| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [TrxToken](#interface-trxtoken) |
+| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
-#### Interface: MapiResponseApi
-
-```ts
-export interface MapiResponseApi {
-    payload: string;
-    signature: string;
-    publicKey: string;
-    encoding?: string;
-    mimetype?: string;
-}
-```
-
-<details>
-
-<summary>Interface MapiResponseApi Details</summary>
-
-##### Property encoding
-
-encoding of the payload data
-
-```ts
-encoding?: string
-```
-
-##### Property mimetype
-
-mime type of the payload data
-
-```ts
-mimetype?: string
-```
-
-##### Property payload
-
-Contents of the envelope.
-Validate using signature and publicKey.
-encoding and mimetype may assist with decoding validated payload.
-
-```ts
-payload: string
-```
-
-##### Property publicKey
-
-public key to use to verify signature of payload data
-
-```ts
-publicKey: string
-```
-
-##### Property signature
-
-signature producted by correpsonding private key on payload data
-
-```ts
-signature: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: TscMerkleProofApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface TscMerkleProofApi {
-    height?: number;
-    index: number;
-    txOrId: string | Buffer;
-    target: string | Buffer;
-    nodes: string[] | Buffer;
-    targetType?: "hash" | "header" | "merkleRoot" | "height";
-    proofType?: "branch" | "tree";
-    composite?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface TscMerkleProofApi Details</summary>
-
-##### Property height
-
-The most efficient way of confirming a proof should also be the most common,
-when the containing block's height is known.
-
-```ts
-height?: number
-```
-
-##### Property index
-
-Index of transaction in its block. First transaction is index zero.
-
-```ts
-index: number
-```
-
-##### Property nodes
-
-Merkle tree sibling hash values required to compute root from txid.
-Duplicates (sibling hash === computed hash) are indicated by "*" or type byte === 1.
-type byte === 2...
-Strings are encoded as hex.
-
-```ts
-nodes: string[] | Buffer
-```
-
-##### Property target
-
-Merkle root (length === 32) or serialized block header containing it (length === 80).
-If string, encoding is hex.
-
-```ts
-target: string | Buffer
-```
-
-##### Property txOrId
-
-Full transaction (length > 32 bytes) or just its double SHA256 hash (length === 32 bytes).
-If string, encoding is hex.
-
-```ts
-txOrId: string | Buffer
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiTxStatusPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface MapiTxStatusPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    txid: string;
-    returnResult: string;
-    blockHash: string;
-    blockHeight: number;
-    confirmations: number;
-    minerId: string;
-    txSecondMempoolExpiry: number;
-    merkleProof?: TscMerkleProofApi;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiCallbackPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface MapiCallbackPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    blockHash: string;
-    blockHeight: number;
-    callbackTxId: string;
-    callbackReason: string;
-    callbackPayload: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiTxidReturnResultApi
-
-Used to parse payloads when only confirmation that a miner acknowledges a specific txid matters.
-
-```ts
-export interface MapiTxidReturnResultApi {
-    apiVersion?: string;
-    timestamp?: string;
-    txid: string;
-    returnResult: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiPostTxPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
-
-```ts
-export interface MapiPostTxPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    txid: string;
-    returnResult: string;
-    resultDescription: string;
-    minerId: string;
-    currentHighestBlockHash?: string;
-    currentHighestBlockHeight?: number;
-    txSecondMempoolExpiry?: number;
-    failureRetryable?: boolean;
-    warnings?: unknown[];
-    conflictedWith?: unknown[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: EnvelopeApi
-
-Simplest case of an envelope is a `rawTx` and merkle `proof` that ties the transaction to a known block header.
-This will be the case for any sufficiently old transaction.
-
-If the transaction has been mined but for some reason the block headers may not be known, an array of `headers` linking
-known headers to the one needed by the `proof` may be provided. They must be in height order and need to overlap
-a known header.
-
-If the transaction has not been minded yet but it has been submitted to one or more miners then the mapi responses
-received, proving that specific miners have received the transaction for processing, are included in the
-mapiResponses array.
-Note that the miner reputations must be checked to give weight to these responses.
-
-Additionally, when the transaction hasn't been mined or a `proof` is unavailable and mapi responses proving miner
-acceptance are unavailable, then all the transactions providing inputs can be submitted in an inputs object.
-
-The keys of the inputs object are the transaction hashes (txids) of each of the input transactions.
-The value of each inputs object property is another envelope object.
-
-References:
-Section 2 of https://projectbabbage.com/assets/simplified-payments.pdf
-https://gist.github.com/ty-everett/44b6a0e7f3d6c48439f9ff26068f8d8b
-
-```ts
-export interface EnvelopeApi extends EnvelopeEvidenceApi {
-    headers?: string[];
-    reference?: string;
-}
-```
-
-<details>
-
-<summary>Interface EnvelopeApi Details</summary>
-
-##### Property headers
-
-For root nodes only.
-Array of 80 byte block headers encoded as 160 character hex strings
-Include headers the envelope creator is aware of but which the resipient may not have.
-
-```ts
-headers?: string[]
-```
-
-##### Property reference
-
-Arbitrary reference string associated with the envelope, typically root node only.
-
-```ts
-reference?: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: EnvelopeEvidenceApi
-
-Either inputs or proof are required.
-
-```ts
-export interface EnvelopeEvidenceApi {
-    rawTx: string;
-    proof?: TscMerkleProofApi | Buffer;
-    inputs?: EnvelopeInputMapApi;
-    txid?: string;
-    mapiResponses?: MapiResponseApi[];
-    depth?: number;
-}
-```
-
-<details>
-
-<summary>Interface EnvelopeEvidenceApi Details</summary>
-
-##### Property depth
-
-count of maximum number of chained unproven transactions before a proven leaf node
-proof nodes have depth zero.
-
-```ts
-depth?: number
-```
-
-##### Property inputs
-
-Only one of proof or inputs must be valid.
-Branching nodes have inputs with a sub envelope (values) for every input transaction txid (keys)
-
-```ts
-inputs?: EnvelopeInputMapApi
-```
-
-##### Property mapiResponses
-
-Array of mapi transaction status update responses
-Only the payload, signature, and publicKey properties are relevant.
-
-Branching inputs nodes only.
-Array of mapi transaction status update responses confirming
-unproven transctions have at least been submitted for processing.
-
-```ts
-mapiResponses?: MapiResponseApi[]
-```
-
-##### Property proof
-
-Either proof, or inputs, must have a value.
-Leaf nodes have proofs.
-
-If value is a Buffer, content is binary encoded serialized proof
-see: chaintracks-spv.utils.serializeTscMerkleProof
-
-```ts
-proof?: TscMerkleProofApi | Buffer
-```
-
-##### Property rawTx
-
-A valid bitcoin transaction encoded as a hex string.
-
-```ts
-rawTx: string
-```
-
-##### Property txid
-
-double SHA256 hash of serialized rawTx. Optional.
-
-```ts
-txid?: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Interface: BaseBlockHeader
 
 These are fields of 80 byte serialized header in order whose double sha256 hash is a block's hash value
@@ -2784,7 +2426,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Interface: DojoCertificateApi
 
 ```ts
-export interface DojoCertificateApi extends DojoEntityTimeStampApi {
+export interface DojoCertificateApi extends DojoEntityTimeStampApi, CreateCertificateResult {
     certificateId?: number;
     created_at?: Date | null;
     updated_at?: Date | null;
@@ -4484,6 +4126,87 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 export interface DojoSubmitDirectTransactionResultApi {
     transactionId: number;
     referenceNumber: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiTxStatusPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiTxStatusPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    txid: string;
+    returnResult: string;
+    blockHash: string;
+    blockHeight: number;
+    confirmations: number;
+    minerId: string;
+    txSecondMempoolExpiry: number;
+    merkleProof?: TscMerkleProofApi;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiCallbackPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiCallbackPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    blockHash: string;
+    blockHeight: number;
+    callbackTxId: string;
+    callbackReason: string;
+    callbackPayload: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiTxidReturnResultApi
+
+Used to parse payloads when only confirmation that a miner acknowledges a specific txid matters.
+
+```ts
+export interface MapiTxidReturnResultApi {
+    apiVersion?: string;
+    timestamp?: string;
+    txid: string;
+    returnResult: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiPostTxPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiPostTxPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    txid: string;
+    returnResult: string;
+    resultDescription: string;
+    minerId: string;
+    currentHighestBlockHash?: string;
+    currentHighestBlockHeight?: number;
+    txSecondMempoolExpiry?: number;
+    failureRetryable?: boolean;
+    warnings?: unknown[];
+    conflictedWith?: unknown[];
 }
 ```
 
@@ -6933,15 +6656,20 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 ### Types
 
-| | |
-| --- | --- |
-| [Chain](#type-chain) | [DojoTransactionLabelsSortBy](#type-dojotransactionlabelssortby) |
-| [DojoLoggerApi](#type-dojologgerapi) | [DojoTransactionStatusApi](#type-dojotransactionstatusapi) |
-| [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi) | [EnvelopeInputMapApi](#type-envelopeinputmapapi) |
-| [DojoProvidedByApi](#type-dojoprovidedbyapi) | [HeaderListener](#type-headerlistener) |
-| [DojoRecordOrder](#type-dojorecordorder) | [ReorgListener](#type-reorglistener) |
-| [DojoSyncProtocolVersion](#type-dojosyncprotocolversion) | [SyncDojoConfigType](#type-syncdojoconfigtype) |
-| [DojoSyncStatus](#type-dojosyncstatus) |  |
+| |
+| --- |
+| [Chain](#type-chain) |
+| [DojoLoggerApi](#type-dojologgerapi) |
+| [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi) |
+| [DojoProvidedByApi](#type-dojoprovidedbyapi) |
+| [DojoRecordOrder](#type-dojorecordorder) |
+| [DojoSyncProtocolVersion](#type-dojosyncprotocolversion) |
+| [DojoSyncStatus](#type-dojosyncstatus) |
+| [DojoTransactionLabelsSortBy](#type-dojotransactionlabelssortby) |
+| [DojoTransactionStatusApi](#type-dojotransactionstatusapi) |
+| [HeaderListener](#type-headerlistener) |
+| [ReorgListener](#type-reorglistener) |
+| [SyncDojoConfigType](#type-syncdojoconfigtype) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6951,17 +6679,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export type Chain = "main" | "test"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: EnvelopeInputMapApi
-
-keys are txids
-
-```ts
-export type EnvelopeInputMapApi = Record<string, EnvelopeEvidenceApi>
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
