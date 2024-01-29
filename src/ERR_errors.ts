@@ -1,4 +1,4 @@
-import { EnvelopeApi } from './Api/EnvelopeApi'
+import { EnvelopeApi } from '@babbage/sdk-ts'
 import { CwiError } from './CwiError'
 
 /**

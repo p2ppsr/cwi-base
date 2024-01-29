@@ -1,8 +1,9 @@
+import { TscMerkleProofApi, MapiResponseApi, EnvelopeApi, EnvelopeEvidenceApi } from '@babbage/sdk-ts'
+export { TscMerkleProofApi, MapiResponseApi, EnvelopeApi, EnvelopeEvidenceApi }
 export * from './Api/CwiBaseApi'
 export * from './Api/BlockHeaderApi'
 export * from './Api/ChaintracksClientApi'
 export * from './Api/DojoClientApi'
-export * from './Api/EnvelopeApi'
 export * from './Api/MerchantApi'
 export * from './blockHeaderUtils'
 export * from './CwiError'

@@ -18,5 +18,8 @@
     "noImplicitOverride": true
   },
   "include": ["src/**/*", "test/**/*"],
-  "exclude": ["node_modules", "jest.config.ts"]
+  "exclude": ["node_modules", "jest.config.ts"],
+  "references": [
+     { "path": "../babbage-sdk-ts" }
+  ]
 }

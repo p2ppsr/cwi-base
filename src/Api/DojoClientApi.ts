@@ -1,7 +1,6 @@
+import { CreateCertificateResult, EnvelopeApi, EnvelopeEvidenceApi, MapiResponseApi } from '@babbage/sdk-ts'
 import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
-import { EnvelopeApi, EnvelopeEvidenceApi } from './EnvelopeApi'
-import { MapiResponseApi } from './MerchantApi'
 
 /**
  * Public Dojo Api
@@ -921,7 +920,7 @@ export interface DojoCertificateFieldApi extends DojoEntityTimeStampApi {
    masterKey: string
 }
 
-export interface DojoCertificateApi extends DojoEntityTimeStampApi {
+export interface DojoCertificateApi extends DojoEntityTimeStampApi, CreateCertificateResult {
    certificateId?: number
    created_at?: Date | null
    updated_at?: Date | null
