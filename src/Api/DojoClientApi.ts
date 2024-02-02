@@ -989,8 +989,8 @@ export interface DojoMapiResponseApi extends DojoEntityTimeStampApi {
    responseId?: number
    created_at?: Date | null
    updated_at?: Date | null
-   transactionId: number
-   userId: number
+   provenTxReqId?: number
+   txid?: string
    callbackID?: string
    payload?: string
    /**
@@ -1228,7 +1228,6 @@ export const DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
 
 export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
    provenTxReqId?: number
-   userId?: number
    created_at?: Date | null
    updated_at?: Date | null
    txid: string
