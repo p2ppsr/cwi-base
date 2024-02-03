@@ -20,6 +20,34 @@ export class ERR_DOJO_NOT_SUFFICIENT_FUNDS extends CwiError {
 }
 
 /**
+ * Not sufficient funds in the available inputs to cover the cost of the required outputs
+ * and the transaction fee (${moreSatoshisNeeded} more satoshis are needed,
+ * for a total of ${totalSatoshisNeeded}), plus whatever would be required in order
+ * to pay the fee to unlock and spend the outputs used to provide the additional satoshis.
+ * 
+ * Accepted funds require at least one transaction processor has accepted broacast of transaction containing each UTXO.
+ */
+export class ERR_DOJO_NOT_SUFFICIENT_ACCEPTED_FUNDS extends CwiError {
+  constructor (public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) {
+    super('ERR_DOJO_NOT_SUFFICIENT_PROVEN_FUNDS', `Not sufficient funds in the available inputs to cover the cost of the required outputs and the transaction fee (${moreSatoshisNeeded} more satoshis are needed, for a total of ${totalSatoshisNeeded}), plus whatever would be required in order to pay the fee to unlock and spend the outputs used to provide the additional satoshis.`)
+  }
+}
+
+/**
+ * Not sufficient funds in the available inputs to cover the cost of the required outputs
+ * and the transaction fee (${moreSatoshisNeeded} more satoshis are needed,
+ * for a total of ${totalSatoshisNeeded}), plus whatever would be required in order
+ * to pay the fee to unlock and spend the outputs used to provide the additional satoshis.
+ * 
+ * Proven funds require valid merkle proofs for each UTXO.
+ */
+export class ERR_DOJO_NOT_SUFFICIENT_PROVEN_FUNDS extends CwiError {
+  constructor (public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) {
+    super('ERR_DOJO_NOT_SUFFICIENT_PROVEN_FUNDS', `Not sufficient funds in the available inputs to cover the cost of the required outputs and the transaction fee (${moreSatoshisNeeded} more satoshis are needed, for a total of ${totalSatoshisNeeded}), plus whatever would be required in order to pay the fee to unlock and spend the outputs used to provide the additional satoshis.`)
+  }
+}
+
+/**
  * Transaction was already broadcast.
  */
 export class ERR_DOJO_UNKNOWN_FEE_MODEL extends CwiError { constructor (model: string) { super('ERR_DOJO_UNKNOWN_FEE_MODEL', `"${model}" is not a supported fee model. Only "sat/kb" is a supported at this time. Please email dojo-fee-models@babbage.systems if you have a new fee model which you would like Dojo to support.`) } }
