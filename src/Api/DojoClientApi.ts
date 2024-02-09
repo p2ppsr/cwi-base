@@ -1486,12 +1486,18 @@ export interface DojoProcessTransactionParams {
     * - If spentBy is non-null, failure propagates to that transaction.
     */
    acceptDelayedBroadcast?: boolean
+
+   /**
+      * Optional transaction processing history
+      */
+   log?: string
 }
 
 export interface DojoProcessTransactionResultApi {
    txid: string
    status: 'sending' | 'unproven' | 'failed'
    mapiResponses: MapiResponseApi[]
+   log?: string
 }
 
 export interface DojoOutputToRedeemApi {
@@ -1653,6 +1659,10 @@ export interface DojoCreateTransactionParams {
     * Optional. The Paymail handle of the recipient of this transaction (Optional)
     */
    recipient?: string
+   /**
+    * Optional transaction processing history
+    */
+   log?: string
 }
 
 export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
@@ -1683,6 +1693,7 @@ export interface DojoCreateTransactionResultApi {
    referenceNumber: string
    paymailHandle: string
    note?: string
+   log?: string
 }
 
 export interface DojoSubmitDirectTransactionOutputApi {

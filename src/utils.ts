@@ -347,3 +347,14 @@ export function minDate (d1: Date | null | undefined, d2: Date | null | undefine
   if (d1 == null || d2 == null) return undefined
   return d1 < d2 ? d1 : d2
 }
+
+/**
+ * If a log is being kept, add a time stamped line.
+ * @param log  Optional time stamped log to extend
+ * @param lineToAdd Content to add to line.
+ * @returns undefined or log extended by time stamped `lineToAdd` and new line.
+ */
+export function stampLog(log: string | undefined, lineToAdd: string) : string | undefined {
+  if (!log) return undefined
+  return log + `${new Date().toISOString()} ${lineToAdd}\n`
+}
