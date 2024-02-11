@@ -1,6 +1,8 @@
 import crypto from 'crypto'
 import * as bsv from 'cwi-bitcoin'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
+import { stampLog, stampLogFormat } from '@babbage/sdk-ts'
+export { stampLog, stampLogFormat }
 
 /**
  * Tests if all `bits` are set in `what`.
@@ -346,15 +348,4 @@ export function maxDate (d1: Date | null | undefined, d2: Date | null | undefine
 export function minDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
   if (d1 == null || d2 == null) return undefined
   return d1 < d2 ? d1 : d2
-}
-
-/**
- * If a log is being kept, add a time stamped line.
- * @param log  Optional time stamped log to extend
- * @param lineToAdd Content to add to line.
- * @returns undefined or log extended by time stamped `lineToAdd` and new line.
- */
-export function stampLog(log: string | undefined, lineToAdd: string) : string | undefined {
-  if (typeof log !== 'string') return undefined
-  return log + `${new Date().toISOString()} ${lineToAdd}\n`
 }
