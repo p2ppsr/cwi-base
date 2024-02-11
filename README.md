@@ -5119,36 +5119,36 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [asBsvTx](#function-asbsvtx) | [pointToBuffer](#function-pointtobuffer) | [validateOutputDescription](#function-validateoutputdescription) |
-| [asBuffer](#function-asbuffer) | [pointToCompressed](#function-pointtocompressed) | [validateOutputGeneration](#function-validateoutputgeneration) |
-| [asString](#function-asstring) | [randomBytes](#function-randombytes) | [validateOutputTag](#function-validateoutputtag) |
-| [bitsAreSet](#function-bitsareset) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputTags](#function-validateoutputtags) |
-| [blockHash](#function-blockhash) | [randomBytesHex](#function-randombyteshex) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
-| [computeMerkleTreeParent](#function-computemerkletreeparent) | [randomMinMax](#function-randomminmax) | [validatePaymail](#function-validatepaymail) |
-| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [readVarUint32LE](#function-readvaruint32le) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
-| [convertBufferToUint32](#function-convertbuffertouint32) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateSatoshis](#function-validatesatoshis) |
-| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [serializeBlockHeader](#function-serializeblockheader) | [validateScript](#function-validatescript) |
-| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [sha256Hash](#function-sha256hash) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
-| [deserializeBlockHeader](#function-deserializeblockheader) | [shuffleArray](#function-shufflearray) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
-| [doubleSha256BE](#function-doublesha256be) | [stampLog](#function-stamplog) | [validateTXID](#function-validatetxid) |
-| [doubleSha256HashLE](#function-doublesha256hashle) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
-| [genesisBuffer](#function-genesisbuffer) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
-| [genesisHeaderHex](#function-genesisheaderhex) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
-| [getInputTxIds](#function-getinputtxids) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
-| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toBlockHeaderHex](#function-toblockheaderhex) | [varUintSize](#function-varuintsize) |
-| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [toDojoSyncError](#function-todojosyncerror) | [verifyBuffer](#function-verifybuffer) |
-| [isBaseBlockHeader](#function-isbaseblockheader) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBufferEquals](#function-verifybufferequals) |
-| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferOrObject](#function-verifybufferorobject) |
-| [isBlockHeader](#function-isblockheader) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
-| [isBlockHeaderHex](#function-isblockheaderhex) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
-| [isLive](#function-islive) | [transactionSize](#function-transactionsize) | [verifyId](#function-verifyid) |
-| [isLiveBlockHeader](#function-isliveblockheader) | [validateBasketName](#function-validatebasketname) | [verifyNone](#function-verifynone) |
-| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNumber](#function-verifynumber) |
-| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOne](#function-verifyone) |
-| [maxDate](#function-maxdate) | [validateDate](#function-validatedate) | [verifyOneOrNone](#function-verifyoneornone) |
-| [minDate](#function-mindate) | [validateFeeModel](#function-validatefeemodel) | [verifyTruthy](#function-verifytruthy) |
-| [offsetPrivKey](#function-offsetprivkey) | [validateIdentityKey](#function-validateidentitykey) | [wait](#function-wait) |
-| [offsetPubKey](#function-offsetpubkey) | [validateInputSelection](#function-validateinputselection) | [writeVarUint32LE](#function-writevaruint32le) |
+| [asBsvTx](#function-asbsvtx) | [pointToBuffer](#function-pointtobuffer) | [validateOutputGeneration](#function-validateoutputgeneration) |
+| [asBuffer](#function-asbuffer) | [pointToCompressed](#function-pointtocompressed) | [validateOutputTag](#function-validateoutputtag) |
+| [asString](#function-asstring) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
+| [bitsAreSet](#function-bitsareset) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
+| [blockHash](#function-blockhash) | [randomBytesHex](#function-randombyteshex) | [validatePaymail](#function-validatepaymail) |
+| [computeMerkleTreeParent](#function-computemerkletreeparent) | [randomMinMax](#function-randomminmax) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
+| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [readVarUint32LE](#function-readvaruint32le) | [validateSatoshis](#function-validatesatoshis) |
+| [convertBufferToUint32](#function-convertbuffertouint32) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateScript](#function-validatescript) |
+| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [serializeBlockHeader](#function-serializeblockheader) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
+| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [sha256Hash](#function-sha256hash) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
+| [deserializeBlockHeader](#function-deserializeblockheader) | [shuffleArray](#function-shufflearray) | [validateTXID](#function-validatetxid) |
+| [doubleSha256BE](#function-doublesha256be) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
+| [doubleSha256HashLE](#function-doublesha256hashle) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
+| [genesisBuffer](#function-genesisbuffer) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
+| [genesisHeaderHex](#function-genesisheaderhex) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
+| [getInputTxIds](#function-getinputtxids) | [toBlockHeaderHex](#function-toblockheaderhex) | [varUintSize](#function-varuintsize) |
+| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toDojoSyncError](#function-todojosyncerror) | [verifyBuffer](#function-verifybuffer) |
+| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBufferEquals](#function-verifybufferequals) |
+| [isBaseBlockHeader](#function-isbaseblockheader) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferOrObject](#function-verifybufferorobject) |
+| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
+| [isBlockHeader](#function-isblockheader) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
+| [isBlockHeaderHex](#function-isblockheaderhex) | [transactionSize](#function-transactionsize) | [verifyId](#function-verifyid) |
+| [isLive](#function-islive) | [validateBasketName](#function-validatebasketname) | [verifyNone](#function-verifynone) |
+| [isLiveBlockHeader](#function-isliveblockheader) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNumber](#function-verifynumber) |
+| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOne](#function-verifyone) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateDate](#function-validatedate) | [verifyOneOrNone](#function-verifyoneornone) |
+| [maxDate](#function-maxdate) | [validateFeeModel](#function-validatefeemodel) | [verifyTruthy](#function-verifytruthy) |
+| [minDate](#function-mindate) | [validateIdentityKey](#function-validateidentitykey) | [wait](#function-wait) |
+| [offsetPrivKey](#function-offsetprivkey) | [validateInputSelection](#function-validateinputselection) | [writeVarUint32LE](#function-writevaruint32le) |
+| [offsetPubKey](#function-offsetpubkey) | [validateOutputDescription](#function-validateoutputdescription) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5779,34 +5779,6 @@ export function minDate(d1: Date | null | undefined, d2: Date | null | undefined
     return d1 < d2 ? d1 : d2;
 }
 ```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: stampLog
-
-If a log is being kept, add a time stamped line.
-
-```ts
-export function stampLog(log: string | undefined, lineToAdd: string): string | undefined 
-```
-
-<details>
-
-<summary>Function stampLog Details</summary>
-
-Returns
-
-undefined or log extended by time stamped `lineToAdd` and new line.
-
-Argument Details
-
-+ **log**
-  + Optional time stamped log to extend
-+ **lineToAdd**
-  + Content to add to line.
-
-</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
