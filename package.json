@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@babbage/sdk-ts": "^0.1.11",
+    "@bsv/sdk": "^1.0.4",
     "bn.js": "^5.2.1",
     "cwi-bitcoin": "^1.0.5",
     "hi-base32": "^0.5.1"
