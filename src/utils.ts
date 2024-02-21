@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import * as bsv from 'cwi-bitcoin'
-import bsvSdk from '@bsv/sdk'
+import { Transaction } from '@bsv/sdk'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 import { stampLog, stampLogFormat } from '@babbage/sdk-ts'
 export { stampLog, stampLogFormat }
@@ -296,33 +296,33 @@ export function computeMerkleTreeParent (leftNode: string | Buffer, rightNode: s
 }
 
 /**
- * Parse a bsv transaction encoded as a hex string, serialized Buffer, bsvSdk.Transaction to bsv.Tx
+ * Parse a bsv transaction encoded as a hex string, serialized Buffer, Transaction to bsv.Tx
  * If tx is already a bsv.Tx, just return it.
  * @publicbody
  */
-export function asBsvTx (tx: string | Buffer | bsv.Tx | bsvSdk.Transaction): bsv.Tx {
+export function asBsvTx (tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
   if (Buffer.isBuffer(tx)) {
      tx = new bsv.Tx().fromBuffer(tx)
   } else if (typeof tx === 'string') {
     tx = new bsv.Tx().fromString(tx)
-  } else if (tx instanceof bsvSdk.Transaction) {
+  } else if (tx instanceof Transaction) {
     tx = new bsv.Tx().fromString(tx.toHex())
   }
   return tx
 }
 
 /**
- * Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to bsvSdk.Transaction
- * If tx is already a bsvSdk.Transaction, just return it.
+ * Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to Transaction
+ * If tx is already a Transaction, just return it.
  * @publicbody
  */
-export function asBsvSdkTx (tx: string | Buffer | bsv.Tx | bsvSdk.Transaction): bsvSdk.Transaction {
+export function asBsvSdkTx (tx: string | Buffer | bsv.Tx | Transaction): Transaction {
   if (Buffer.isBuffer(tx)) {
-     tx = bsvSdk.Transaction.fromHex(asString(tx))
+     tx = Transaction.fromHex(asString(tx))
   } else if (typeof tx === 'string') {
-     tx = bsvSdk.Transaction.fromHex(tx)
+     tx = Transaction.fromHex(tx)
   } else if (tx instanceof bsv.Tx) {
-     tx = bsvSdk.Transaction.fromHex(tx.toHex())
+     tx = Transaction.fromHex(tx.toHex())
   }
   return tx
 }
