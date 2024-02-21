@@ -5687,18 +5687,18 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Function: asBsvTx
 
-Parse a bsv transaction encoded as a hex string, serialized Buffer, bsvSdk.Transaction to bsv.Tx
+Parse a bsv transaction encoded as a hex string, serialized Buffer, Transaction to bsv.Tx
 If tx is already a bsv.Tx, just return it.
 
 ```ts
-export function asBsvTx(tx: string | Buffer | bsv.Tx | bsvSdk.Transaction): bsv.Tx {
+export function asBsvTx(tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
     if (Buffer.isBuffer(tx)) {
         tx = new bsv.Tx().fromBuffer(tx);
     }
     else if (typeof tx === "string") {
         tx = new bsv.Tx().fromString(tx);
     }
-    else if (tx instanceof bsvSdk.Transaction) {
+    else if (tx instanceof Transaction) {
         tx = new bsv.Tx().fromString(tx.toHex());
     }
     return tx;
@@ -5710,19 +5710,19 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Function: asBsvSdkTx
 
-Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to bsvSdk.Transaction
-If tx is already a bsvSdk.Transaction, just return it.
+Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to Transaction
+If tx is already a Transaction, just return it.
 
 ```ts
-export function asBsvSdkTx(tx: string | Buffer | bsv.Tx | bsvSdk.Transaction): bsvSdk.Transaction {
+export function asBsvSdkTx(tx: string | Buffer | bsv.Tx | Transaction): Transaction {
     if (Buffer.isBuffer(tx)) {
-        tx = bsvSdk.Transaction.fromHex(asString(tx));
+        tx = Transaction.fromHex(asString(tx));
     }
     else if (typeof tx === "string") {
-        tx = bsvSdk.Transaction.fromHex(tx);
+        tx = Transaction.fromHex(tx);
     }
     else if (tx instanceof bsv.Tx) {
-        tx = bsvSdk.Transaction.fromHex(tx.toHex());
+        tx = Transaction.fromHex(tx.toHex());
     }
     return tx;
 }
