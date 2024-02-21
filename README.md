@@ -5119,6 +5119,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
+| [asBsvSdkTx](#function-asbsvsdktx) | [offsetPubKey](#function-offsetpubkey) | [validateOutputDescription](#function-validateoutputdescription) |
 | [asBsvTx](#function-asbsvtx) | [pointToBuffer](#function-pointtobuffer) | [validateOutputGeneration](#function-validateoutputgeneration) |
 | [asBuffer](#function-asbuffer) | [pointToCompressed](#function-pointtocompressed) | [validateOutputTag](#function-validateoutputtag) |
 | [asString](#function-asstring) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
@@ -5148,7 +5149,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [maxDate](#function-maxdate) | [validateFeeModel](#function-validatefeemodel) | [verifyTruthy](#function-verifytruthy) |
 | [minDate](#function-mindate) | [validateIdentityKey](#function-validateidentitykey) | [wait](#function-wait) |
 | [offsetPrivKey](#function-offsetprivkey) | [validateInputSelection](#function-validateinputselection) | [writeVarUint32LE](#function-writevaruint32le) |
-| [offsetPubKey](#function-offsetpubkey) | [validateOutputDescription](#function-validateoutputdescription) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5687,16 +5687,42 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Function: asBsvTx
 
-Parse a bsv transaction encoded as a hex string, serialized Buffer to bsv.Tx
-If tx is already a bsvTx, just return it.
+Parse a bsv transaction encoded as a hex string, serialized Buffer, bsvSdk.Transaction to bsv.Tx
+If tx is already a bsv.Tx, just return it.
 
 ```ts
-export function asBsvTx(tx: string | Buffer | bsv.Tx): bsv.Tx {
+export function asBsvTx(tx: string | Buffer | bsv.Tx | bsvSdk.Transaction): bsv.Tx {
     if (Buffer.isBuffer(tx)) {
         tx = new bsv.Tx().fromBuffer(tx);
     }
     else if (typeof tx === "string") {
         tx = new bsv.Tx().fromString(tx);
+    }
+    else if (tx instanceof bsvSdk.Transaction) {
+        tx = new bsv.Tx().fromString(tx.toHex());
+    }
+    return tx;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: asBsvSdkTx
+
+Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to bsvSdk.Transaction
+If tx is already a bsvSdk.Transaction, just return it.
+
+```ts
+export function asBsvSdkTx(tx: string | Buffer | bsv.Tx | bsvSdk.Transaction): bsvSdk.Transaction {
+    if (Buffer.isBuffer(tx)) {
+        tx = bsvSdk.Transaction.fromHex(asString(tx));
+    }
+    else if (typeof tx === "string") {
+        tx = bsvSdk.Transaction.fromHex(tx);
+    }
+    else if (tx instanceof bsv.Tx) {
+        tx = bsvSdk.Transaction.fromHex(tx.toHex());
     }
     return tx;
 }
