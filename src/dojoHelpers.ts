@@ -1,4 +1,5 @@
 import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi, validateDate, DojoEntityTimeStampApi } from '.'
+import { BigNumber, PrivateKey, PublicKey } from '@bsv/sdk'
 
 /**
  * @param scriptSize byte length of input script
@@ -53,6 +54,25 @@ function keyOffsetToHashedSecret (pub: bsv.PubKey, keyOffset?: string): { hashed
   const hashedSecret = sha256Hash(sharedSecret)
 
   return { hashedSecret: bsv.Bn.fromBuffer(hashedSecret), keyOffset }
+}
+
+function keyOffsetToHashedSecret2 (pub: PublicKey, keyOffset?: string): { hashedSecret: BigNumber, keyOffset: string } {
+  let offset: PrivateKey
+  if (keyOffset !== undefined && typeof keyOffset === 'string') {
+    if (keyOffset.length === 64)
+      offset = PrivateKey.fromString(keyOffset, 'hex')
+    else
+      offset = PrivateKey.fromWif(keyOffset)
+  } else {
+    offset = PrivateKey.fromRandom()
+    keyOffset = offset.toWif()
+  }
+
+  const sharedSecret = Buffer.from(pub.mul(offset).encode(true, undefined) as number[])
+
+  const hashedSecret = sha256Hash(sharedSecret)
+
+  return { hashedSecret: new BigNumber(Array.from(hashedSecret)), keyOffset }
 }
 
 export function offsetPrivKey (privKey: string, keyOffset?: string): { offsetPrivKey: string, keyOffset: string } {
