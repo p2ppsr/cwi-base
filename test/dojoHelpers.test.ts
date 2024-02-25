@@ -1,23 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { BigNumber, Curve, PrivateKey, PublicKey } from '@bsv/sdk'
-import { bsv, lockScriptWithKeyOffsetFromPubKey, offsetPrivKey, offsetPubKey } from '../src'
+import { BigNumber, PrivateKey } from '@bsv/sdk'
+import { lockScriptWithKeyOffsetFromPubKey, offsetPrivKey, offsetPubKey } from '../src'
 
 describe("dojoHelpers", () => {
-
-    test("0_offset keys", async () => {
-        const priv = bsv.PrivKey.fromBn(new bsv.Bn('FFF0000000000000000000000000000000000000000000000000000000000100', 'hex'))
-        const privKey = priv.toString()
-        const pub = bsv.PubKey.fromPrivKey(priv)
-        
-        const r1 = offsetPrivKey(privKey)
-        
-        const r2 = offsetPubKey(pub.toString(), r1.keyOffset)
-        
-        const pubKey = bsv.PubKey.fromPrivKey(bsv.PrivKey.fromString(r1.offsetPrivKey)).toString()
-
-        expect(r1.keyOffset).toBe(r2.keyOffset)
-        expect(pubKey).toBe(r2.offsetPubKey) 
-    })
 
     test("1_offsetPrivKey", async () => {
         const bn2 = BigNumber.fromHex('FFF0000000000000000000000000000000000000000000000000000000000100', 'big')
