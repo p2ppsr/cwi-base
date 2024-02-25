@@ -77,21 +77,22 @@ describe("dojoHelpers", () => {
         const pubKey = '0397742eaef6c7f08c4aa057397d45529f93ab90345b84ce5a5aac06ea9cdd132e'
         
         const ko = 'Kx9MjojdkjL3bEo5tQwHpwT1voKN1z56NjpATsa2Sx6QTrVjgMQJ'
-        const e = '76A9149D09D0EE09B212C548F6B1A7835641F33654246788AC'
+        const script = "76a9149d09d0ee09b212c548f6b1a7835641f33654246788ac"
 
         const r1 = lockScriptWithKeyOffsetFromPubKey(pubKey, ko)
         const r12 = lockScriptWithKeyOffsetFromPubKeyObs(pubKey, ko)
         
-        expect(r1.script).toBe(e)
-        expect(r12.script).toBe(e)
+        expect(r1.script).toBe(script)
+        expect(r12.script.toLowerCase()).toBe(script)
         expect(r1.keyOffset).toBe(ko);
         expect(r12.keyOffset).toBe(ko);
         
+        // And with a random keyOffset...
         const r2 = lockScriptWithKeyOffsetFromPubKey(pubKey)
         const r22 = lockScriptWithKeyOffsetFromPubKeyObs(pubKey)
         
-        expect(r2.script).not.toBe(e)
-        expect(r22.script).not.toBe(e)
+        expect(r2.script).not.toBe(script)
+        expect(r22.script).not.toBe(script)
         expect(r2.keyOffset).not.toBe(ko);
         expect(r22.keyOffset).not.toBe(ko);
     })

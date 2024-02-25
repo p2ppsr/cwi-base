@@ -1,5 +1,5 @@
 import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi, validateDate, DojoEntityTimeStampApi } from '.'
-import { BigNumber, Curve, PrivateKey, PublicKey } from '@bsv/sdk'
+import { BigNumber, Curve, P2PKH, PrivateKey, PublicKey } from '@bsv/sdk'
 
 /**
  * @param scriptSize byte length of input script
@@ -144,11 +144,11 @@ export function lockScriptWithKeyOffsetFromPubKeyObs (pubKey: string, keyOffset?
 export function lockScriptWithKeyOffsetFromPubKey (pubKey: string, keyOffset?: string): { script: string, keyOffset: string } {
   const r = offsetPubKey(pubKey, keyOffset)
 
-  const offsetPub = bsv.PubKey.fromString(r.offsetPubKey)
+  const offsetPub = PublicKey.fromString(r.offsetPubKey)
 
-  const hash = bsv.Hash.sha256Ripemd160(offsetPub.toBuffer())
+  const hash = offsetPub.toHash() as number[]
 
-  const script = bsv.Script.fromPubKeyHash(hash).toHex().toUpperCase()
+  const script = new P2PKH().lock(hash).toHex()
 
   return { script, keyOffset: r.keyOffset }
 }
