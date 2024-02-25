@@ -1,5 +1,5 @@
 import { bsv, varUintSize, pointToBuffer, sha256Hash, ERR_INTERNAL, DojoUserStateApi, validateDate, DojoEntityTimeStampApi } from '.'
-import { BigNumber, PrivateKey, PublicKey } from '@bsv/sdk'
+import { BigNumber, Curve, PrivateKey, PublicKey } from '@bsv/sdk'
 
 /**
  * @param scriptSize byte length of input script
@@ -40,7 +40,7 @@ export function transactionSize (inputs: number[], outputs: number[]): number {
         4 // lock time
 }
 
-function keyOffsetToHashedSecret (pub: bsv.PubKey, keyOffset?: string): { hashedSecret: bsv.Bn, keyOffset: string } {
+function keyOffsetToHashedSecretObs (pub: bsv.PubKey, keyOffset?: string): { hashedSecret: bsv.Bn, keyOffset: string } {
   let offset: bsv.PrivKey
   if (keyOffset !== undefined) {
     offset = bsv.PrivKey.fromString(keyOffset)
@@ -56,7 +56,7 @@ function keyOffsetToHashedSecret (pub: bsv.PubKey, keyOffset?: string): { hashed
   return { hashedSecret: bsv.Bn.fromBuffer(hashedSecret), keyOffset }
 }
 
-function keyOffsetToHashedSecret2 (pub: PublicKey, keyOffset?: string): { hashedSecret: BigNumber, keyOffset: string } {
+function keyOffsetToHashedSecret (pub: PublicKey, keyOffset?: string): { hashedSecret: BigNumber, keyOffset: string } {
   let offset: PrivateKey
   if (keyOffset !== undefined && typeof keyOffset === 'string') {
     if (keyOffset.length === 64)
@@ -75,30 +75,70 @@ function keyOffsetToHashedSecret2 (pub: PublicKey, keyOffset?: string): { hashed
   return { hashedSecret: new BigNumber(Array.from(hashedSecret)), keyOffset }
 }
 
-export function offsetPrivKey (privKey: string, keyOffset?: string): { offsetPrivKey: string, keyOffset: string } {
+export function offsetPrivKeyObs (privKey: string, keyOffset?: string): { offsetPrivKey: string, keyOffset: string } {
   const priv = bsv.PrivKey.fromString(privKey)
 
   const pub = bsv.PubKey.fromPrivKey(priv)
 
-  const r = keyOffsetToHashedSecret(pub, keyOffset)
+  const r = keyOffsetToHashedSecretObs(pub, keyOffset)
 
   const offsetPrivKey = new bsv.PrivKey(priv.bn.add(r.hashedSecret).mod(bsv.Point.getN()), true).toString()
 
   return { offsetPrivKey, keyOffset: r.keyOffset }
 }
 
-export function offsetPubKey (pubKey: string, keyOffset?: string): { offsetPubKey: string, keyOffset: string } {
-  const pub = bsv.PubKey.fromString(pubKey)
+export function offsetPrivKey (privKey: string, keyOffset?: string): { offsetPrivKey: string, keyOffset: string } {
+  const priv = PrivateKey.fromWif(privKey)
+
+  const pub = priv.toPublicKey()
 
   const r = keyOffsetToHashedSecret(pub, keyOffset)
+
+  const bn = priv.add(r.hashedSecret).mod(new Curve().n)
+
+  const offsetPrivKey = new PrivateKey(bn).toWif()
+
+  return { offsetPrivKey, keyOffset: r.keyOffset }
+}
+
+export function offsetPubKeyObs (pubKey: string, keyOffset?: string): { offsetPubKey: string, keyOffset: string } {
+  const pub = bsv.PubKey.fromString(pubKey)
+
+  const r = keyOffsetToHashedSecretObs(pub, keyOffset)
 
   // The hashed secret is multiplied by the generator point.
   const point = bsv.Point.getG().mul(r.hashedSecret)
 
   // The resulting point is added to the recipient public key.
-  const offsetPubKey = new bsv.PubKey(pub.point.add(point), true).toString()
+  const offsetPubKey = new bsv.PubKey(pub.point.add(point), true)
 
-  return { offsetPubKey, keyOffset: r.keyOffset }
+  return { offsetPubKey: offsetPubKey.toString(), keyOffset: r.keyOffset }
+}
+
+export function offsetPubKey (pubKey: string, keyOffset?: string): { offsetPubKey: string, keyOffset: string } {
+  const pub = PublicKey.fromString(pubKey)
+
+  const r = keyOffsetToHashedSecret(pub, keyOffset)
+
+  // The hashed secret is multiplied by the generator point.
+  const point = new Curve().g.mul(r.hashedSecret)
+
+  // The resulting point is added to the recipient public key.
+  const offsetPubKey = new PublicKey(pub.add(point))
+
+  return { offsetPubKey: offsetPubKey.toString(), keyOffset: r.keyOffset }
+}
+
+export function lockScriptWithKeyOffsetFromPubKeyObs (pubKey: string, keyOffset?: string): { script: string, keyOffset: string } {
+  const r = offsetPubKeyObs(pubKey, keyOffset)
+
+  const offsetPub = bsv.PubKey.fromString(r.offsetPubKey)
+
+  const hash = bsv.Hash.sha256Ripemd160(offsetPub.toBuffer())
+
+  const script = bsv.Script.fromPubKeyHash(hash).toHex().toUpperCase()
+
+  return { script, keyOffset: r.keyOffset }
 }
 
 export function lockScriptWithKeyOffsetFromPubKey (pubKey: string, keyOffset?: string): { script: string, keyOffset: string } {
