@@ -12,39 +12,116 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) |
-| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) |
-| [BlockHeader](#interface-blockheader) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMapApi](#interface-dojosyncmapapi) |
-| [BlockHeaderHex](#interface-blockheaderhex) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
-| [ChaintracksApi](#interface-chaintracksapi) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
-| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
-| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
-| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
-| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
-| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
-| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
-| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserApi](#interface-dojouserapi) |
-| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
-| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams) | [LiveBlockHeader](#interface-liveblockheader) |
-| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
-| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
-| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
-| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
-| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
-| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
-| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
-| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
-| [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
-| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [TrxToken](#interface-trxtoken) |
-| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) |  |
+| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
+| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
+| [BlockHeader](#interface-blockheader) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
+| [BlockHeaderHex](#interface-blockheaderhex) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
+| [CertifierDetails](#interface-certifierdetails) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
+| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
+| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
+| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
+| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoUserApi](#interface-dojouserapi) |
+| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [IdentityGroup](#interface-identitygroup) |
+| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [IdentityGroupMember](#interface-identitygroupmember) |
+| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams) | [LiveBlockHeader](#interface-liveblockheader) |
+| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
+| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
+| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
+| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
+| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoStatsApi](#interface-dojostatsapi) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
+| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [Result](#interface-result) |
+| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [Settings](#interface-settings) |
+| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
+| [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
+| [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
+| [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
+| [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [TrustEvaluatorParams](#interface-trustevaluatorparams) |
+| [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TrxToken](#interface-trxtoken) |
+| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
+#### Interface: CertifierDetails
+
+```ts
+export interface CertifierDetails {
+    name: string;
+    icon: string;
+    note: string;
+    publicKey: string;
+    trust: number;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: Result
+
+```ts
+export interface Result {
+    subject: string;
+    certifier: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: Settings
+
+```ts
+export interface Settings {
+    trustThreshold: number;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: TrustEvaluatorParams
+
+```ts
+export interface TrustEvaluatorParams {
+    settings: Settings;
+    certifiers: CertifierDetails[];
+    results: Result[];
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: IdentityGroupMember
+
+```ts
+export interface IdentityGroupMember {
+    certifier: CertifierDetails;
+    subject: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: IdentityGroup
+
+```ts
+export interface IdentityGroup {
+    totalTrust: number;
+    members: IdentityGroupMember[];
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Interface: BaseBlockHeader
 
 These are fields of 80 byte serialized header in order whose double sha256 hash is a block's hash value
@@ -5119,36 +5196,37 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [asBsvSdkTx](#function-asbsvsdktx) | [offsetPubKey](#function-offsetpubkey) | [validateOutputDescription](#function-validateoutputdescription) |
-| [asBsvTx](#function-asbsvtx) | [pointToBuffer](#function-pointtobuffer) | [validateOutputGeneration](#function-validateoutputgeneration) |
-| [asBuffer](#function-asbuffer) | [pointToCompressed](#function-pointtocompressed) | [validateOutputTag](#function-validateoutputtag) |
-| [asString](#function-asstring) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
-| [bitsAreSet](#function-bitsareset) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
-| [blockHash](#function-blockhash) | [randomBytesHex](#function-randombyteshex) | [validatePaymail](#function-validatepaymail) |
-| [computeMerkleTreeParent](#function-computemerkletreeparent) | [randomMinMax](#function-randomminmax) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
-| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [readVarUint32LE](#function-readvaruint32le) | [validateSatoshis](#function-validatesatoshis) |
-| [convertBufferToUint32](#function-convertbuffertouint32) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateScript](#function-validatescript) |
-| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [serializeBlockHeader](#function-serializeblockheader) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
-| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [sha256Hash](#function-sha256hash) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
-| [deserializeBlockHeader](#function-deserializeblockheader) | [shuffleArray](#function-shufflearray) | [validateTXID](#function-validatetxid) |
-| [doubleSha256BE](#function-doublesha256be) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
-| [doubleSha256HashLE](#function-doublesha256hashle) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
-| [genesisBuffer](#function-genesisbuffer) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
-| [genesisHeaderHex](#function-genesisheaderhex) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
-| [getInputTxIds](#function-getinputtxids) | [toBlockHeaderHex](#function-toblockheaderhex) | [varUintSize](#function-varuintsize) |
-| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toDojoSyncError](#function-todojosyncerror) | [verifyBuffer](#function-verifybuffer) |
-| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBufferEquals](#function-verifybufferequals) |
-| [isBaseBlockHeader](#function-isbaseblockheader) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferOrObject](#function-verifybufferorobject) |
-| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
-| [isBlockHeader](#function-isblockheader) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
-| [isBlockHeaderHex](#function-isblockheaderhex) | [transactionSize](#function-transactionsize) | [verifyId](#function-verifyid) |
-| [isLive](#function-islive) | [validateBasketName](#function-validatebasketname) | [verifyNone](#function-verifynone) |
-| [isLiveBlockHeader](#function-isliveblockheader) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNumber](#function-verifynumber) |
-| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOne](#function-verifyone) |
-| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateDate](#function-validatedate) | [verifyOneOrNone](#function-verifyoneornone) |
-| [maxDate](#function-maxdate) | [validateFeeModel](#function-validatefeemodel) | [verifyTruthy](#function-verifytruthy) |
-| [minDate](#function-mindate) | [validateIdentityKey](#function-validateidentitykey) | [wait](#function-wait) |
-| [offsetPrivKey](#function-offsetprivkey) | [validateInputSelection](#function-validateinputselection) | [writeVarUint32LE](#function-writevaruint32le) |
+| [asBsvSdkTx](#function-asbsvsdktx) | [pointToBuffer](#function-pointtobuffer) | [validateOutputGeneration](#function-validateoutputgeneration) |
+| [asBsvTx](#function-asbsvtx) | [pointToCompressed](#function-pointtocompressed) | [validateOutputTag](#function-validateoutputtag) |
+| [asBuffer](#function-asbuffer) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
+| [asString](#function-asstring) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
+| [bitsAreSet](#function-bitsareset) | [randomBytesHex](#function-randombyteshex) | [validatePaymail](#function-validatepaymail) |
+| [blockHash](#function-blockhash) | [randomMinMax](#function-randomminmax) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
+| [computeMerkleTreeParent](#function-computemerkletreeparent) | [readVarUint32LE](#function-readvaruint32le) | [validateSatoshis](#function-validatesatoshis) |
+| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateScript](#function-validatescript) |
+| [convertBufferToUint32](#function-convertbuffertouint32) | [serializeBlockHeader](#function-serializeblockheader) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
+| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [sha256Hash](#function-sha256hash) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
+| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [shuffleArray](#function-shufflearray) | [validateTXID](#function-validatetxid) |
+| [deserializeBlockHeader](#function-deserializeblockheader) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
+| [doubleSha256BE](#function-doublesha256be) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
+| [doubleSha256HashLE](#function-doublesha256hashle) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
+| [genesisBuffer](#function-genesisbuffer) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
+| [genesisHeaderHex](#function-genesisheaderhex) | [toBlockHeaderHex](#function-toblockheaderhex) | [varUintSize](#function-varuintsize) |
+| [getInputTxIds](#function-getinputtxids) | [toDojoSyncError](#function-todojosyncerror) | [verifyBuffer](#function-verifybuffer) |
+| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBufferEquals](#function-verifybufferequals) |
+| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferOrObject](#function-verifybufferorobject) |
+| [isBaseBlockHeader](#function-isbaseblockheader) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
+| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
+| [isBlockHeader](#function-isblockheader) | [transactionSize](#function-transactionsize) | [verifyId](#function-verifyid) |
+| [isBlockHeaderHex](#function-isblockheaderhex) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyNone](#function-verifynone) |
+| [isLive](#function-islive) | [validateBasketName](#function-validatebasketname) | [verifyNumber](#function-verifynumber) |
+| [isLiveBlockHeader](#function-isliveblockheader) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyOne](#function-verifyone) |
+| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOneOrNone](#function-verifyoneornone) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateDate](#function-validatedate) | [verifyTruthy](#function-verifytruthy) |
+| [maxDate](#function-maxdate) | [validateFeeModel](#function-validatefeemodel) | [wait](#function-wait) |
+| [minDate](#function-mindate) | [validateIdentityKey](#function-validateidentitykey) | [writeVarUint32LE](#function-writevaruint32le) |
+| [offsetPrivKey](#function-offsetprivkey) | [validateInputSelection](#function-validateinputselection) |  |
+| [offsetPubKey](#function-offsetpubkey) | [validateOutputDescription](#function-validateoutputdescription) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5805,6 +5883,28 @@ export function minDate(d1: Date | null | undefined, d2: Date | null | undefined
     return d1 < d2 ? d1 : d2;
 }
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: transformResultsWithTrust
+
+Helper function for evaluating if an entity meets the trust threshold of the user
+
+```ts
+export function transformResultsWithTrust({ settings, certifiers, results }: TrustEvaluatorParams) 
+```
+
+<details>
+
+<summary>Function transformResultsWithTrust Details</summary>
+
+Argument Details
+
++ **obj**
+  + all params given in an object
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
