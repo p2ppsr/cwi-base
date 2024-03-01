@@ -1,4 +1,4 @@
-import { bsv } from '.'
+import { Script, PublicKey } from '@bsv/sdk'
 import { DojoCreateTxOutputApi, DojoFeeModelApi, DojoOutputGenerationApi, DojoOutputToRedeemApi, DojoSubmitDirectTransactionApi, DojoTxInputSelectionApi } from './Api/DojoClientApi'
 import { ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION, ERR_DOJO_INVALID_OUTPUT_TAG, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS, ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, 
 ERR_DOJO_UNKNOWN_FEE_MODEL } from './ERR_DOJO_errors'
@@ -11,9 +11,8 @@ export function validateIdentityKey (identityKey?: string | null): string {
   // Force the incoming identityKey value to be a compressed public key...
   if (identityKey.length > 66) {
     // A compressed public key is 33 hex digits.
-    const pubkey = bsv.PubKey.fromHex(identityKey)
-    pubkey.compressed = true
-    identityKey = pubkey.toHex()
+    const pubkey = PublicKey.fromString(identityKey)
+    identityKey = pubkey.toString()
   }
 
   if (identityKey.length !== 66) throw new ERR_UNAUTHORIZED('User identityKey is invalid!')
@@ -93,7 +92,7 @@ export function validateScript (script: string): void {
   if (typeof script !== 'string' || !re.test(script)) { throw new ERR_DOJO_INVALID_SCRIPT() }
 
   try {
-    bsv.Script.fromHex(script)
+    Script.fromHex(script)
   } catch (e) {
     throw new ERR_DOJO_INVALID_SCRIPT()
   }

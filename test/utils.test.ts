@@ -1,26 +1,34 @@
-import { asBsvTx, asBuffer, bsv, transformResultsWithTrust } from "../src"
+import { Transaction } from "@bsv/sdk"
+import { asBsvSdkTx, asBuffer, identityKeyFromPrivateKey, transformResultsWithTrust } from "../src"
 import { CertifierDetails, Result } from "../src/Api/TrustTransformerApi"
 
 describe('utils tests', () => {
   jest.setTimeout(9000000)
 
-  test('0_asBsvTx', () => {
+  test('0_asBsvSdkTx', () => {
     const rawTx = '01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1a0330b40c2f7461616c2e636f6d2f6968c4881dfbec4a40e80000ffffffff01c45c4225000000001976a914522cf9e7626d9bd8729e5a1398ece40dad1b6a2f88ac00000000'
     {
-      const tx = asBsvTx(rawTx)
-      expect(tx instanceof bsv.Tx).toBe(true)
+      const tx = asBsvSdkTx(rawTx)
+      expect(tx instanceof Transaction).toBe(true)
       expect(tx.toHex()).toBe(rawTx)
     }
     {
-      const tx = asBsvTx(asBuffer(rawTx))
-      expect(tx instanceof bsv.Tx).toBe(true)
+      const tx = asBsvSdkTx(asBuffer(rawTx))
+      expect(tx instanceof Transaction).toBe(true)
       expect(tx.toHex()).toBe(rawTx)
     }
     {
-      const tx = asBsvTx(asBuffer(rawTx))
-      expect(tx instanceof bsv.Tx).toBe(true)
+      const tx = asBsvSdkTx(asBuffer(rawTx))
+      expect(tx instanceof Transaction).toBe(true)
       expect(tx.toHex()).toBe(rawTx)
     }
+  })
+
+  test('1_identityKeyFromPrivateKey', () => {
+    const privKey = '8888888888888888888888888888888899999999999999999999999999999999'
+    const identityKey = '02724aaaeaaddece5cbafdc21d253acbe7832126ab5804f319c9bcc7221c5c2ad7'
+    const ik = identityKeyFromPrivateKey(privKey)
+    expect(ik).toBe(identityKey)
   })
 })
 

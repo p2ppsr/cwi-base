@@ -1,9 +1,9 @@
 import crypto from 'crypto'
-import * as bsv from 'cwi-bitcoin'
-import { Transaction } from '@bsv/sdk'
+import { PrivateKey, Transaction } from '@bsv/sdk'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 import { stampLog, stampLogFormat } from '@babbage/sdk-ts'
 import { CertifierDetails, IdentityGroup, IdentityGroupMember, TrustEvaluatorParams } from './Api/TrustTransformerApi'
+import { verifyTruthy } from './verifyHelpers'
 export { stampLog, stampLogFormat }
 
 /**
@@ -90,22 +90,44 @@ export function shuffleArray<T>(array: T[]): T[] {
 
 /**
  * Coerce a value to Buffer if currently encoded as a string
- * @param encoding defaults to 'hex'
+ * @param val Buffer or string or number[]. If string, encoding param applies. If number[], Buffer.from constructor is used.
+ * @param encoding defaults to 'hex'. Only applies to val of type string
  * @returns input val if it is a Buffer or new Buffer from string val
  * @publicbody
  */
-export function asBuffer(val: Buffer | string, encoding?: BufferEncoding): Buffer {
-  return Buffer.isBuffer(val) ? val : Buffer.from(val, encoding ?? 'hex')
+export function asBuffer(val: Buffer | string | number[], encoding?: BufferEncoding): Buffer {
+  let b: Buffer
+  if (Buffer.isBuffer(val)) b = val
+  else if (typeof val === 'string') b = Buffer.from(val, encoding ?? 'hex')
+  else b = Buffer.from(val)
+  return b
 }
 
 /**
- * Coerce a value to string if currently a Buffer
+ * Coerce a value to an encoded string if currently a Buffer or number[]
+ * @param val Buffer or string or number[]. If string, encoding param applies. If number[], Buffer.from constructor is used.
  * @param encoding defaults to 'hex'
- * @returns input val if it is a string or Buffer encoded as string
+ * @returns input val if it is a string; or if number[], first converted to Buffer then as Buffer; if Buffer encoded using `encoding`
  * @publicbody
  */
-export function asString(val: Buffer | string, encoding?: BufferEncoding): string {
+export function asString(val: Buffer | string | number[], encoding?: BufferEncoding): string {
+  if (Array.isArray(val)) val = Buffer.from(val)
   return Buffer.isBuffer(val) ? val.toString(encoding ?? 'hex') : val
+}
+
+/**
+ * Coerce a value to number[]
+ * @param val Buffer or string or number[]. If string, encoding param applies.
+ * @param encoding defaults to 'hex'
+ * @returns input val if it is a number[]; if string converts to Buffer using encoding; uses Array.from to convert buffer to number[]
+ * @publicbody
+ */
+export function asArray(val: Buffer | string | number[], encoding?: BufferEncoding): number[] {
+  let a: number[]
+  if (Array.isArray(val)) a = val
+  else if (Buffer.isBuffer(val)) a = Array.from(val)
+  else a = Array.from(Buffer.from(val, encoding || 'hex'))
+  return a
 }
 
 /**
@@ -297,49 +319,31 @@ export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: st
 }
 
 /**
- * Parse a bsv transaction encoded as a hex string, serialized Buffer, Transaction to bsv.Tx
- * If tx is already a bsv.Tx, just return it.
- * @publicbody
- */
-export function asBsvTx(tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
-  if (Buffer.isBuffer(tx)) {
-    tx = new bsv.Tx().fromBuffer(tx)
-  } else if (typeof tx === 'string') {
-    tx = new bsv.Tx().fromString(tx)
-  } else if (tx instanceof Transaction) {
-    tx = new bsv.Tx().fromString(tx.toHex())
-  }
-  return tx
-}
-
-/**
  * Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to Transaction
  * If tx is already a Transaction, just return it.
  * @publicbody
  */
-export function asBsvSdkTx(tx: string | Buffer | bsv.Tx | Transaction): Transaction {
+export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
   if (Buffer.isBuffer(tx)) {
     tx = Transaction.fromHex(asString(tx))
   } else if (typeof tx === 'string') {
     tx = Transaction.fromHex(tx)
-  } else if (tx instanceof bsv.Tx) {
-    tx = Transaction.fromHex(tx.toHex())
   }
   return tx
 }
 
 /**
- * For a bitcoin transaction in hex string, Buffer or parsed bsv.Tx form,
+ * For a bitcoin transaction in hex string, Buffer or parsed Transaction form,
  * 
  * returns deduplicated array of the input's outpoint transaction hashes (txids).
  *
  * @publicbody
  */
-export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
-  tx = asBsvTx(tx)
+export function getInputTxIds(tx: string | Buffer | Transaction): string[] {
+  tx = asBsvSdkTx(tx)
   const txids = {}
-  for (const input of tx.txIns) {
-    txids[input.txid()] = true
+  for (const input of tx.inputs) {
+    txids[verifyTruthy(input.sourceTXID)] = true
   }
   return Object.keys(txids)
 }
@@ -350,8 +354,8 @@ export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
  * @returns hex encoded Identity Key.
  */
 export function identityKeyFromPrivateKey(privKey: string): string {
-  const priv = new bsv.PrivKey(new bsv.Bn(privKey, 'hex'), true)
-  const identityKey = bsv.PubKey.fromPrivKey(priv).toDer(true).toString('hex')
+  const priv = PrivateKey.fromString(privKey, 'hex')
+  const identityKey = priv.toPublicKey().toString()
   return identityKey
 }
 

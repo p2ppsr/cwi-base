@@ -15,7 +15,5 @@ export * from './ERR_errors'
 export * from './ERR_DOJO_errors'
 export * from './BRC43Helpers'
 export * as utils from './utils'
-export * as bsv from 'cwi-bitcoin'
-export * from './cwi-bitcoin-extend'
 /* ts-standard:disable-next-line */
 export * as crypto from 'crypto'
