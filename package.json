@@ -1,6 +1,6 @@
 {
   "name": "cwi-base",
-  "version": "0.3.119",
+  "version": "0.3.123",
   "description": "Base level functions, classes, interfaces for CWI",
   "author": "Peer-to-peer Privacy Systems Research LLC",
   "license": "PROPRIETARY",
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@babbage/sdk-ts": "^0.1.11",
-    "@bsv/sdk": "^1.0.4",
+    "@bsv/sdk": "^1.0.8",
     "bn.js": "^5.2.1",
     "cwi-bitcoin": "^1.0.5",
     "hi-base32": "^0.5.1"

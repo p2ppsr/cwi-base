@@ -3,6 +3,7 @@ import * as bsv from 'cwi-bitcoin'
 import { Transaction } from '@bsv/sdk'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 import { stampLog, stampLogFormat } from '@babbage/sdk-ts'
+import { CertifierDetails, IdentityGroup, IdentityGroupMember, TrustEvaluatorParams } from './Api/TrustTransformerApi'
 export { stampLog, stampLogFormat }
 
 /**
@@ -12,7 +13,7 @@ export { stampLog, stampLogFormat }
  * @param bits union of bits to test.
  * @returns true iff all `bits` are set in `what`
  */
-export function bitsAreSet(what: number, bits: number) : boolean {
+export function bitsAreSet(what: number, bits: number): boolean {
   return (what & bits) === bits
 }
 
@@ -20,28 +21,28 @@ export function bitsAreSet(what: number, bits: number) : boolean {
  * Returns an await'able Promise that resolves in the given number of msecs.
  * @publicbody
  */
-export function wait (msecs: number): Promise<void> {
+export function wait(msecs: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, msecs))
 }
 
 /**
  * @returns count cryptographically secure random bytes as Buffer
  */
-export function randomBytes (count: number): Buffer {
+export function randomBytes(count: number): Buffer {
   return crypto.randomBytes(count)
 }
 
 /**
  * @returns count cryptographically secure random bytes as hex encoded string
  */
-export function randomBytesHex (count: number): string {
+export function randomBytesHex(count: number): string {
   return randomBytes(count).toString('hex')
 }
 
 /**
  * @returns count cryptographically secure random bytes as base64 encoded string
  */
-export function randomBytesBase64 (count: number): string {
+export function randomBytesBase64(count: number): string {
   return randomBytes(count).toString('base64')
 }
 
@@ -52,7 +53,7 @@ export function randomBytesBase64 (count: number): string {
  * @throws ERR_INVALID_PARAMETER when max is less than min.
  * @publicbody
  */
-export function randomMinMax (min: number, max: number): number {
+export function randomMinMax(min: number, max: number): number {
   if (max < min) throw new ERR_INVALID_PARAMETER('max', `less than min (${min}). max is (${max})`)
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -67,7 +68,7 @@ export function randomMinMax (min: number, max: number): number {
  * @returns original `array` with contents shuffled
  * @publicbody
  */
-export function shuffleArray<T> (array: T[]): T[] {
+export function shuffleArray<T>(array: T[]): T[] {
   let currentIndex = array.length
   let temporaryValue
   let randomIndex
@@ -93,7 +94,7 @@ export function shuffleArray<T> (array: T[]): T[] {
  * @returns input val if it is a Buffer or new Buffer from string val
  * @publicbody
  */
-export function asBuffer (val: Buffer | string, encoding?: BufferEncoding): Buffer {
+export function asBuffer(val: Buffer | string, encoding?: BufferEncoding): Buffer {
   return Buffer.isBuffer(val) ? val : Buffer.from(val, encoding ?? 'hex')
 }
 
@@ -103,7 +104,7 @@ export function asBuffer (val: Buffer | string, encoding?: BufferEncoding): Buff
  * @returns input val if it is a string or Buffer encoded as string
  * @publicbody
  */
-export function asString (val: Buffer | string, encoding?: BufferEncoding): string {
+export function asString(val: Buffer | string, encoding?: BufferEncoding): string {
   return Buffer.isBuffer(val) ? val.toString(encoding ?? 'hex') : val
 }
 
@@ -122,7 +123,7 @@ export function sha256Hash(buffer: Buffer): Buffer {
  * @returns double sha256 hash of buffer contents, byte 0 of hash first.
  * @publicbody
  */
-export function doubleSha256HashLE (data: string | Buffer, encoding?: BufferEncoding): Buffer {
+export function doubleSha256HashLE(data: string | Buffer, encoding?: BufferEncoding): Buffer {
   return sha256Hash(sha256Hash(asBuffer(data, encoding)))
 }
 
@@ -132,7 +133,7 @@ export function doubleSha256HashLE (data: string | Buffer, encoding?: BufferEnco
  * @returns reversed (big-endian) double sha256 hash of data, byte 31 of hash first.
  * @publicbody
  */
-export function doubleSha256BE (data: string | Buffer, encoding?: BufferEncoding): Buffer {
+export function doubleSha256BE(data: string | Buffer, encoding?: BufferEncoding): Buffer {
   return doubleSha256HashLE(data, encoding).reverse()
 }
 
@@ -141,7 +142,7 @@ export function doubleSha256BE (data: string | Buffer, encoding?: BufferEncoding
  * @returns new buffer with byte order reversed.
  * @publicbody
  */
-export function swapByteOrder (buffer: Buffer): Buffer {
+export function swapByteOrder(buffer: Buffer): Buffer {
   return Buffer.from(buffer).reverse()
 }
 
@@ -151,7 +152,7 @@ export function swapByteOrder (buffer: Buffer): Buffer {
  * @returns four byte buffer with Uint32 number encoded
  * @publicbody
  */
-export function convertUint32ToBuffer (num: number, littleEndian = true): Buffer {
+export function convertUint32ToBuffer(num: number, littleEndian = true): Buffer {
   const arr = new ArrayBuffer(4)
   const view = new DataView(arr)
   view.setUint32(0, num, littleEndian) // byteOffset = 0
@@ -164,7 +165,7 @@ export function convertUint32ToBuffer (num: number, littleEndian = true): Buffer
  * @returns a number value in the Uint32 value range
  * @publicbody
  */
-export function convertBufferToUint32 (buffer: Buffer, littleEndian = true): number {
+export function convertBufferToUint32(buffer: Buffer, littleEndian = true): number {
   const arr = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength)
   const view = new DataView(arr)
   return view.getUint32(0, littleEndian)
@@ -174,7 +175,7 @@ export function convertBufferToUint32 (buffer: Buffer, littleEndian = true): num
  * Returns the byte size required to encode number as Bitcoin VarUint
  * @publicbody
  */
-export function varUintSize (val: number): 1 | 3 | 5 | 9 {
+export function varUintSize(val: number): 1 | 3 | 5 | 9 {
   if (val < 0) throw new ERR_BAD_REQUEST()
   return (val <= 0xfc ? 1 : val <= 0xffff ? 3 : val <= 0xffffffff ? 5 : 9)
 }
@@ -185,7 +186,7 @@ export function varUintSize (val: number): 1 | 3 | 5 | 9 {
  * Returns updated offset.
  * @publicbody
  */
-export function readVarUint32LE (buffer: Buffer, offset: number): { val: number, offset: number } {
+export function readVarUint32LE(buffer: Buffer, offset: number): { val: number, offset: number } {
   const b0 = buffer[offset++]
   switch (b0) {
     case 0xff:
@@ -205,7 +206,7 @@ export function readVarUint32LE (buffer: Buffer, offset: number): { val: number,
  * Returns updated offset.
  * @publicbody
  */
-export function writeVarUint32LE (val: number, buffer: Buffer, offset: number): number {
+export function writeVarUint32LE(val: number, buffer: Buffer, offset: number): number {
   if (val < 0) { throw new Error(`val ${val} must be a non-negative integer.`) }
   if (val <= 0xfc) {
     buffer[offset] = val
@@ -243,7 +244,7 @@ export function writeVarUint32LE (val: number, buffer: Buffer, offset: number): 
  * @param nodes tip to root, proof provided intermediate hash values
  * @returns computed merkle tree root for comparison to known root.
  */
-export function computeRootFromMerkleProofNodes (index: number, txid: string | Buffer, nodes: string[] | Buffer): Buffer {
+export function computeRootFromMerkleProofNodes(index: number, txid: string | Buffer, nodes: string[] | Buffer): Buffer {
   let c = asBuffer(txid)
   const nodesIsBuffer = Buffer.isBuffer(nodes)
   let level = 0
@@ -281,7 +282,7 @@ export function computeRootFromMerkleProofNodes (index: number, txid: string | B
  * @param rightNode 32 byte hash as hex string or Buffer
  * @publicbody
  */
-export function computeMerkleTreeParent (leftNode: string | Buffer, rightNode: string | Buffer): Buffer {
+export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: string | Buffer): Buffer {
   // if inputs are strings, swap endianness before concatenating
   const leftConc = Buffer.from(asBuffer(leftNode)).reverse()
   const rightConc = Buffer.from(asBuffer(rightNode)).reverse()
@@ -300,9 +301,9 @@ export function computeMerkleTreeParent (leftNode: string | Buffer, rightNode: s
  * If tx is already a bsv.Tx, just return it.
  * @publicbody
  */
-export function asBsvTx (tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
+export function asBsvTx(tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
   if (Buffer.isBuffer(tx)) {
-     tx = new bsv.Tx().fromBuffer(tx)
+    tx = new bsv.Tx().fromBuffer(tx)
   } else if (typeof tx === 'string') {
     tx = new bsv.Tx().fromString(tx)
   } else if (tx instanceof Transaction) {
@@ -316,13 +317,13 @@ export function asBsvTx (tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
  * If tx is already a Transaction, just return it.
  * @publicbody
  */
-export function asBsvSdkTx (tx: string | Buffer | bsv.Tx | Transaction): Transaction {
+export function asBsvSdkTx(tx: string | Buffer | bsv.Tx | Transaction): Transaction {
   if (Buffer.isBuffer(tx)) {
-     tx = Transaction.fromHex(asString(tx))
+    tx = Transaction.fromHex(asString(tx))
   } else if (typeof tx === 'string') {
-     tx = Transaction.fromHex(tx)
+    tx = Transaction.fromHex(tx)
   } else if (tx instanceof bsv.Tx) {
-     tx = Transaction.fromHex(tx.toHex())
+    tx = Transaction.fromHex(tx.toHex())
   }
   return tx
 }
@@ -334,7 +335,7 @@ export function asBsvSdkTx (tx: string | Buffer | bsv.Tx | Transaction): Transac
  *
  * @publicbody
  */
-export function getInputTxIds (tx: string | Buffer | bsv.Tx): string[] {
+export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
   tx = asBsvTx(tx)
   const txids = {}
   for (const input of tx.txIns) {
@@ -348,7 +349,7 @@ export function getInputTxIds (tx: string | Buffer | bsv.Tx): string[] {
  * @param privKey as hex encoded 32 byte value
  * @returns hex encoded Identity Key.
  */
-export function identityKeyFromPrivateKey (privKey: string): string {
+export function identityKeyFromPrivateKey(privKey: string): string {
   const priv = new bsv.PrivKey(new bsv.Bn(privKey, 'hex'), true)
   const identityKey = bsv.PubKey.fromPrivKey(priv).toDer(true).toString('hex')
   return identityKey
@@ -358,7 +359,7 @@ export function identityKeyFromPrivateKey (privKey: string): string {
  * returns most recent of two dates or undefined if both are null or undefined.
  * @publicbody
  */
-export function maxDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
+export function maxDate(d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
   if (d1 == null) return (d2 != null) ? d2 : undefined
   if (d2 == null) return (d1 != null) ? d1 : undefined
   return d1 > d2 ? d1 : d2
@@ -368,7 +369,71 @@ export function maxDate (d1: Date | null | undefined, d2: Date | null | undefine
  * returns least recent of two dates or undefined if either date is null or undefined.
  * @publicbody
  */
-export function minDate (d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
+export function minDate(d1: Date | null | undefined, d2: Date | null | undefined): Date | undefined {
   if (d1 == null || d2 == null) return undefined
   return d1 < d2 ? d1 : d2
+}
+
+/**
+ * Helper function for evaluating if an entity meets the trust threshold of the user
+ * @param {object} obj all params given in an object
+ * @param {object} obj.settings contains the user's setting information
+ * @param {object} obj.results the results returned from a Signia lookup
+ */
+export function transformResultsWithTrust({ settings, certifiers, results }: TrustEvaluatorParams) {
+  // Group by publicKey and sum trust points, filtering early
+  const identityGroups: Record<string, IdentityGroup> = {}
+  const finalResults: IdentityGroupMember[] = []
+  const certifierCache: Record<string, CertifierDetails> = {}
+  const trustThreshold = settings.trustThreshold
+
+  // Group by subject and sum trust points
+  results.forEach(result => {
+    const { subject, certifier } = result
+
+    if (!subject || !certifier) {
+      return
+    }
+
+    // Lookup or cache certifier details
+    if (!certifierCache[certifier]) {
+      const certifierDetails = certifiers.find(x => x.publicKey === certifier)
+      if (!certifierDetails) {
+        return
+      }
+      certifierCache[certifier] = {
+        name: certifierDetails.name,
+        icon: certifierDetails.icon,
+        note: certifierDetails.note,
+        publicKey: certifierDetails.publicKey,
+        trust: certifierDetails.trust
+      }
+    }
+
+    if (!identityGroups[subject]) {
+      identityGroups[subject] = { totalTrust: 0, members: [] }
+    }
+
+    // Use the cached certifier details and include it in the result
+    const resultWithCertifier = {
+      ...result,
+      certifier: certifierCache[certifier]
+    }
+
+    // Use the cached trust value
+    identityGroups[subject].totalTrust += certifierCache[certifier] ? certifierCache[certifier].trust : 0
+    identityGroups[subject].members.push(resultWithCertifier)
+  })
+
+  // Filter groups by threshold and flatten
+  Object.values(identityGroups).forEach(group => {
+    if (group.totalTrust >= trustThreshold) {
+      finalResults.push(...group.members)
+    }
+  })
+
+  // Sort the final results in descending order by trust (using the cached trust values)
+  finalResults.sort((a, b) => (b.certifier as CertifierDetails).trust - (a.certifier as CertifierDetails).trust)
+
+  return finalResults
 }
