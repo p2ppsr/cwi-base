@@ -1,8 +1,10 @@
-import { Script, PublicKey } from '@bsv/sdk'
+import { Script, PublicKey, Transaction, Spend } from '@bsv/sdk'
 import { DojoCreateTxOutputApi, DojoFeeModelApi, DojoOutputGenerationApi, DojoOutputToRedeemApi, DojoSubmitDirectTransactionApi, DojoTxInputSelectionApi } from './Api/DojoClientApi'
 import { ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION, ERR_DOJO_INVALID_OUTPUT_TAG, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS, ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, 
 ERR_DOJO_UNKNOWN_FEE_MODEL } from './ERR_DOJO_errors'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORIZED } from './ERR_errors'
+import { asString } from './utils'
+import { verifyTruthy } from './verifyHelpers'
 
 export function validateIdentityKey (identityKey?: string | null): string {
   // First, we make sure the user has provided the required fields
@@ -221,4 +223,33 @@ export function validateSubmitDirectCustomTransaction (transaction: DojoSubmitDi
   )) throw new ERR_INVALID_PARAMETER('transaction.outputs', 'have customInstructions and valid basket other than "default"')
 
   return transaction
+}
+
+export function validateUnlockScriptWithBsvSdk(
+    spendingTx: Transaction | number[] | Buffer | string,
+    vin: number,
+    lockingScript: Script | number[] | Buffer | string,
+    amount: number)
+: boolean {
+    if (!(spendingTx instanceof Transaction))
+        spendingTx = Transaction.fromHex(asString(spendingTx))
+    if (!(lockingScript instanceof Script))
+        lockingScript = Script.fromHex(asString(lockingScript))
+
+    const spend = new Spend({
+        sourceTXID: verifyTruthy(spendingTx.inputs[vin].sourceTXID),
+        sourceOutputIndex: spendingTx.inputs[vin].sourceOutputIndex,
+        sourceSatoshis: amount,
+        lockingScript,
+        transactionVersion: spendingTx.version,
+        otherInputs: spendingTx.inputs.filter((v, i) => i !== vin),
+        inputIndex: vin,
+        unlockingScript: verifyTruthy(spendingTx.inputs[vin].unlockingScript),
+        outputs: spendingTx.outputs,
+        inputSequence: spendingTx.inputs[vin].sequence,
+        lockTime: spendingTx.lockTime
+    })
+
+    const valid = spend.validate()
+    return valid
 }
