@@ -5196,42 +5196,173 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [asBsvSdkTx](#function-asbsvsdktx) | [pointToBuffer](#function-pointtobuffer) | [validateOutputGeneration](#function-validateoutputgeneration) |
-| [asBsvTx](#function-asbsvtx) | [pointToCompressed](#function-pointtocompressed) | [validateOutputTag](#function-validateoutputtag) |
-| [asBuffer](#function-asbuffer) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
-| [asString](#function-asstring) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
-| [bitsAreSet](#function-bitsareset) | [randomBytesHex](#function-randombyteshex) | [validatePaymail](#function-validatepaymail) |
-| [blockHash](#function-blockhash) | [randomMinMax](#function-randomminmax) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
-| [computeMerkleTreeParent](#function-computemerkletreeparent) | [readVarUint32LE](#function-readvaruint32le) | [validateSatoshis](#function-validatesatoshis) |
-| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateScript](#function-validatescript) |
-| [convertBufferToUint32](#function-convertbuffertouint32) | [serializeBlockHeader](#function-serializeblockheader) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
-| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [sha256Hash](#function-sha256hash) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
-| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [shuffleArray](#function-shufflearray) | [validateTXID](#function-validatetxid) |
-| [deserializeBlockHeader](#function-deserializeblockheader) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
-| [doubleSha256BE](#function-doublesha256be) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
-| [doubleSha256HashLE](#function-doublesha256hashle) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
-| [genesisBuffer](#function-genesisbuffer) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
-| [genesisHeaderHex](#function-genesisheaderhex) | [toBlockHeaderHex](#function-toblockheaderhex) | [varUintSize](#function-varuintsize) |
-| [getInputTxIds](#function-getinputtxids) | [toDojoSyncError](#function-todojosyncerror) | [verifyBuffer](#function-verifybuffer) |
-| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBufferEquals](#function-verifybufferequals) |
-| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferOrObject](#function-verifybufferorobject) |
-| [isBaseBlockHeader](#function-isbaseblockheader) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
-| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
-| [isBlockHeader](#function-isblockheader) | [transactionSize](#function-transactionsize) | [verifyId](#function-verifyid) |
-| [isBlockHeaderHex](#function-isblockheaderhex) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyNone](#function-verifynone) |
-| [isLive](#function-islive) | [validateBasketName](#function-validatebasketname) | [verifyNumber](#function-verifynumber) |
-| [isLiveBlockHeader](#function-isliveblockheader) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyOne](#function-verifyone) |
-| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOneOrNone](#function-verifyoneornone) |
-| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateDate](#function-validatedate) | [verifyTruthy](#function-verifytruthy) |
-| [maxDate](#function-maxdate) | [validateFeeModel](#function-validatefeemodel) | [wait](#function-wait) |
-| [minDate](#function-mindate) | [validateIdentityKey](#function-validateidentitykey) | [writeVarUint32LE](#function-writevaruint32le) |
-| [offsetPrivKey](#function-offsetprivkey) | [validateInputSelection](#function-validateinputselection) |  |
-| [offsetPubKey](#function-offsetpubkey) | [validateOutputDescription](#function-validateoutputdescription) |  |
+| [asArray](#function-asarray) | [offsetPubKey](#function-offsetpubkey) | [validateOutputGeneration](#function-validateoutputgeneration) |
+| [asBsvSdkTx](#function-asbsvsdktx) | [randomBytes](#function-randombytes) | [validateOutputTag](#function-validateoutputtag) |
+| [asBuffer](#function-asbuffer) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputTags](#function-validateoutputtags) |
+| [asString](#function-asstring) | [randomBytesHex](#function-randombyteshex) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
+| [bitsAreSet](#function-bitsareset) | [randomMinMax](#function-randomminmax) | [validatePaymail](#function-validatepaymail) |
+| [blockHash](#function-blockhash) | [readVarUint32LE](#function-readvaruint32le) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
+| [computeMerkleTreeParent](#function-computemerkletreeparent) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateSatoshis](#function-validatesatoshis) |
+| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [serializeBlockHeader](#function-serializeblockheader) | [validateScript](#function-validatescript) |
+| [convertBufferToUint32](#function-convertbuffertouint32) | [sha256Hash](#function-sha256hash) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
+| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [shuffleArray](#function-shufflearray) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
+| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [swapByteOrder](#function-swapbyteorder) | [validateTXID](#function-validatetxid) |
+| [deserializeBlockHeader](#function-deserializeblockheader) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabel](#function-validatetxlabel) |
+| [doubleSha256BE](#function-doublesha256be) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxLabels](#function-validatetxlabels) |
+| [doubleSha256HashLE](#function-doublesha256hashle) | [toBlockHeader](#function-toblockheader) | [validateTxNote](#function-validatetxnote) |
+| [genesisBuffer](#function-genesisbuffer) | [toBlockHeaderHex](#function-toblockheaderhex) | [validateTxRecipient](#function-validatetxrecipient) |
+| [genesisHeaderHex](#function-genesisheaderhex) | [toDojoSyncError](#function-todojosyncerror) | [validateUnlockScriptWithBsvSdk](#function-validateunlockscriptwithbsvsdk) |
+| [getInputTxIds](#function-getinputtxids) | [toLiveBlockHeader](#function-toliveblockheader) | [varUintSize](#function-varuintsize) |
+| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBuffer](#function-verifybuffer) |
+| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferEquals](#function-verifybufferequals) |
+| [isBaseBlockHeader](#function-isbaseblockheader) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObject](#function-verifybufferorobject) |
+| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transactionSize](#function-transactionsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
+| [isBlockHeader](#function-isblockheader) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
+| [isBlockHeaderHex](#function-isblockheaderhex) | [validateBasketName](#function-validatebasketname) | [verifyId](#function-verifyid) |
+| [isLive](#function-islive) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNone](#function-verifynone) |
+| [isLiveBlockHeader](#function-isliveblockheader) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyNumber](#function-verifynumber) |
+| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateDate](#function-validatedate) | [verifyOne](#function-verifyone) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateFeeModel](#function-validatefeemodel) | [verifyOneOrNone](#function-verifyoneornone) |
+| [maxDate](#function-maxdate) | [validateIdentityKey](#function-validateidentitykey) | [verifyTruthy](#function-verifytruthy) |
+| [minDate](#function-mindate) | [validateInputSelection](#function-validateinputselection) | [wait](#function-wait) |
+| [offsetPrivKey](#function-offsetprivkey) | [validateOutputDescription](#function-validateoutputdescription) | [writeVarUint32LE](#function-writevaruint32le) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
 
+#### Function: verifyBuffer
+
+Helper function.
+
+Verifies the value of b is a Buffer and optionally also its length.
+
+```ts
+export function verifyBuffer(b: Buffer | undefined | null, length?: number): Buffer 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyBufferEquals
+
+true iff both b1 and b2 are undefined or null, or both are Buffers and are equal.
+
+```ts
+export function verifyBufferEquals(b1: Buffer | undefined | null, b2: Buffer | undefined | null): boolean 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyTruthy
+
+Helper function.
+
+Verifies that a possibly optional value has a value.
+
+```ts
+export function verifyTruthy<T>(v: T | null | undefined, description?: string): T 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyNumber
+
+Helper function.
+
+Verifies that an optional or null number has a numeric value.
+
+```ts
+export function verifyNumber(v: number | null | undefined): number 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyId
+
+Helper function.
+
+Verifies that an optional numeric Id has a value.
+
+```ts
+export function verifyId(id: number | undefined | null): number 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyOneOrNone
+
+Helper function.
+
+throws ERR_BAD_REQUEST if results has length greater than one.
+
+```ts
+export function verifyOneOrNone<T>(results: T[]): (T | undefined) 
+```
+
+<details>
+
+<summary>Function verifyOneOrNone Details</summary>
+
+Returns
+
+results[0] or undefined if length is zero.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyOne
+
+Helper function.
+
+throws ERR_BAD_REQUEST if results has length other than one.
+
+```ts
+export function verifyOne<T>(results: T[], errorDescrition?: string): T 
+```
+
+<details>
+
+<summary>Function verifyOne Details</summary>
+
+Returns
+
+results[0].
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyNone
+
+Helper function.
+
+throws ERR_BAD_REQUEST if results has length greater than one.
+
+```ts
+export function verifyNone<T>(results: T[]): void 
+```
+
+<details>
+
+<summary>Function verifyNone Details</summary>
+
+Returns
+
+results[0] or undefined if length is zero.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Function: bitsAreSet
 
 Tests if all `bits` are set in `what`.
@@ -5406,8 +5537,15 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Coerce a value to Buffer if currently encoded as a string
 
 ```ts
-export function asBuffer(val: Buffer | string, encoding?: BufferEncoding): Buffer {
-    return Buffer.isBuffer(val) ? val : Buffer.from(val, encoding ?? "hex");
+export function asBuffer(val: Buffer | string | number[], encoding?: BufferEncoding): Buffer {
+    let b: Buffer;
+    if (Buffer.isBuffer(val))
+        b = val;
+    else if (typeof val === "string")
+        b = Buffer.from(val, encoding ?? "hex");
+    else
+        b = Buffer.from(val);
+    return b;
 }
 ```
 
@@ -5421,8 +5559,10 @@ input val if it is a Buffer or new Buffer from string val
 
 Argument Details
 
++ **val**
+  + Buffer or string or number[]. If string, encoding param applies. If number[], Buffer.from constructor is used.
 + **encoding**
-  + defaults to 'hex'
+  + defaults to 'hex'. Only applies to val of type string
 
 </details>
 
@@ -5431,10 +5571,12 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Function: asString
 
-Coerce a value to string if currently a Buffer
+Coerce a value to an encoded string if currently a Buffer or number[]
 
 ```ts
-export function asString(val: Buffer | string, encoding?: BufferEncoding): string {
+export function asString(val: Buffer | string | number[], encoding?: BufferEncoding): string {
+    if (Array.isArray(val))
+        val = Buffer.from(val);
     return Buffer.isBuffer(val) ? val.toString(encoding ?? "hex") : val;
 }
 ```
@@ -5445,10 +5587,49 @@ export function asString(val: Buffer | string, encoding?: BufferEncoding): strin
 
 Returns
 
-input val if it is a string or Buffer encoded as string
+input val if it is a string; or if number[], first converted to Buffer then as Buffer; if Buffer encoded using `encoding`
 
 Argument Details
 
++ **val**
+  + Buffer or string or number[]. If string, encoding param applies. If number[], Buffer.from constructor is used.
++ **encoding**
+  + defaults to 'hex'
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: asArray
+
+Coerce a value to number[]
+
+```ts
+export function asArray(val: Buffer | string | number[], encoding?: BufferEncoding): number[] {
+    let a: number[];
+    if (Array.isArray(val))
+        a = val;
+    else if (Buffer.isBuffer(val))
+        a = Array.from(val);
+    else
+        a = Array.from(Buffer.from(val, encoding || "hex"));
+    return a;
+}
+```
+
+<details>
+
+<summary>Function asArray Details</summary>
+
+Returns
+
+input val if it is a number[]; if string converts to Buffer using encoding; uses Array.from to convert buffer to number[]
+
+Argument Details
+
++ **val**
+  + Buffer or string or number[]. If string, encoding param applies.
 + **encoding**
   + defaults to 'hex'
 
@@ -5763,44 +5944,18 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: asBsvTx
-
-Parse a bsv transaction encoded as a hex string, serialized Buffer, Transaction to bsv.Tx
-If tx is already a bsv.Tx, just return it.
-
-```ts
-export function asBsvTx(tx: string | Buffer | bsv.Tx | Transaction): bsv.Tx {
-    if (Buffer.isBuffer(tx)) {
-        tx = new bsv.Tx().fromBuffer(tx);
-    }
-    else if (typeof tx === "string") {
-        tx = new bsv.Tx().fromString(tx);
-    }
-    else if (tx instanceof Transaction) {
-        tx = new bsv.Tx().fromString(tx.toHex());
-    }
-    return tx;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Function: asBsvSdkTx
 
 Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to Transaction
 If tx is already a Transaction, just return it.
 
 ```ts
-export function asBsvSdkTx(tx: string | Buffer | bsv.Tx | Transaction): Transaction {
+export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
     if (Buffer.isBuffer(tx)) {
         tx = Transaction.fromHex(asString(tx));
     }
     else if (typeof tx === "string") {
         tx = Transaction.fromHex(tx);
-    }
-    else if (tx instanceof bsv.Tx) {
-        tx = Transaction.fromHex(tx.toHex());
     }
     return tx;
 }
@@ -5811,16 +5966,16 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Function: getInputTxIds
 
-For a bitcoin transaction in hex string, Buffer or parsed bsv.Tx form,
+For a bitcoin transaction in hex string, Buffer or parsed Transaction form,
 
 returns deduplicated array of the input's outpoint transaction hashes (txids).
 
 ```ts
-export function getInputTxIds(tx: string | Buffer | bsv.Tx): string[] {
-    tx = asBsvTx(tx);
+export function getInputTxIds(tx: string | Buffer | Transaction): string[] {
+    tx = asBsvSdkTx(tx);
     const txids = {};
-    for (const input of tx.txIns) {
-        txids[input.txid()] = true;
+    for (const input of tx.inputs) {
+        txids[verifyTruthy(input.sourceTXID)] = true;
     }
     return Object.keys(txids);
 }
@@ -6443,138 +6598,6 @@ export function restoreUserStateEntities(state: DojoUserStateApi): void
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: verifyBuffer
-
-Helper function.
-
-Verifies the value of b is a Buffer and optionally also its length.
-
-```ts
-export function verifyBuffer(b: Buffer | undefined | null, length?: number): Buffer 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyBufferEquals
-
-true iff both b1 and b2 are undefined or null, or both are Buffers and are equal.
-
-```ts
-export function verifyBufferEquals(b1: Buffer | undefined | null, b2: Buffer | undefined | null): boolean 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyTruthy
-
-Helper function.
-
-Verifies that a possibly optional value has a value.
-
-```ts
-export function verifyTruthy<T>(v: T | null | undefined, description?: string): T 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyNumber
-
-Helper function.
-
-Verifies that an optional or null number has a numeric value.
-
-```ts
-export function verifyNumber(v: number | null | undefined): number 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyId
-
-Helper function.
-
-Verifies that an optional numeric Id has a value.
-
-```ts
-export function verifyId(id: number | undefined | null): number 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyOneOrNone
-
-Helper function.
-
-throws ERR_BAD_REQUEST if results has length greater than one.
-
-```ts
-export function verifyOneOrNone<T>(results: T[]): (T | undefined) 
-```
-
-<details>
-
-<summary>Function verifyOneOrNone Details</summary>
-
-Returns
-
-results[0] or undefined if length is zero.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyOne
-
-Helper function.
-
-throws ERR_BAD_REQUEST if results has length other than one.
-
-```ts
-export function verifyOne<T>(results: T[], errorDescrition?: string): T 
-```
-
-<details>
-
-<summary>Function verifyOne Details</summary>
-
-Returns
-
-results[0].
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyNone
-
-Helper function.
-
-throws ERR_BAD_REQUEST if results has length greater than one.
-
-```ts
-export function verifyNone<T>(results: T[]): void 
-```
-
-<details>
-
-<summary>Function verifyNone Details</summary>
-
-Returns
-
-results[0] or undefined if length is zero.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Function: validateIdentityKey
 
 ```ts
@@ -6782,6 +6805,15 @@ export function validateSubmitDirectCustomTransaction(transaction: DojoSubmitDir
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+#### Function: validateUnlockScriptWithBsvSdk
+
+```ts
+export function validateUnlockScriptWithBsvSdk(spendingTx: Transaction | number[] | Buffer | string, vin: number, lockingScript: Script | number[] | Buffer | string, amount: number): boolean 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Function: getProtocolInvoiceNumber
 
 ```ts
@@ -6792,44 +6824,6 @@ export function getProtocolInvoiceNumber(params: {
     ];
     keyID: number | string;
 }): string 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: pointToCompressed
-
-A "compressed" format point is the X part of the (X, Y) point plus an extra
-bit (which takes an entire byte) to indicate whether the Y value is odd or
-not. Storing points this way takes a bit less space, but requires a bit more
-computation to rederive the full point.
-
-```ts
-export function pointToCompressed(point: Point): Buffer 
-```
-
-<details>
-
-<summary>Function pointToCompressed Details</summary>
-
-Returns
-
-A compressed point in the form of a buffer.
-
-Argument Details
-
-+ **point**
-  + An instance of Point.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: pointToBuffer
-
-```ts
-export function pointToBuffer(point: Point): Buffer 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
