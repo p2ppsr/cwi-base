@@ -650,6 +650,19 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
      */
     unbasketOutput(partial: Partial<DojoOutputApi>, trx?: TrxToken): Promise<void>
     
+   /**
+    * Returns the current chain height of the network
+    * @returns The current chain height
+    */
+   getHeight(): Promise<number>
+
+   /**
+    * A method to verify the validity of a Merkle root for a given block height.
+    *
+    * @returns merkle root for the given height or undefined, if height doesn't have a known merkle root or is invalid.
+   */
+   getMerkleRootForHeight(height: number): Promise<string | undefined>
+
     /**
      * Releases any persistent resources held by this dojo.
      * 
