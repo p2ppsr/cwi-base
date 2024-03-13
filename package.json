@@ -51,6 +51,6 @@
   },
   "dependencies": {
     "@babbage/sdk-ts": "^0.2.9",
-    "@bsv/sdk": "^1.0.9"
+    "@bsv/sdk": "^1.0.10"
   }
 }
