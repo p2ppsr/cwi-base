@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { PrivateKey, Transaction } from '@bsv/sdk'
+import { PublicKey, PrivateKey, Transaction } from '@bsv/sdk'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 import { stampLog, stampLogFormat } from '@babbage/sdk-ts'
 import { CertifierDetails, IdentityGroup, IdentityGroupMember, TrustEvaluatorParams } from './Api/TrustTransformerApi'
@@ -330,6 +330,22 @@ export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
     tx = Transaction.fromHex(tx)
   }
   return tx
+}
+
+/**
+ * @param privKey bitcoin private key in 32 byte hex string form
+ * @returns @bsv/sdk PrivateKey
+ */
+export function asBsvSdkPrivateKey(privKey: string) : PrivateKey {
+  return PrivateKey.fromString(privKey, 'hex')
+}
+
+/**
+ * @param pubKey bitcoin public key in standard compressed key hex string form
+ * @returns @bsv/sdk PublicKey
+ */
+export function asBsvSdkPublickKey(pubKey: string) : PublicKey {
+  return PublicKey.fromString(pubKey)
 }
 
 /**
