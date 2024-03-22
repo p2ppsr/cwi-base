@@ -5222,36 +5222,37 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [asArray](#function-asarray) | [offsetPubKey](#function-offsetpubkey) | [validateOutputGeneration](#function-validateoutputgeneration) |
-| [asBsvSdkTx](#function-asbsvsdktx) | [randomBytes](#function-randombytes) | [validateOutputTag](#function-validateoutputtag) |
-| [asBuffer](#function-asbuffer) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputTags](#function-validateoutputtags) |
-| [asString](#function-asstring) | [randomBytesHex](#function-randombyteshex) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
-| [bitsAreSet](#function-bitsareset) | [randomMinMax](#function-randomminmax) | [validatePaymail](#function-validatepaymail) |
-| [blockHash](#function-blockhash) | [readVarUint32LE](#function-readvaruint32le) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
-| [computeMerkleTreeParent](#function-computemerkletreeparent) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateSatoshis](#function-validatesatoshis) |
-| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [serializeBlockHeader](#function-serializeblockheader) | [validateScript](#function-validatescript) |
-| [convertBufferToUint32](#function-convertbuffertouint32) | [sha256Hash](#function-sha256hash) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
-| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [shuffleArray](#function-shufflearray) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
-| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [swapByteOrder](#function-swapbyteorder) | [validateTXID](#function-validatetxid) |
-| [deserializeBlockHeader](#function-deserializeblockheader) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabel](#function-validatetxlabel) |
-| [doubleSha256BE](#function-doublesha256be) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxLabels](#function-validatetxlabels) |
-| [doubleSha256HashLE](#function-doublesha256hashle) | [toBlockHeader](#function-toblockheader) | [validateTxNote](#function-validatetxnote) |
-| [genesisBuffer](#function-genesisbuffer) | [toBlockHeaderHex](#function-toblockheaderhex) | [validateTxRecipient](#function-validatetxrecipient) |
-| [genesisHeaderHex](#function-genesisheaderhex) | [toDojoSyncError](#function-todojosyncerror) | [validateUnlockScriptWithBsvSdk](#function-validateunlockscriptwithbsvsdk) |
-| [getInputTxIds](#function-getinputtxids) | [toLiveBlockHeader](#function-toliveblockheader) | [varUintSize](#function-varuintsize) |
-| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBuffer](#function-verifybuffer) |
-| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferEquals](#function-verifybufferequals) |
-| [isBaseBlockHeader](#function-isbaseblockheader) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObject](#function-verifybufferorobject) |
-| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transactionSize](#function-transactionsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
-| [isBlockHeader](#function-isblockheader) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
-| [isBlockHeaderHex](#function-isblockheaderhex) | [validateBasketName](#function-validatebasketname) | [verifyId](#function-verifyid) |
-| [isLive](#function-islive) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNone](#function-verifynone) |
-| [isLiveBlockHeader](#function-isliveblockheader) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyNumber](#function-verifynumber) |
-| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateDate](#function-validatedate) | [verifyOne](#function-verifyone) |
-| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateFeeModel](#function-validatefeemodel) | [verifyOneOrNone](#function-verifyoneornone) |
-| [maxDate](#function-maxdate) | [validateIdentityKey](#function-validateidentitykey) | [verifyTruthy](#function-verifytruthy) |
-| [minDate](#function-mindate) | [validateInputSelection](#function-validateinputselection) | [wait](#function-wait) |
-| [offsetPrivKey](#function-offsetprivkey) | [validateOutputDescription](#function-validateoutputdescription) | [writeVarUint32LE](#function-writevaruint32le) |
+| [asArray](#function-asarray) | [offsetPrivKey](#function-offsetprivkey) | [validateOutputGeneration](#function-validateoutputgeneration) |
+| [asBsvSdkPrivateKey](#function-asbsvsdkprivatekey) | [offsetPubKey](#function-offsetpubkey) | [validateOutputTag](#function-validateoutputtag) |
+| [asBsvSdkPublickKey](#function-asbsvsdkpublickkey) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
+| [asBsvSdkTx](#function-asbsvsdktx) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
+| [asBuffer](#function-asbuffer) | [randomBytesHex](#function-randombyteshex) | [validatePaymail](#function-validatepaymail) |
+| [asString](#function-asstring) | [randomMinMax](#function-randomminmax) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
+| [bitsAreSet](#function-bitsareset) | [readVarUint32LE](#function-readvaruint32le) | [validateSatoshis](#function-validatesatoshis) |
+| [blockHash](#function-blockhash) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateScript](#function-validatescript) |
+| [computeMerkleTreeParent](#function-computemerkletreeparent) | [serializeBlockHeader](#function-serializeblockheader) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
+| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [sha256Hash](#function-sha256hash) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
+| [convertBufferToUint32](#function-convertbuffertouint32) | [shuffleArray](#function-shufflearray) | [validateTXID](#function-validatetxid) |
+| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
+| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
+| [deserializeBlockHeader](#function-deserializeblockheader) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
+| [doubleSha256BE](#function-doublesha256be) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
+| [doubleSha256HashLE](#function-doublesha256hashle) | [toBlockHeaderHex](#function-toblockheaderhex) | [validateUnlockScriptWithBsvSdk](#function-validateunlockscriptwithbsvsdk) |
+| [genesisBuffer](#function-genesisbuffer) | [toDojoSyncError](#function-todojosyncerror) | [varUintSize](#function-varuintsize) |
+| [genesisHeaderHex](#function-genesisheaderhex) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBuffer](#function-verifybuffer) |
+| [getInputTxIds](#function-getinputtxids) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferEquals](#function-verifybufferequals) |
+| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObject](#function-verifybufferorobject) |
+| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
+| [isBaseBlockHeader](#function-isbaseblockheader) | [transactionSize](#function-transactionsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
+| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyId](#function-verifyid) |
+| [isBlockHeader](#function-isblockheader) | [validateBasketName](#function-validatebasketname) | [verifyNone](#function-verifynone) |
+| [isBlockHeaderHex](#function-isblockheaderhex) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNumber](#function-verifynumber) |
+| [isLive](#function-islive) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOne](#function-verifyone) |
+| [isLiveBlockHeader](#function-isliveblockheader) | [validateDate](#function-validatedate) | [verifyOneOrNone](#function-verifyoneornone) |
+| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateFeeModel](#function-validatefeemodel) | [verifyTruthy](#function-verifytruthy) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateIdentityKey](#function-validateidentitykey) | [wait](#function-wait) |
+| [maxDate](#function-maxdate) | [validateInputSelection](#function-validateinputselection) | [writeVarUint32LE](#function-writevaruint32le) |
+| [minDate](#function-mindate) | [validateOutputDescription](#function-validateoutputdescription) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5986,6 +5987,46 @@ export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
     return tx;
 }
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: asBsvSdkPrivateKey
+
+```ts
+export function asBsvSdkPrivateKey(privKey: string): PrivateKey 
+```
+
+<details>
+
+<summary>Function asBsvSdkPrivateKey Details</summary>
+
+Argument Details
+
++ **privKey**
+  + bitcoin private key in 32 byte hex string form
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: asBsvSdkPublickKey
+
+```ts
+export function asBsvSdkPublickKey(pubKey: string): PublicKey 
+```
+
+<details>
+
+<summary>Function asBsvSdkPublickKey Details</summary>
+
+Argument Details
+
++ **pubKey**
+  + bitcoin public key in standard compressed key hex string form
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
