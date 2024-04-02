@@ -2963,6 +2963,8 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
     created_at?: Date | null;
     updated_at?: Date | null;
     txid: string;
+    lockTime?: number | null;
+    version?: number | null;
     rawTransaction: Buffer | null;
     status: DojoTransactionStatusApi;
     referenceNumber: string | null;
@@ -3011,6 +3013,17 @@ This is an extended property with data from dependent label entities.
 labels?: string[]
 ```
 
+##### Property lockTime
+
+Optional. Default is zero.
+When the transaction can be processed into a block:
+>= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+< 500,000,000 values are interpreted as minimum required block height
+
+```ts
+lockTime?: number | null
+```
+
 ##### Property note
 
 max length of 500
@@ -3025,6 +3038,16 @@ Is valid when transaction proof record exists in DojoProvenTxApi table.
 
 ```ts
 provenTxId?: number | null
+```
+
+##### Property rawTransaction
+
+When the transaction can be processed into a block:
+>= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+< 500,000,000 values are interpreted as minimum required block height
+
+```ts
+rawTransaction: Buffer | null
 ```
 
 ##### Property recipientPaymail
@@ -3066,6 +3089,14 @@ length 64 hex encoded
 
 ```ts
 txid: string
+```
+
+##### Property version
+
+If not undefined, must match value in associated rawTransaction.
+
+```ts
+version?: number | null
 ```
 
 </details>
@@ -3967,6 +3998,8 @@ export interface DojoCreateTransactionParams {
     inputs?: Record<string, DojoTxInputsApi>;
     inputSelection?: DojoTxInputSelectionApi;
     outputGeneration?: DojoOutputGenerationApi;
+    lockTime?: number;
+    version?: number;
     feeModel?: DojoFeeModelApi;
     labels?: string[];
     note?: string;
@@ -4011,6 +4044,17 @@ Optional. Each at most 150 characters. Labels can be used to tag transactions in
 labels?: string[]
 ```
 
+##### Property lockTime
+
+Optional. Default is zero.
+When the transaction can be processed into a block:
+>= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+< 500,000,000 values are interpreted as minimum required block height
+
+```ts
+lockTime?: number
+```
+
 ##### Property log
 
 Optional transaction processing history
@@ -4049,6 +4093,14 @@ Optional. The Paymail handle of the recipient of this transaction (Optional)
 
 ```ts
 recipient?: string
+```
+
+##### Property version
+
+If not undefined, must match value in associated rawTransaction.
+
+```ts
+version?: number
 ```
 
 </details>
@@ -4105,6 +4157,8 @@ export interface DojoCreateTransactionResultApi {
     inputs: Record<string, DojoCreatingTxInputsApi>;
     outputs: DojoCreatingTxOutputApi[];
     derivationPrefix: string;
+    version: number;
+    lockTime: number;
     referenceNumber: string;
     paymailHandle: string;
     note?: string;
