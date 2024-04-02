@@ -1133,6 +1133,22 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       * length 64 hex encoded
       */
    txid: string
+   /**
+    * Optional. Default is zero.
+    * When the transaction can be processed into a block:
+    * >= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+    * < 500,000,000 values are interpreted as minimum required block height
+    */
+   lockTime?: number | null
+   /**
+    * If not undefined, must match value in associated rawTransaction.
+    */
+   version?: number | null
+   /**
+    * When the transaction can be processed into a block:
+    * >= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+    * < 500,000,000 values are interpreted as minimum required block height
+    */
    rawTransaction: Buffer | null
    /**
       * max length of 64
@@ -1657,6 +1673,17 @@ export interface DojoCreateTransactionParams {
     */
    outputGeneration?: DojoOutputGenerationApi,
    /**
+    * Optional. Default is zero.
+    * When the transaction can be processed into a block:
+    * >= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+    * < 500,000,000 values are interpreted as minimum required block height
+    */
+   lockTime?: number;
+   /**
+    * If not undefined, must match value in associated rawTransaction.
+    */
+   version?: number
+   /**
     * Optional. An object representing the fee the transaction will pay.
     */
    feeModel?: DojoFeeModelApi,
@@ -1703,6 +1730,8 @@ export interface DojoCreateTransactionResultApi {
    inputs: Record<string, DojoCreatingTxInputsApi>
    outputs: DojoCreatingTxOutputApi[]
    derivationPrefix: string
+   version: number
+   lockTime: number
    referenceNumber: string
    paymailHandle: string
    note?: string
