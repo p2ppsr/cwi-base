@@ -1,6 +1,6 @@
 {
   "name": "cwi-base",
-  "version": "0.4.18",
+  "version": "0.4.19",
   "description": "Base level functions, classes, interfaces for CWI",
   "author": "Peer-to-peer Privacy Systems Research LLC",
   "license": "PROPRIETARY",
