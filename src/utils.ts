@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { PublicKey, PrivateKey, Transaction } from '@bsv/sdk'
+import { PublicKey, PrivateKey, Transaction, Script } from '@bsv/sdk'
 import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER } from './ERR_errors'
 import { stampLog, stampLogFormat } from '@babbage/sdk-ts'
 import { CertifierDetails, IdentityGroup, IdentityGroupMember, TrustEvaluatorParams } from './Api/TrustTransformerApi'
@@ -298,7 +298,7 @@ export function computeRootFromMerkleProofNodes(index: number, txid: string | Bu
 }
 
 /**
- * Returns the 32 byte hash value for a merkle tree parent node given its left and right child node hashes.
+ * Coerce the 32 byte hash value for a merkle tree parent node given its left and right child node hashes.
  * 
  * @param leftNode 32 byte hash as hex string or Buffer
  * @param rightNode 32 byte hash as hex string or Buffer
@@ -319,7 +319,7 @@ export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: st
 }
 
 /**
- * Parse a bsv transaction encoded as a hex string, serialized Buffer, or bsv.Tx to Transaction
+ * Coerce a bsv transaction encoded as a hex string, serialized Buffer, or Transaction to Transaction
  * If tx is already a Transaction, just return it.
  * @publicbody
  */
@@ -330,6 +330,20 @@ export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
     tx = Transaction.fromHex(tx)
   }
   return tx
+}
+
+/**
+ * Coerce a bsv script encoded as a hex string, serialized Buffer, or Script to Script
+ * If script is already a Script, just return it.
+ * @publicbody
+ */
+export function asBsvSdkScript(script: string | Buffer | Script): Script {
+  if (Buffer.isBuffer(script)) {
+    script = Script.fromHex(asString(script))
+  } else if (typeof script === 'string') {
+    script = Script.fromHex(script)
+  }
+  return script
 }
 
 /**
