@@ -236,17 +236,20 @@ export function validateUnlockScriptWithBsvSdk(
     if (!(lockingScript instanceof Script))
         lockingScript = Script.fromHex(asString(lockingScript))
 
+    const input = spendingTx.inputs[vin]
+    const sourceTXID = verifyTruthy(input.sourceTXID ? input.sourceTXID : input.sourceTransaction?.id("hex") as string)
+
     const spend = new Spend({
-        sourceTXID: verifyTruthy(spendingTx.inputs[vin].sourceTXID),
-        sourceOutputIndex: spendingTx.inputs[vin].sourceOutputIndex,
+        sourceTXID,
+        sourceOutputIndex: input.sourceOutputIndex,
         sourceSatoshis: amount,
         lockingScript,
         transactionVersion: spendingTx.version,
         otherInputs: spendingTx.inputs.filter((v, i) => i !== vin),
         inputIndex: vin,
-        unlockingScript: verifyTruthy(spendingTx.inputs[vin].unlockingScript),
+        unlockingScript: verifyTruthy(input.unlockingScript),
         outputs: spendingTx.outputs,
-        inputSequence: spendingTx.inputs[vin].sequence,
+        inputSequence: input.sequence,
         lockTime: spendingTx.lockTime
     })
 
