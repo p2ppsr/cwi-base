@@ -1,7 +1,6 @@
 import { asBsvSdkPrivateKey, verifyTruthy } from ".";
-import { LockingScript, Script, ScriptTemplate, Transaction, UnlockingScript } from "@bsv/sdk";
+import { LockingScript, P2PKH, Script, ScriptTemplate, Transaction, UnlockingScript } from "@bsv/sdk";
 import { getPaymentAddress, getPaymentPrivateKey } from "sendover";
-import ScriptTemplateP2PKH from "./ScriptTemplageP2PKH";
 
 export interface ScriptTemplateParamsSABPPP {
    derivationPrefix?: string
@@ -9,12 +8,12 @@ export interface ScriptTemplateParamsSABPPP {
 }
 
 export class ScriptTemplateSABPPP implements ScriptTemplate {
-    p2pkh: ScriptTemplateP2PKH
+    p2pkh: P2PKH
 
     protocol: string = '2-3241645161d8'
 
     constructor(public params: ScriptTemplateParamsSABPPP) {
-        this.p2pkh = new ScriptTemplateP2PKH()
+        this.p2pkh = new P2PKH()
 
         verifyTruthy(params.derivationPrefix)
         verifyTruthy(params.derivationSuffix)

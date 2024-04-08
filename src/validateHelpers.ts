@@ -12,7 +12,7 @@ import {
 import {
   ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORIZED
 } from './ERR_errors'
-import { asBsvSdkScript, asBsvSdkTx, asString, identityKeyFromPrivateKey } from './utils'
+import { asBsvSdkScript, asString, identityKeyFromPrivateKey } from './utils'
 import { verifyTruthy } from './verifyHelpers'
 import { CwiError } from './CwiError'
 import { ScriptTemplateSABPPP } from './ScriptTemplateSABPPP'
