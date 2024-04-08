@@ -17,3 +17,4 @@ export * from './BRC43Helpers'
 export * as utils from './utils'
 /* ts-standard:disable-next-line */
 export * as crypto from 'crypto'
+export * from 'sendover'

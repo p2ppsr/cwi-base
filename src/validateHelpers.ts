@@ -1,10 +1,21 @@
 import { Script, PublicKey, Transaction, Spend } from '@bsv/sdk'
-import { DojoCreateTxOutputApi, DojoFeeModelApi, DojoOutputGenerationApi, DojoOutputToRedeemApi, DojoSubmitDirectTransactionApi, DojoTxInputSelectionApi } from './Api/DojoClientApi'
-import { ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION, ERR_DOJO_INVALID_OUTPUT_TAG, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS, ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, 
-ERR_DOJO_UNKNOWN_FEE_MODEL } from './ERR_DOJO_errors'
-import { ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORIZED } from './ERR_errors'
-import { asString } from './utils'
+import {
+  DojoCreateTxOutputApi, DojoFeeModelApi, DojoOutputApi, DojoOutputGenerationApi,
+  DojoOutputToRedeemApi, DojoSubmitDirectTransactionApi, DojoTxInputSelectionApi
+} from './Api/DojoClientApi'
+import {
+  ERR_DOJO_INVALID_BASKET_NAME, ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS, ERR_DOJO_INVALID_NOTE, ERR_DOJO_INVALID_OUTPUT_DESCRIPTION,
+  ERR_DOJO_INVALID_OUTPUT_TAG, ERR_DOJO_INVALID_PAYMAIL_HANDLE, ERR_DOJO_INVALID_REDEEM, ERR_DOJO_INVALID_SATOSHIS,
+  ERR_DOJO_INVALID_SCRIPT, ERR_DOJO_INVALID_TIME, ERR_DOJO_INVALID_TX_LABEL, ERR_DOJO_INVALID_TX_RECIPIENT, 
+  ERR_DOJO_UNKNOWN_FEE_MODEL
+} from './ERR_DOJO_errors'
+import {
+  ERR_BAD_REQUEST, ERR_INVALID_PARAMETER, ERR_TXID_INVALID, ERR_UNAUTHORIZED
+} from './ERR_errors'
+import { asBsvSdkScript, asBsvSdkTx, asString, identityKeyFromPrivateKey } from './utils'
 import { verifyTruthy } from './verifyHelpers'
+import { CwiError } from './CwiError'
+import { ScriptTemplateSABPPP } from './ScriptTemplateSABPPP'
 
 export function validateIdentityKey (identityKey?: string | null): string {
   // First, we make sure the user has provided the required fields
@@ -255,4 +266,48 @@ export function validateUnlockScriptWithBsvSdk(
 
     const valid = spend.validate()
     return valid
+}
+
+export async function validateUnlockScriptOfChangeOutput(output: DojoOutputApi, privateKey: string)
+: Promise<CwiError | undefined>
+{
+    try {
+        const sourceTXID = verifyTruthy(output.txid)
+        const sourceOutputIndex = verifyTruthy(output.vout)
+        const lockingScript = asString(verifyTruthy(output.outputScript))
+        const satoshis = verifyTruthy(output.amount)
+        const derivationPrefix = verifyTruthy(output.derivationPrefix)
+        const derivationSuffix = verifyTruthy(output.derivationSuffix)
+
+        const publicKey = output.senderIdentityKey || identityKeyFromPrivateKey(privateKey)
+
+        const sabppp = new ScriptTemplateSABPPP({ derivationPrefix, derivationSuffix })
+
+        const unlockingScriptTemplate = sabppp.unlock(
+            privateKey,
+            publicKey,
+            satoshis,
+            asBsvSdkScript(lockingScript)
+        )
+
+        const tx = new Transaction()
+        tx.addInput({
+            sourceTXID,
+            unlockingScriptTemplate,
+            sourceOutputIndex,
+            sequence: 0xffffffff
+        })
+
+        await tx.sign()
+
+        const ok = validateUnlockScriptWithBsvSdk(tx, 0, asBsvSdkScript(lockingScript), satoshis)
+
+        if (!ok) return new ERR_INVALID_PARAMETER("test unlock failed")
+
+        return undefined
+
+    } catch (eu: unknown) {
+        const e = CwiError.fromUnknown(eu)
+        return e
+    }
 }
