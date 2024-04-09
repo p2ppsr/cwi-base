@@ -5322,38 +5322,37 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [asArray](#function-asarray) | [offsetPrivKey](#function-offsetprivkey) | [validateOutputTag](#function-validateoutputtag) |
-| [asBsvSdkPrivateKey](#function-asbsvsdkprivatekey) | [offsetPubKey](#function-offsetpubkey) | [validateOutputTags](#function-validateoutputtags) |
-| [asBsvSdkPublickKey](#function-asbsvsdkpublickkey) | [randomBytes](#function-randombytes) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
-| [asBsvSdkScript](#function-asbsvsdkscript) | [randomBytesBase64](#function-randombytesbase64) | [validatePaymail](#function-validatepaymail) |
-| [asBsvSdkTx](#function-asbsvsdktx) | [randomBytesHex](#function-randombyteshex) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
-| [asBuffer](#function-asbuffer) | [randomMinMax](#function-randomminmax) | [validateSatoshis](#function-validatesatoshis) |
-| [asString](#function-asstring) | [readVarUint32LE](#function-readvaruint32le) | [validateScript](#function-validatescript) |
-| [bitsAreSet](#function-bitsareset) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
-| [blockHash](#function-blockhash) | [serializeBlockHeader](#function-serializeblockheader) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
-| [computeMerkleTreeParent](#function-computemerkletreeparent) | [sha256Hash](#function-sha256hash) | [validateTXID](#function-validatetxid) |
-| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [shuffleArray](#function-shufflearray) | [validateTxLabel](#function-validatetxlabel) |
-| [convertBufferToUint32](#function-convertbuffertouint32) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabels](#function-validatetxlabels) |
-| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxNote](#function-validatetxnote) |
-| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxRecipient](#function-validatetxrecipient) |
-| [deserializeBlockHeader](#function-deserializeblockheader) | [toBlockHeader](#function-toblockheader) | [validateUnlockScriptOfChangeOutput](#function-validateunlockscriptofchangeoutput) |
-| [doubleSha256BE](#function-doublesha256be) | [toBlockHeaderHex](#function-toblockheaderhex) | [validateUnlockScriptWithBsvSdk](#function-validateunlockscriptwithbsvsdk) |
-| [doubleSha256HashLE](#function-doublesha256hashle) | [toDojoSyncError](#function-todojosyncerror) | [varUintSize](#function-varuintsize) |
-| [genesisBuffer](#function-genesisbuffer) | [toLiveBlockHeader](#function-toliveblockheader) | [verifyBuffer](#function-verifybuffer) |
-| [genesisHeaderHex](#function-genesisheaderhex) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBufferEquals](#function-verifybufferequals) |
-| [getInputTxIds](#function-getinputtxids) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferOrObject](#function-verifybufferorobject) |
-| [getProtocolInvoiceNumber](#function-getprotocolinvoicenumber) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
-| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [transactionSize](#function-transactionsize) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
-| [isBaseBlockHeader](#function-isbaseblockheader) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyId](#function-verifyid) |
-| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [validateBasketName](#function-validatebasketname) | [verifyNone](#function-verifynone) |
-| [isBlockHeader](#function-isblockheader) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNumber](#function-verifynumber) |
-| [isBlockHeaderHex](#function-isblockheaderhex) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyOne](#function-verifyone) |
-| [isLive](#function-islive) | [validateDate](#function-validatedate) | [verifyOneOrNone](#function-verifyoneornone) |
-| [isLiveBlockHeader](#function-isliveblockheader) | [validateFeeModel](#function-validatefeemodel) | [verifyTruthy](#function-verifytruthy) |
-| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateIdentityKey](#function-validateidentitykey) | [wait](#function-wait) |
-| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateInputSelection](#function-validateinputselection) | [writeVarUint32LE](#function-writevaruint32le) |
-| [maxDate](#function-maxdate) | [validateOutputDescription](#function-validateoutputdescription) |  |
-| [minDate](#function-mindate) | [validateOutputGeneration](#function-validateoutputgeneration) |  |
+| [asBsvSdkPrivateKey](#function-asbsvsdkprivatekey) | [offsetPubKey](#function-offsetpubkey) | [validateOutputTag](#function-validateoutputtag) |
+| [asBsvSdkPublickKey](#function-asbsvsdkpublickkey) | [randomBytes](#function-randombytes) | [validateOutputTags](#function-validateoutputtags) |
+| [asBsvSdkScript](#function-asbsvsdkscript) | [randomBytesBase64](#function-randombytesbase64) | [validateOutputToRedeem](#function-validateoutputtoredeem) |
+| [asBsvSdkTx](#function-asbsvsdktx) | [randomBytesHex](#function-randombyteshex) | [validatePaymail](#function-validatepaymail) |
+| [asBuffer](#function-asbuffer) | [randomMinMax](#function-randomminmax) | [validateSABPPPTransaction](#function-validatesabppptransaction) |
+| [asString](#function-asstring) | [readVarUint32LE](#function-readvaruint32le) | [validateSatoshis](#function-validatesatoshis) |
+| [bitsAreSet](#function-bitsareset) | [restoreUserStateEntities](#function-restoreuserstateentities) | [validateScript](#function-validatescript) |
+| [blockHash](#function-blockhash) | [serializeBlockHeader](#function-serializeblockheader) | [validateSecondsSinceEpoch](#function-validatesecondssinceepoch) |
+| [computeMerkleTreeParent](#function-computemerkletreeparent) | [sha256Hash](#function-sha256hash) | [validateSubmitDirectCustomTransaction](#function-validatesubmitdirectcustomtransaction) |
+| [computeRootFromMerkleProofNodes](#function-computerootfrommerkleproofnodes) | [shuffleArray](#function-shufflearray) | [validateTXID](#function-validatetxid) |
+| [convertBufferToUint32](#function-convertbuffertouint32) | [swapByteOrder](#function-swapbyteorder) | [validateTxLabel](#function-validatetxlabel) |
+| [convertUint32ToBuffer](#function-convertuint32tobuffer) | [toBaseBlockHeader](#function-tobaseblockheader) | [validateTxLabels](#function-validatetxlabels) |
+| [createBabbageServiceChargeOutput](#function-createbabbageservicechargeoutput) | [toBaseBlockHeaderHex](#function-tobaseblockheaderhex) | [validateTxNote](#function-validatetxnote) |
+| [deserializeBlockHeader](#function-deserializeblockheader) | [toBlockHeader](#function-toblockheader) | [validateTxRecipient](#function-validatetxrecipient) |
+| [doubleSha256BE](#function-doublesha256be) | [toBlockHeaderHex](#function-toblockheaderhex) | [validateUnlockScriptOfChangeOutput](#function-validateunlockscriptofchangeoutput) |
+| [doubleSha256HashLE](#function-doublesha256hashle) | [toDojoSyncError](#function-todojosyncerror) | [validateUnlockScriptWithBsvSdk](#function-validateunlockscriptwithbsvsdk) |
+| [genesisBuffer](#function-genesisbuffer) | [toLiveBlockHeader](#function-toliveblockheader) | [varUintSize](#function-varuintsize) |
+| [genesisHeaderHex](#function-genesisheaderhex) | [toLiveBlockHeaderHex](#function-toliveblockheaderhex) | [verifyBuffer](#function-verifybuffer) |
+| [getInputTxIds](#function-getinputtxids) | [transactionInputSize](#function-transactioninputsize) | [verifyBufferEquals](#function-verifybufferequals) |
+| [identityKeyFromPrivateKey](#function-identitykeyfromprivatekey) | [transactionOutputSize](#function-transactionoutputsize) | [verifyBufferOrObject](#function-verifybufferorobject) |
+| [isBaseBlockHeader](#function-isbaseblockheader) | [transactionSize](#function-transactionsize) | [verifyBufferOrObjectOrNull](#function-verifybufferorobjectornull) |
+| [isBaseBlockHeaderHex](#function-isbaseblockheaderhex) | [transformResultsWithTrust](#function-transformresultswithtrust) | [verifyBufferOrObjectOrUndefined](#function-verifybufferorobjectorundefined) |
+| [isBlockHeader](#function-isblockheader) | [validateBasketName](#function-validatebasketname) | [verifyId](#function-verifyid) |
+| [isBlockHeaderHex](#function-isblockheaderhex) | [validateCreateTxOutput](#function-validatecreatetxoutput) | [verifyNone](#function-verifynone) |
+| [isLive](#function-islive) | [validateCustomInstructions](#function-validatecustominstructions) | [verifyNumber](#function-verifynumber) |
+| [isLiveBlockHeader](#function-isliveblockheader) | [validateDate](#function-validatedate) | [verifyOne](#function-verifyone) |
+| [isLiveBlockHeaderHex](#function-isliveblockheaderhex) | [validateFeeModel](#function-validatefeemodel) | [verifyOneOrNone](#function-verifyoneornone) |
+| [lockScriptWithKeyOffsetFromPubKey](#function-lockscriptwithkeyoffsetfrompubkey) | [validateIdentityKey](#function-validateidentitykey) | [verifyTruthy](#function-verifytruthy) |
+| [maxDate](#function-maxdate) | [validateInputSelection](#function-validateinputselection) | [wait](#function-wait) |
+| [minDate](#function-mindate) | [validateOutputDescription](#function-validateoutputdescription) | [writeVarUint32LE](#function-writevaruint32le) |
+| [offsetPrivKey](#function-offsetprivkey) | [validateOutputGeneration](#function-validateoutputgeneration) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5721,43 +5720,6 @@ Argument Details
 
 + **val**
   + Buffer or string or number[]. If string, encoding param applies. If number[], Buffer.from constructor is used.
-+ **encoding**
-  + defaults to 'hex'
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: asArray
-
-Coerce a value to number[]
-
-```ts
-export function asArray(val: Buffer | string | number[], encoding?: BufferEncoding): number[] {
-    let a: number[];
-    if (Array.isArray(val))
-        a = val;
-    else if (Buffer.isBuffer(val))
-        a = Array.from(val);
-    else
-        a = Array.from(Buffer.from(val, encoding || "hex"));
-    return a;
-}
-```
-
-<details>
-
-<summary>Function asArray Details</summary>
-
-Returns
-
-input val if it is a number[]; if string converts to Buffer using encoding; uses Array.from to convert buffer to number[]
-
-Argument Details
-
-+ **val**
-  + Buffer or string or number[]. If string, encoding param applies.
 + **encoding**
   + defaults to 'hex'
 
@@ -7006,21 +6968,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export async function validateUnlockScriptOfChangeOutput(output: DojoOutputApi, privateKey: string): Promise<CwiError | undefined> 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: getProtocolInvoiceNumber
-
-```ts
-export function getProtocolInvoiceNumber(params: {
-    protocolID: string | [
-        number,
-        string
-    ];
-    keyID: number | string;
-}): string 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
