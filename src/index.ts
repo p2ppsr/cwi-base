@@ -13,7 +13,6 @@ export * from './verifyHelpers'
 export * from './validateHelpers'
 export * from './ERR_errors'
 export * from './ERR_DOJO_errors'
-export * from './BRC43Helpers'
 export * from './ScriptTemplateSABPPP'
 export * as utils from './utils'
 /* ts-standard:disable-next-line */
