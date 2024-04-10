@@ -240,32 +240,34 @@ export function validateUnlockScriptWithBsvSdk(
     spendingTx: Transaction | number[] | Buffer | string,
     vin: number,
     lockingScript: Script | number[] | Buffer | string,
-    amount: number)
-: boolean {
-    if (!(spendingTx instanceof Transaction))
-        spendingTx = Transaction.fromHex(asString(spendingTx))
-    if (!(lockingScript instanceof Script))
-        lockingScript = Script.fromHex(asString(lockingScript))
+    amount: number
+)
+: boolean
+{
+  if (typeof spendingTx === "string" || Array.isArray(spendingTx) || Buffer.isBuffer(spendingTx))
+    spendingTx = Transaction.fromHex(asString(spendingTx))
+  if (typeof lockingScript === "string" || Array.isArray(lockingScript) || Buffer.isBuffer(lockingScript))
+    lockingScript = Script.fromHex(asString(lockingScript))
 
-    const input = spendingTx.inputs[vin]
-    const sourceTXID = verifyTruthy(input.sourceTXID ? input.sourceTXID : input.sourceTransaction?.id("hex") as string)
+  const input = spendingTx.inputs[vin]
+  const sourceTXID = verifyTruthy(input.sourceTXID ? input.sourceTXID : input.sourceTransaction?.id("hex") as string)
 
-    const spend = new Spend({
-        sourceTXID,
-        sourceOutputIndex: input.sourceOutputIndex,
-        sourceSatoshis: amount,
-        lockingScript,
-        transactionVersion: spendingTx.version,
-        otherInputs: spendingTx.inputs.filter((v, i) => i !== vin),
-        inputIndex: vin,
-        unlockingScript: verifyTruthy(input.unlockingScript),
-        outputs: spendingTx.outputs,
-        inputSequence: input.sequence,
-        lockTime: spendingTx.lockTime
-    })
+  const spend = new Spend({
+    sourceTXID,
+    sourceOutputIndex: input.sourceOutputIndex,
+    sourceSatoshis: amount,
+    lockingScript,
+    transactionVersion: spendingTx.version,
+    otherInputs: spendingTx.inputs.filter((v, i) => i !== vin),
+    inputIndex: vin,
+    unlockingScript: verifyTruthy(input.unlockingScript),
+    outputs: spendingTx.outputs,
+    inputSequence: input.sequence,
+    lockTime: spendingTx.lockTime
+  })
 
-    const valid = spend.validate()
-    return valid
+  const valid = spend.validate()
+  return valid
 }
 
 export async function validateUnlockScriptOfChangeOutput(output: DojoOutputApi, privateKey: string)
