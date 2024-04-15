@@ -1160,10 +1160,17 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
       */
    referenceNumber: string | null
    /**
-      * max 15 digits
+      * max 15 digits, net impact of this transaction on user's utxo total in default basket
       */
    amount: number
-   userId: number
+   /**
+    * If known, network transaction fee paid by this user for this transaction.
+    */
+   fee?: number
+   /**
+    * If known, commission fee paid by this user for this transaction.
+    */
+   commission?: number
    /**
       * max length of 100
       */
