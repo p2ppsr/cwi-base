@@ -1759,6 +1759,22 @@ export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
 
 /**
  * Input parameters to submitDirectTransaction method.
+ * 
+ * Normally used to receive spendable outputs from an externally
+ * sourced transaction (one created by a party other than this user).
+ * A transaction record is created for this user with isOutgoing false.
+ * New spendable output records are created for the indicated outputs of
+ * the transaction.
+ * 
+ * When submitDirectTransaction is called with outputs previously
+ * created by the same user on an isOutgoing true transaction,
+ * these params serve to update those outputs and the transaction amount.
+ * The transaction remains isOutgoing true.
+ * 
+ * When submitDirectTransaction is called again with additional outputs
+ * on previously submitted isOutgoing false transaction,
+ * these params serve to create new outputs and update the transaction amount.
+ * The transaction remains isOutgoing false.
  */
 export interface DojoSubmitDirectTransactionParams {
   /**
