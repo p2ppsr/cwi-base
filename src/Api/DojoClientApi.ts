@@ -738,6 +738,10 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
     * If true and `addInputsAndOutputs` is true, the `DojoOutputXApi` `tags` property will be included in inputs and outputs.
     */
    includeTags?: boolean
+   /**
+    * If true, excludes rawTx and outputScript properties from results. 
+    */
+   noRawTx?: boolean
 }
 
 export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
