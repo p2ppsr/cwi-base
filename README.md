@@ -1966,6 +1966,7 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
     addInputsAndOutputs?: boolean;
     includeBasket?: boolean;
     includeTags?: boolean;
+    noRawTx?: boolean;
 }
 ```
 
@@ -2036,6 +2037,14 @@ Optional. Match transactions with this label.
 
 ```ts
 label?: string
+```
+
+##### Property noRawTx
+
+If true, excludes rawTx and outputScript properties from results.
+
+```ts
+noRawTx?: boolean
 ```
 
 ##### Property referenceNumber
