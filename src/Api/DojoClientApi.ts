@@ -1,4 +1,10 @@
-import { CreateCertificateResult, EnvelopeApi, EnvelopeEvidenceApi, MapiResponseApi } from '@babbage/sdk-ts'
+import {
+   CreateCertificateResult,
+   EnvelopeApi,
+   EnvelopeEvidenceApi,
+   MapiResponseApi,
+   OptionalEnvelopeEvidenceApi
+} from '@babbage/sdk-ts'
 import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
 
@@ -1488,7 +1494,7 @@ export interface DojoProcessTransactionParams {
    /**
     * Inputs to spend as part of this transaction (only used for doublespend processing)
     */
-   inputs?: Record<string, EnvelopeEvidenceApi>
+   inputs?: Record<string, OptionalEnvelopeEvidenceApi>
    /**
     * Set to true for normal, high performance operation and offline
     * operation if running locally.
@@ -1547,7 +1553,7 @@ export interface DojoOutputToRedeemApi {
    spendingDescription?: string
 }
 
-export interface DojoTxInputsApi extends EnvelopeEvidenceApi {
+export interface DojoTxInputsApi extends OptionalEnvelopeEvidenceApi {
    outputsToRedeem: DojoOutputToRedeemApi[]
 }
 
@@ -1753,7 +1759,7 @@ export interface DojoSubmitDirectTransactionOutputApi {
    tags?: string[]
 }
 
-export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
+export interface DojoSubmitDirectTransactionApi extends OptionalEnvelopeEvidenceApi {
    /**
       * sparse array of outputs of interest where indices match vout numbers.
       */
