@@ -50,8 +50,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@babbage/sdk-ts": "^0.2.41",
+    "@babbage/sdk-ts": "^0.2.42",
     "@bsv/sdk": "^1.1.12",
-    "sendover": "^1.3.24"
+    "sendover": "^1.3.25"
   }
 }
