@@ -3,7 +3,8 @@ import {
    EnvelopeApi,
    EnvelopeEvidenceApi,
    MapiResponseApi,
-   OptionalEnvelopeEvidenceApi
+   OptionalEnvelopeEvidenceApi,
+   TrustSelf
 } from '@babbage/sdk-ts'
 import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
@@ -521,8 +522,9 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * @param params.outputGeneration Optional. Algorithmic control over additional outputs that may be needed.
       * @param params.feeModel Optional. An object representing the fee the transaction will pay.
       * @param params.labels Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
-      * @param params.note Optional. A human-readable note detailing this transaction (Optional)
-      * @param params.recipient Optional. The Paymail handle of the recipient of this transaction (Optional)
+      * @param params.note Optional. A human-readable note detailing this transaction
+      * @param params.recipient Optional. The Paymail handle of the recipient of this transaction
+      * @param params.trustSelf Optional. If 'known', rawTx and proof data can be ommitted from known input txids.
       */
    createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>
 
@@ -1527,6 +1529,17 @@ export interface DojoProcessTransactionParams {
    acceptDelayedBroadcast?: boolean
 
    /**
+   * The `trustSelf` mode under which this transaction was created and is to be processed.
+   * 
+   * If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
+   * and results will include new rawTx and proof chains for new outputs.
+   * 
+   * If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
+   * and results will exclude new rawTx and proof chains for new outputs. The transaction txid will be valid.
+   */
+   trustSelf?: TrustSelf
+
+   /**
       * Optional transaction processing history
       */
    log?: string
@@ -1710,6 +1723,14 @@ export interface DojoCreateTransactionParams {
     */
    recipient?: string
    /**
+   * If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
+   * and results will include new rawTx and proof chains for new outputs.
+   * 
+   * If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
+   * and results will exclude new rawTx and proof chains for new outputs.
+   */
+   trustSelf?: TrustSelf
+   /**
     * Optional transaction processing history
     */
    log?: string
@@ -1745,6 +1766,7 @@ export interface DojoCreateTransactionResultApi {
    referenceNumber: string
    paymailHandle: string
    note?: string
+   trustSelf?: TrustSelf
    log?: string
 }
 
