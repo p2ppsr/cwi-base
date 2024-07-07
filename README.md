@@ -1395,9 +1395,11 @@ from that transaction to be spent.
 + **params.labels**
   + Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
 + **params.note**
-  + Optional. A human-readable note detailing this transaction (Optional)
+  + Optional. A human-readable note detailing this transaction
 + **params.recipient**
-  + Optional. The Paymail handle of the recipient of this transaction (Optional)
+  + Optional. The Paymail handle of the recipient of this transaction
++ **params.trustSelf**
+  + Optional. If 'known', rawTx and proof data can be ommitted from known input txids.
 
 ##### Method destroy
 
@@ -3623,8 +3625,9 @@ export interface DojoProcessTransactionParams {
     submittedTransaction: string | Buffer;
     reference: string;
     outputMap: Record<string, number>;
-    inputs?: Record<string, EnvelopeEvidenceApi>;
+    inputs?: Record<string, OptionalEnvelopeEvidenceApi>;
     acceptDelayedBroadcast?: boolean;
+    trustSelf?: TrustSelf;
     log?: string;
 }
 ```
@@ -3672,7 +3675,7 @@ acceptDelayedBroadcast?: boolean
 Inputs to spend as part of this transaction (only used for doublespend processing)
 
 ```ts
-inputs?: Record<string, EnvelopeEvidenceApi>
+inputs?: Record<string, OptionalEnvelopeEvidenceApi>
 ```
 
 ##### Property log
@@ -3705,6 +3708,20 @@ The transaction that has been created and signed
 
 ```ts
 submittedTransaction: string | Buffer
+```
+
+##### Property trustSelf
+
+The `trustSelf` mode under which this transaction was created and is to be processed.
+
+If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
+and results will include new rawTx and proof chains for new outputs.
+
+If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
+and results will exclude new rawTx and proof chains for new outputs. The transaction txid will be valid.
+
+```ts
+trustSelf?: TrustSelf
 ```
 
 </details>
@@ -3766,7 +3783,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Interface: DojoTxInputsApi
 
 ```ts
-export interface DojoTxInputsApi extends EnvelopeEvidenceApi {
+export interface DojoTxInputsApi extends OptionalEnvelopeEvidenceApi {
     outputsToRedeem: DojoOutputToRedeemApi[];
 }
 ```
@@ -4013,6 +4030,7 @@ export interface DojoCreateTransactionParams {
     labels?: string[];
     note?: string;
     recipient?: string;
+    trustSelf?: TrustSelf;
     log?: string;
 }
 ```
@@ -4104,6 +4122,18 @@ Optional. The Paymail handle of the recipient of this transaction (Optional)
 recipient?: string
 ```
 
+##### Property trustSelf
+
+If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
+and results will include new rawTx and proof chains for new outputs.
+
+If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
+and results will exclude new rawTx and proof chains for new outputs.
+
+```ts
+trustSelf?: TrustSelf
+```
+
 ##### Property version
 
 If not undefined, must match value in associated rawTransaction.
@@ -4171,6 +4201,7 @@ export interface DojoCreateTransactionResultApi {
     referenceNumber: string;
     paymailHandle: string;
     note?: string;
+    trustSelf?: TrustSelf;
     log?: string;
 }
 ```
@@ -4199,7 +4230,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Interface: DojoSubmitDirectTransactionApi
 
 ```ts
-export interface DojoSubmitDirectTransactionApi extends EnvelopeEvidenceApi {
+export interface DojoSubmitDirectTransactionApi extends OptionalEnvelopeEvidenceApi {
     outputs: DojoSubmitDirectTransactionOutputApi[];
     referenceNumber?: string;
 }
@@ -4225,6 +4256,22 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Interface: DojoSubmitDirectTransactionParams
 
 Input parameters to submitDirectTransaction method.
+
+Normally used to receive spendable outputs from an externally
+sourced transaction (one created by a party other than this user).
+A transaction record is created for this user with isOutgoing false.
+New spendable output records are created for the indicated outputs of
+the transaction.
+
+When submitDirectTransaction is called with outputs previously
+created by the same user on an isOutgoing true transaction,
+these params serve to update those outputs and the transaction amount.
+The transaction remains isOutgoing true.
+
+When submitDirectTransaction is called again with additional outputs
+on previously submitted isOutgoing false transaction,
+these params serve to create new outputs and update the transaction amount.
+The transaction remains isOutgoing false.
 
 ```ts
 export interface DojoSubmitDirectTransactionParams {
