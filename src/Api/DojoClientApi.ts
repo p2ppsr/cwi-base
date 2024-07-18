@@ -1051,6 +1051,8 @@ export interface DojoOutputApi extends DojoEntityTimeStampApi {
       */
    amount: number | null
    outputScript: Buffer | null
+   scriptLength?: number | null
+   scriptOffset?: number | null
    /**
       * max length of 50
       * e.g. P2PKH, custom
