@@ -2751,6 +2751,8 @@ export interface DojoOutputApi extends DojoEntityTimeStampApi {
     vout: number | null;
     amount: number | null;
     outputScript: Buffer | null;
+    scriptLength?: number | null;
+    scriptOffset?: number | null;
     type: string;
     transactionId: number;
     userId: number;
