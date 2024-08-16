@@ -3702,7 +3702,7 @@ log?: string
 
 ##### Property noBroadcast
 
-If true, successfully created transactions remain in the `unproven` state and are marked `noBroadcast`.
+If true, successfully created transactions remain in the `nosend` state.
 A proof will be sought but it will not be considered an error if the txid remains unknown.
 
 Supports testing, user control over broadcasting of transactions, and batching.
@@ -3768,7 +3768,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export interface DojoProcessTransactionResultApi {
     txid: string;
-    status: "sending" | "unproven" | "failed";
+    status: "sending" | "unproven" | "failed" | "nosend";
     mapiResponses: MapiResponseApi[];
     log?: string;
 }
@@ -4138,7 +4138,7 @@ log?: string
 
 ##### Property noBroadcast
 
-If true, successfully created transactions remain in the `unproven` state and are marked `noBroadcast`.
+If true, successfully created transactions remain in the `nosend` state.
 A proof will be sought but it will not be considered an error if the txid remains unknown.
 
 Supports testing, user control over broadcasting of transactions, and batching.
@@ -7193,7 +7193,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 #### Type: DojoTransactionStatusApi
 
 ```ts
-export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "sending" | "unproven" | "unsigned"
+export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "sending" | "unproven" | "unsigned" | "nosend"
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
