@@ -1542,6 +1542,26 @@ export interface DojoProcessTransactionParams {
    trustSelf?: TrustSelf
 
    /**
+    * If the caller already has envelopes or BUMPS for certain txids, pass them in this
+    * array and they will be assumed to be valid and not returned again in the results.
+    */
+   knownTxids?: string[]
+
+   /**
+    * If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
+    * Otherwise, the results will use `EnvelopeEvidenceApi` format.
+    */
+   resultFormat?: 'beef'
+
+   /**
+    * If true, successfully created transactions remain in the `unproven` state and are marked `noBroadcast`.
+    * A proof will be sought but it will not be considered an error if the txid remains unknown.
+    * 
+    * Supports testing, user control over broadcasting of transactions, and batching.
+    */
+   noBroadcast?: boolean
+
+   /**
       * Optional transaction processing history
       */
    log?: string
@@ -1732,6 +1752,27 @@ export interface DojoCreateTransactionParams {
    * and results will exclude new rawTx and proof chains for new outputs.
    */
    trustSelf?: TrustSelf
+
+   /**
+    * If the caller already has envelopes or BUMPS for certain txids, pass them in this
+    * array and they will be assumed to be valid and not returned again in the results.
+    */
+   knownTxids?: string[]
+
+   /**
+    * If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
+    * Otherwise, the results will use `EnvelopeEvidenceApi` format.
+    */
+   resultFormat?: 'beef'
+
+   /**
+    * If true, successfully created transactions remain in the `unproven` state and are marked `noBroadcast`.
+    * A proof will be sought but it will not be considered an error if the txid remains unknown.
+    * 
+    * Supports testing, user control over broadcasting of transactions, and batching.
+    */
+   noBroadcast?: boolean
+
    /**
     * Optional transaction processing history
     */
@@ -1769,6 +1810,9 @@ export interface DojoCreateTransactionResultApi {
    paymailHandle: string
    note?: string
    trustSelf?: TrustSelf
+   knownTxids?: string[]
+   resultFormat?: 'beef'
+   noBroadcast?: boolean
    log?: string
 }
 
