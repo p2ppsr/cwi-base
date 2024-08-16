@@ -1230,6 +1230,8 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
  * Initial status (attempts === 0):
  *
  * unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
+ * 
+ * nosend: transaction was marked 'noBroadcast'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
  *
  * sending: At least one attempt to send rawTx to transaction processors has occured without confirmation of acceptance.
  *
@@ -1256,7 +1258,7 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
  * completed: proven_txs record added, and notifications are complete.
  */
 export type DojoProvenTxReqStatusApi =
-   'sending' | 'unsent' | 'unknown' | 'nonfinal' |
+   'sending' | 'unsent' | 'nosend' | 'unknown' | 'nonfinal' |
    'unmined' | 'callback' | 'unconfirmed' |
    'completed' | 'invalid' | 'doubleSpend'
 
@@ -1265,7 +1267,7 @@ export const DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
 ]
 
 export const DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
-   'sending', 'unsent', 'unknown', 'nonfinal',
+   'sending', 'unsent', 'nosend', 'unknown', 'nonfinal',
    'unmined', 'callback', 'unconfirmed'
 ]
 
