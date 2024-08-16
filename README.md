@@ -3630,6 +3630,9 @@ export interface DojoProcessTransactionParams {
     inputs?: Record<string, OptionalEnvelopeEvidenceApi>;
     acceptDelayedBroadcast?: boolean;
     trustSelf?: TrustSelf;
+    knownTxids?: string[];
+    resultFormat?: "beef";
+    noBroadcast?: boolean;
     log?: string;
 }
 ```
@@ -3680,12 +3683,32 @@ Inputs to spend as part of this transaction (only used for doublespend processin
 inputs?: Record<string, OptionalEnvelopeEvidenceApi>
 ```
 
+##### Property knownTxids
+
+If the caller already has envelopes or BUMPS for certain txids, pass them in this
+array and they will be assumed to be valid and not returned again in the results.
+
+```ts
+knownTxids?: string[]
+```
+
 ##### Property log
 
 Optional transaction processing history
 
 ```ts
 log?: string
+```
+
+##### Property noBroadcast
+
+If true, successfully created transactions remain in the `unproven` state and are marked `noBroadcast`.
+A proof will be sought but it will not be considered an error if the txid remains unknown.
+
+Supports testing, user control over broadcasting of transactions, and batching.
+
+```ts
+noBroadcast?: boolean
 ```
 
 ##### Property outputMap
@@ -3702,6 +3725,15 @@ The reference number provided by `createTransaction` or `getTransactionWithOutpu
 
 ```ts
 reference: string
+```
+
+##### Property resultFormat
+
+If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
+Otherwise, the results will use `EnvelopeEvidenceApi` format.
+
+```ts
+resultFormat?: "beef"
 ```
 
 ##### Property submittedTransaction
@@ -4033,6 +4065,9 @@ export interface DojoCreateTransactionParams {
     note?: string;
     recipient?: string;
     trustSelf?: TrustSelf;
+    knownTxids?: string[];
+    resultFormat?: "beef";
+    noBroadcast?: boolean;
     log?: string;
 }
 ```
@@ -4065,6 +4100,15 @@ Optional. Specific inputs to draw on when creating outputs.
 inputs?: Record<string, DojoTxInputsApi>
 ```
 
+##### Property knownTxids
+
+If the caller already has envelopes or BUMPS for certain txids, pass them in this
+array and they will be assumed to be valid and not returned again in the results.
+
+```ts
+knownTxids?: string[]
+```
+
 ##### Property labels
 
 Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
@@ -4090,6 +4134,17 @@ Optional transaction processing history
 
 ```ts
 log?: string
+```
+
+##### Property noBroadcast
+
+If true, successfully created transactions remain in the `unproven` state and are marked `noBroadcast`.
+A proof will be sought but it will not be considered an error if the txid remains unknown.
+
+Supports testing, user control over broadcasting of transactions, and batching.
+
+```ts
+noBroadcast?: boolean
 ```
 
 ##### Property note
@@ -4122,6 +4177,15 @@ Optional. The Paymail handle of the recipient of this transaction (Optional)
 
 ```ts
 recipient?: string
+```
+
+##### Property resultFormat
+
+If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
+Otherwise, the results will use `EnvelopeEvidenceApi` format.
+
+```ts
+resultFormat?: "beef"
 ```
 
 ##### Property trustSelf
@@ -4204,6 +4268,9 @@ export interface DojoCreateTransactionResultApi {
     paymailHandle: string;
     note?: string;
     trustSelf?: TrustSelf;
+    knownTxids?: string[];
+    resultFormat?: "beef";
+    noBroadcast?: boolean;
     log?: string;
 }
 ```
@@ -7156,6 +7223,8 @@ Initial status (attempts === 0):
 
 unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
 
+nosend: transaction was marked 'noBroadcast'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
+
 sending: At least one attempt to send rawTx to transaction processors has occured without confirmation of acceptance.
 
 unknown: rawTx status is unknown but is believed to have been previously sent to the network.
@@ -7181,7 +7250,7 @@ invalid: rawTx is structuraly invalid or was rejected by the network. Will never
 completed: proven_txs record added, and notifications are complete.
 
 ```ts
-export type DojoProvenTxReqStatusApi = "sending" | "unsent" | "unknown" | "nonfinal" | "unmined" | "callback" | "unconfirmed" | "completed" | "invalid" | "doubleSpend"
+export type DojoProvenTxReqStatusApi = "sending" | "unsent" | "nosend" | "unknown" | "nonfinal" | "unmined" | "callback" | "unconfirmed" | "completed" | "invalid" | "doubleSpend"
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -7226,6 +7295,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
     "sending",
     "unsent",
+    "nosend",
     "unknown",
     "nonfinal",
     "unmined",
