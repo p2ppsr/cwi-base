@@ -1818,6 +1818,13 @@ export interface DojoCreatingTxInputsApi extends DojoTxInputsApi {
 
 export interface DojoCreateTransactionResultApi {
    inputs: Record<string, DojoCreatingTxInputsApi>
+   /**
+    * Valid if `resultFormat` is 'beef', in which case `inputs` will be an empty object.
+    * 
+    * If `knownTxids` is provided, any matching txid will appear but corresponding beef `number[]`
+    * will be an emtpy array.
+    */
+   inputBeefs?: Record<string, number[]>
    outputs: DojoCreatingTxOutputApi[]
    derivationPrefix: string
    version: number
