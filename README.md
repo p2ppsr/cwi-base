@@ -1969,6 +1969,8 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
     includeBasket?: boolean;
     includeTags?: boolean;
     noRawTx?: boolean;
+    noScript?: boolean;
+    partial?: Partial<DojoTransactionApi>;
 }
 ```
 
@@ -2043,10 +2045,18 @@ label?: string
 
 ##### Property noRawTx
 
-If true, excludes rawTx and outputScript properties from results.
+If true, excludes rawTransaction values from results.
 
 ```ts
 noRawTx?: boolean
+```
+
+##### Property noScript
+
+If true, excludes outputScript values from results.
+
+```ts
+noScript?: boolean
 ```
 
 ##### Property referenceNumber
@@ -2094,6 +2104,8 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
     includeBasket?: boolean;
     includeTags?: boolean;
     tagQueryMode?: "all" | "any";
+    noScript?: boolean;
+    partial?: Partial<DojoOutputApi>;
 }
 ```
 
@@ -2140,6 +2152,14 @@ If true, the `DojoOutputXApi` `tags` property will be included in results.
 
 ```ts
 includeTags?: boolean
+```
+
+##### Property noScript
+
+if true, outputScript is returned as null. scriptLength and scriptOffset remain valid.
+
+```ts
+noScript?: boolean
 ```
 
 ##### Property spendable
@@ -4217,6 +4237,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ```ts
 export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
+    vout: number;
     providedBy: DojoProvidedByApi;
     purpose?: string;
     destinationBasket?: string;
