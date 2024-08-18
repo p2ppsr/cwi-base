@@ -747,9 +747,15 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
     */
    includeTags?: boolean
    /**
-    * If true, excludes rawTx and outputScript properties from results. 
+    * If true, excludes rawTransaction values from results. 
     */
    noRawTx?: boolean
+   /**
+    * If true, excludes outputScript values from results. 
+    */
+   noScript?: boolean
+
+   partial?: Partial<DojoTransactionApi>
 }
 
 export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
@@ -797,6 +803,13 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
    * The default is `all`
    */
   tagQueryMode?: 'all' | 'any'
+
+  /**
+   * if true, outputScript is returned as null. scriptLength and scriptOffset remain valid.
+   */
+  noScript?: boolean
+
+  partial?: Partial<DojoOutputApi>
 }
 
 export interface DojoGetTransactionsResultApi {
@@ -1782,6 +1795,7 @@ export interface DojoCreateTransactionParams {
 }
 
 export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
+   vout: number
    providedBy: DojoProvidedByApi
    purpose?: string
    destinationBasket?: string
