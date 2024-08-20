@@ -1,4 +1,5 @@
 import {
+   CreateActionOptions,
    CreateCertificateResult,
    EnvelopeApi,
    EnvelopeEvidenceApi,
@@ -524,7 +525,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * @param params.labels Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
       * @param params.note Optional. A human-readable note detailing this transaction
       * @param params.recipient Optional. The Paymail handle of the recipient of this transaction
-      * @param params.trustSelf Optional. If 'known', rawTx and proof data can be ommitted from known input txids.
+      * @param {CreateActionOptions} params.options Optional. Processing options.
       */
    createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>
 
@@ -1244,7 +1245,7 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
  *
  * unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
  * 
- * nosend: transaction was marked 'noBroadcast'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
+ * nosend: transaction was marked 'noSend'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
  *
  * sending: At least one attempt to send rawTx to transaction processors has occured without confirmation of acceptance.
  *
@@ -1515,6 +1516,12 @@ export interface DojoProcessTransactionParams {
     */
    inputs?: Record<string, OptionalEnvelopeEvidenceApi>
    /**
+    * Processing options.
+    */
+   options?: CreateActionOptions
+   /**
+    * DEPRECATED: Use `options.acceptDelayedBroadcast`
+    * 
     * Set to true for normal, high performance operation and offline
     * operation if running locally.
     *
@@ -1544,37 +1551,6 @@ export interface DojoProcessTransactionParams {
     * - If spentBy is non-null, failure propagates to that transaction.
     */
    acceptDelayedBroadcast?: boolean
-
-   /**
-   * The `trustSelf` mode under which this transaction was created and is to be processed.
-   * 
-   * If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
-   * and results will include new rawTx and proof chains for new outputs.
-   * 
-   * If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
-   * and results will exclude new rawTx and proof chains for new outputs. The transaction txid will be valid.
-   */
-   trustSelf?: TrustSelf
-
-   /**
-    * If the caller already has envelopes or BUMPS for certain txids, pass them in this
-    * array and they will be assumed to be valid and not returned again in the results.
-    */
-   knownTxids?: string[]
-
-   /**
-    * If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
-    * Otherwise, the results will use `EnvelopeEvidenceApi` format.
-    */
-   resultFormat?: 'beef'
-
-   /**
-    * If true, successfully created transactions remain in the `nosend` state.
-    * A proof will be sought but it will not be considered an error if the txid remains unknown.
-    * 
-    * Supports testing, user control over broadcasting of transactions, and batching.
-    */
-   noBroadcast?: boolean
 
    /**
       * Optional transaction processing history
@@ -1760,33 +1736,9 @@ export interface DojoCreateTransactionParams {
     */
    recipient?: string
    /**
-   * If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
-   * and results will include new rawTx and proof chains for new outputs.
-   * 
-   * If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
-   * and results will exclude new rawTx and proof chains for new outputs.
-   */
-   trustSelf?: TrustSelf
-
-   /**
-    * If the caller already has envelopes or BUMPS for certain txids, pass them in this
-    * array and they will be assumed to be valid and not returned again in the results.
+    * Processing options.
     */
-   knownTxids?: string[]
-
-   /**
-    * If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
-    * Otherwise, the results will use `EnvelopeEvidenceApi` format.
-    */
-   resultFormat?: 'beef'
-
-   /**
-    * If true, successfully created transactions remain in the `nosend` state.
-    * A proof will be sought but it will not be considered an error if the txid remains unknown.
-    * 
-    * Supports testing, user control over broadcasting of transactions, and batching.
-    */
-   noBroadcast?: boolean
+   options?: CreateActionOptions
 
    /**
     * Optional transaction processing history
@@ -1826,17 +1778,18 @@ export interface DojoCreateTransactionResultApi {
     */
    inputBeefs?: Record<string, number[]>
    outputs: DojoCreatingTxOutputApi[]
+   noSendChangeOutputVouts?: number[]
    derivationPrefix: string
    version: number
    lockTime: number
    referenceNumber: string
-   paymailHandle: string
    note?: string
-   trustSelf?: TrustSelf
-   knownTxids?: string[]
-   resultFormat?: 'beef'
-   noBroadcast?: boolean
+   options: CreateActionOptions
    log?: string
+   /**
+    * OBSOLETE
+    */
+   paymailHandle?: string
 }
 
 export interface DojoSubmitDirectTransactionOutputApi {
