@@ -5,7 +5,6 @@ import {
    EnvelopeEvidenceApi,
    MapiResponseApi,
    OptionalEnvelopeEvidenceApi,
-   TrustSelf
 } from '@babbage/sdk-ts'
 import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
@@ -1500,17 +1499,24 @@ export interface DojoPendingTxApi {
  */
 export interface DojoProcessTransactionParams {
    /**
-    * The transaction that has been created and signed
+    * Valid if `options.resultFormat` is 'beef',
+    * in which case `submittedTransaction` and `inputs` are undefined.
     */
-   submittedTransaction: string | Buffer
+   beef?: number[]
+   /**
+    * The transaction that has been created and signed
+    * 
+    * Treated as an alias for rawTx.
+    */
+   submittedTransaction?: string | Buffer | number[]
    /**
     * The reference number provided by `createTransaction` or `getTransactionWithOutputs`
     */
-   reference: string
+   reference?: string
    /**
     * An object whose keys are derivation prefixes and whose values are corresponding change output numbers from the transaction.
     */
-   outputMap: Record<string, number>
+   outputMap?: Record<string, number>
    /**
     * Inputs to spend as part of this transaction (only used for doublespend processing)
     */
@@ -1773,10 +1779,11 @@ export interface DojoCreateTransactionResultApi {
    /**
     * Valid if `resultFormat` is 'beef', in which case `inputs` will be an empty object.
     * 
-    * If `knownTxids` is provided, any matching txid will appear but corresponding beef `number[]`
-    * will be an emtpy array.
+    * This will be a partially valid serialized BEEF value.
+    * It is recommended to the `@babbage/sdk-ts` package's `Beef` class to
+    * deserialize and complete the creation of a valid beef.
     */
-   inputBeefs?: Record<string, number[]>
+   inputBeef?: number[]
    outputs: DojoCreatingTxOutputApi[]
    noSendChangeOutputVouts?: number[]
    derivationPrefix: string
@@ -1787,7 +1794,7 @@ export interface DojoCreateTransactionResultApi {
    options: CreateActionOptions
    log?: string
    /**
-    * OBSOLETE
+    * DEPRECATED
     */
    paymailHandle?: string
 }
