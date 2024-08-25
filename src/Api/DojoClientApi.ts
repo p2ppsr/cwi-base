@@ -5,6 +5,7 @@ import {
    EnvelopeEvidenceApi,
    MapiResponseApi,
    OptionalEnvelopeEvidenceApi,
+   OutPoint,
 } from '@babbage/sdk-ts'
 import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
@@ -1503,6 +1504,12 @@ export interface DojoProcessTransactionParams {
     * in which case `submittedTransaction` and `inputs` are undefined.
     */
    beef?: number[]
+   /**
+    * Valid for options.noSend true.
+    * 
+    * Change output(s) that may be forwarded to chained noSend transactions.
+    */
+   noSendChange?: OutPoint[]
    /**
     * The transaction that has been created and signed
     * 

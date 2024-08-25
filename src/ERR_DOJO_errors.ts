@@ -1,3 +1,4 @@
+import { OutPoint } from '@babbage/sdk-ts'
 import { DojoSyncStatus } from './Api/DojoClientApi'
 import { CwiError } from './CwiError'
 import { asString } from './utils'
@@ -72,6 +73,11 @@ export class ERR_DOJO_CERT_SUBJECT extends CwiError { constructor () { super('ER
  * Transaction must have at least one input and output.
  */
 export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError { constructor () { super('ERR_DOJO_CREATE_TX_EMPTY', 'Transaction must have at least one input and output.') } }
+
+/**
+ * outputToRedeem is invalid
+ */
+export class ERR_DOJO_NOSENDCHANGE extends CwiError { constructor (description: string | OutPoint) { super('ERR_DOJO_NOSENDCHANGE', typeof description === 'string' ? description : `Invalid noSendChange outpoint ${description}`) } }
 
 /**
  * outputToRedeem is invalid
