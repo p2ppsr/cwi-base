@@ -1211,6 +1211,7 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
    isOutgoing: boolean
    unconfirmedInputChainLength: number
    proof: string | null
+   beef: Buffer | null
    truncatedExternalInputs: string | null
    /**
       * Is valid when transaction proof record exists in DojoProvenTxApi table.
