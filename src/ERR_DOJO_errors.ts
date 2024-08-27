@@ -136,6 +136,11 @@ export class ERR_DOJO_INVALID_TRANSACTION_STATUS extends CwiError { constructor 
 export class ERR_DOJO_INVALID_BASKET_NAME extends CwiError { constructor () { super('ERR_DOJO_INVALID_BASKET_NAME', 'Basket names must have one visible character and not more than 1000.') } }
 
 /**
+ * Basket names must have one visible character and not more than 1000.
+ */
+export class ERR_DOJO_INVALID_BEEF extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_BEEF', description || `Invalid BEEF.`) } }
+
+/**
  * Transaction recipient must be not more than 100.
  */
 export class ERR_DOJO_INVALID_TX_RECIPIENT extends CwiError { constructor () { super('ERR_DOJO_INVALID_TX_RECIPIENT', 'Transaction recipient must be not more than 100.') } }

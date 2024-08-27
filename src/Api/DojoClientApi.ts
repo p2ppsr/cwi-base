@@ -1572,10 +1572,18 @@ export interface DojoProcessTransactionParams {
    log?: string
 }
 
+export interface DojoSendWithResultsApi {
+   txid: string
+   transactionId: number
+   status: 'unproven' | 'failed'
+}
+
 export interface DojoProcessTransactionResultApi {
    txid: string
+   transactionId: number
    status: 'sending' | 'unproven' | 'failed' | 'nosend'
    mapiResponses: MapiResponseApi[]
+   sendWithResults?: DojoSendWithResultsApi[]
    log?: string
 }
 
