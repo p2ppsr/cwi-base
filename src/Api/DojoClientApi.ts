@@ -1,6 +1,7 @@
 import {
    CreateActionOptions,
    CreateCertificateResult,
+   DojoSendWithResultsApi,
    EnvelopeApi,
    EnvelopeEvidenceApi,
    MapiResponseApi,
@@ -1570,12 +1571,6 @@ export interface DojoProcessTransactionParams {
       * Optional transaction processing history
       */
    log?: string
-}
-
-export interface DojoSendWithResultsApi {
-   txid: string
-   transactionId: number
-   status: 'unproven' | 'failed'
 }
 
 export interface DojoProcessTransactionResultApi {
