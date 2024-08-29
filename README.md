@@ -1398,8 +1398,8 @@ from that transaction to be spent.
   + Optional. A human-readable note detailing this transaction
 + **params.recipient**
   + Optional. The Paymail handle of the recipient of this transaction
-+ **params.trustSelf**
-  + Optional. If 'known', rawTx and proof data can be ommitted from known input txids.
++ **params.options**
+  + Optional. Processing options.
 
 ##### Method destroy
 
@@ -3009,6 +3009,7 @@ export interface DojoTransactionApi extends DojoEntityTimeStampApi {
     isOutgoing: boolean;
     unconfirmedInputChainLength: number;
     proof: string | null;
+    beef: Buffer | null;
     truncatedExternalInputs: string | null;
     provenTxId?: number | null;
     labels?: string[];
@@ -3644,15 +3645,14 @@ Input parameters for Dojo and Ninja processTransaction
 
 ```ts
 export interface DojoProcessTransactionParams {
-    submittedTransaction: string | Buffer;
-    reference: string;
-    outputMap: Record<string, number>;
+    beef?: number[];
+    noSendChange?: OutPoint[];
+    submittedTransaction?: string | Buffer | number[];
+    reference?: string;
+    outputMap?: Record<string, number>;
     inputs?: Record<string, OptionalEnvelopeEvidenceApi>;
+    options?: CreateActionOptions;
     acceptDelayedBroadcast?: boolean;
-    trustSelf?: TrustSelf;
-    knownTxids?: string[];
-    resultFormat?: "beef";
-    noBroadcast?: boolean;
     log?: string;
 }
 ```
@@ -3662,6 +3662,8 @@ export interface DojoProcessTransactionParams {
 <summary>Interface DojoProcessTransactionParams Details</summary>
 
 ##### Property acceptDelayedBroadcast
+
+DEPRECATED: Use `options.acceptDelayedBroadcast`
 
 Set to true for normal, high performance operation and offline
 operation if running locally.
@@ -3695,21 +3697,21 @@ If the transaction fails, status is set to `failed`:
 acceptDelayedBroadcast?: boolean
 ```
 
+##### Property beef
+
+Valid if `options.resultFormat` is 'beef',
+in which case `submittedTransaction` and `inputs` are undefined.
+
+```ts
+beef?: number[]
+```
+
 ##### Property inputs
 
 Inputs to spend as part of this transaction (only used for doublespend processing)
 
 ```ts
 inputs?: Record<string, OptionalEnvelopeEvidenceApi>
-```
-
-##### Property knownTxids
-
-If the caller already has envelopes or BUMPS for certain txids, pass them in this
-array and they will be assumed to be valid and not returned again in the results.
-
-```ts
-knownTxids?: string[]
 ```
 
 ##### Property log
@@ -3720,15 +3722,22 @@ Optional transaction processing history
 log?: string
 ```
 
-##### Property noBroadcast
+##### Property noSendChange
 
-If true, successfully created transactions remain in the `nosend` state.
-A proof will be sought but it will not be considered an error if the txid remains unknown.
+Valid for options.noSend true.
 
-Supports testing, user control over broadcasting of transactions, and batching.
+Change output(s) that may be forwarded to chained noSend transactions.
 
 ```ts
-noBroadcast?: boolean
+noSendChange?: OutPoint[]
+```
+
+##### Property options
+
+Processing options.
+
+```ts
+options?: CreateActionOptions
 ```
 
 ##### Property outputMap
@@ -3736,7 +3745,7 @@ noBroadcast?: boolean
 An object whose keys are derivation prefixes and whose values are corresponding change output numbers from the transaction.
 
 ```ts
-outputMap: Record<string, number>
+outputMap?: Record<string, number>
 ```
 
 ##### Property reference
@@ -3744,38 +3753,17 @@ outputMap: Record<string, number>
 The reference number provided by `createTransaction` or `getTransactionWithOutputs`
 
 ```ts
-reference: string
-```
-
-##### Property resultFormat
-
-If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
-Otherwise, the results will use `EnvelopeEvidenceApi` format.
-
-```ts
-resultFormat?: "beef"
+reference?: string
 ```
 
 ##### Property submittedTransaction
 
 The transaction that has been created and signed
 
-```ts
-submittedTransaction: string | Buffer
-```
-
-##### Property trustSelf
-
-The `trustSelf` mode under which this transaction was created and is to be processed.
-
-If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
-and results will include new rawTx and proof chains for new outputs.
-
-If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
-and results will exclude new rawTx and proof chains for new outputs. The transaction txid will be valid.
+Treated as an alias for rawTx.
 
 ```ts
-trustSelf?: TrustSelf
+submittedTransaction?: string | Buffer | number[]
 ```
 
 </details>
@@ -3788,8 +3776,10 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export interface DojoProcessTransactionResultApi {
     txid: string;
+    transactionId: number;
     status: "sending" | "unproven" | "failed" | "nosend";
     mapiResponses: MapiResponseApi[];
+    sendWithResults?: DojoSendWithResultsApi[];
     log?: string;
 }
 ```
@@ -4084,10 +4074,7 @@ export interface DojoCreateTransactionParams {
     labels?: string[];
     note?: string;
     recipient?: string;
-    trustSelf?: TrustSelf;
-    knownTxids?: string[];
-    resultFormat?: "beef";
-    noBroadcast?: boolean;
+    options?: CreateActionOptions;
     log?: string;
 }
 ```
@@ -4120,15 +4107,6 @@ Optional. Specific inputs to draw on when creating outputs.
 inputs?: Record<string, DojoTxInputsApi>
 ```
 
-##### Property knownTxids
-
-If the caller already has envelopes or BUMPS for certain txids, pass them in this
-array and they will be assumed to be valid and not returned again in the results.
-
-```ts
-knownTxids?: string[]
-```
-
 ##### Property labels
 
 Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
@@ -4156,23 +4134,20 @@ Optional transaction processing history
 log?: string
 ```
 
-##### Property noBroadcast
-
-If true, successfully created transactions remain in the `nosend` state.
-A proof will be sought but it will not be considered an error if the txid remains unknown.
-
-Supports testing, user control over broadcasting of transactions, and batching.
-
-```ts
-noBroadcast?: boolean
-```
-
 ##### Property note
 
 Optional. A human-readable note detailing this transaction (Optional)
 
 ```ts
 note?: string
+```
+
+##### Property options
+
+Processing options.
+
+```ts
+options?: CreateActionOptions
 ```
 
 ##### Property outputGeneration
@@ -4197,27 +4172,6 @@ Optional. The Paymail handle of the recipient of this transaction (Optional)
 
 ```ts
 recipient?: string
-```
-
-##### Property resultFormat
-
-If 'beef', the results will format new transaction and supporting input proofs in BEEF format.
-Otherwise, the results will use `EnvelopeEvidenceApi` format.
-
-```ts
-resultFormat?: "beef"
-```
-
-##### Property trustSelf
-
-If undefined, normal case, all inputs must be provably valid by chain of rawTx and merkle proof values,
-and results will include new rawTx and proof chains for new outputs.
-
-If 'known', any input txid corresponding to a previously processed transaction may ommit its rawTx and proofs,
-and results will exclude new rawTx and proof chains for new outputs.
-
-```ts
-trustSelf?: TrustSelf
 ```
 
 ##### Property version
@@ -4281,20 +4235,48 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ```ts
 export interface DojoCreateTransactionResultApi {
     inputs: Record<string, DojoCreatingTxInputsApi>;
+    inputBeef?: number[];
     outputs: DojoCreatingTxOutputApi[];
+    noSendChangeOutputVouts?: number[];
     derivationPrefix: string;
     version: number;
     lockTime: number;
     referenceNumber: string;
-    paymailHandle: string;
     note?: string;
-    trustSelf?: TrustSelf;
-    knownTxids?: string[];
-    resultFormat?: "beef";
-    noBroadcast?: boolean;
+    options: CreateActionOptions;
     log?: string;
+    paymailHandle?: string;
 }
 ```
+
+<details>
+
+<summary>Interface DojoCreateTransactionResultApi Details</summary>
+
+##### Property inputBeef
+
+This will be a partially valid serialized BEEF value.
+
+Includes proof data for the inputs to the transaction being created.
+Some txids may be `known`, either by Dojo or the user, in which case
+their rawTx are not included.
+
+It is recommended to the `@babbage/sdk-ts` package's `Beef` class to
+deserialize and complete the creation of a valid beef.
+
+```ts
+inputBeef?: number[]
+```
+
+##### Property paymailHandle
+
+DEPRECATED
+
+```ts
+paymailHandle?: string
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4551,27 +4533,27 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [CwiError](#class-cwierror) | [ERR_DOJO_INVALID_REFERENCE](#class-err_dojo_invalid_reference) | [ERR_DOJO_SYNC_MERGE](#class-err_dojo_sync_merge) |
-| [ERR_BAD_REQUEST](#class-err_bad_request) | [ERR_DOJO_INVALID_SATOSHIS](#class-err_dojo_invalid_satoshis) | [ERR_DOJO_SYNC_REFNUM](#class-err_dojo_sync_refnum) |
-| [ERR_CHAIN](#class-err_chain) | [ERR_DOJO_INVALID_SCRIPT](#class-err_dojo_invalid_script) | [ERR_DOJO_SYNC_STATE](#class-err_dojo_sync_state) |
-| [ERR_CHAIN_INVALID](#class-err_chain_invalid) | [ERR_DOJO_INVALID_TIME](#class-err_dojo_invalid_time) | [ERR_DOJO_SYNC_STATUS](#class-err_dojo_sync_status) |
-| [ERR_DOJO_BROADCAST_DUPE](#class-err_dojo_broadcast_dupe) | [ERR_DOJO_INVALID_TRANSACTION_STATUS](#class-err_dojo_invalid_transaction_status) | [ERR_DOJO_SYNC_TOTAL](#class-err_dojo_sync_total) |
-| [ERR_DOJO_BROADCAST_FAILED](#class-err_dojo_broadcast_failed) | [ERR_DOJO_INVALID_TXID](#class-err_dojo_invalid_txid) | [ERR_DOJO_TRANSACTION_NOT_FOUND](#class-err_dojo_transaction_not_found) |
-| [ERR_DOJO_CERT_DUPE](#class-err_dojo_cert_dupe) | [ERR_DOJO_INVALID_TX_LABEL](#class-err_dojo_invalid_tx_label) | [ERR_DOJO_TRANSACTION_REJECTED](#class-err_dojo_transaction_rejected) |
-| [ERR_DOJO_CERT_INVALID](#class-err_dojo_cert_invalid) | [ERR_DOJO_INVALID_TX_RECIPIENT](#class-err_dojo_invalid_tx_recipient) | [ERR_DOJO_TX_BAD_AMOUNT](#class-err_dojo_tx_bad_amount) |
-| [ERR_DOJO_CERT_SUBJECT](#class-err_dojo_cert_subject) | [ERR_DOJO_LABEL_NOT_FOUND](#class-err_dojo_label_not_found) | [ERR_DOJO_UNKNOWN_FEE_MODEL](#class-err_dojo_unknown_fee_model) |
-| [ERR_DOJO_COMPLETED_TX](#class-err_dojo_completed_tx) | [ERR_DOJO_NOT_SUFFICIENT_ACCEPTED_FUNDS](#class-err_dojo_not_sufficient_accepted_funds) | [ERR_DOJO_VALIDATION](#class-err_dojo_validation) |
-| [ERR_DOJO_CREATE_TX_EMPTY](#class-err_dojo_create_tx_empty) | [ERR_DOJO_NOT_SUFFICIENT_FUNDS](#class-err_dojo_not_sufficient_funds) | [ERR_DOUBLE_SPEND](#class-err_double_spend) |
-| [ERR_DOJO_FOREIGN_KEY](#class-err_dojo_foreign_key) | [ERR_DOJO_NOT_SUFFICIENT_PROVEN_FUNDS](#class-err_dojo_not_sufficient_proven_funds) | [ERR_INTERNAL](#class-err_internal) |
-| [ERR_DOJO_INVALID_BASKET_NAME](#class-err_dojo_invalid_basket_name) | [ERR_DOJO_NO_ENVELOPE](#class-err_dojo_no_envelope) | [ERR_INVALID_PARAMETER](#class-err_invalid_parameter) |
-| [ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS](#class-err_dojo_invalid_custom_instructions) | [ERR_DOJO_PAYMAIL_MISMATCH](#class-err_dojo_paymail_mismatch) | [ERR_MISSING_PARAMETER](#class-err_missing_parameter) |
-| [ERR_DOJO_INVALID_NOTE](#class-err_dojo_invalid_note) | [ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY](#class-err_dojo_paymail_not_formatted_correctly) | [ERR_NOT_IMPLEMENTED](#class-err_not_implemented) |
-| [ERR_DOJO_INVALID_OUTPOINT](#class-err_dojo_invalid_outpoint) | [ERR_DOJO_PAYMAIL_NOT_FOUND](#class-err_dojo_paymail_not_found) | [ERR_TXID_INVALID](#class-err_txid_invalid) |
-| [ERR_DOJO_INVALID_OUTPUT_DESCRIPTION](#class-err_dojo_invalid_output_description) | [ERR_DOJO_PAYMAIL_UNAVAILABLE](#class-err_dojo_paymail_unavailable) | [ERR_TXID_UNKNOWN](#class-err_txid_unknown) |
-| [ERR_DOJO_INVALID_OUTPUT_TAG](#class-err_dojo_invalid_output_tag) | [ERR_DOJO_PROCESS_PENDING_OUTGOING](#class-err_dojo_process_pending_outgoing) | [ERR_UNAUTHORIZED](#class-err_unauthorized) |
-| [ERR_DOJO_INVALID_PAYMAIL_DOMAIN](#class-err_dojo_invalid_paymail_domain) | [ERR_DOJO_PROVEN_TX](#class-err_dojo_proven_tx) | [ScriptTemplateSABPPP](#class-scripttemplatesabppp) |
-| [ERR_DOJO_INVALID_PAYMAIL_HANDLE](#class-err_dojo_invalid_paymail_handle) | [ERR_DOJO_REQUEST_EXPIRED](#class-err_dojo_request_expired) |  |
-| [ERR_DOJO_INVALID_REDEEM](#class-err_dojo_invalid_redeem) | [ERR_DOJO_SENDER_SIGNATURE_CHECK](#class-err_dojo_sender_signature_check) |  |
+| [CwiError](#class-cwierror) | [ERR_DOJO_INVALID_REDEEM](#class-err_dojo_invalid_redeem) | [ERR_DOJO_REQUEST_EXPIRED](#class-err_dojo_request_expired) |
+| [ERR_BAD_REQUEST](#class-err_bad_request) | [ERR_DOJO_INVALID_REFERENCE](#class-err_dojo_invalid_reference) | [ERR_DOJO_SENDER_SIGNATURE_CHECK](#class-err_dojo_sender_signature_check) |
+| [ERR_CHAIN](#class-err_chain) | [ERR_DOJO_INVALID_SATOSHIS](#class-err_dojo_invalid_satoshis) | [ERR_DOJO_SYNC_MERGE](#class-err_dojo_sync_merge) |
+| [ERR_CHAIN_INVALID](#class-err_chain_invalid) | [ERR_DOJO_INVALID_SCRIPT](#class-err_dojo_invalid_script) | [ERR_DOJO_SYNC_REFNUM](#class-err_dojo_sync_refnum) |
+| [ERR_DOJO_BROADCAST_DUPE](#class-err_dojo_broadcast_dupe) | [ERR_DOJO_INVALID_TIME](#class-err_dojo_invalid_time) | [ERR_DOJO_SYNC_STATE](#class-err_dojo_sync_state) |
+| [ERR_DOJO_BROADCAST_FAILED](#class-err_dojo_broadcast_failed) | [ERR_DOJO_INVALID_TRANSACTION_STATUS](#class-err_dojo_invalid_transaction_status) | [ERR_DOJO_SYNC_STATUS](#class-err_dojo_sync_status) |
+| [ERR_DOJO_CERT_DUPE](#class-err_dojo_cert_dupe) | [ERR_DOJO_INVALID_TXID](#class-err_dojo_invalid_txid) | [ERR_DOJO_SYNC_TOTAL](#class-err_dojo_sync_total) |
+| [ERR_DOJO_CERT_INVALID](#class-err_dojo_cert_invalid) | [ERR_DOJO_INVALID_TX_LABEL](#class-err_dojo_invalid_tx_label) | [ERR_DOJO_TRANSACTION_NOT_FOUND](#class-err_dojo_transaction_not_found) |
+| [ERR_DOJO_CERT_SUBJECT](#class-err_dojo_cert_subject) | [ERR_DOJO_INVALID_TX_RECIPIENT](#class-err_dojo_invalid_tx_recipient) | [ERR_DOJO_TRANSACTION_REJECTED](#class-err_dojo_transaction_rejected) |
+| [ERR_DOJO_COMPLETED_TX](#class-err_dojo_completed_tx) | [ERR_DOJO_LABEL_NOT_FOUND](#class-err_dojo_label_not_found) | [ERR_DOJO_TX_BAD_AMOUNT](#class-err_dojo_tx_bad_amount) |
+| [ERR_DOJO_CREATE_TX_EMPTY](#class-err_dojo_create_tx_empty) | [ERR_DOJO_NOSENDCHANGE](#class-err_dojo_nosendchange) | [ERR_DOJO_UNKNOWN_FEE_MODEL](#class-err_dojo_unknown_fee_model) |
+| [ERR_DOJO_FOREIGN_KEY](#class-err_dojo_foreign_key) | [ERR_DOJO_NOT_SUFFICIENT_ACCEPTED_FUNDS](#class-err_dojo_not_sufficient_accepted_funds) | [ERR_DOJO_VALIDATION](#class-err_dojo_validation) |
+| [ERR_DOJO_INVALID_BASKET_NAME](#class-err_dojo_invalid_basket_name) | [ERR_DOJO_NOT_SUFFICIENT_FUNDS](#class-err_dojo_not_sufficient_funds) | [ERR_DOUBLE_SPEND](#class-err_double_spend) |
+| [ERR_DOJO_INVALID_BEEF](#class-err_dojo_invalid_beef) | [ERR_DOJO_NOT_SUFFICIENT_PROVEN_FUNDS](#class-err_dojo_not_sufficient_proven_funds) | [ERR_INTERNAL](#class-err_internal) |
+| [ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS](#class-err_dojo_invalid_custom_instructions) | [ERR_DOJO_NO_ENVELOPE](#class-err_dojo_no_envelope) | [ERR_INVALID_PARAMETER](#class-err_invalid_parameter) |
+| [ERR_DOJO_INVALID_NOTE](#class-err_dojo_invalid_note) | [ERR_DOJO_PAYMAIL_MISMATCH](#class-err_dojo_paymail_mismatch) | [ERR_MISSING_PARAMETER](#class-err_missing_parameter) |
+| [ERR_DOJO_INVALID_OUTPOINT](#class-err_dojo_invalid_outpoint) | [ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY](#class-err_dojo_paymail_not_formatted_correctly) | [ERR_NOT_IMPLEMENTED](#class-err_not_implemented) |
+| [ERR_DOJO_INVALID_OUTPUT_DESCRIPTION](#class-err_dojo_invalid_output_description) | [ERR_DOJO_PAYMAIL_NOT_FOUND](#class-err_dojo_paymail_not_found) | [ERR_TXID_INVALID](#class-err_txid_invalid) |
+| [ERR_DOJO_INVALID_OUTPUT_TAG](#class-err_dojo_invalid_output_tag) | [ERR_DOJO_PAYMAIL_UNAVAILABLE](#class-err_dojo_paymail_unavailable) | [ERR_TXID_UNKNOWN](#class-err_txid_unknown) |
+| [ERR_DOJO_INVALID_PAYMAIL_DOMAIN](#class-err_dojo_invalid_paymail_domain) | [ERR_DOJO_PROCESS_PENDING_OUTGOING](#class-err_dojo_process_pending_outgoing) | [ERR_UNAUTHORIZED](#class-err_unauthorized) |
+| [ERR_DOJO_INVALID_PAYMAIL_HANDLE](#class-err_dojo_invalid_paymail_handle) | [ERR_DOJO_PROVEN_TX](#class-err_dojo_proven_tx) | [ScriptTemplateSABPPP](#class-scripttemplatesabppp) |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4937,6 +4919,19 @@ export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+#### Class: ERR_DOJO_NOSENDCHANGE
+
+outputToRedeem is invalid
+
+```ts
+export class ERR_DOJO_NOSENDCHANGE extends CwiError {
+    constructor(description: string | OutPoint) 
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Class: ERR_DOJO_INVALID_REDEEM
 
 outputToRedeem is invalid
@@ -5100,6 +5095,19 @@ Basket names must have one visible character and not more than 1000.
 ```ts
 export class ERR_DOJO_INVALID_BASKET_NAME extends CwiError {
     constructor() 
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_BEEF
+
+Basket names must have one visible character and not more than 1000.
+
+```ts
+export class ERR_DOJO_INVALID_BEEF extends CwiError {
+    constructor(description?: string) 
 }
 ```
 
@@ -7244,7 +7252,7 @@ Initial status (attempts === 0):
 
 unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
 
-nosend: transaction was marked 'noBroadcast'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
+nosend: transaction was marked 'noSend'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
 
 sending: At least one attempt to send rawTx to transaction processors has occured without confirmation of acceptance.
 
