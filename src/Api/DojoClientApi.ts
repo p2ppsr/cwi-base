@@ -1788,9 +1788,12 @@ export interface DojoCreatingTxInputsApi extends DojoTxInputsApi {
 export interface DojoCreateTransactionResultApi {
    inputs: Record<string, DojoCreatingTxInputsApi>
    /**
-    * Valid if `resultFormat` is 'beef', in which case `inputs` will be an empty object.
-    * 
     * This will be a partially valid serialized BEEF value.
+    * 
+    * Includes proof data for the inputs to the transaction being created.
+    * Some txids may be `known`, either by Dojo or the user, in which case
+    * their rawTx are not included.
+    * 
     * It is recommended to the `@babbage/sdk-ts` package's `Beef` class to
     * deserialize and complete the creation of a valid beef.
     */
