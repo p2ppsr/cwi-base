@@ -1293,6 +1293,7 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
    updated_at?: Date | null
    txid: string
    callbackID?: string
+   beef?: Buffer | null
    rawTx?: Buffer
    /**
       * JSON string of processing history.
@@ -1502,8 +1503,19 @@ export interface DojoPendingTxApi {
  */
 export interface DojoProcessTransactionParams {
    /**
-    * Valid if `options.resultFormat` is 'beef',
-    * in which case `submittedTransaction` and `inputs` are undefined.
+    * The transaction that has been created and signed
+    */
+   submittedTransaction?: string | Buffer | number[]
+   /**
+    * Unique reference number for submittedTransaciton provided by `createTransaction` or `getTransactionWithOutputs`
+    */
+   reference?: string
+   /**
+    * Supporting evidence for submittedTransaction inputs in `EnvelopeEvidenceApi` format.
+    */
+   inputs?: Record<string, OptionalEnvelopeEvidenceApi>
+   /**
+    * Supporting evidence for submittedTransaction inputs in serialized BEEF format.
     */
    beef?: number[]
    /**
@@ -1513,23 +1525,9 @@ export interface DojoProcessTransactionParams {
     */
    noSendChange?: OutPoint[]
    /**
-    * The transaction that has been created and signed
-    * 
-    * Treated as an alias for rawTx.
-    */
-   submittedTransaction?: string | Buffer | number[]
-   /**
-    * The reference number provided by `createTransaction` or `getTransactionWithOutputs`
-    */
-   reference?: string
-   /**
     * An object whose keys are derivation prefixes and whose values are corresponding change output numbers from the transaction.
     */
    outputMap?: Record<string, number>
-   /**
-    * Inputs to spend as part of this transaction (only used for doublespend processing)
-    */
-   inputs?: Record<string, OptionalEnvelopeEvidenceApi>
    /**
     * Processing options.
     */
@@ -1578,6 +1576,9 @@ export interface DojoProcessTransactionResultApi {
    transactionId: number
    status: 'sending' | 'unproven' | 'failed' | 'nosend'
    mapiResponses: MapiResponseApi[]
+   beef?: number[]
+   rawTx?: string
+   inputs?: Record<string, OptionalEnvelopeEvidenceApi>
    sendWithResults?: DojoSendWithResultsApi[]
    log?: string
 }

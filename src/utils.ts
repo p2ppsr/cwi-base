@@ -89,7 +89,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 /**
- * Coerce a value to Buffer if currently encoded as a string
+ * Coerce a value to Buffer if currently encoded as a string or 
  * @param val Buffer or string or number[]. If string, encoding param applies. If number[], Buffer.from constructor is used.
  * @param encoding defaults to 'hex'. Only applies to val of type string
  * @returns input val if it is a Buffer or new Buffer from string val
