@@ -3185,6 +3185,7 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
     updated_at?: Date | null;
     txid: string;
     callbackID?: string;
+    beef?: Buffer | null;
     rawTx?: Buffer;
     history: string;
     notify: string;
@@ -3645,12 +3646,12 @@ Input parameters for Dojo and Ninja processTransaction
 
 ```ts
 export interface DojoProcessTransactionParams {
-    beef?: number[];
-    noSendChange?: OutPoint[];
     submittedTransaction?: string | Buffer | number[];
     reference?: string;
-    outputMap?: Record<string, number>;
     inputs?: Record<string, OptionalEnvelopeEvidenceApi>;
+    beef?: number[];
+    noSendChange?: OutPoint[];
+    outputMap?: Record<string, number>;
     options?: CreateActionOptions;
     acceptDelayedBroadcast?: boolean;
     log?: string;
@@ -3699,8 +3700,7 @@ acceptDelayedBroadcast?: boolean
 
 ##### Property beef
 
-Valid if `options.resultFormat` is 'beef',
-in which case `submittedTransaction` and `inputs` are undefined.
+Supporting evidence for submittedTransaction inputs in serialized BEEF format.
 
 ```ts
 beef?: number[]
@@ -3708,7 +3708,7 @@ beef?: number[]
 
 ##### Property inputs
 
-Inputs to spend as part of this transaction (only used for doublespend processing)
+Supporting evidence for submittedTransaction inputs in `EnvelopeEvidenceApi` format.
 
 ```ts
 inputs?: Record<string, OptionalEnvelopeEvidenceApi>
@@ -3750,7 +3750,7 @@ outputMap?: Record<string, number>
 
 ##### Property reference
 
-The reference number provided by `createTransaction` or `getTransactionWithOutputs`
+Unique reference number for submittedTransaciton provided by `createTransaction` or `getTransactionWithOutputs`
 
 ```ts
 reference?: string
@@ -3759,8 +3759,6 @@ reference?: string
 ##### Property submittedTransaction
 
 The transaction that has been created and signed
-
-Treated as an alias for rawTx.
 
 ```ts
 submittedTransaction?: string | Buffer | number[]
@@ -3779,6 +3777,9 @@ export interface DojoProcessTransactionResultApi {
     transactionId: number;
     status: "sending" | "unproven" | "failed" | "nosend";
     mapiResponses: MapiResponseApi[];
+    beef?: number[];
+    rawTx?: string;
+    inputs?: Record<string, OptionalEnvelopeEvidenceApi>;
     sendWithResults?: DojoSendWithResultsApi[];
     log?: string;
 }
@@ -5815,7 +5816,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Function: asBuffer
 
-Coerce a value to Buffer if currently encoded as a string
+Coerce a value to Buffer if currently encoded as a string or
 
 ```ts
 export function asBuffer(val: Buffer | string | number[], encoding?: BufferEncoding): Buffer {
