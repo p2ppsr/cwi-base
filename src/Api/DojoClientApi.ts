@@ -1890,9 +1890,47 @@ export interface DojoSubmitDirectTransactionParams {
   amount?: number
 }
 
-
-
 export interface DojoSubmitDirectTransactionResultApi {
    transactionId: number
    referenceNumber: string
+}
+
+/**
+ * The Dojo database stores a variety of data that may be considered transient.
+ * 
+ * At one extreme, the data that must be preserved:
+ *   - unspent outputs (UTXOs)
+ *   - in-use metadata (labels, baskets, tags...)
+ * 
+ * At the other extreme, everything can be preserved to fully log all transaction creation and processing actions.
+ * 
+ * The following purge actions are available to support sustained operation:
+ *   - Failed transactions, delete all data including:
+ *       + Delete tag and label mapping records
+ *       + Delete output records
+ *       + Delete transaction records
+ *       + Delete proven_tx_reqs records
+ *   - Completed transactions, delete transient data including:
+ *       + transactions table set truncatedExternalInputs = null
+ *       + transactions table set inputBeef = null
+ *       + transactions table set rawTransaction = null
+ *       + proven_tx_reqs table delete records
+ */
+export interface DojoPurgeParams {
+   purgeCompleted: boolean
+   purgeFailed: boolean
+
+   /**
+    * Minimum age in msecs for transient completed transaction data purge.
+    * 
+    * Default is 14 days.
+    */
+   purgeCompletedAge?: number
+
+   /**
+    * Minimum age in msecs for failed transaction data purge.
+    * 
+    * Default is 14 days.
+    */
+   purgeFailedAge?: number
 }
