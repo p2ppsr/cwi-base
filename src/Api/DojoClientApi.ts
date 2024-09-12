@@ -1910,9 +1910,11 @@ export interface DojoSubmitDirectTransactionResultApi {
  *       + Delete output records
  *       + Delete transaction records
  *       + Delete proven_tx_reqs records
+ *       + Delete commissions records
+ *       + Update output records marked spentBy failed transaction
  *   - Completed transactions, delete transient data including:
  *       + transactions table set truncatedExternalInputs = null
- *       + transactions table set inputBeef = null
+ *       + transactions table set beef = null
  *       + transactions table set rawTransaction = null
  *       + proven_tx_reqs table delete records
  */
