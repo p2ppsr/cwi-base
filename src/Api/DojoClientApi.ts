@@ -1936,3 +1936,8 @@ export interface DojoPurgeParams {
     */
    purgeFailedAge?: number
 }
+
+export interface DojoPurgeResults {
+   count: number,
+   log: string
+}
