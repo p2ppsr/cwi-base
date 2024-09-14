@@ -1905,17 +1905,19 @@ export interface DojoSubmitDirectTransactionResultApi {
  * At the other extreme, everything can be preserved to fully log all transaction creation and processing actions.
  * 
  * The following purge actions are available to support sustained operation:
- *   - Failed transactions, delete all data including:
+ *   - Failed transactions, delete all associated data including:
  *       + Delete tag and label mapping records
  *       + Delete output records
  *       + Delete transaction records
+ *       + Delete mapi_responses records
  *       + Delete proven_tx_reqs records
  *       + Delete commissions records
- *       + Update output records marked spentBy failed transaction
+ *       + Update output records marked spentBy failed transactions
  *   - Completed transactions, delete transient data including:
  *       + transactions table set truncatedExternalInputs = null
  *       + transactions table set beef = null
  *       + transactions table set rawTransaction = null
+ *       + Delete mapi_responses records
  *       + proven_tx_reqs table delete records
  */
 export interface DojoPurgeParams {
