@@ -1,4 +1,5 @@
 import {
+   Beef,
    CreateActionOptions,
    CreateCertificateResult,
    DojoSendWithResultsApi,
@@ -454,6 +455,8 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * @param options limit defaults to 25, offset defaults to 0, order defaults to 'descending'
       */
    getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>
+
+   getBeefForTransaction(txid: string, options?: DojoGetBeefOptions) : Promise<Beef>
 
    /**
       * Returns an Everett Style envelope for the given txid.
@@ -1942,4 +1945,19 @@ export interface DojoPurgeParams {
 export interface DojoPurgeResults {
    count: number,
    log: string
+}
+
+export interface DojoGetBeefOptions {
+    trustSelf?: boolean
+    knownTxids?: string[]
+    /** optional. If defined, raw transactions and merkle paths required by txid are merged to this instance and returned. Otherwise a new Beef is constructed and returned. */
+    mergeToBeef?: Beef | number[]
+    /** optional. Default is false. `dojo.storage` is used for raw transaction and merkle proof lookup */
+    ignoreStorage?: boolean
+    /** optional. Default is false. `dojo.getServices` is used for raw transaction and merkle proof lookup */
+    ignoreServices?: boolean
+    /** optional. Default is false. If true, raw transactions with proofs missing from `dojo.storage` and obtained from `dojo.getServices` are not inserted to `dojo.storage`. */
+    ignoreNewProven?: boolean
+    /** optional. Default is zero. Ignores available merkle paths until recursion detpth equals or exceeds value  */
+    minProofLevel?: number
 }
