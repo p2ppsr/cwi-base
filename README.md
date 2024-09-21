@@ -12,37 +12,37 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
-| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
-| [BlockHeader](#interface-blockheader) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
-| [BlockHeaderHex](#interface-blockheaderhex) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
-| [CertifierDetails](#interface-certifierdetails) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
-| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
-| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
-| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
-| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserApi](#interface-dojouserapi) |
-| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
-| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [IdentityGroup](#interface-identitygroup) |
-| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams) | [IdentityGroupMember](#interface-identitygroupmember) |
-| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
-| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
-| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
-| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
-| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoPurgeParams](#interface-dojopurgeparams) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
-| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoPurgeResults](#interface-dojopurgeresults) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
-| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoStatsApi](#interface-dojostatsapi) | [Result](#interface-result) |
-| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [ScriptTemplateParamsSABPPP](#interface-scripttemplateparamssabppp) |
-| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [Settings](#interface-settings) |
+| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) |
+| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
+| [BlockHeader](#interface-blockheader) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
+| [BlockHeaderHex](#interface-blockheaderhex) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
+| [CertifierDetails](#interface-certifierdetails) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
+| [ChaintracksApi](#interface-chaintracksapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
+| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
+| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
+| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
+| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserApi](#interface-dojouserapi) |
+| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [IdentityGroup](#interface-identitygroup) |
+| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams) | [IdentityGroupMember](#interface-identitygroupmember) |
+| [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi) | [LiveBlockHeader](#interface-liveblockheader) |
+| [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProvenTxApi](#interface-dojoproventxapi) | [LiveBlockHeaderHex](#interface-liveblockheaderhex) |
+| [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi) | [DojoProvenTxReqApi](#interface-dojoproventxreqapi) | [MapiCallbackPayloadApi](#interface-mapicallbackpayloadapi) |
+| [DojoCreatingTxInputsApi](#interface-dojocreatingtxinputsapi) | [DojoPublicApi](#interface-dojopublicapi) | [MapiPostTxPayloadApi](#interface-mapiposttxpayloadapi) |
+| [DojoCreatingTxInstructionsApi](#interface-dojocreatingtxinstructionsapi) | [DojoPurgeParams](#interface-dojopurgeparams) | [MapiTxStatusPayloadApi](#interface-mapitxstatuspayloadapi) |
+| [DojoCreatingTxOutputApi](#interface-dojocreatingtxoutputapi) | [DojoPurgeResults](#interface-dojopurgeresults) | [MapiTxidReturnResultApi](#interface-mapitxidreturnresultapi) |
+| [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi) | [DojoStatsApi](#interface-dojostatsapi) | [Result](#interface-result) |
+| [DojoFeeModelApi](#interface-dojofeemodelapi) | [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi) | [ScriptTemplateParamsSABPPP](#interface-scripttemplateparamssabppp) |
+| [DojoGetBeefOptions](#interface-dojogetbeefoptions) | [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi) | [Settings](#interface-settings) |
 | [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions) | [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams) | [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi) |
 | [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [SyncDojoConfigCloudUrl](#interface-syncdojoconfigcloudurl) |
 | [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSyncApi](#interface-dojosyncapi) | [SyncDojoConfigMySqlConnection](#interface-syncdojoconfigmysqlconnection) |
 | [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) | [SyncDojoConfigSqliteFile](#interface-syncdojoconfigsqlitefile) |
 | [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) | [TrustEvaluatorParams](#interface-trustevaluatorparams) |
 | [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) | [TrxToken](#interface-trxtoken) |
-| [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncMapApi](#interface-dojosyncmapapi) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1292,6 +1292,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>;
     getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>;
     getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>;
+    getBeefForTransaction(txid: string, options?: DojoGetBeefOptions): Promise<Beef>;
     getEnvelopeForTransaction(txid: string): Promise<EnvelopeApi | undefined>;
     getEnvelopesOfConflictingTransactions(txid: string): Promise<EnvelopeApi[]>;
     getPendingTransactions(referenceNumber?: string): Promise<DojoPendingTxApi[]>;
@@ -4510,6 +4511,69 @@ export interface DojoPurgeResults {
     log: string;
 }
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetBeefOptions
+
+```ts
+export interface DojoGetBeefOptions {
+    trustSelf?: boolean;
+    knownTxids?: string[];
+    mergeToBeef?: Beef | number[];
+    ignoreStorage?: boolean;
+    ignoreServices?: boolean;
+    ignoreNewProven?: boolean;
+    minProofLevel?: number;
+}
+```
+
+<details>
+
+<summary>Interface DojoGetBeefOptions Details</summary>
+
+##### Property ignoreNewProven
+
+optional. Default is false. If true, raw transactions with proofs missing from `dojo.storage` and obtained from `dojo.getServices` are not inserted to `dojo.storage`.
+
+```ts
+ignoreNewProven?: boolean
+```
+
+##### Property ignoreServices
+
+optional. Default is false. `dojo.getServices` is used for raw transaction and merkle proof lookup
+
+```ts
+ignoreServices?: boolean
+```
+
+##### Property ignoreStorage
+
+optional. Default is false. `dojo.storage` is used for raw transaction and merkle proof lookup
+
+```ts
+ignoreStorage?: boolean
+```
+
+##### Property mergeToBeef
+
+optional. If defined, raw transactions and merkle paths required by txid are merged to this instance and returned. Otherwise a new Beef is constructed and returned.
+
+```ts
+mergeToBeef?: Beef | number[]
+```
+
+##### Property minProofLevel
+
+optional. Default is zero. Ignores available merkle paths until recursion detpth equals or exceeds value
+
+```ts
+minProofLevel?: number
+```
+
+</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
