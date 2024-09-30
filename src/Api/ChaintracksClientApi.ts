@@ -1,3 +1,4 @@
+import { ChainTracker } from '@bsv/sdk'
 import { BaseBlockHeader, BaseBlockHeaderHex, BlockHeader, BlockHeaderHex } from './BlockHeaderApi'
 import { Chain } from './CwiBaseApi'
 
@@ -38,7 +39,7 @@ export interface ChaintracksInfoApi {
  * Chaintracks client API excluding events and callbacks
  * @public
  */
-export interface ChaintracksClientApi {
+export interface ChaintracksClientApi extends ChainTracker {
   /**
      * Confirms the chain
      */
@@ -222,6 +223,7 @@ export interface ChaintracksClientApi {
      */
   unsubscribe(subscriptionId: string) : Promise<boolean>
 
+  isValidRootForHeight(root: string, height: number) : Promise<boolean>
 }
 
 /**
