@@ -389,7 +389,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 Chaintracks client API excluding events and callbacks
 
 ```ts
-export interface ChaintracksClientApi {
+export interface ChaintracksClientApi extends ChainTracker {
     getChain(): Promise<Chain>;
     getInfo(): Promise<ChaintracksInfoApi>;
     getPresentHeight(): Promise<number>;
@@ -415,6 +415,7 @@ export interface ChaintracksClientApi {
     subscribeHeaders(listener: HeaderListener): Promise<string>;
     subscribeReorgs(listener: ReorgListener): Promise<string>;
     unsubscribe(subscriptionId: string): Promise<boolean>;
+    isValidRootForHeight(root: string, height: number): Promise<boolean>;
 }
 ```
 
