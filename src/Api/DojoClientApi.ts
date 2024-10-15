@@ -1,5 +1,6 @@
 import {
    Beef,
+   BeefTx,
    CreateActionOptions,
    CreateCertificateResult,
    DojoSendWithResultsApi,
@@ -789,6 +790,12 @@ export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBas
      */
   includeEnvelope?: boolean
   /**
+   * If true, returns `Beef` for SPV spendable output validity proofs.
+   */
+  includeBeef?: boolean
+  trustSelf?: 'known'
+  knownTxids?: string[]
+  /**
      * If provided, returns customInstructions for each output.
      * Note that includeEnvelope also enables including customInstructions
      */
@@ -825,6 +832,7 @@ export interface DojoGetTransactionsResultApi {
 export interface DojoGetTransactionOutputsResultApi {
    outputs: DojoOutputXApi[],
    total: number
+   beef: number[] | undefined
 }
 
 export interface DojoGetTransactionLabelsResultApi {
@@ -1515,22 +1523,25 @@ export interface DojoProcessTransactionParams {
    reference?: string
    /**
     * Supporting evidence for submittedTransaction inputs in `EnvelopeEvidenceApi` format.
+    * obsolete...
     */
    inputs?: Record<string, OptionalEnvelopeEvidenceApi>
    /**
     * Supporting evidence for submittedTransaction inputs in serialized BEEF format.
+    * obsolete...
     */
    beef?: number[]
+   /**
+    * An object whose keys are derivation prefixes and whose values are corresponding change output numbers from the transaction.
+    * obsolete...
+    */
+   outputMap?: Record<string, number>
    /**
     * Valid for options.noSend true.
     * 
     * Change output(s) that may be forwarded to chained noSend transactions.
     */
    noSendChange?: OutPoint[]
-   /**
-    * An object whose keys are derivation prefixes and whose values are corresponding change output numbers from the transaction.
-    */
-   outputMap?: Record<string, number>
    /**
     * Processing options.
     */
@@ -1722,6 +1733,11 @@ export interface DojoCreateTransactionParams {
     */
    inputs?: Record<string, DojoTxInputsApi>,
    /**
+    * Optional. Alternate source of validity proof data for `inputs`.
+    * If `number[]` it must be serialized `Beef`.
+    */
+   beef?: Beef | number[],
+   /**
     * Optional. Algorithmic control over source of additional inputs that may be needed.
     */
    inputSelection?: DojoTxInputSelectionApi,
@@ -1767,7 +1783,7 @@ export interface DojoCreateTransactionParams {
    log?: string
 }
 
-export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
+export interface DojoCreateTxResultOutputApi extends DojoCreateTxOutputApi {
    vout: number
    providedBy: DojoProvidedByApi
    purpose?: string
@@ -1776,7 +1792,7 @@ export interface DojoCreatingTxOutputApi extends DojoCreateTxOutputApi {
    keyOffset?: string
 }
 
-export interface DojoCreatingTxInstructionsApi {
+export interface DojoCreateTxResultInstructionsApi {
    type: string
    paymailHandle?: string
    derivationPrefix?: string
@@ -1784,13 +1800,20 @@ export interface DojoCreatingTxInstructionsApi {
    senderIdentityKey?: string
 }
 
-export interface DojoCreatingTxInputsApi extends DojoTxInputsApi {
+export interface DojoCreatingTxInputsApi {
+   outputsToRedeem: DojoOutputToRedeemApi[]
+   beefTx: BeefTx
+}
+
+export interface DojoCreateTxResultInputsApi extends DojoTxInputsApi, OptionalEnvelopeEvidenceApi {
    providedBy: DojoProvidedByApi
-   instructions: Record<number, DojoCreatingTxInstructionsApi>
+   instructions: Record<number, DojoCreateTxResultInstructionsApi>
+   outputsToRedeem: DojoOutputToRedeemApi[]
+   txid: string
 }
 
 export interface DojoCreateTransactionResultApi {
-   inputs: Record<string, DojoCreatingTxInputsApi>
+   inputs: Record<string, DojoCreateTxResultInputsApi>
    /**
     * This will be a partially valid serialized BEEF value.
     * 
@@ -1802,7 +1825,7 @@ export interface DojoCreateTransactionResultApi {
     * deserialize and complete the creation of a valid beef.
     */
    inputBeef?: number[]
-   outputs: DojoCreatingTxOutputApi[]
+   outputs: DojoCreateTxResultOutputApi[]
    noSendChangeOutputVouts?: number[]
    derivationPrefix: string
    version: number
@@ -1948,7 +1971,7 @@ export interface DojoPurgeResults {
 }
 
 export interface DojoGetBeefOptions {
-    trustSelf?: boolean
+    trustSelf?: 'known'
     knownTxids?: string[]
     /** optional. If defined, raw transactions and merkle paths required by txid are merged to this instance and returned. Otherwise a new Beef is constructed and returned. */
     mergeToBeef?: Beef | number[]
