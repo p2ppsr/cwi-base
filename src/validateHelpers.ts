@@ -262,7 +262,7 @@ export function validateUnlockScriptWithBsvSdk(
     inputIndex: vin,
     unlockingScript: verifyTruthy(input.unlockingScript),
     outputs: spendingTx.outputs,
-    inputSequence: input.sequence,
+    inputSequence: input.sequence || 0xFFFFFFFF,
     lockTime: spendingTx.lockTime
   })
 
