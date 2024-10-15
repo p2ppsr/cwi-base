@@ -114,6 +114,10 @@ export class ERR_DOJO_INVALID_NOTE extends CwiError { constructor () { super('ER
  */
 export class ERR_DOJO_INVALID_REFERENCE extends CwiError { constructor (reference?: string) { super('ERR_DOJO_INVALID_REFERENCE', `The transaction reference (${reference ?? ''}) is invalid.`) } }
 /**
+ * The transaction BEEF is invalid.
+ */
+export class ERR_DOJO_INVALID_TRANSACTION_BEEF extends CwiError { constructor (description?: string) { super('ERR_DOJO_INVALID_TRANSACTION_BEEF', description || `The transaction BEEF is invalid.`) } }
+/**
  * An amount of satoshis must be a non-negative integer less than 21e14.
  */
 export class ERR_DOJO_INVALID_SATOSHIS extends CwiError { constructor () { super('ERR_DOJO_INVALID_SATOSHIS', 'An amount of satoshis must be a non-negative integer less than 21e14.') } }
