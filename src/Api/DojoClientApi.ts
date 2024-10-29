@@ -14,7 +14,7 @@ import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
 
 /**
- * Public Dojo Api
+ * Public Dojo Api 
  * No Authrite authentication required.
  * Not specific to any userId
  */
