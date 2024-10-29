@@ -677,6 +677,11 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    */
    getMerkleRootForHeight(height: number): Promise<string | undefined>
 
+   /**
+    * @returns serialized block header for the given height or undefined, if height is invalid or unknown.
+   */
+   getHeaderForHeight(height: number): Promise<number[] | undefined>
+
     /**
      * Releases any persistent resources held by this dojo.
      * 
