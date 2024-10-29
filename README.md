@@ -3460,7 +3460,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 ---
 #### Interface: DojoPublicApi
 
-Public Dojo Api
+Public Dojo Api 
 No Authrite authentication required.
 Not specific to any userId
 
