@@ -49,81 +49,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ---
 
-#### Interface: CertifierDetails
-
-```ts
-export interface CertifierDetails {
-    name: string;
-    icon: string;
-    note: string;
-    publicKey: string;
-    trust: number;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: Result
-
-```ts
-export interface Result {
-    subject: string;
-    certifier: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: Settings
-
-```ts
-export interface Settings {
-    trustThreshold: number;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: TrustEvaluatorParams
-
-```ts
-export interface TrustEvaluatorParams {
-    settings: Settings;
-    certifiers: CertifierDetails[];
-    results: Result[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: IdentityGroupMember
-
-```ts
-export interface IdentityGroupMember {
-    certifier: CertifierDetails;
-    subject: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: IdentityGroup
-
-```ts
-export interface IdentityGroup {
-    totalTrust: number;
-    members: IdentityGroupMember[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Interface: BaseBlockHeader
 
 These are fields of 80 byte serialized header in order whose double sha256 hash is a block's hash value
@@ -228,6 +153,8 @@ export interface BlockHeader extends BaseBlockHeader {
 }
 ```
 
+See also: [BaseBlockHeader](#interface-baseblockheader)
+
 <details>
 
 <summary>Interface BlockHeader Details</summary>
@@ -264,123 +191,68 @@ export interface BlockHeaderHex extends BaseBlockHeaderHex {
 }
 ```
 
+See also: [BaseBlockHeaderHex](#interface-baseblockheaderhex)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: LiveBlockHeader
-
-The "live" portion of the block chain is recent history that can conceivably be subject to reorganizations.
-The additional fields support tracking orphan blocks, chain forks, and chain reorgs.
+#### Interface: CertifierDetails
 
 ```ts
-export interface LiveBlockHeader extends BlockHeader {
-    chainWork: Buffer;
-    isChainTip: boolean;
-    isActive: boolean;
-    headerId: number;
-    previousHeaderId: number | null;
+export interface CertifierDetails {
+    name: string;
+    icon: string;
+    note: string;
+    publicKey: string;
+    trust: number;
 }
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: ChaintracksApi
+
+Full Chaintracks API including startListening with callbacks
+
+```ts
+export interface ChaintracksApi extends ChaintracksClientApi {
+    startListening(listening?: () => void): Promise<void>;
+}
+```
+
+See also: [ChaintracksClientApi](#interface-chaintracksclientapi)
 
 <details>
 
-<summary>Interface LiveBlockHeader Details</summary>
+<summary>Interface ChaintracksApi Details</summary>
 
-##### Property chainWork
+##### Method startListening
 
-The cummulative chainwork achieved by the addition of this block to the chain.
-Chainwork only matters in selecting the active chain.
+Start or resume listening for new headers.
 
-```ts
-chainWork: Buffer
-```
+Calls `synchronize` to catch up on headers that were found while not listening.
 
-##### Property headerId
+Begins listening to any number of configured new header notification services.
 
-As there may be more than one header with identical height values due to orphan tracking,
-headers are assigned a unique headerId while part of the "live" portion of the block chain.
+Begins sending notifications to subscribed listeners only after processing any
+previously found headers.
 
-```ts
-headerId: number
-```
+May be called if already listening or synchronizing to listen.
 
-##### Property isActive
-
-True only if this header is currently on the active chain.
+`listening` callback will be called after listening for new live headers has begun.
+Alternatively, the `listening` API function which returns a Promise can be awaited.
 
 ```ts
-isActive: boolean
+startListening(listening?: () => void): Promise<void>
 ```
 
-##### Property isChainTip
+Argument Details
 
-True only if this header is currently a chain tip. e.g. There is no header that follows it by previousHash or previousHeaderId.
-
-```ts
-isChainTip: boolean
-```
-
-##### Property previousHeaderId
-
-Every header in the "live" portion of the block chain is linked to an ancestor header through
-both its previousHash and previousHeaderId properties.
-
-Due to forks, there may be multiple headers with identical `previousHash` and `previousHeaderId` values.
-Of these, only one (the header on the active chain) will have `isActive` === true.
-
-```ts
-previousHeaderId: number | null
-```
++ **listening**
+  + callback indicates when listening for new headers has started.
 
 </details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: LiveBlockHeaderHex
-
-Like LiveBlockHeader but 32 byte fields are hex encoded strings.
-
-```ts
-export interface LiveBlockHeaderHex extends BlockHeaderHex {
-    chainWork: string;
-    isChainTip: boolean;
-    isActive: boolean;
-    headerId: number;
-    previousHeaderId: number | null;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: ChaintracksPackageInfoApi
-
-```ts
-export interface ChaintracksPackageInfoApi {
-    name: string;
-    version: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: ChaintracksInfoApi
-
-```ts
-export interface ChaintracksInfoApi {
-    chain: Chain;
-    heightBulk: number;
-    heightLive: number;
-    storageEngine: string;
-    bulkStorage: string | undefined;
-    bulkIndex: string | undefined;
-    bulkIngestors: string[];
-    liveIngestors: string[];
-    packages: ChaintracksPackageInfoApi[];
-}
-```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -420,6 +292,8 @@ export interface ChaintracksClientApi extends ChainTracker {
 }
 ```
 
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [Chain](#type-chain), [ChaintracksInfoApi](#interface-chaintracksinfoapi), [HeaderListener](#type-headerlistener), [ReorgListener](#type-reorglistener)
+
 <details>
 
 <summary>Interface ChaintracksClientApi Details</summary>
@@ -436,6 +310,7 @@ is considered for insertion.
 ```ts
 addHeader(header: BaseBlockHeader | BaseBlockHeaderHex): Promise<void>
 ```
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex)
 
 Returns
 
@@ -464,6 +339,7 @@ Returns the active chain tip header
 ```ts
 findChainTipHeader(): Promise<BlockHeader>
 ```
+See also: [BlockHeader](#interface-blockheader)
 
 ##### Method findChainTipHeaderHex
 
@@ -472,6 +348,7 @@ Returns the active chain tip header
 ```ts
 findChainTipHeaderHex(): Promise<BlockHeaderHex>
 ```
+See also: [BlockHeaderHex](#interface-blockheaderhex)
 
 ##### Method findChainWorkForBlockHash
 
@@ -506,6 +383,7 @@ Returns block header for a given block hash
 ```ts
 findHeaderForBlockHash(hash: Buffer | string): Promise<BlockHeader | undefined>
 ```
+See also: [BlockHeader](#interface-blockheader)
 
 Argument Details
 
@@ -519,6 +397,7 @@ Returns block header for a given block height on active chain.
 ```ts
 findHeaderForHeight(height: number): Promise<BlockHeader | undefined>
 ```
+See also: [BlockHeader](#interface-blockheader)
 
 ##### Method findHeaderForMerkleRoot
 
@@ -530,6 +409,7 @@ Confirms that the found header has the request merkleRoot or returns undefined.
 ```ts
 findHeaderForMerkleRoot(merkleRoot: Buffer | string, height?: number): Promise<BlockHeader | undefined>
 ```
+See also: [BlockHeader](#interface-blockheader)
 
 Argument Details
 
@@ -543,6 +423,7 @@ Returns block header for a given block hash
 ```ts
 findHeaderHexForBlockHash(hash: Buffer | string): Promise<BlockHeaderHex | undefined>
 ```
+See also: [BlockHeaderHex](#interface-blockheaderhex)
 
 Argument Details
 
@@ -556,6 +437,7 @@ Returns block header for a given block height on active chain.
 ```ts
 findHeaderHexForHeight(height: number): Promise<BlockHeaderHex | undefined>
 ```
+See also: [BlockHeaderHex](#interface-blockheaderhex)
 
 ##### Method findHeaderHexForMerkleRoot
 
@@ -567,6 +449,7 @@ Confirms that the found header has the request merkleRoot or returns undefined.
 ```ts
 findHeaderHexForMerkleRoot(root: Buffer | string, height?: number): Promise<BlockHeaderHex | undefined>
 ```
+See also: [BlockHeaderHex](#interface-blockheaderhex)
 
 Argument Details
 
@@ -580,6 +463,7 @@ Confirms the chain
 ```ts
 getChain(): Promise<Chain>
 ```
+See also: [Chain](#type-chain)
 
 ##### Method getHeaders
 
@@ -620,6 +504,7 @@ Argument Details
 ```ts
 getInfo(): Promise<ChaintracksInfoApi>
 ```
+See also: [ChaintracksInfoApi](#interface-chaintracksinfoapi)
 
 Returns
 
@@ -684,6 +569,7 @@ Subscribe to "header" events.
 ```ts
 subscribeHeaders(listener: HeaderListener): Promise<string>
 ```
+See also: [HeaderListener](#type-headerlistener)
 
 Returns
 
@@ -700,6 +586,7 @@ Subscribe to "reorganization" events.
 ```ts
 subscribeReorgs(listener: ReorgListener): Promise<string>
 ```
+See also: [ReorgListener](#type-reorglistener)
 
 Returns
 
@@ -736,134 +623,92 @@ ERR_NOT_IMPLEMENTED if callback events are not supported
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: ChaintracksApi
-
-Full Chaintracks API including startListening with callbacks
+#### Interface: ChaintracksInfoApi
 
 ```ts
-export interface ChaintracksApi extends ChaintracksClientApi {
-    startListening(listening?: () => void): Promise<void>;
+export interface ChaintracksInfoApi {
+    chain: Chain;
+    heightBulk: number;
+    heightLive: number;
+    storageEngine: string;
+    bulkStorage: string | undefined;
+    bulkIndex: string | undefined;
+    bulkIngestors: string[];
+    liveIngestors: string[];
+    packages: ChaintracksPackageInfoApi[];
 }
 ```
 
-<details>
-
-<summary>Interface ChaintracksApi Details</summary>
-
-##### Method startListening
-
-Start or resume listening for new headers.
-
-Calls `synchronize` to catch up on headers that were found while not listening.
-
-Begins listening to any number of configured new header notification services.
-
-Begins sending notifications to subscribed listeners only after processing any
-previously found headers.
-
-May be called if already listening or synchronizing to listen.
-
-`listening` callback will be called after listening for new live headers has begun.
-Alternatively, the `listening` API function which returns a Promise can be awaited.
-
-```ts
-startListening(listening?: () => void): Promise<void>
-```
-
-Argument Details
-
-+ **listening**
-  + callback indicates when listening for new headers has started.
-
-</details>
+See also: [Chain](#type-chain), [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoPublicApi
-
-Public Dojo Api
-No Authrite authentication required.
-Not specific to any userId
+#### Interface: ChaintracksPackageInfoApi
 
 ```ts
-export interface DojoPublicApi {
-    getChain(): Promise<Chain>;
-    stats(): Promise<DojoStatsApi>;
+export interface ChaintracksPackageInfoApi {
+    name: string;
+    version: string;
 }
 ```
-
-<details>
-
-<summary>Interface DojoPublicApi Details</summary>
-
-##### Method getChain
-
-Return the chain served by this Dojo
-
-Also serves to verifies that all dependent services are on same chain.
-
-```ts
-getChain(): Promise<Chain>
-```
-
-##### Method stats
-
-```ts
-stats(): Promise<DojoStatsApi>
-```
-
-Returns
-
-general storage statistics
-
-</details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: SyncDojoConfigBaseApi
-
-Each syncDojo config has the following properties:
-
-'dojoType' one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection'
-'dojoIdentityKey' the identity key of the syncDojo.
-'dojoName' the name of the syncDojo.
+#### Interface: DojoAliasApi
 
 ```ts
-export interface SyncDojoConfigBaseApi {
-    dojoType: SyncDojoConfigType;
-    dojoIdentityKey: string;
-    dojoName?: string;
+export interface DojoAliasApi extends DojoEntityTimeStampApi {
+    aliasId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    alias: string;
+    domain: string;
+    avatarName?: string;
+    avatarPhotoURL?: string;
+    reservationCompleted: boolean;
+    userId: number;
+    destinationBasketId: number;
 }
 ```
 
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
 <details>
 
-<summary>Interface SyncDojoConfigBaseApi Details</summary>
+<summary>Interface DojoAliasApi Details</summary>
 
-##### Property dojoIdentityKey
+##### Property alias
 
-the identity key of the syncDojo.
+max length of 30
 
 ```ts
-dojoIdentityKey: string
+alias: string
 ```
 
-##### Property dojoName
+##### Property avatarName
 
-the name of the syncDojo.
+max length of 30
 
 ```ts
-dojoName?: string
+avatarName?: string
 ```
 
-##### Property dojoType
+##### Property avatarPhotoURL
 
-one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection' | '<custom>'
+max length of 100
 
 ```ts
-dojoType: SyncDojoConfigType
+avatarPhotoURL?: string
+```
+
+##### Property domain
+
+max length of 30
+
+```ts
+domain: string
 ```
 
 </details>
@@ -871,54 +716,33 @@ dojoType: SyncDojoConfigType
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: SyncDojoConfigCloudUrl
-
-The derived `SyncDojoConfigCloudUrl` interface adds:
-
-'url' the service URL of the cloud dojo with which to sync
-
-'clientPrivateKey' should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
-
-'useIdentityKey' may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
-
-The cloud dojo must exists and must already be configured with matching dojoIdentityKey.
-  
-If neither 'clientPrivateKey' or 'useIdentityKey' has a value, will attempt to use the Babbage signing strategy for Authrite.
+#### Interface: DojoAvatarApi
 
 ```ts
-export interface SyncDojoConfigCloudUrl extends SyncDojoConfigBaseApi {
-    url: string;
-    clientPrivateKey?: string;
-    useIdentityKey?: boolean;
+export interface DojoAvatarApi {
+    name: string;
+    photoURL: string;
 }
 ```
 
 <details>
 
-<summary>Interface SyncDojoConfigCloudUrl Details</summary>
+<summary>Interface DojoAvatarApi Details</summary>
 
-##### Property clientPrivateKey
+##### Property name
 
-should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
+The name of the user
 
 ```ts
-clientPrivateKey?: string
+name: string
 ```
 
-##### Property url
+##### Property photoURL
 
-the service URL of the cloud dojo with which to sync
-
-```ts
-url: string
-```
-
-##### Property useIdentityKey
-
-may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
+An HTTPS or UHRP URL to a photo of the user
 
 ```ts
-useIdentityKey?: boolean
+photoURL: string
 ```
 
 </details>
@@ -926,55 +750,111 @@ useIdentityKey?: boolean
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: SyncDojoConfigMySqlConnection
+#### Interface: DojoCertificateApi
 
 ```ts
-export interface SyncDojoConfigMySqlConnection extends SyncDojoConfigBaseApi {
-    connection: string;
+export interface DojoCertificateApi extends DojoEntityTimeStampApi, CreateCertificateResult {
+    certificateId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    userId: number;
+    type: string;
+    subject: string;
+    validationKey: string;
+    serialNumber: string;
+    certifier: string;
+    revocationOutpoint: string;
+    signature: string;
+    fields?: Record<string, string>;
+    masterKeyring?: Record<string, string>;
+    isDeleted?: boolean;
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: SyncDojoConfigSqliteFile
-
-```ts
-export interface SyncDojoConfigSqliteFile extends SyncDojoConfigBaseApi {
-    filename: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoIdentityApi
-
-```ts
-export interface DojoIdentityApi {
-    dojoIdentityKey: string;
-    dojoName?: string;
-}
-```
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
 
 <details>
 
-<summary>Interface DojoIdentityApi Details</summary>
+<summary>Interface DojoCertificateApi Details</summary>
 
-##### Property dojoIdentityKey
+##### Property certifier
 
-The identity key (public key) assigned to this dojo
+max length of 255
 
 ```ts
-dojoIdentityKey: string
+certifier: string
 ```
 
-##### Property dojoName
+##### Property fields
 
-The human readable name assigned to this dojo.
+Certificate fields object constructed from fieldName and fieldValue properties of DojoCertificateFieldApi instances associated with this certificate.
 
 ```ts
-dojoName?: string
+fields?: Record<string, string>
+```
+
+##### Property isDeleted
+
+Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
+
+```ts
+isDeleted?: boolean
+```
+
+##### Property masterKeyring
+
+Certificate masterKeyring object constructed from fieldName and masterKey properties of DojoCertificateFieldApi instances associated with this certificate.
+
+```ts
+masterKeyring?: Record<string, string>
+```
+
+##### Property revocationOutpoint
+
+max length of 255
+
+```ts
+revocationOutpoint: string
+```
+
+##### Property serialNumber
+
+max length of 255
+
+```ts
+serialNumber: string
+```
+
+##### Property signature
+
+max length of 255
+
+```ts
+signature: string
+```
+
+##### Property subject
+
+max length of 255
+
+```ts
+subject: string
+```
+
+##### Property type
+
+max length of 255
+
+```ts
+type: string
+```
+
+##### Property validationKey
+
+max length of 255
+
+```ts
+validationKey: string
 ```
 
 </details>
@@ -982,284 +862,51 @@ dojoName?: string
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoSyncErrorApi
+#### Interface: DojoCertificateFieldApi
 
 ```ts
-export interface DojoSyncErrorApi {
-    code: string;
-    description: string;
-    stack?: string;
+export interface DojoCertificateFieldApi extends DojoEntityTimeStampApi {
+    userId: number;
+    certificateId: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    fieldName: string;
+    fieldValue: string;
+    masterKey: string;
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncMapApi
-
-```ts
-export interface DojoSyncMapApi {
-    aliasIds: Record<number, number>;
-    certificateIds: Record<number, number>;
-    commissionIds: Record<number, number>;
-    responseIds: Record<number, number>;
-    basketIds: Record<number, number>;
-    outputIds: Record<number, number>;
-    provenTxReqIds: Record<number, number>;
-    provenTxIds: Record<number, number>;
-    txIds: Record<number, number>;
-    txLabelIds: Record<number, number>;
-    outputTagIds: Record<number, number>;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncIdentifyParams
-
-Receipt of `DojoSyncIdentityParams` via the `syncIdentify` function starts a dojo to dojo sync.
-
-It may also force a restart of the sync protocol.
-
-The purpose of the `Identify` phase is to identify both dojo's to each other,
-the identity of the authenticated user, and the last known sync_state.
-
-```ts
-export interface DojoSyncIdentifyParams {
-    protocolVersion: DojoSyncProtocolVersion;
-    userIdentityKey: string;
-    dojoIdentityKey: string;
-    dojoName?: string;
-    refNum: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncIdentifyResultApi
-
-```ts
-export interface DojoSyncIdentifyResultApi {
-    refNum: string;
-    identityKey: string;
-    name?: string;
-    status: DojoSyncStatus;
-    when?: Date;
-    error?: DojoSyncErrorApi;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncUpdateParams
-
-```ts
-export interface DojoSyncUpdateParams {
-    protocolVersion: DojoSyncProtocolVersion;
-    refNum: string;
-    since?: Date;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncUpdateResultApi
-
-```ts
-export interface DojoSyncUpdateResultApi {
-    refNum: string;
-    status: DojoSyncStatus;
-    since?: Date;
-    state?: DojoUserStateApi;
-    error?: DojoSyncErrorApi;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncMergeParams
-
-```ts
-export interface DojoSyncMergeParams {
-    protocolVersion: DojoSyncProtocolVersion;
-    refNum: string;
-    when?: Date;
-    state?: DojoUserStateApi;
-    total?: number;
-    iSyncMap?: DojoSyncMapApi;
-    error?: DojoSyncErrorApi;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncMergeResultApi
-
-```ts
-export interface DojoSyncMergeResultApi {
-    refNum: string;
-    status: DojoSyncStatus;
-    iSyncMap?: DojoSyncMapApi;
-    error?: DojoSyncErrorApi;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncApi
-
-Dojo Sync Protocol
-
-The Dojo Sync Protocol keeps multiple UTXO management services (Dojos) synchronized as updates occur between them.
-
-The protocol relies on the properties of the blockchain to handle specific conflicts.
-
-It is intended to support use cases where there is a primary dojo which periodically synchronizes to backup "syncDojos".
-
-There is no formal conrol within the protocol for determining the primary dojo or transitioning between roles.
-
-Synchronization is initiated from the primary Dojo.
-
-Step 1. Run through the configured syncDojos calling syncIdentify which shares the local dojo and syncDojo's identities.
-Any syncDojo that responds is added to activeSyncDojos.
-
-Step 2. Run through the activeSyncDojos calling syncUpdate.
-
-```ts
-export interface DojoSyncApi {
-    syncIdentify(params: DojoSyncIdentifyParams): Promise<DojoSyncIdentifyResultApi>;
-    syncUpdate(params: DojoSyncUpdateParams): Promise<DojoSyncUpdateResultApi>;
-    syncMerge(params: DojoSyncMergeParams): Promise<DojoSyncMergeResultApi>;
-    authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>;
-    getSyncDojoConfig(): Promise<SyncDojoConfigBaseApi>;
-}
-```
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
 
 <details>
 
-<summary>Interface DojoSyncApi Details</summary>
+<summary>Interface DojoCertificateFieldApi Details</summary>
 
-##### Method authenticate
+##### Property fieldName
 
-For Dojo scenarios where it is permissible for Dojo to directly act as
-a specified user, authenticate that user by supplying their identityKey
-
-For Dojo scenarios where authrite is used to authenticate the local user
-to a potentially remote Dojo server:
-- If identityKey has a value then it used and must match the authenticated value.
-- If identityKey is undefined, the authenticated value is used.
-
-Sets userId and identityKey
+max length of 100
 
 ```ts
-authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+fieldName: string
 ```
 
-Argument Details
+##### Property fieldValue
 
-+ **identityKey**
-  + optional, 33 hex encoded bytes, the user to authenticate's identity key
-+ **addIfNew**
-  + optional, if true, unknown identityKey is added as new user.
-
-Throws
-
-ERR_UNAUTHORIZED if identityKey is required and invalid
-
-##### Method getSyncDojoConfig
-
-Returns the configuration of this dojo as a syncDojo
+max length of 255
 
 ```ts
-getSyncDojoConfig(): Promise<SyncDojoConfigBaseApi>
+fieldValue: string
 ```
 
-##### Method syncIdentify
+##### Property masterKey
 
-Called to initiate the sync protocol.
-
-This is the initial protocol step to exchange dojo identityKeys and
-configure the records in the sync_state and sync_history tables to support the sync protocol.
+base64 encrypted master field revelation key
 
 ```ts
-syncIdentify(params: DojoSyncIdentifyParams): Promise<DojoSyncIdentifyResultApi>
-```
-
-Returns
-
-Equivalent parameters for this syncDojo.
-
-Argument Details
-
-+ **params**
-  + Parameters identifying the primary initiating dojo, user, sarting status and protocol version.
-
-##### Method syncMerge
-
-Informs a syncDojo of the result of merging state received from them.
-
-This is the only valid way that the syncDojo's `when` field in `sync_state` is updated which is critical to
-guaranteeing that un-merged changes are presented until successfully merged.
-
-```ts
-syncMerge(params: DojoSyncMergeParams): Promise<DojoSyncMergeResultApi>
-```
-
-##### Method syncUpdate
-
-Receive a state update for the authenticated user from a remote dojo
-and respond with merge result and any pre-merge local state update
-for the data interval from `since` to `when`
-
-```ts
-syncUpdate(params: DojoSyncUpdateParams): Promise<DojoSyncUpdateResultApi>
+masterKey: string
 ```
 
 </details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSyncOptionsApi
-
-```ts
-export interface DojoSyncOptionsApi {
-    disableSync?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface DojoSyncOptionsApi Details</summary>
-
-##### Property disableSync
-
-If true, sync is disabled.
-
-```ts
-disableSync?: boolean
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: TrxToken
-
-Place holder for the transaction control object used by actual storage provider implementation.
-
-```ts
-export interface TrxToken {
-}
-```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1313,9 +960,12 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     unbasketOutput(partial: Partial<DojoOutputApi>, trx?: TrxToken): Promise<void>;
     getHeight(): Promise<number>;
     getMerkleRootForHeight(height: number): Promise<string | undefined>;
+    getHeaderForHeight(height: number): Promise<number[] | undefined>;
     destroy(): Promise<void>;
 }
 ```
+
+See also: [DojoAvatarApi](#interface-dojoavatarapi), [DojoCertificateApi](#interface-dojocertificateapi), [DojoClientUserApi](#interface-dojoclientuserapi), [DojoCreateTransactionParams](#interface-dojocreatetransactionparams), [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi), [DojoGetBeefOptions](#interface-dojogetbeefoptions), [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions), [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions), [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi), [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions), [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi), [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions), [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi), [DojoIdentityApi](#interface-dojoidentityapi), [DojoLoggerApi](#type-dojologgerapi), [DojoOutputApi](#interface-dojooutputapi), [DojoOutputBasketApi](#interface-dojooutputbasketapi), [DojoOutputTagApi](#interface-dojooutputtagapi), [DojoPendingTxApi](#interface-dojopendingtxapi), [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams), [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi), [DojoPublicApi](#interface-dojopublicapi), [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams), [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi), [DojoSyncApi](#interface-dojosyncapi), [DojoSyncOptionsApi](#interface-dojosyncoptionsapi), [DojoTransactionApi](#interface-dojotransactionapi), [DojoTransactionStatusApi](#type-dojotransactionstatusapi), [DojoTxLabelApi](#interface-dojotxlabelapi), [DojoUserStateApi](#interface-dojouserstateapi), [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi), [TrxToken](#interface-trxtoken)
 
 <details>
 
@@ -1355,6 +1005,7 @@ Return a complete copy of all records for the authenticated user.
 ```ts
 copyState(since?: Date): Promise<DojoUserStateApi>
 ```
+See also: [DojoUserStateApi](#interface-dojouserstateapi)
 
 Argument Details
 
@@ -1372,6 +1023,7 @@ additional Dojo-managed UTXOs will be generated to collect the remainder
 ```ts
 createTransaction(params: DojoCreateTransactionParams): Promise<DojoCreateTransactionResultApi>
 ```
+See also: [DojoCreateTransactionParams](#interface-dojocreatetransactionparams), [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi)
 
 Argument Details
 
@@ -1423,6 +1075,7 @@ where the certifier and type values match one of the optionaly
 ```ts
 findCertificates(certifiers?: string[], types?: Record<string, string[]>): Promise<DojoCertificateApi[]>
 ```
+See also: [DojoCertificateApi](#interface-dojocertificateapi)
 
 Argument Details
 
@@ -1438,6 +1091,7 @@ Returns the name and photo URL of the user
 ```ts
 getAvatar(): Promise<DojoAvatarApi>
 ```
+See also: [DojoAvatarApi](#interface-dojoavatarapi)
 
 Returns
 
@@ -1493,6 +1147,16 @@ Argument Details
 + **txid**
   + double hash of raw transaction as hex string
 
+##### Method getHeaderForHeight
+
+```ts
+getHeaderForHeight(height: number): Promise<number[] | undefined>
+```
+
+Returns
+
+serialized block header for the given height or undefined, if height is invalid or unknown.
+
 ##### Method getHeight
 
 Returns the current chain height of the network
@@ -1526,6 +1190,7 @@ and optionally matching conditions in `options`.
 ```ts
 getNetOfAmounts(options?: DojoGetTotalOfAmountsOptions): Promise<number>
 ```
+See also: [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions)
 
 ##### Method getPendingTransactions
 
@@ -1545,6 +1210,7 @@ Original Dojo returned only these properties:
 ```ts
 getPendingTransactions(referenceNumber?: string): Promise<DojoPendingTxApi[]>
 ```
+See also: [DojoPendingTxApi](#interface-dojopendingtxapi)
 
 Argument Details
 
@@ -1560,6 +1226,7 @@ and optionally matching conditions in `options`.
 ```ts
 getTotalOfAmounts(direction: "incoming" | "outgoing", options?: DojoGetTotalOfAmountsOptions): Promise<number>
 ```
+See also: [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions)
 
 ##### Method getTotalOfUnspentOutputs
 
@@ -1591,6 +1258,7 @@ Returns transaction labels matching options and total matching count available.
 ```ts
 getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>
 ```
+See also: [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions), [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi)
 
 Argument Details
 
@@ -1604,6 +1272,7 @@ Returns transaction outputs matching options and total matching count available.
 ```ts
 getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>
 ```
+See also: [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions), [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi)
 
 Argument Details
 
@@ -1617,6 +1286,7 @@ Returns transactions matching options and total matching count available.
 ```ts
 getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
 ```
+See also: [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions), [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi)
 
 Argument Details
 
@@ -1631,6 +1301,7 @@ Throws an error if isAuthenticated is false.
 ```ts
 getUser(): DojoClientUserApi
 ```
+See also: [DojoClientUserApi](#interface-dojoclientuserapi)
 
 ##### Method isDojoExpressClient
 
@@ -1654,6 +1325,7 @@ Note: previously if transaction was already labeled, an error was thrown.
 ```ts
 labelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string, trx?: TrxToken): Promise<void>
 ```
+See also: [DojoTransactionApi](#interface-dojotransactionapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1675,6 +1347,7 @@ Differences from v1:
 ```ts
 processTransaction(params: DojoProcessTransactionParams): Promise<DojoProcessTransactionResultApi>
 ```
+See also: [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams), [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi)
 
 Returns
 
@@ -1713,6 +1386,7 @@ If { type, subject, validationKey, serialNumber, userId } already exist, throw E
 ```ts
 saveCertificate(certificate: DojoCertificateApi): Promise<number>
 ```
+See also: [DojoCertificateApi](#interface-dojocertificateapi)
 
 Returns
 
@@ -1725,6 +1399,7 @@ Update the avatar for the authenticated user.
 ```ts
 setAvatar(avatar: DojoAvatarApi): Promise<void>
 ```
+See also: [DojoAvatarApi](#interface-dojoavatarapi)
 
 ##### Method softDeleteCertificate
 
@@ -1733,6 +1408,7 @@ Soft deletes a certificate.
 ```ts
 softDeleteCertificate(partial: Partial<DojoCertificateApi>, trx?: TrxToken): Promise<number>
 ```
+See also: [DojoCertificateApi](#interface-dojocertificateapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1746,6 +1422,7 @@ Soft deletes an output basket.
 ```ts
 softDeleteOutputBasket(partial: Partial<DojoOutputBasketApi>, trx?: TrxToken): Promise<number>
 ```
+See also: [DojoOutputBasketApi](#interface-dojooutputbasketapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1759,6 +1436,7 @@ Soft deletes an output tag.
 ```ts
 softDeleteOutputTag(partial: Partial<DojoOutputTagApi>, trx?: TrxToken): Promise<number>
 ```
+See also: [DojoOutputTagApi](#interface-dojooutputtagapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1772,6 +1450,7 @@ Soft deletes a transaction label.
 ```ts
 softDeleteTxLabel(partial: Partial<DojoTxLabelApi>, trx?: TrxToken): Promise<number>
 ```
+See also: [DojoTxLabelApi](#interface-dojotxlabelapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1789,6 +1468,7 @@ Sets the transaction to completed and marks the outputs as spendable.
 ```ts
 submitDirectTransaction(params: DojoSubmitDirectTransactionParams): Promise<DojoSubmitDirectTransactionResultApi>
 ```
+See also: [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams), [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi)
 
 ##### Method sync
 
@@ -1801,6 +1481,7 @@ User state changes are propagated across all configured syncDojos.
 ```ts
 sync(logger?: DojoLoggerApi): Promise<void>
 ```
+See also: [DojoLoggerApi](#type-dojologgerapi)
 
 Argument Details
 
@@ -1820,6 +1501,7 @@ Adds tag to output if not already tagged.
 ```ts
 tagOutput(partial: Partial<DojoOutputApi>, tag: string, trx?: TrxToken): Promise<void>
 ```
+See also: [DojoOutputApi](#interface-dojooutputapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1839,6 +1521,7 @@ This is typically only useful for outputs that are no longer usefull.
 ```ts
 unbasketOutput(partial: Partial<DojoOutputApi>, trx?: TrxToken): Promise<void>
 ```
+See also: [DojoOutputApi](#interface-dojooutputapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1856,6 +1539,7 @@ Does nothing if transaction is not labeled.
 ```ts
 unlabelTransaction(txid: string | number | Partial<DojoTransactionApi>, label: string, trx?: TrxToken): Promise<void>
 ```
+See also: [DojoTransactionApi](#interface-dojotransactionapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1875,6 +1559,7 @@ Does nothing if output is not tagged.
 ```ts
 untagOutput(partial: Partial<DojoOutputApi>, tag: string, trx?: TrxToken): Promise<void>
 ```
+See also: [DojoOutputApi](#interface-dojooutputapi), [TrxToken](#interface-trxtoken)
 
 Argument Details
 
@@ -1903,6 +1588,7 @@ Updated transaction userId must match authenticated user and referenceNumber mus
 ```ts
 updateTransactionStatus(reference: string, status: DojoTransactionStatusApi): Promise<void>
 ```
+See also: [DojoTransactionStatusApi](#type-dojotransactionstatusapi)
 
 Argument Details
 
@@ -1910,6 +1596,796 @@ Argument Details
   + New transaction status.
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoClientUserApi
+
+```ts
+export interface DojoClientUserApi extends DojoEntityTimeStampApi {
+    userId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    identityKey: string;
+}
+```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
+<details>
+
+<summary>Interface DojoClientUserApi Details</summary>
+
+##### Property identityKey
+
+max length of 130
+hex encoded
+
+```ts
+identityKey: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCommissionApi
+
+```ts
+export interface DojoCommissionApi extends DojoEntityTimeStampApi {
+    commissionId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    transactionId: number;
+    userId: number;
+    isRedeemed: boolean;
+    keyOffset: string;
+    outputScript: Buffer | null;
+    satoshis: number;
+}
+```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
+<details>
+
+<summary>Interface DojoCommissionApi Details</summary>
+
+##### Property keyOffset
+
+max length of 130
+
+```ts
+keyOffset: string
+```
+
+##### Property satoshis
+
+15 integer digits
+
+```ts
+satoshis: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreateTransactionParams
+
+```ts
+export interface DojoCreateTransactionParams {
+    outputs: DojoCreateTxOutputApi[];
+    inputs?: Record<string, DojoTxInputsApi>;
+    beef?: Beef | number[];
+    inputSelection?: DojoTxInputSelectionApi;
+    outputGeneration?: DojoOutputGenerationApi;
+    lockTime?: number;
+    version?: number;
+    feeModel?: DojoFeeModelApi;
+    labels?: string[];
+    note?: string;
+    recipient?: string;
+    options?: CreateActionOptions;
+    log?: string;
+}
+```
+
+See also: [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi), [DojoFeeModelApi](#interface-dojofeemodelapi), [DojoOutputGenerationApi](#interface-dojooutputgenerationapi), [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi), [DojoTxInputsApi](#interface-dojotxinputsapi)
+
+<details>
+
+<summary>Interface DojoCreateTransactionParams Details</summary>
+
+##### Property beef
+
+Optional. Alternate source of validity proof data for `inputs`.
+If `number[]` it must be serialized `Beef`.
+
+```ts
+beef?: Beef | number[]
+```
+
+##### Property feeModel
+
+Optional. An object representing the fee the transaction will pay.
+
+```ts
+feeModel?: DojoFeeModelApi
+```
+See also: [DojoFeeModelApi](#interface-dojofeemodelapi)
+
+##### Property inputSelection
+
+Optional. Algorithmic control over source of additional inputs that may be needed.
+
+```ts
+inputSelection?: DojoTxInputSelectionApi
+```
+See also: [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi)
+
+##### Property inputs
+
+Optional. Specific inputs to draw on when creating outputs.
+
+```ts
+inputs?: Record<string, DojoTxInputsApi>
+```
+See also: [DojoTxInputsApi](#interface-dojotxinputsapi)
+
+##### Property labels
+
+Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
+
+```ts
+labels?: string[]
+```
+
+##### Property lockTime
+
+Optional. Default is zero.
+When the transaction can be processed into a block:
+>= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+< 500,000,000 values are interpreted as minimum required block height
+
+```ts
+lockTime?: number
+```
+
+##### Property log
+
+Optional transaction processing history
+
+```ts
+log?: string
+```
+
+##### Property note
+
+Optional. A human-readable note detailing this transaction (Optional)
+
+```ts
+note?: string
+```
+
+##### Property options
+
+Processing options.
+
+```ts
+options?: CreateActionOptions
+```
+
+##### Property outputGeneration
+
+Optional. Algorithmic control over additional outputs that may be needed.
+
+```ts
+outputGeneration?: DojoOutputGenerationApi
+```
+See also: [DojoOutputGenerationApi](#interface-dojooutputgenerationapi)
+
+##### Property outputs
+
+Possibly empty, explicit outputs, typically external, to create as part of this transaction.
+
+```ts
+outputs: DojoCreateTxOutputApi[]
+```
+See also: [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi)
+
+##### Property recipient
+
+Optional. The Paymail handle of the recipient of this transaction (Optional)
+
+```ts
+recipient?: string
+```
+
+##### Property version
+
+If not undefined, must match value in associated rawTransaction.
+
+```ts
+version?: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreateTransactionResultApi
+
+```ts
+export interface DojoCreateTransactionResultApi {
+    inputs: Record<string, DojoCreateTxResultInputsApi>;
+    inputBeef?: number[];
+    outputs: DojoCreateTxResultOutputApi[];
+    noSendChangeOutputVouts?: number[];
+    derivationPrefix: string;
+    version: number;
+    lockTime: number;
+    referenceNumber: string;
+    note?: string;
+    options: CreateActionOptions;
+    log?: string;
+    paymailHandle?: string;
+}
+```
+
+See also: [DojoCreateTxResultInputsApi](#interface-dojocreatetxresultinputsapi), [DojoCreateTxResultOutputApi](#interface-dojocreatetxresultoutputapi)
+
+<details>
+
+<summary>Interface DojoCreateTransactionResultApi Details</summary>
+
+##### Property inputBeef
+
+This will be a partially valid serialized BEEF value.
+
+Includes proof data for the inputs to the transaction being created.
+Some txids may be `known`, either by Dojo or the user, in which case
+their rawTx are not included.
+
+It is recommended to the `@babbage/sdk-ts` package's `Beef` class to
+deserialize and complete the creation of a valid beef.
+
+```ts
+inputBeef?: number[]
+```
+
+##### Property paymailHandle
+
+DEPRECATED
+
+```ts
+paymailHandle?: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreateTxOutputApi
+
+A specific output to be created as part of a new transactions.
+These outputs can contain custom scripts as specified by recipients.
+
+```ts
+export interface DojoCreateTxOutputApi {
+    script: string;
+    satoshis: number;
+    description?: string;
+    basket?: string;
+    customInstructions?: string;
+    tags?: string[];
+}
+```
+
+<details>
+
+<summary>Interface DojoCreateTxOutputApi Details</summary>
+
+##### Property basket
+
+Destination output basket name for the new UTXO
+
+```ts
+basket?: string
+```
+
+##### Property customInstructions
+
+Custom spending instructions (metadata, string, optional)
+
+```ts
+customInstructions?: string
+```
+
+##### Property description
+
+Human-readable output line-item description
+
+```ts
+description?: string
+```
+
+##### Property satoshis
+
+The amount of the output in satoshis
+
+```ts
+satoshis: number
+```
+
+##### Property script
+
+The output script that will be included, hex encoded
+
+```ts
+script: string
+```
+
+##### Property tags
+
+Optional array of output tags to assign to this output.
+
+```ts
+tags?: string[]
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreateTxResultInputsApi
+
+```ts
+export interface DojoCreateTxResultInputsApi extends DojoTxInputsApi, OptionalEnvelopeEvidenceApi {
+    providedBy: DojoProvidedByApi;
+    instructions: Record<number, DojoCreateTxResultInstructionsApi>;
+    outputsToRedeem: DojoOutputToRedeemApi[];
+    txid: string;
+}
+```
+
+See also: [DojoCreateTxResultInstructionsApi](#interface-dojocreatetxresultinstructionsapi), [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi), [DojoProvidedByApi](#type-dojoprovidedbyapi), [DojoTxInputsApi](#interface-dojotxinputsapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreateTxResultInstructionsApi
+
+```ts
+export interface DojoCreateTxResultInstructionsApi {
+    type: string;
+    paymailHandle?: string;
+    derivationPrefix?: string;
+    derivationSuffix?: string;
+    senderIdentityKey?: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreateTxResultOutputApi
+
+```ts
+export interface DojoCreateTxResultOutputApi extends DojoCreateTxOutputApi {
+    vout: number;
+    providedBy: DojoProvidedByApi;
+    purpose?: string;
+    destinationBasket?: string;
+    derivationSuffix?: string;
+    keyOffset?: string;
+}
+```
+
+See also: [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi), [DojoProvidedByApi](#type-dojoprovidedbyapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoCreatingTxInputsApi
+
+```ts
+export interface DojoCreatingTxInputsApi {
+    outputsToRedeem: DojoOutputToRedeemApi[];
+    beefTx: BeefTx;
+}
+```
+
+See also: [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoEntityTimeStampApi
+
+```ts
+export interface DojoEntityTimeStampApi {
+    created_at?: Date | null;
+    updated_at?: Date | null;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoFeeModelApi
+
+An object representing the fee the transaction will pay.
+
+```ts
+export interface DojoFeeModelApi {
+    model: "sat/kb";
+    value?: number;
+}
+```
+
+<details>
+
+<summary>Interface DojoFeeModelApi Details</summary>
+
+##### Property model
+
+The fee model to use, default "sat/kb"
+
+```ts
+model: "sat/kb"
+```
+
+##### Property value
+
+When "fee.model" is "sat/kb", this is an integer representing the number of satoshis per kb of block space
+the transaction will pay in fees.
+
+If undefined, the default value is used which may vary with market conditions.
+
+```ts
+value?: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetBeefOptions
+
+```ts
+export interface DojoGetBeefOptions {
+    trustSelf?: "known";
+    knownTxids?: string[];
+    mergeToBeef?: Beef | number[];
+    ignoreStorage?: boolean;
+    ignoreServices?: boolean;
+    ignoreNewProven?: boolean;
+    minProofLevel?: number;
+}
+```
+
+<details>
+
+<summary>Interface DojoGetBeefOptions Details</summary>
+
+##### Property ignoreNewProven
+
+optional. Default is false. If true, raw transactions with proofs missing from `dojo.storage` and obtained from `dojo.getServices` are not inserted to `dojo.storage`.
+
+```ts
+ignoreNewProven?: boolean
+```
+
+##### Property ignoreServices
+
+optional. Default is false. `dojo.getServices` is used for raw transaction and merkle proof lookup
+
+```ts
+ignoreServices?: boolean
+```
+
+##### Property ignoreStorage
+
+optional. Default is false. `dojo.storage` is used for raw transaction and merkle proof lookup
+
+```ts
+ignoreStorage?: boolean
+```
+
+##### Property mergeToBeef
+
+optional. If defined, raw transactions and merkle paths required by txid are merged to this instance and returned. Otherwise a new Beef is constructed and returned.
+
+```ts
+mergeToBeef?: Beef | number[]
+```
+
+##### Property minProofLevel
+
+optional. Default is zero. Ignores available merkle paths until recursion detpth equals or exceeds value
+
+```ts
+minProofLevel?: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetTotalOfAmountsOptions
+
+```ts
+export interface DojoGetTotalOfAmountsOptions {
+    label?: string;
+    startTime?: Date | string | number;
+    endTime?: Date | string | number;
+    involving?: string;
+    direction?: "incoming" | "outgoing";
+}
+```
+
+<details>
+
+<summary>Interface DojoGetTotalOfAmountsOptions Details</summary>
+
+##### Property direction
+
+Direction of value flow.
+
+```ts
+direction?: "incoming" | "outgoing"
+```
+
+##### Property endTime
+
+Optional. Match transactions created on or before this time. Seconds since the epoch.
+
+```ts
+endTime?: Date | string | number
+```
+
+##### Property involving
+
+Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
+
+```ts
+involving?: string
+```
+
+##### Property label
+
+Optional. Match transactions with this label.
+
+```ts
+label?: string
+```
+
+##### Property startTime
+
+Optional. Match transactions created on or after this time. Seconds since the epoch.
+
+```ts
+startTime?: Date | string | number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetTransactionLabelsOptions
+
+```ts
+export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBaseOptions {
+    prefix?: string;
+    transactionId?: number;
+    sortBy?: DojoTransactionLabelsSortBy;
+}
+```
+
+See also: [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions), [DojoTransactionLabelsSortBy](#type-dojotransactionlabelssortby)
+
+<details>
+
+<summary>Interface DojoGetTransactionLabelsOptions Details</summary>
+
+##### Property prefix
+
+Optional. Filters labels to include only those starting with the specified prefix.
+
+```ts
+prefix?: string
+```
+
+##### Property sortBy
+
+Optional. Specify whether to sort by 'label' or 'whenLastUsed'.
+
+```ts
+sortBy?: DojoTransactionLabelsSortBy
+```
+See also: [DojoTransactionLabelsSortBy](#type-dojotransactionlabelssortby)
+
+##### Property transactionId
+
+Optional. Filters labels to include only those associated with the specified transaction ID.
+
+```ts
+transactionId?: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetTransactionLabelsResultApi
+
+```ts
+export interface DojoGetTransactionLabelsResultApi {
+    labels: DojoTxLabelApi[];
+    total: number;
+}
+```
+
+See also: [DojoTxLabelApi](#interface-dojotxlabelapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetTransactionOutputsOptions
+
+```ts
+export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
+    basket?: string;
+    tracked?: boolean;
+    spendable?: boolean;
+    tags?: string[];
+    type?: string;
+    includeEnvelope?: boolean;
+    includeBeef?: boolean;
+    trustSelf?: "known";
+    knownTxids?: string[];
+    includeCustomInstructions?: boolean;
+    includeBasket?: boolean;
+    includeTags?: boolean;
+    tagQueryMode?: "all" | "any";
+    noScript?: boolean;
+    partial?: Partial<DojoOutputApi>;
+}
+```
+
+See also: [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions), [DojoOutputApi](#interface-dojooutputapi)
+
+<details>
+
+<summary>Interface DojoGetTransactionOutputsOptions Details</summary>
+
+##### Property basket
+
+If provided, indicates which basket the outputs should be selected from.
+
+```ts
+basket?: string
+```
+
+##### Property includeBasket
+
+If true, the `DojoOutputXApi` `basket` property will be included in results.
+
+```ts
+includeBasket?: boolean
+```
+
+##### Property includeBeef
+
+If true, returns `Beef` for SPV spendable output validity proofs.
+
+```ts
+includeBeef?: boolean
+```
+
+##### Property includeCustomInstructions
+
+If provided, returns customInstructions for each output.
+Note that includeEnvelope also enables including customInstructions
+
+```ts
+includeCustomInstructions?: boolean
+```
+
+##### Property includeEnvelope
+
+If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
+
+```ts
+includeEnvelope?: boolean
+```
+
+##### Property includeTags
+
+If true, the `DojoOutputXApi` `tags` property will be included in results.
+
+```ts
+includeTags?: boolean
+```
+
+##### Property noScript
+
+if true, outputScript is returned as null. scriptLength and scriptOffset remain valid.
+
+```ts
+noScript?: boolean
+```
+
+##### Property spendable
+
+If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
+
+```ts
+spendable?: boolean
+```
+
+##### Property tagQueryMode
+
+When `tags` contains more than one value, determines if each output returned
+must have `all` of the tags or `any` of the tags.
+
+The default is `all`
+
+```ts
+tagQueryMode?: "all" | "any"
+```
+
+##### Property tags
+
+An optional array of output tag names
+
+```ts
+tags?: string[]
+```
+
+##### Property tracked
+
+If provided, only outputs with the corresponding tracked value will be returned (true/false).
+
+```ts
+tracked?: boolean
+```
+
+##### Property type
+
+If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
+
+```ts
+type?: string
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoGetTransactionOutputsResultApi
+
+```ts
+export interface DojoGetTransactionOutputsResultApi {
+    outputs: DojoOutputXApi[];
+    total: number;
+    beef: number[] | undefined;
+}
+```
+
+See also: [DojoOutputXApi](#interface-dojooutputxapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -1923,6 +2399,8 @@ export interface DojoGetTransactionsBaseOptions {
     order?: DojoRecordOrder;
 }
 ```
+
+See also: [DojoRecordOrder](#type-dojorecordorder)
 
 <details>
 
@@ -1951,6 +2429,7 @@ Optional. Set sort order of results.
 ```ts
 order?: DojoRecordOrder
 ```
+See also: [DojoRecordOrder](#type-dojorecordorder)
 
 </details>
 
@@ -1977,6 +2456,8 @@ export interface DojoGetTransactionsOptions extends DojoGetTransactionsBaseOptio
     partial?: Partial<DojoTransactionApi>;
 }
 ```
+
+See also: [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions), [DojoTransactionApi](#interface-dojotransactionapi), [DojoTransactionStatusApi](#type-dojotransactionstatusapi)
 
 <details>
 
@@ -2088,137 +2569,7 @@ Defaults to ['unproven', 'completed']
 ```ts
 status?: DojoTransactionStatusApi | DojoTransactionStatusApi[]
 ```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoGetTransactionOutputsOptions
-
-```ts
-export interface DojoGetTransactionOutputsOptions extends DojoGetTransactionsBaseOptions {
-    basket?: string;
-    tracked?: boolean;
-    spendable?: boolean;
-    tags?: string[];
-    type?: string;
-    includeEnvelope?: boolean;
-    includeBeef?: boolean;
-    trustSelf?: "known";
-    knownTxids?: string[];
-    includeCustomInstructions?: boolean;
-    includeBasket?: boolean;
-    includeTags?: boolean;
-    tagQueryMode?: "all" | "any";
-    noScript?: boolean;
-    partial?: Partial<DojoOutputApi>;
-}
-```
-
-<details>
-
-<summary>Interface DojoGetTransactionOutputsOptions Details</summary>
-
-##### Property basket
-
-If provided, indicates which basket the outputs should be selected from.
-
-```ts
-basket?: string
-```
-
-##### Property includeBasket
-
-If true, the `DojoOutputXApi` `basket` property will be included in results.
-
-```ts
-includeBasket?: boolean
-```
-
-##### Property includeBeef
-
-If true, returns `Beef` for SPV spendable output validity proofs.
-
-```ts
-includeBeef?: boolean
-```
-
-##### Property includeCustomInstructions
-
-If provided, returns customInstructions for each output.
-Note that includeEnvelope also enables including customInstructions
-
-```ts
-includeCustomInstructions?: boolean
-```
-
-##### Property includeEnvelope
-
-If provided, returns a structure with the SPV envelopes for the UTXOS that have not been spent.
-
-```ts
-includeEnvelope?: boolean
-```
-
-##### Property includeTags
-
-If true, the `DojoOutputXApi` `tags` property will be included in results.
-
-```ts
-includeTags?: boolean
-```
-
-##### Property noScript
-
-if true, outputScript is returned as null. scriptLength and scriptOffset remain valid.
-
-```ts
-noScript?: boolean
-```
-
-##### Property spendable
-
-If given as true or false, only outputs that have or have not (respectively) been spent will be returned. If not given, both spent and unspent outputs will be returned.
-
-```ts
-spendable?: boolean
-```
-
-##### Property tagQueryMode
-
-When `tags` contains more than one value, determines if each output returned
-must have `all` of the tags or `any` of the tags.
-
-The default is `all`
-
-```ts
-tagQueryMode?: "all" | "any"
-```
-
-##### Property tags
-
-An optional array of output tag names
-
-```ts
-tags?: string[]
-```
-
-##### Property tracked
-
-If provided, only outputs with the corresponding tracked value will be returned (true/false).
-
-```ts
-tracked?: boolean
-```
-
-##### Property type
-
-If provided, only outputs of the specified type will be returned. If not provided, outputs of all types will be returned.
-
-```ts
-type?: string
-```
+See also: [DojoTransactionStatusApi](#type-dojotransactionstatusapi)
 
 </details>
 
@@ -2234,489 +2585,38 @@ export interface DojoGetTransactionsResultApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoGetTransactionOutputsResultApi
-
-```ts
-export interface DojoGetTransactionOutputsResultApi {
-    outputs: DojoOutputXApi[];
-    total: number;
-    beef: number[] | undefined;
-}
-```
+See also: [DojoTransactionXApi](#interface-dojotransactionxapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoGetTransactionLabelsResultApi
+#### Interface: DojoIdentityApi
 
 ```ts
-export interface DojoGetTransactionLabelsResultApi {
-    labels: DojoTxLabelApi[];
-    total: number;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoGetTransactionLabelsOptions
-
-```ts
-export interface DojoGetTransactionLabelsOptions extends DojoGetTransactionsBaseOptions {
-    prefix?: string;
-    transactionId?: number;
-    sortBy?: DojoTransactionLabelsSortBy;
+export interface DojoIdentityApi {
+    dojoIdentityKey: string;
+    dojoName?: string;
 }
 ```
 
 <details>
 
-<summary>Interface DojoGetTransactionLabelsOptions Details</summary>
+<summary>Interface DojoIdentityApi Details</summary>
 
-##### Property prefix
+##### Property dojoIdentityKey
 
-Optional. Filters labels to include only those starting with the specified prefix.
+The identity key (public key) assigned to this dojo
 
 ```ts
-prefix?: string
+dojoIdentityKey: string
 ```
 
-##### Property sortBy
+##### Property dojoName
 
-Optional. Specify whether to sort by 'label' or 'whenLastUsed'.
-
-```ts
-sortBy?: DojoTransactionLabelsSortBy
-```
-
-##### Property transactionId
-
-Optional. Filters labels to include only those associated with the specified transaction ID.
+The human readable name assigned to this dojo.
 
 ```ts
-transactionId?: number
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoGetTotalOfAmountsOptions
-
-```ts
-export interface DojoGetTotalOfAmountsOptions {
-    label?: string;
-    startTime?: Date | string | number;
-    endTime?: Date | string | number;
-    involving?: string;
-    direction?: "incoming" | "outgoing";
-}
-```
-
-<details>
-
-<summary>Interface DojoGetTotalOfAmountsOptions Details</summary>
-
-##### Property direction
-
-Direction of value flow.
-
-```ts
-direction?: "incoming" | "outgoing"
-```
-
-##### Property endTime
-
-Optional. Match transactions created on or before this time. Seconds since the epoch.
-
-```ts
-endTime?: Date | string | number
-```
-
-##### Property involving
-
-Optional. Match transactions with either senderPaymail or recipientPaymail matching this value.
-
-```ts
-involving?: string
-```
-
-##### Property label
-
-Optional. Match transactions with this label.
-
-```ts
-label?: string
-```
-
-##### Property startTime
-
-Optional. Match transactions created on or after this time. Seconds since the epoch.
-
-```ts
-startTime?: Date | string | number
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoStatsApi
-
-```ts
-export interface DojoStatsApi {
-    users: number;
-    transactions: number;
-    txLabels: number;
-    outputTags: number;
-    chain: Chain;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoUserStateApi
-
-```ts
-export interface DojoUserStateApi {
-    since?: Date;
-    user: DojoUserApi;
-    certificates: DojoCertificateApi[];
-    certificateFields: DojoCertificateFieldApi[];
-    commissions: DojoCommissionApi[];
-    mapiResponses: DojoMapiResponseApi[];
-    outputs: DojoOutputApi[];
-    baskets: DojoOutputBasketApi[];
-    provenTxReqs: DojoProvenTxReqApi[];
-    provenTxs: DojoProvenTxApi[];
-    txs: DojoTransactionApi[];
-    txLabels: DojoTxLabelApi[];
-    txLabelMaps: DojoTxLabelMapApi[];
-    outputTags: DojoOutputTagApi[];
-    outputTagMaps: DojoOutputTagMapApi[];
-}
-```
-
-<details>
-
-<summary>Interface DojoUserStateApi Details</summary>
-
-##### Property since
-
-If undefined, this is the complete state for the given `user`.
-
-If a valid `Date`, these are the entities updated since that date.
-
-```ts
-since?: Date
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoEntityTimeStampApi
-
-```ts
-export interface DojoEntityTimeStampApi {
-    created_at?: Date | null;
-    updated_at?: Date | null;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoAliasApi
-
-```ts
-export interface DojoAliasApi extends DojoEntityTimeStampApi {
-    aliasId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    alias: string;
-    domain: string;
-    avatarName?: string;
-    avatarPhotoURL?: string;
-    reservationCompleted: boolean;
-    userId: number;
-    destinationBasketId: number;
-}
-```
-
-<details>
-
-<summary>Interface DojoAliasApi Details</summary>
-
-##### Property alias
-
-max length of 30
-
-```ts
-alias: string
-```
-
-##### Property avatarName
-
-max length of 30
-
-```ts
-avatarName?: string
-```
-
-##### Property avatarPhotoURL
-
-max length of 100
-
-```ts
-avatarPhotoURL?: string
-```
-
-##### Property domain
-
-max length of 30
-
-```ts
-domain: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoAvatarApi
-
-```ts
-export interface DojoAvatarApi {
-    name: string;
-    photoURL: string;
-}
-```
-
-<details>
-
-<summary>Interface DojoAvatarApi Details</summary>
-
-##### Property name
-
-The name of the user
-
-```ts
-name: string
-```
-
-##### Property photoURL
-
-An HTTPS or UHRP URL to a photo of the user
-
-```ts
-photoURL: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCertificateFieldApi
-
-```ts
-export interface DojoCertificateFieldApi extends DojoEntityTimeStampApi {
-    userId: number;
-    certificateId: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    fieldName: string;
-    fieldValue: string;
-    masterKey: string;
-}
-```
-
-<details>
-
-<summary>Interface DojoCertificateFieldApi Details</summary>
-
-##### Property fieldName
-
-max length of 100
-
-```ts
-fieldName: string
-```
-
-##### Property fieldValue
-
-max length of 255
-
-```ts
-fieldValue: string
-```
-
-##### Property masterKey
-
-base64 encrypted master field revelation key
-
-```ts
-masterKey: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCertificateApi
-
-```ts
-export interface DojoCertificateApi extends DojoEntityTimeStampApi, CreateCertificateResult {
-    certificateId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    userId: number;
-    type: string;
-    subject: string;
-    validationKey: string;
-    serialNumber: string;
-    certifier: string;
-    revocationOutpoint: string;
-    signature: string;
-    fields?: Record<string, string>;
-    masterKeyring?: Record<string, string>;
-    isDeleted?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface DojoCertificateApi Details</summary>
-
-##### Property certifier
-
-max length of 255
-
-```ts
-certifier: string
-```
-
-##### Property fields
-
-Certificate fields object constructed from fieldName and fieldValue properties of DojoCertificateFieldApi instances associated with this certificate.
-
-```ts
-fields?: Record<string, string>
-```
-
-##### Property isDeleted
-
-Optional. Indicates whether the certificate is deleted. isDeleted defaults to false.
-
-```ts
-isDeleted?: boolean
-```
-
-##### Property masterKeyring
-
-Certificate masterKeyring object constructed from fieldName and masterKey properties of DojoCertificateFieldApi instances associated with this certificate.
-
-```ts
-masterKeyring?: Record<string, string>
-```
-
-##### Property revocationOutpoint
-
-max length of 255
-
-```ts
-revocationOutpoint: string
-```
-
-##### Property serialNumber
-
-max length of 255
-
-```ts
-serialNumber: string
-```
-
-##### Property signature
-
-max length of 255
-
-```ts
-signature: string
-```
-
-##### Property subject
-
-max length of 255
-
-```ts
-subject: string
-```
-
-##### Property type
-
-max length of 255
-
-```ts
-type: string
-```
-
-##### Property validationKey
-
-max length of 255
-
-```ts
-validationKey: string
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCommissionApi
-
-```ts
-export interface DojoCommissionApi extends DojoEntityTimeStampApi {
-    commissionId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    transactionId: number;
-    userId: number;
-    isRedeemed: boolean;
-    keyOffset: string;
-    outputScript: Buffer | null;
-    satoshis: number;
-}
-```
-
-<details>
-
-<summary>Interface DojoCommissionApi Details</summary>
-
-##### Property keyOffset
-
-max length of 130
-
-```ts
-keyOffset: string
-```
-
-##### Property satoshis
-
-15 integer digits
-
-```ts
-satoshis: number
+dojoName?: string
 ```
 
 </details>
@@ -2740,6 +2640,8 @@ export interface DojoMapiResponseApi extends DojoEntityTimeStampApi {
     doubleSpendResponse?: string | null;
 }
 ```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
 
 <details>
 
@@ -2807,6 +2709,8 @@ export interface DojoOutputApi extends DojoEntityTimeStampApi {
     envelope?: EnvelopeApi;
 }
 ```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
 
 <details>
 
@@ -2952,18 +2856,6 @@ vout: number | null
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoOutputXApi
-
-```ts
-export interface DojoOutputXApi extends DojoOutputApi {
-    basket?: DojoOutputBasketApi;
-    tags?: DojoOutputTagApi[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Interface: DojoOutputBasketApi
 
 ```ts
@@ -2978,6 +2870,8 @@ export interface DojoOutputBasketApi extends DojoEntityTimeStampApi {
     isDeleted?: boolean;
 }
 ```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
 
 <details>
 
@@ -3004,377 +2898,42 @@ name: string
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoTransactionApi
+#### Interface: DojoOutputGenerationApi
+
+If Dojo needs to generate additional outputs for the transaction beyond what was specified,
+this object describes what kind of outputs to generate, and where they should be kept.
 
 ```ts
-export interface DojoTransactionApi extends DojoEntityTimeStampApi {
-    transactionId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    txid: string;
-    lockTime?: number | null;
-    version?: number | null;
-    rawTransaction: Buffer | null;
-    status: DojoTransactionStatusApi;
-    referenceNumber: string | null;
-    amount: number;
-    userId: number;
-    senderPaymail: string | null;
-    recipientPaymail: string | null;
-    note: string | null;
-    isOutgoing: boolean;
-    unconfirmedInputChainLength: number;
-    proof: string | null;
-    beef: Buffer | null;
-    truncatedExternalInputs: string | null;
-    provenTxId?: number | null;
-    labels?: string[];
+export interface DojoOutputGenerationApi {
+    basket: string;
+    method: "auto" | "single";
 }
 ```
 
 <details>
 
-<summary>Interface DojoTransactionApi Details</summary>
+<summary>Interface DojoOutputGenerationApi Details</summary>
 
-##### Property amount
+##### Property basket
 
-max 15 digits
+TODO (coming soon).
+Specify the basket where the generated outputs will be kept.
+Only output types compatible with the destination basket will be generated.
 
 ```ts
-amount: number
+basket: string
 ```
 
-##### Property isOutgoing
+##### Property method
 
-true if transaction originated in this wallet, change returns to it.
-false for a transaction created externally and handed in to this wallet.
-
-```ts
-isOutgoing: boolean
-```
-
-##### Property labels
-
-When not undefined, array of assigned tx_labels.label values.
-
-This is an extended property with data from dependent label entities.
+The method used to generate outputs.
+"auto" (the default) selects the amount and types of generated outputs based on the selected basket's
+configuration for how many of each type to keep on hand,
+then uses Benford's law to distribute the satoshis across them.
+"single" just uses one output, randomly selected from the available types, that contains all the satoshis.
 
 ```ts
-labels?: string[]
-```
-
-##### Property lockTime
-
-Optional. Default is zero.
-When the transaction can be processed into a block:
->= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
-< 500,000,000 values are interpreted as minimum required block height
-
-```ts
-lockTime?: number | null
-```
-
-##### Property note
-
-max length of 500
-
-```ts
-note: string | null
-```
-
-##### Property provenTxId
-
-Is valid when transaction proof record exists in DojoProvenTxApi table.
-
-```ts
-provenTxId?: number | null
-```
-
-##### Property rawTransaction
-
-When the transaction can be processed into a block:
->= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
-< 500,000,000 values are interpreted as minimum required block height
-
-```ts
-rawTransaction: Buffer | null
-```
-
-##### Property recipientPaymail
-
-max length of 100
-
-```ts
-recipientPaymail: string | null
-```
-
-##### Property referenceNumber
-
-max length of 64, hex encoded
-
-```ts
-referenceNumber: string | null
-```
-
-##### Property senderPaymail
-
-max length of 100
-
-```ts
-senderPaymail: string | null
-```
-
-##### Property status
-
-max length of 64
-e.g. completed, failed, unprocessed, unproven, unsigned
-
-```ts
-status: DojoTransactionStatusApi
-```
-
-##### Property txid
-
-length 64 hex encoded
-
-```ts
-txid: string
-```
-
-##### Property version
-
-If not undefined, must match value in associated rawTransaction.
-
-```ts
-version?: number | null
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoTransactionXApi
-
-```ts
-export interface DojoTransactionXApi extends DojoTransactionApi {
-    inputs?: DojoOutputXApi[];
-    outputs?: DojoOutputXApi[];
-}
-```
-
-<details>
-
-<summary>Interface DojoTransactionXApi Details</summary>
-
-##### Property inputs
-
-When not undefined, prior outputs now serving as inputs to this transaction
- 
- This is an extended property with data from dependent output entities.
-
-```ts
-inputs?: DojoOutputXApi[]
-```
-
-##### Property outputs
-
-When not undefined, outputs created by this transaction
-
-This is an extended property with data from dependent output entities.
-
-```ts
-outputs?: DojoOutputXApi[]
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoProvenTxReqApi
-
-```ts
-export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
-    provenTxReqId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    txid: string;
-    callbackID?: string;
-    beef?: Buffer | null;
-    rawTx?: Buffer;
-    history: string;
-    notify: string;
-    notified: boolean;
-    status: DojoProvenTxReqStatusApi;
-    attempts: number;
-    provenTxId?: number;
-}
-```
-
-<details>
-
-<summary>Interface DojoProvenTxReqApi Details</summary>
-
-##### Property attempts
-
-Count of how many times a service has been asked about this txid
-
-```ts
-attempts: number
-```
-
-##### Property history
-
-JSON string of processing history.
-Parses to `DojoProvenTxReqHistoryApi`.
-
-```ts
-history: string
-```
-
-##### Property notified
-
-Set to true when a terminal status has been set and notification has occurred.
-
-```ts
-notified: boolean
-```
-
-##### Property notify
-
-JSON string of data to drive notifications when this request completes.
-Parses to `DojoProvenTxReqNotifyApi`.
-
-```ts
-notify: string
-```
-
-##### Property provenTxId
-
-Once a DojoProvenTxApi record has been validated and added to database, the provenTxId value.
-
-```ts
-provenTxId?: number
-```
-
-##### Property status
-
-See `DojoProvenTxReqStatusApi`
-
-```ts
-status: DojoProvenTxReqStatusApi
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoProvenTxApi
-
-```ts
-export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
-    provenTxId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    txid: string;
-    height: number;
-    index: number;
-    nodes: Buffer;
-    rawTx: Buffer;
-    blockHash: Buffer;
-    merkleRoot: Buffer;
-}
-```
-
-<details>
-
-<summary>Interface DojoProvenTxApi Details</summary>
-
-##### Property nodes
-
-Serialized 32 bytes per node.
-
-```ts
-nodes: Buffer
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoTxLabelApi
-
-```ts
-export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
-    txLabelId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    label: string;
-    userId: number;
-    whenLastUsed?: Date | null;
-    isDeleted?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface DojoTxLabelApi Details</summary>
-
-##### Property isDeleted
-
-Optional. Indicates whether the label is deleted. isDeleted defaults to false.
-
-```ts
-isDeleted?: boolean
-```
-
-##### Property label
-
-max length of 150
-e.g. babbage_app_..., babbage_protocol_..., babbage_spend_..., babbage_basket_..., babbage_cert_...., babbage_certificate_, nanostore
-
-```ts
-label: string
-```
-
-##### Property whenLastUsed
-
-valid only when retrieved by with the 'whenLastUsed' sort option.
-
-```ts
-whenLastUsed?: Date | null
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoTxLabelMapApi
-
-```ts
-export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    txLabelId: number;
-    transactionId: number;
-    isDeleted?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface DojoTxLabelMapApi Details</summary>
-
-##### Property isDeleted
-
-Optional. Indicates whether the label is deleted. isDeleted defaults to false.
-
-```ts
-isDeleted?: boolean
+method: "auto" | "single"
 ```
 
 </details>
@@ -3394,6 +2953,8 @@ export interface DojoOutputTagApi extends DojoEntityTimeStampApi {
     isDeleted?: boolean;
 }
 ```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
 
 <details>
 
@@ -3424,6 +2985,8 @@ export interface DojoOutputTagMapApi extends DojoEntityTimeStampApi {
 }
 ```
 
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
 <details>
 
 <summary>Interface DojoOutputTagMapApi Details</summary>
@@ -3441,28 +3004,36 @@ isDeleted?: boolean
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoClientUserApi
+#### Interface: DojoOutputToRedeemApi
 
 ```ts
-export interface DojoClientUserApi extends DojoEntityTimeStampApi {
-    userId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    identityKey: string;
+export interface DojoOutputToRedeemApi {
+    index: number;
+    unlockingScriptLength: number;
+    spendingDescription?: string;
 }
 ```
 
 <details>
 
-<summary>Interface DojoClientUserApi Details</summary>
+<summary>Interface DojoOutputToRedeemApi Details</summary>
 
-##### Property identityKey
+##### Property index
 
-max length of 130
-hex encoded
+Zero based output index within its transaction to spend.
 
 ```ts
-identityKey: string
+index: number
+```
+
+##### Property unlockingScriptLength
+
+byte length of unlocking script
+
+Note: To protect client keys and utxo control, unlocking scripts are never shared with Dojo.
+
+```ts
+unlockingScriptLength: number
 ```
 
 </details>
@@ -3470,58 +3041,55 @@ identityKey: string
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoUserApi
+#### Interface: DojoOutputXApi
 
 ```ts
-export interface DojoUserApi extends DojoClientUserApi, DojoEntityTimeStampApi {
-    userId?: number;
-    created_at?: Date | null;
-    updated_at?: Date | null;
-    identityKey: string;
-    timeSpentProcessingRequests?: number;
-    bandwidthUsed?: number;
-    storageSpaceUsedByHostedData?: number;
+export interface DojoOutputXApi extends DojoOutputApi {
+    basket?: DojoOutputBasketApi;
+    tags?: DojoOutputTagApi[];
 }
 ```
 
-<details>
+See also: [DojoOutputApi](#interface-dojooutputapi), [DojoOutputBasketApi](#interface-dojooutputbasketapi), [DojoOutputTagApi](#interface-dojooutputtagapi)
 
-<summary>Interface DojoUserApi Details</summary>
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
-##### Property bandwidthUsed
+---
+#### Interface: DojoPendingTxApi
 
-max 18 digits
-
-```ts
-bandwidthUsed?: number
-```
-
-##### Property identityKey
-
-max length of 130
-hex encoded
+Return type from Ninja and Dojo getPendingTransactions methods.
 
 ```ts
-identityKey: string
+export interface DojoPendingTxApi {
+    amount: number;
+    created_at: string;
+    referenceNumber: string;
+    senderPaymail?: string;
+    status: string;
+    isOutgoing: boolean;
+    rawTransaction?: string;
+    derivationPrefix?: string;
+    paymailHandle?: string;
+    inputs: Record<string, DojoPendingTxInputApi>;
+    outputs: DojoPendingTxOutputApi[];
+}
 ```
 
-##### Property storageSpaceUsedByHostedData
+See also: [DojoPendingTxInputApi](#interface-dojopendingtxinputapi), [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi)
 
-max 15 digits
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoPendingTxInputApi
 
 ```ts
-storageSpaceUsedByHostedData?: number
+export interface DojoPendingTxInputApi extends EnvelopeEvidenceApi {
+    outputsToRedeem?: number[];
+    instructions?: Record<number, DojoPendingTxInputInstructionsApi>;
+}
 ```
 
-##### Property timeSpentProcessingRequests
-
-max 12 digits
-
-```ts
-timeSpentProcessingRequests?: number
-```
-
-</details>
+See also: [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -3600,18 +3168,6 @@ type: string
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoPendingTxInputApi
-
-```ts
-export interface DojoPendingTxInputApi extends EnvelopeEvidenceApi {
-    outputsToRedeem?: number[];
-    instructions?: Record<number, DojoPendingTxInputInstructionsApi>;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Interface: DojoPendingTxOutputApi
 
 ```ts
@@ -3627,29 +3183,6 @@ export interface DojoPendingTxOutputApi {
     senderIdentityKey?: string;
     txid?: string;
     vout?: number;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoPendingTxApi
-
-Return type from Ninja and Dojo getPendingTransactions methods.
-
-```ts
-export interface DojoPendingTxApi {
-    amount: number;
-    created_at: string;
-    referenceNumber: string;
-    senderPaymail?: string;
-    status: string;
-    isOutgoing: boolean;
-    rawTransaction?: string;
-    derivationPrefix?: string;
-    paymailHandle?: string;
-    inputs: Record<string, DojoPendingTxInputApi>;
-    outputs: DojoPendingTxOutputApi[];
 }
 ```
 
@@ -3807,517 +3340,35 @@ export interface DojoProcessTransactionResultApi {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoOutputToRedeemApi
+#### Interface: DojoProvenTxApi
 
 ```ts
-export interface DojoOutputToRedeemApi {
-    index: number;
-    unlockingScriptLength: number;
-    spendingDescription?: string;
-}
-```
-
-<details>
-
-<summary>Interface DojoOutputToRedeemApi Details</summary>
-
-##### Property index
-
-Zero based output index within its transaction to spend.
-
-```ts
-index: number
-```
-
-##### Property unlockingScriptLength
-
-byte length of unlocking script
-
-Note: To protect client keys and utxo control, unlocking scripts are never shared with Dojo.
-
-```ts
-unlockingScriptLength: number
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoTxInputsApi
-
-```ts
-export interface DojoTxInputsApi extends OptionalEnvelopeEvidenceApi {
-    outputsToRedeem: DojoOutputToRedeemApi[];
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoTxInputSelectionApi
-
-If Dojo needs to select more inputs beyond the ones specified in order to fund the transaction,
-this object describes which kinds of inputs can be selected, and from where.
-
-```ts
-export interface DojoTxInputSelectionApi {
-    disable: boolean;
-    baskets: string[];
-    maxUnconfirmedChainLength?: number;
-    includeSending?: boolean;
-}
-```
-
-<details>
-
-<summary>Interface DojoTxInputSelectionApi Details</summary>
-
-##### Property baskets
-
-This is an array of UTXO basket names from which UTXOs can be selected for spending.
-To only select UTXOs of a certain type, configure the source basket only to accept those types of UTXOs.
-By default, UTXOs will only be selected if they are in the "default" basket.
-
-```ts
-baskets: string[]
-```
-
-##### Property disable
-
-This is a boolean that, when true, will forbid Dojo from adding any additional inputs to your transaction,
-beyond what you specified in the "inputs" parameter.
-Thus, if you have not sufficiently funded the transaction yourself,
-or if the "inputs" array is empty, you will get an error.
-
-```ts
-disable: boolean
-```
-
-##### Property includeSending
-
-If true, UTXOS from transactions with status 'sending' are included.
-Transactions with status 'sending' have not yet been successfully sent to the network.
-Their outputs are only acceptable for the `acceptDelayedBroadcast = true` mode of transaction
-processing.
-
-```ts
-includeSending?: boolean
-```
-
-##### Property maxUnconfirmedChainLength
-
-An integer representing the maximum length for any chain of unconfirmed parents
-that a selected input can have.
-When undefined or -1 (the default), no maximum is specified.
-Cannot be zero.
-When 1, indicates that the input must itself be confirmed.
-When 2, input parents must be confirmed.
-When 3 denotes grandparents.
-When 4 great-grandparents and so forth.
-
-```ts
-maxUnconfirmedChainLength?: number
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreateTxOutputApi
-
-A specific output to be created as part of a new transactions.
-These outputs can contain custom scripts as specified by recipients.
-
-```ts
-export interface DojoCreateTxOutputApi {
-    script: string;
-    satoshis: number;
-    description?: string;
-    basket?: string;
-    customInstructions?: string;
-    tags?: string[];
-}
-```
-
-<details>
-
-<summary>Interface DojoCreateTxOutputApi Details</summary>
-
-##### Property basket
-
-Destination output basket name for the new UTXO
-
-```ts
-basket?: string
-```
-
-##### Property customInstructions
-
-Custom spending instructions (metadata, string, optional)
-
-```ts
-customInstructions?: string
-```
-
-##### Property description
-
-Human-readable output line-item description
-
-```ts
-description?: string
-```
-
-##### Property satoshis
-
-The amount of the output in satoshis
-
-```ts
-satoshis: number
-```
-
-##### Property script
-
-The output script that will be included, hex encoded
-
-```ts
-script: string
-```
-
-##### Property tags
-
-Optional array of output tags to assign to this output.
-
-```ts
-tags?: string[]
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoOutputGenerationApi
-
-If Dojo needs to generate additional outputs for the transaction beyond what was specified,
-this object describes what kind of outputs to generate, and where they should be kept.
-
-```ts
-export interface DojoOutputGenerationApi {
-    basket: string;
-    method: "auto" | "single";
-}
-```
-
-<details>
-
-<summary>Interface DojoOutputGenerationApi Details</summary>
-
-##### Property basket
-
-TODO (coming soon).
-Specify the basket where the generated outputs will be kept.
-Only output types compatible with the destination basket will be generated.
-
-```ts
-basket: string
-```
-
-##### Property method
-
-The method used to generate outputs.
-"auto" (the default) selects the amount and types of generated outputs based on the selected basket's
-configuration for how many of each type to keep on hand,
-then uses Benford's law to distribute the satoshis across them.
-"single" just uses one output, randomly selected from the available types, that contains all the satoshis.
-
-```ts
-method: "auto" | "single"
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoFeeModelApi
-
-An object representing the fee the transaction will pay.
-
-```ts
-export interface DojoFeeModelApi {
-    model: "sat/kb";
-    value?: number;
-}
-```
-
-<details>
-
-<summary>Interface DojoFeeModelApi Details</summary>
-
-##### Property model
-
-The fee model to use, default "sat/kb"
-
-```ts
-model: "sat/kb"
-```
-
-##### Property value
-
-When "fee.model" is "sat/kb", this is an integer representing the number of satoshis per kb of block space
-the transaction will pay in fees.
-
-If undefined, the default value is used which may vary with market conditions.
-
-```ts
-value?: number
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreateTransactionParams
-
-```ts
-export interface DojoCreateTransactionParams {
-    outputs: DojoCreateTxOutputApi[];
-    inputs?: Record<string, DojoTxInputsApi>;
-    beef?: Beef | number[];
-    inputSelection?: DojoTxInputSelectionApi;
-    outputGeneration?: DojoOutputGenerationApi;
-    lockTime?: number;
-    version?: number;
-    feeModel?: DojoFeeModelApi;
-    labels?: string[];
-    note?: string;
-    recipient?: string;
-    options?: CreateActionOptions;
-    log?: string;
-}
-```
-
-<details>
-
-<summary>Interface DojoCreateTransactionParams Details</summary>
-
-##### Property beef
-
-Optional. Alternate source of validity proof data for `inputs`.
-If `number[]` it must be serialized `Beef`.
-
-```ts
-beef?: Beef | number[]
-```
-
-##### Property feeModel
-
-Optional. An object representing the fee the transaction will pay.
-
-```ts
-feeModel?: DojoFeeModelApi
-```
-
-##### Property inputSelection
-
-Optional. Algorithmic control over source of additional inputs that may be needed.
-
-```ts
-inputSelection?: DojoTxInputSelectionApi
-```
-
-##### Property inputs
-
-Optional. Specific inputs to draw on when creating outputs.
-
-```ts
-inputs?: Record<string, DojoTxInputsApi>
-```
-
-##### Property labels
-
-Optional. Each at most 150 characters. Labels can be used to tag transactions into categories
-
-```ts
-labels?: string[]
-```
-
-##### Property lockTime
-
-Optional. Default is zero.
-When the transaction can be processed into a block:
->= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
-< 500,000,000 values are interpreted as minimum required block height
-
-```ts
-lockTime?: number
-```
-
-##### Property log
-
-Optional transaction processing history
-
-```ts
-log?: string
-```
-
-##### Property note
-
-Optional. A human-readable note detailing this transaction (Optional)
-
-```ts
-note?: string
-```
-
-##### Property options
-
-Processing options.
-
-```ts
-options?: CreateActionOptions
-```
-
-##### Property outputGeneration
-
-Optional. Algorithmic control over additional outputs that may be needed.
-
-```ts
-outputGeneration?: DojoOutputGenerationApi
-```
-
-##### Property outputs
-
-Possibly empty, explicit outputs, typically external, to create as part of this transaction.
-
-```ts
-outputs: DojoCreateTxOutputApi[]
-```
-
-##### Property recipient
-
-Optional. The Paymail handle of the recipient of this transaction (Optional)
-
-```ts
-recipient?: string
-```
-
-##### Property version
-
-If not undefined, must match value in associated rawTransaction.
-
-```ts
-version?: number
-```
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreateTxResultOutputApi
-
-```ts
-export interface DojoCreateTxResultOutputApi extends DojoCreateTxOutputApi {
-    vout: number;
-    providedBy: DojoProvidedByApi;
-    purpose?: string;
-    destinationBasket?: string;
-    derivationSuffix?: string;
-    keyOffset?: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreateTxResultInstructionsApi
-
-```ts
-export interface DojoCreateTxResultInstructionsApi {
-    type: string;
-    paymailHandle?: string;
-    derivationPrefix?: string;
-    derivationSuffix?: string;
-    senderIdentityKey?: string;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreatingTxInputsApi
-
-```ts
-export interface DojoCreatingTxInputsApi {
-    outputsToRedeem: DojoOutputToRedeemApi[];
-    beefTx: BeefTx;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreateTxResultInputsApi
-
-```ts
-export interface DojoCreateTxResultInputsApi extends DojoTxInputsApi, OptionalEnvelopeEvidenceApi {
-    providedBy: DojoProvidedByApi;
-    instructions: Record<number, DojoCreateTxResultInstructionsApi>;
-    outputsToRedeem: DojoOutputToRedeemApi[];
+export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
+    provenTxId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
     txid: string;
+    height: number;
+    index: number;
+    nodes: Buffer;
+    rawTx: Buffer;
+    blockHash: Buffer;
+    merkleRoot: Buffer;
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoCreateTransactionResultApi
-
-```ts
-export interface DojoCreateTransactionResultApi {
-    inputs: Record<string, DojoCreateTxResultInputsApi>;
-    inputBeef?: number[];
-    outputs: DojoCreateTxResultOutputApi[];
-    noSendChangeOutputVouts?: number[];
-    derivationPrefix: string;
-    version: number;
-    lockTime: number;
-    referenceNumber: string;
-    note?: string;
-    options: CreateActionOptions;
-    log?: string;
-    paymailHandle?: string;
-}
-```
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi), [blockHash](#function-blockhash)
 
 <details>
 
-<summary>Interface DojoCreateTransactionResultApi Details</summary>
+<summary>Interface DojoProvenTxApi Details</summary>
 
-##### Property inputBeef
+##### Property nodes
 
-This will be a partially valid serialized BEEF value.
-
-Includes proof data for the inputs to the transaction being created.
-Some txids may be `known`, either by Dojo or the user, in which case
-their rawTx are not included.
-
-It is recommended to the `@babbage/sdk-ts` package's `Beef` class to
-deserialize and complete the creation of a valid beef.
+Serialized 32 bytes per node.
 
 ```ts
-inputBeef?: number[]
-```
-
-##### Property paymailHandle
-
-DEPRECATED
-
-```ts
-paymailHandle?: string
+nodes: Buffer
 ```
 
 </details>
@@ -4325,157 +3376,130 @@ paymailHandle?: string
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoSubmitDirectTransactionOutputApi
+#### Interface: DojoProvenTxReqApi
 
 ```ts
-export interface DojoSubmitDirectTransactionOutputApi {
-    vout: number;
-    satoshis: number;
-    basket?: string;
-    derivationPrefix?: string;
-    derivationSuffix?: string;
-    customInstructions?: string;
-    senderIdentityKey?: string;
-    tags?: string[];
+export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
+    provenTxReqId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    txid: string;
+    callbackID?: string;
+    beef?: Buffer | null;
+    rawTx?: Buffer;
+    history: string;
+    notify: string;
+    notified: boolean;
+    status: DojoProvenTxReqStatusApi;
+    attempts: number;
+    provenTxId?: number;
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSubmitDirectTransactionApi
-
-```ts
-export interface DojoSubmitDirectTransactionApi extends OptionalEnvelopeEvidenceApi {
-    outputs: DojoSubmitDirectTransactionOutputApi[];
-    referenceNumber?: string;
-}
-```
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi), [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi)
 
 <details>
 
-<summary>Interface DojoSubmitDirectTransactionApi Details</summary>
+<summary>Interface DojoProvenTxReqApi Details</summary>
 
-##### Property outputs
+##### Property attempts
 
-sparse array of outputs of interest where indices match vout numbers.
+Count of how many times a service has been asked about this txid
 
 ```ts
-outputs: DojoSubmitDirectTransactionOutputApi[]
+attempts: number
 ```
+
+##### Property history
+
+JSON string of processing history.
+Parses to `DojoProvenTxReqHistoryApi`.
+
+```ts
+history: string
+```
+
+##### Property notified
+
+Set to true when a terminal status has been set and notification has occurred.
+
+```ts
+notified: boolean
+```
+
+##### Property notify
+
+JSON string of data to drive notifications when this request completes.
+Parses to `DojoProvenTxReqNotifyApi`.
+
+```ts
+notify: string
+```
+
+##### Property provenTxId
+
+Once a DojoProvenTxApi record has been validated and added to database, the provenTxId value.
+
+```ts
+provenTxId?: number
+```
+
+##### Property status
+
+See `DojoProvenTxReqStatusApi`
+
+```ts
+status: DojoProvenTxReqStatusApi
+```
+See also: [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi)
 
 </details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoSubmitDirectTransactionParams
+#### Interface: DojoPublicApi
 
-Input parameters to submitDirectTransaction method.
-
-Normally used to receive spendable outputs from an externally
-sourced transaction (one created by a party other than this user).
-A transaction record is created for this user with isOutgoing false.
-New spendable output records are created for the indicated outputs of
-the transaction.
-
-When submitDirectTransaction is called with outputs previously
-created by the same user on an isOutgoing true transaction,
-these params serve to update those outputs and the transaction amount.
-The transaction remains isOutgoing true.
-
-When submitDirectTransaction is called again with additional outputs
-on previously submitted isOutgoing false transaction,
-these params serve to create new outputs and update the transaction amount.
-The transaction remains isOutgoing false.
+Public Dojo Api
+No Authrite authentication required.
+Not specific to any userId
 
 ```ts
-export interface DojoSubmitDirectTransactionParams {
-    protocol?: string;
-    transaction: DojoSubmitDirectTransactionApi;
-    senderIdentityKey: string;
-    note: string;
-    labels?: string[];
-    derivationPrefix?: string;
-    amount?: number;
+export interface DojoPublicApi {
+    getChain(): Promise<Chain>;
+    stats(): Promise<DojoStatsApi>;
 }
 ```
+
+See also: [Chain](#type-chain), [DojoStatsApi](#interface-dojostatsapi)
 
 <details>
 
-<summary>Interface DojoSubmitDirectTransactionParams Details</summary>
+<summary>Interface DojoPublicApi Details</summary>
 
-##### Property derivationPrefix
+##### Method getChain
 
-A derivation prefix used for all outputs. If provided, derivation prefixes on all outputs are optional.
+Return the chain served by this Dojo
 
-```ts
-derivationPrefix?: string
-```
-
-##### Property labels
-
-Labels to assign to transaction.
+Also serves to verifies that all dependent services are on same chain.
 
 ```ts
-labels?: string[]
+getChain(): Promise<Chain>
 ```
+See also: [Chain](#type-chain)
 
-##### Property note
-
-Human-readable description for the transaction
+##### Method stats
 
 ```ts
-note: string
+stats(): Promise<DojoStatsApi>
 ```
+See also: [DojoStatsApi](#interface-dojostatsapi)
 
-##### Property protocol
+Returns
 
-Specify the transaction submission payment protocol to use.
-Currently, the only supported protocol is that with BRFC ID "3241645161d8"
-
-```ts
-protocol?: string
-```
-
-##### Property senderIdentityKey
-
-Provide the identity key for the person who sent the transaction
-
-```ts
-senderIdentityKey: string
-```
-
-##### Property transaction
-
-The transaction envelope to submit, including key derivation information.
-
-transaction.outputs is an array of outputs, each containing:
- `vout`,
- `satoshis`,
- `derivationSuffix`,
- and (optionally), `derivationPrefix`.
-
-If a global `derivationPrefix` is used (recommended),
-output-specific derivation prefixes should be omitted.
-
-```ts
-transaction: DojoSubmitDirectTransactionApi
-```
+general storage statistics
 
 </details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: DojoSubmitDirectTransactionResultApi
-
-```ts
-export interface DojoSubmitDirectTransactionResultApi {
-    transactionId: number;
-    referenceNumber: string;
-}
-```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4556,62 +3580,433 @@ export interface DojoPurgeResults {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: DojoGetBeefOptions
+#### Interface: DojoStatsApi
 
 ```ts
-export interface DojoGetBeefOptions {
-    trustSelf?: "known";
-    knownTxids?: string[];
-    mergeToBeef?: Beef | number[];
-    ignoreStorage?: boolean;
-    ignoreServices?: boolean;
-    ignoreNewProven?: boolean;
-    minProofLevel?: number;
+export interface DojoStatsApi {
+    users: number;
+    transactions: number;
+    txLabels: number;
+    outputTags: number;
+    chain: Chain;
+}
+```
+
+See also: [Chain](#type-chain)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSubmitDirectTransactionApi
+
+```ts
+export interface DojoSubmitDirectTransactionApi extends OptionalEnvelopeEvidenceApi {
+    outputs: DojoSubmitDirectTransactionOutputApi[];
+    referenceNumber?: string;
+}
+```
+
+See also: [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi)
+
+<details>
+
+<summary>Interface DojoSubmitDirectTransactionApi Details</summary>
+
+##### Property outputs
+
+sparse array of outputs of interest where indices match vout numbers.
+
+```ts
+outputs: DojoSubmitDirectTransactionOutputApi[]
+```
+See also: [DojoSubmitDirectTransactionOutputApi](#interface-dojosubmitdirecttransactionoutputapi)
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSubmitDirectTransactionOutputApi
+
+```ts
+export interface DojoSubmitDirectTransactionOutputApi {
+    vout: number;
+    satoshis: number;
+    basket?: string;
+    derivationPrefix?: string;
+    derivationSuffix?: string;
+    customInstructions?: string;
+    senderIdentityKey?: string;
+    tags?: string[];
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSubmitDirectTransactionParams
+
+Input parameters to submitDirectTransaction method.
+
+Normally used to receive spendable outputs from an externally
+sourced transaction (one created by a party other than this user).
+A transaction record is created for this user with isOutgoing false.
+New spendable output records are created for the indicated outputs of
+the transaction.
+
+When submitDirectTransaction is called with outputs previously
+created by the same user on an isOutgoing true transaction,
+these params serve to update those outputs and the transaction amount.
+The transaction remains isOutgoing true.
+
+When submitDirectTransaction is called again with additional outputs
+on previously submitted isOutgoing false transaction,
+these params serve to create new outputs and update the transaction amount.
+The transaction remains isOutgoing false.
+
+```ts
+export interface DojoSubmitDirectTransactionParams {
+    protocol?: string;
+    transaction: DojoSubmitDirectTransactionApi;
+    senderIdentityKey: string;
+    note: string;
+    labels?: string[];
+    derivationPrefix?: string;
+    amount?: number;
+}
+```
+
+See also: [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi)
+
+<details>
+
+<summary>Interface DojoSubmitDirectTransactionParams Details</summary>
+
+##### Property derivationPrefix
+
+A derivation prefix used for all outputs. If provided, derivation prefixes on all outputs are optional.
+
+```ts
+derivationPrefix?: string
+```
+
+##### Property labels
+
+Labels to assign to transaction.
+
+```ts
+labels?: string[]
+```
+
+##### Property note
+
+Human-readable description for the transaction
+
+```ts
+note: string
+```
+
+##### Property protocol
+
+Specify the transaction submission payment protocol to use.
+Currently, the only supported protocol is that with BRFC ID "3241645161d8"
+
+```ts
+protocol?: string
+```
+
+##### Property senderIdentityKey
+
+Provide the identity key for the person who sent the transaction
+
+```ts
+senderIdentityKey: string
+```
+
+##### Property transaction
+
+The transaction envelope to submit, including key derivation information.
+
+transaction.outputs is an array of outputs, each containing:
+ `vout`,
+ `satoshis`,
+ `derivationSuffix`,
+ and (optionally), `derivationPrefix`.
+
+If a global `derivationPrefix` is used (recommended),
+output-specific derivation prefixes should be omitted.
+
+```ts
+transaction: DojoSubmitDirectTransactionApi
+```
+See also: [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi)
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSubmitDirectTransactionResultApi
+
+```ts
+export interface DojoSubmitDirectTransactionResultApi {
+    transactionId: number;
+    referenceNumber: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncApi
+
+Dojo Sync Protocol
+
+The Dojo Sync Protocol keeps multiple UTXO management services (Dojos) synchronized as updates occur between them.
+
+The protocol relies on the properties of the blockchain to handle specific conflicts.
+
+It is intended to support use cases where there is a primary dojo which periodically synchronizes to backup "syncDojos".
+
+There is no formal conrol within the protocol for determining the primary dojo or transitioning between roles.
+
+Synchronization is initiated from the primary Dojo.
+
+Step 1. Run through the configured syncDojos calling syncIdentify which shares the local dojo and syncDojo's identities.
+Any syncDojo that responds is added to activeSyncDojos.
+
+Step 2. Run through the activeSyncDojos calling syncUpdate.
+
+```ts
+export interface DojoSyncApi {
+    syncIdentify(params: DojoSyncIdentifyParams): Promise<DojoSyncIdentifyResultApi>;
+    syncUpdate(params: DojoSyncUpdateParams): Promise<DojoSyncUpdateResultApi>;
+    syncMerge(params: DojoSyncMergeParams): Promise<DojoSyncMergeResultApi>;
+    authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>;
+    getSyncDojoConfig(): Promise<SyncDojoConfigBaseApi>;
+}
+```
+
+See also: [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams), [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi), [DojoSyncMergeParams](#interface-dojosyncmergeparams), [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi), [DojoSyncUpdateParams](#interface-dojosyncupdateparams), [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi), [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi)
+
+<details>
+
+<summary>Interface DojoSyncApi Details</summary>
+
+##### Method authenticate
+
+For Dojo scenarios where it is permissible for Dojo to directly act as
+a specified user, authenticate that user by supplying their identityKey
+
+For Dojo scenarios where authrite is used to authenticate the local user
+to a potentially remote Dojo server:
+- If identityKey has a value then it used and must match the authenticated value.
+- If identityKey is undefined, the authenticated value is used.
+
+Sets userId and identityKey
+
+```ts
+authenticate(identityKey?: string, addIfNew?: boolean): Promise<void>
+```
+
+Argument Details
+
++ **identityKey**
+  + optional, 33 hex encoded bytes, the user to authenticate's identity key
++ **addIfNew**
+  + optional, if true, unknown identityKey is added as new user.
+
+Throws
+
+ERR_UNAUTHORIZED if identityKey is required and invalid
+
+##### Method getSyncDojoConfig
+
+Returns the configuration of this dojo as a syncDojo
+
+```ts
+getSyncDojoConfig(): Promise<SyncDojoConfigBaseApi>
+```
+See also: [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi)
+
+##### Method syncIdentify
+
+Called to initiate the sync protocol.
+
+This is the initial protocol step to exchange dojo identityKeys and
+configure the records in the sync_state and sync_history tables to support the sync protocol.
+
+```ts
+syncIdentify(params: DojoSyncIdentifyParams): Promise<DojoSyncIdentifyResultApi>
+```
+See also: [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams), [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi)
+
+Returns
+
+Equivalent parameters for this syncDojo.
+
+Argument Details
+
++ **params**
+  + Parameters identifying the primary initiating dojo, user, sarting status and protocol version.
+
+##### Method syncMerge
+
+Informs a syncDojo of the result of merging state received from them.
+
+This is the only valid way that the syncDojo's `when` field in `sync_state` is updated which is critical to
+guaranteeing that un-merged changes are presented until successfully merged.
+
+```ts
+syncMerge(params: DojoSyncMergeParams): Promise<DojoSyncMergeResultApi>
+```
+See also: [DojoSyncMergeParams](#interface-dojosyncmergeparams), [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi)
+
+##### Method syncUpdate
+
+Receive a state update for the authenticated user from a remote dojo
+and respond with merge result and any pre-merge local state update
+for the data interval from `since` to `when`
+
+```ts
+syncUpdate(params: DojoSyncUpdateParams): Promise<DojoSyncUpdateResultApi>
+```
+See also: [DojoSyncUpdateParams](#interface-dojosyncupdateparams), [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi)
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncErrorApi
+
+```ts
+export interface DojoSyncErrorApi {
+    code: string;
+    description: string;
+    stack?: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncIdentifyParams
+
+Receipt of `DojoSyncIdentityParams` via the `syncIdentify` function starts a dojo to dojo sync.
+
+It may also force a restart of the sync protocol.
+
+The purpose of the `Identify` phase is to identify both dojo's to each other,
+the identity of the authenticated user, and the last known sync_state.
+
+```ts
+export interface DojoSyncIdentifyParams {
+    protocolVersion: DojoSyncProtocolVersion;
+    userIdentityKey: string;
+    dojoIdentityKey: string;
+    dojoName?: string;
+    refNum: string;
+}
+```
+
+See also: [DojoSyncProtocolVersion](#type-dojosyncprotocolversion)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncIdentifyResultApi
+
+```ts
+export interface DojoSyncIdentifyResultApi {
+    refNum: string;
+    identityKey: string;
+    name?: string;
+    status: DojoSyncStatus;
+    when?: Date;
+    error?: DojoSyncErrorApi;
+}
+```
+
+See also: [DojoSyncErrorApi](#interface-dojosyncerrorapi), [DojoSyncStatus](#type-dojosyncstatus)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncMapApi
+
+```ts
+export interface DojoSyncMapApi {
+    aliasIds: Record<number, number>;
+    certificateIds: Record<number, number>;
+    commissionIds: Record<number, number>;
+    responseIds: Record<number, number>;
+    basketIds: Record<number, number>;
+    outputIds: Record<number, number>;
+    provenTxReqIds: Record<number, number>;
+    provenTxIds: Record<number, number>;
+    txIds: Record<number, number>;
+    txLabelIds: Record<number, number>;
+    outputTagIds: Record<number, number>;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncMergeParams
+
+```ts
+export interface DojoSyncMergeParams {
+    protocolVersion: DojoSyncProtocolVersion;
+    refNum: string;
+    when?: Date;
+    state?: DojoUserStateApi;
+    total?: number;
+    iSyncMap?: DojoSyncMapApi;
+    error?: DojoSyncErrorApi;
+}
+```
+
+See also: [DojoSyncErrorApi](#interface-dojosyncerrorapi), [DojoSyncMapApi](#interface-dojosyncmapapi), [DojoSyncProtocolVersion](#type-dojosyncprotocolversion), [DojoUserStateApi](#interface-dojouserstateapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncMergeResultApi
+
+```ts
+export interface DojoSyncMergeResultApi {
+    refNum: string;
+    status: DojoSyncStatus;
+    iSyncMap?: DojoSyncMapApi;
+    error?: DojoSyncErrorApi;
+}
+```
+
+See also: [DojoSyncErrorApi](#interface-dojosyncerrorapi), [DojoSyncMapApi](#interface-dojosyncmapapi), [DojoSyncStatus](#type-dojosyncstatus)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncOptionsApi
+
+```ts
+export interface DojoSyncOptionsApi {
+    disableSync?: boolean;
 }
 ```
 
 <details>
 
-<summary>Interface DojoGetBeefOptions Details</summary>
+<summary>Interface DojoSyncOptionsApi Details</summary>
 
-##### Property ignoreNewProven
+##### Property disableSync
 
-optional. Default is false. If true, raw transactions with proofs missing from `dojo.storage` and obtained from `dojo.getServices` are not inserted to `dojo.storage`.
-
-```ts
-ignoreNewProven?: boolean
-```
-
-##### Property ignoreServices
-
-optional. Default is false. `dojo.getServices` is used for raw transaction and merkle proof lookup
+If true, sync is disabled.
 
 ```ts
-ignoreServices?: boolean
-```
-
-##### Property ignoreStorage
-
-optional. Default is false. `dojo.storage` is used for raw transaction and merkle proof lookup
-
-```ts
-ignoreStorage?: boolean
-```
-
-##### Property mergeToBeef
-
-optional. If defined, raw transactions and merkle paths required by txid are merged to this instance and returned. Otherwise a new Beef is constructed and returned.
-
-```ts
-mergeToBeef?: Beef | number[]
-```
-
-##### Property minProofLevel
-
-optional. Default is zero. Ignores available merkle paths until recursion detpth equals or exceeds value
-
-```ts
-minProofLevel?: number
+disableSync?: boolean
 ```
 
 </details>
@@ -4619,24 +4014,613 @@ minProofLevel?: number
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Interface: MapiTxStatusPayloadApi
-
-As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+#### Interface: DojoSyncUpdateParams
 
 ```ts
-export interface MapiTxStatusPayloadApi {
-    apiVersion: string;
-    timestamp: string;
-    txid: string;
-    returnResult: string;
-    blockHash: string;
-    blockHeight: number;
-    confirmations: number;
-    minerId: string;
-    txSecondMempoolExpiry: number;
-    merkleProof?: TscMerkleProofApi;
+export interface DojoSyncUpdateParams {
+    protocolVersion: DojoSyncProtocolVersion;
+    refNum: string;
+    since?: Date;
 }
 ```
+
+See also: [DojoSyncProtocolVersion](#type-dojosyncprotocolversion)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoSyncUpdateResultApi
+
+```ts
+export interface DojoSyncUpdateResultApi {
+    refNum: string;
+    status: DojoSyncStatus;
+    since?: Date;
+    state?: DojoUserStateApi;
+    error?: DojoSyncErrorApi;
+}
+```
+
+See also: [DojoSyncErrorApi](#interface-dojosyncerrorapi), [DojoSyncStatus](#type-dojosyncstatus), [DojoUserStateApi](#interface-dojouserstateapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoTransactionApi
+
+```ts
+export interface DojoTransactionApi extends DojoEntityTimeStampApi {
+    transactionId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    txid: string;
+    lockTime?: number | null;
+    version?: number | null;
+    rawTransaction: Buffer | null;
+    status: DojoTransactionStatusApi;
+    referenceNumber: string | null;
+    amount: number;
+    userId: number;
+    senderPaymail: string | null;
+    recipientPaymail: string | null;
+    note: string | null;
+    isOutgoing: boolean;
+    unconfirmedInputChainLength: number;
+    proof: string | null;
+    beef: Buffer | null;
+    truncatedExternalInputs: string | null;
+    provenTxId?: number | null;
+    labels?: string[];
+}
+```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi), [DojoTransactionStatusApi](#type-dojotransactionstatusapi)
+
+<details>
+
+<summary>Interface DojoTransactionApi Details</summary>
+
+##### Property amount
+
+max 15 digits
+
+```ts
+amount: number
+```
+
+##### Property isOutgoing
+
+true if transaction originated in this wallet, change returns to it.
+false for a transaction created externally and handed in to this wallet.
+
+```ts
+isOutgoing: boolean
+```
+
+##### Property labels
+
+When not undefined, array of assigned tx_labels.label values.
+
+This is an extended property with data from dependent label entities.
+
+```ts
+labels?: string[]
+```
+
+##### Property lockTime
+
+Optional. Default is zero.
+When the transaction can be processed into a block:
+>= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+< 500,000,000 values are interpreted as minimum required block height
+
+```ts
+lockTime?: number | null
+```
+
+##### Property note
+
+max length of 500
+
+```ts
+note: string | null
+```
+
+##### Property provenTxId
+
+Is valid when transaction proof record exists in DojoProvenTxApi table.
+
+```ts
+provenTxId?: number | null
+```
+
+##### Property rawTransaction
+
+When the transaction can be processed into a block:
+>= 500,000,000 values are interpreted as minimum required unix time stamps in seconds
+< 500,000,000 values are interpreted as minimum required block height
+
+```ts
+rawTransaction: Buffer | null
+```
+
+##### Property recipientPaymail
+
+max length of 100
+
+```ts
+recipientPaymail: string | null
+```
+
+##### Property referenceNumber
+
+max length of 64, hex encoded
+
+```ts
+referenceNumber: string | null
+```
+
+##### Property senderPaymail
+
+max length of 100
+
+```ts
+senderPaymail: string | null
+```
+
+##### Property status
+
+max length of 64
+e.g. completed, failed, unprocessed, unproven, unsigned
+
+```ts
+status: DojoTransactionStatusApi
+```
+See also: [DojoTransactionStatusApi](#type-dojotransactionstatusapi)
+
+##### Property txid
+
+length 64 hex encoded
+
+```ts
+txid: string
+```
+
+##### Property version
+
+If not undefined, must match value in associated rawTransaction.
+
+```ts
+version?: number | null
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoTransactionXApi
+
+```ts
+export interface DojoTransactionXApi extends DojoTransactionApi {
+    inputs?: DojoOutputXApi[];
+    outputs?: DojoOutputXApi[];
+}
+```
+
+See also: [DojoOutputXApi](#interface-dojooutputxapi), [DojoTransactionApi](#interface-dojotransactionapi)
+
+<details>
+
+<summary>Interface DojoTransactionXApi Details</summary>
+
+##### Property inputs
+
+When not undefined, prior outputs now serving as inputs to this transaction
+ 
+ This is an extended property with data from dependent output entities.
+
+```ts
+inputs?: DojoOutputXApi[]
+```
+See also: [DojoOutputXApi](#interface-dojooutputxapi)
+
+##### Property outputs
+
+When not undefined, outputs created by this transaction
+
+This is an extended property with data from dependent output entities.
+
+```ts
+outputs?: DojoOutputXApi[]
+```
+See also: [DojoOutputXApi](#interface-dojooutputxapi)
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoTxInputSelectionApi
+
+If Dojo needs to select more inputs beyond the ones specified in order to fund the transaction,
+this object describes which kinds of inputs can be selected, and from where.
+
+```ts
+export interface DojoTxInputSelectionApi {
+    disable: boolean;
+    baskets: string[];
+    maxUnconfirmedChainLength?: number;
+    includeSending?: boolean;
+}
+```
+
+<details>
+
+<summary>Interface DojoTxInputSelectionApi Details</summary>
+
+##### Property baskets
+
+This is an array of UTXO basket names from which UTXOs can be selected for spending.
+To only select UTXOs of a certain type, configure the source basket only to accept those types of UTXOs.
+By default, UTXOs will only be selected if they are in the "default" basket.
+
+```ts
+baskets: string[]
+```
+
+##### Property disable
+
+This is a boolean that, when true, will forbid Dojo from adding any additional inputs to your transaction,
+beyond what you specified in the "inputs" parameter.
+Thus, if you have not sufficiently funded the transaction yourself,
+or if the "inputs" array is empty, you will get an error.
+
+```ts
+disable: boolean
+```
+
+##### Property includeSending
+
+If true, UTXOS from transactions with status 'sending' are included.
+Transactions with status 'sending' have not yet been successfully sent to the network.
+Their outputs are only acceptable for the `acceptDelayedBroadcast = true` mode of transaction
+processing.
+
+```ts
+includeSending?: boolean
+```
+
+##### Property maxUnconfirmedChainLength
+
+An integer representing the maximum length for any chain of unconfirmed parents
+that a selected input can have.
+When undefined or -1 (the default), no maximum is specified.
+Cannot be zero.
+When 1, indicates that the input must itself be confirmed.
+When 2, input parents must be confirmed.
+When 3 denotes grandparents.
+When 4 great-grandparents and so forth.
+
+```ts
+maxUnconfirmedChainLength?: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoTxInputsApi
+
+```ts
+export interface DojoTxInputsApi extends OptionalEnvelopeEvidenceApi {
+    outputsToRedeem: DojoOutputToRedeemApi[];
+}
+```
+
+See also: [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoTxLabelApi
+
+```ts
+export interface DojoTxLabelApi extends DojoEntityTimeStampApi {
+    txLabelId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    label: string;
+    userId: number;
+    whenLastUsed?: Date | null;
+    isDeleted?: boolean;
+}
+```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
+<details>
+
+<summary>Interface DojoTxLabelApi Details</summary>
+
+##### Property isDeleted
+
+Optional. Indicates whether the label is deleted. isDeleted defaults to false.
+
+```ts
+isDeleted?: boolean
+```
+
+##### Property label
+
+max length of 150
+e.g. babbage_app_..., babbage_protocol_..., babbage_spend_..., babbage_basket_..., babbage_cert_...., babbage_certificate_, nanostore
+
+```ts
+label: string
+```
+
+##### Property whenLastUsed
+
+valid only when retrieved by with the 'whenLastUsed' sort option.
+
+```ts
+whenLastUsed?: Date | null
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoTxLabelMapApi
+
+```ts
+export interface DojoTxLabelMapApi extends DojoEntityTimeStampApi {
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    txLabelId: number;
+    transactionId: number;
+    isDeleted?: boolean;
+}
+```
+
+See also: [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
+<details>
+
+<summary>Interface DojoTxLabelMapApi Details</summary>
+
+##### Property isDeleted
+
+Optional. Indicates whether the label is deleted. isDeleted defaults to false.
+
+```ts
+isDeleted?: boolean
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoUserApi
+
+```ts
+export interface DojoUserApi extends DojoClientUserApi, DojoEntityTimeStampApi {
+    userId?: number;
+    created_at?: Date | null;
+    updated_at?: Date | null;
+    identityKey: string;
+    timeSpentProcessingRequests?: number;
+    bandwidthUsed?: number;
+    storageSpaceUsedByHostedData?: number;
+}
+```
+
+See also: [DojoClientUserApi](#interface-dojoclientuserapi), [DojoEntityTimeStampApi](#interface-dojoentitytimestampapi)
+
+<details>
+
+<summary>Interface DojoUserApi Details</summary>
+
+##### Property bandwidthUsed
+
+max 18 digits
+
+```ts
+bandwidthUsed?: number
+```
+
+##### Property identityKey
+
+max length of 130
+hex encoded
+
+```ts
+identityKey: string
+```
+
+##### Property storageSpaceUsedByHostedData
+
+max 15 digits
+
+```ts
+storageSpaceUsedByHostedData?: number
+```
+
+##### Property timeSpentProcessingRequests
+
+max 12 digits
+
+```ts
+timeSpentProcessingRequests?: number
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoUserStateApi
+
+```ts
+export interface DojoUserStateApi {
+    since?: Date;
+    user: DojoUserApi;
+    certificates: DojoCertificateApi[];
+    certificateFields: DojoCertificateFieldApi[];
+    commissions: DojoCommissionApi[];
+    mapiResponses: DojoMapiResponseApi[];
+    outputs: DojoOutputApi[];
+    baskets: DojoOutputBasketApi[];
+    provenTxReqs: DojoProvenTxReqApi[];
+    provenTxs: DojoProvenTxApi[];
+    txs: DojoTransactionApi[];
+    txLabels: DojoTxLabelApi[];
+    txLabelMaps: DojoTxLabelMapApi[];
+    outputTags: DojoOutputTagApi[];
+    outputTagMaps: DojoOutputTagMapApi[];
+}
+```
+
+See also: [DojoCertificateApi](#interface-dojocertificateapi), [DojoCertificateFieldApi](#interface-dojocertificatefieldapi), [DojoCommissionApi](#interface-dojocommissionapi), [DojoMapiResponseApi](#interface-dojomapiresponseapi), [DojoOutputApi](#interface-dojooutputapi), [DojoOutputBasketApi](#interface-dojooutputbasketapi), [DojoOutputTagApi](#interface-dojooutputtagapi), [DojoOutputTagMapApi](#interface-dojooutputtagmapapi), [DojoProvenTxApi](#interface-dojoproventxapi), [DojoProvenTxReqApi](#interface-dojoproventxreqapi), [DojoTransactionApi](#interface-dojotransactionapi), [DojoTxLabelApi](#interface-dojotxlabelapi), [DojoTxLabelMapApi](#interface-dojotxlabelmapapi), [DojoUserApi](#interface-dojouserapi)
+
+<details>
+
+<summary>Interface DojoUserStateApi Details</summary>
+
+##### Property since
+
+If undefined, this is the complete state for the given `user`.
+
+If a valid `Date`, these are the entities updated since that date.
+
+```ts
+since?: Date
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: IdentityGroup
+
+```ts
+export interface IdentityGroup {
+    totalTrust: number;
+    members: IdentityGroupMember[];
+}
+```
+
+See also: [IdentityGroupMember](#interface-identitygroupmember)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: IdentityGroupMember
+
+```ts
+export interface IdentityGroupMember {
+    certifier: CertifierDetails;
+    subject: string;
+}
+```
+
+See also: [CertifierDetails](#interface-certifierdetails)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: LiveBlockHeader
+
+The "live" portion of the block chain is recent history that can conceivably be subject to reorganizations.
+The additional fields support tracking orphan blocks, chain forks, and chain reorgs.
+
+```ts
+export interface LiveBlockHeader extends BlockHeader {
+    chainWork: Buffer;
+    isChainTip: boolean;
+    isActive: boolean;
+    headerId: number;
+    previousHeaderId: number | null;
+}
+```
+
+See also: [BlockHeader](#interface-blockheader)
+
+<details>
+
+<summary>Interface LiveBlockHeader Details</summary>
+
+##### Property chainWork
+
+The cummulative chainwork achieved by the addition of this block to the chain.
+Chainwork only matters in selecting the active chain.
+
+```ts
+chainWork: Buffer
+```
+
+##### Property headerId
+
+As there may be more than one header with identical height values due to orphan tracking,
+headers are assigned a unique headerId while part of the "live" portion of the block chain.
+
+```ts
+headerId: number
+```
+
+##### Property isActive
+
+True only if this header is currently on the active chain.
+
+```ts
+isActive: boolean
+```
+
+##### Property isChainTip
+
+True only if this header is currently a chain tip. e.g. There is no header that follows it by previousHash or previousHeaderId.
+
+```ts
+isChainTip: boolean
+```
+
+##### Property previousHeaderId
+
+Every header in the "live" portion of the block chain is linked to an ancestor header through
+both its previousHash and previousHeaderId properties.
+
+Due to forks, there may be multiple headers with identical `previousHash` and `previousHeaderId` values.
+Of these, only one (the header on the active chain) will have `isActive` === true.
+
+```ts
+previousHeaderId: number | null
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: LiveBlockHeaderHex
+
+Like LiveBlockHeader but 32 byte fields are hex encoded strings.
+
+```ts
+export interface LiveBlockHeaderHex extends BlockHeaderHex {
+    chainWork: string;
+    isChainTip: boolean;
+    isActive: boolean;
+    headerId: number;
+    previousHeaderId: number | null;
+}
+```
+
+See also: [BlockHeaderHex](#interface-blockheaderhex)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4657,21 +4641,7 @@ export interface MapiCallbackPayloadApi {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Interface: MapiTxidReturnResultApi
-
-Used to parse payloads when only confirmation that a miner acknowledges a specific txid matters.
-
-```ts
-export interface MapiTxidReturnResultApi {
-    apiVersion?: string;
-    timestamp?: string;
-    txid: string;
-    returnResult: string;
-}
-```
+See also: [blockHash](#function-blockhash)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4700,12 +4670,237 @@ export interface MapiPostTxPayloadApi {
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+#### Interface: MapiTxStatusPayloadApi
+
+As defined in https://github.com/bitcoin-sv-specs/brfc-merchantapi/blob/master/README.md
+
+```ts
+export interface MapiTxStatusPayloadApi {
+    apiVersion: string;
+    timestamp: string;
+    txid: string;
+    returnResult: string;
+    blockHash: string;
+    blockHeight: number;
+    confirmations: number;
+    minerId: string;
+    txSecondMempoolExpiry: number;
+    merkleProof?: TscMerkleProofApi;
+}
+```
+
+See also: [blockHash](#function-blockhash)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: MapiTxidReturnResultApi
+
+Used to parse payloads when only confirmation that a miner acknowledges a specific txid matters.
+
+```ts
+export interface MapiTxidReturnResultApi {
+    apiVersion?: string;
+    timestamp?: string;
+    txid: string;
+    returnResult: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: Result
+
+```ts
+export interface Result {
+    subject: string;
+    certifier: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 #### Interface: ScriptTemplateParamsSABPPP
 
 ```ts
 export interface ScriptTemplateParamsSABPPP {
     derivationPrefix?: string;
     derivationSuffix?: string;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: Settings
+
+```ts
+export interface Settings {
+    trustThreshold: number;
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: SyncDojoConfigBaseApi
+
+Each syncDojo config has the following properties:
+
+'dojoType' one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection'
+'dojoIdentityKey' the identity key of the syncDojo.
+'dojoName' the name of the syncDojo.
+
+```ts
+export interface SyncDojoConfigBaseApi {
+    dojoType: SyncDojoConfigType;
+    dojoIdentityKey: string;
+    dojoName?: string;
+}
+```
+
+See also: [SyncDojoConfigType](#type-syncdojoconfigtype)
+
+<details>
+
+<summary>Interface SyncDojoConfigBaseApi Details</summary>
+
+##### Property dojoIdentityKey
+
+the identity key of the syncDojo.
+
+```ts
+dojoIdentityKey: string
+```
+
+##### Property dojoName
+
+the name of the syncDojo.
+
+```ts
+dojoName?: string
+```
+
+##### Property dojoType
+
+one of 'Cloud URL' | 'Sqlite File' | 'MySql Connection' | '<custom>'
+
+```ts
+dojoType: SyncDojoConfigType
+```
+See also: [SyncDojoConfigType](#type-syncdojoconfigtype)
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: SyncDojoConfigCloudUrl
+
+The derived `SyncDojoConfigCloudUrl` interface adds:
+
+'url' the service URL of the cloud dojo with which to sync
+
+'clientPrivateKey' should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
+
+'useIdentityKey' may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
+
+The cloud dojo must exists and must already be configured with matching dojoIdentityKey.
+  
+If neither 'clientPrivateKey' or 'useIdentityKey' has a value, will attempt to use the Babbage signing strategy for Authrite.
+
+```ts
+export interface SyncDojoConfigCloudUrl extends SyncDojoConfigBaseApi {
+    url: string;
+    clientPrivateKey?: string;
+    useIdentityKey?: boolean;
+}
+```
+
+See also: [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi)
+
+<details>
+
+<summary>Interface SyncDojoConfigCloudUrl Details</summary>
+
+##### Property clientPrivateKey
+
+should be the authenticated user's private key matching their identityKey to enable automatic use of Authrite.
+
+```ts
+clientPrivateKey?: string
+```
+
+##### Property url
+
+the service URL of the cloud dojo with which to sync
+
+```ts
+url: string
+```
+
+##### Property useIdentityKey
+
+may be set to true instead of using 'clientPrivateKey' if the cloud dojo does not use Authrite for access control.
+
+```ts
+useIdentityKey?: boolean
+```
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: SyncDojoConfigMySqlConnection
+
+```ts
+export interface SyncDojoConfigMySqlConnection extends SyncDojoConfigBaseApi {
+    connection: string;
+}
+```
+
+See also: [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: SyncDojoConfigSqliteFile
+
+```ts
+export interface SyncDojoConfigSqliteFile extends SyncDojoConfigBaseApi {
+    filename: string;
+}
+```
+
+See also: [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: TrustEvaluatorParams
+
+```ts
+export interface TrustEvaluatorParams {
+    settings: Settings;
+    certifiers: CertifierDetails[];
+    results: Result[];
+}
+```
+
+See also: [CertifierDetails](#interface-certifierdetails), [Result](#interface-result), [Settings](#interface-settings)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: TrxToken
+
+Place holder for the transaction control object used by actual storage provider implementation.
+
+```ts
+export interface TrxToken {
 }
 ```
 
@@ -4766,6 +4961,7 @@ classes.
 
 ```ts
 export class CwiError extends Error {
+    isError = true;
     constructor(code: string, description: string, stack?: string, public details?: Record<string, string>) 
     static fromUnknown(err: unknown): CwiError 
     get code(): string 
@@ -4808,73 +5004,9 @@ Critical client data fields are preserved across HTTP DojoExpress / DojoExpressC
 ```ts
 static fromUnknown(err: unknown): CwiError 
 ```
+See also: [CwiError](#class-cwierror)
 
 </details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_NOT_IMPLEMENTED
-
-Not implemented.
-
-```ts
-export class ERR_NOT_IMPLEMENTED extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_INTERNAL
-
-An internal server error has occurred.
-
-```ts
-export class ERR_INTERNAL extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_UNAUTHORIZED
-
-Access is denied due to an authorization error.
-
-```ts
-export class ERR_UNAUTHORIZED extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_INVALID_PARAMETER
-
-The ${name} parameter is invalid.
-
-```ts
-export class ERR_INVALID_PARAMETER extends CwiError {
-    constructor(name: string, mustBe?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_MISSING_PARAMETER
-
-The ${name} parameter is missing, but it must be ${mustBe}.
-
-```ts
-export class ERR_MISSING_PARAMETER extends CwiError {
-    constructor(name: string, mustBe: string) 
-}
-```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4889,6 +5021,8 @@ export class ERR_BAD_REQUEST extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -4901,6 +5035,8 @@ export class ERR_CHAIN extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4915,76 +5051,442 @@ export class ERR_CHAIN_INVALID extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_TXID_INVALID
+#### Class: ERR_DOJO_BROADCAST_DUPE
 
-TXIDs must be 32 bytes encoded as 64 hex digits.
+Transaction was already broadcast.
 
 ```ts
-export class ERR_TXID_INVALID extends CwiError {
+export class ERR_DOJO_BROADCAST_DUPE extends CwiError {
     constructor() 
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_TXID_UNKNOWN
+#### Class: ERR_DOJO_BROADCAST_FAILED
 
-TXID failed to correspond to a known transaction.
+description || 'Dojo transaction broadcast failed.'
 
 ```ts
-export class ERR_TXID_UNKNOWN extends CwiError {
+export class ERR_DOJO_BROADCAST_FAILED extends CwiError {
     constructor(description?: string) 
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOUBLE_SPEND
+#### Class: ERR_DOJO_CERT_DUPE
 
-Transaction is a double spend.
-
-This exception includes `spendingTransactions`, an array of transaction envelopes
-of conflicting transactions.
+Certificate already exists.
 
 ```ts
-export class ERR_DOUBLE_SPEND extends CwiError {
-    constructor(public spendingTransactions: EnvelopeApi[], description?: string) 
+export class ERR_DOJO_CERT_DUPE extends CwiError {
+    constructor() 
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_TX_BAD_AMOUNT
+#### Class: ERR_DOJO_CERT_INVALID
 
-Transaction amount is not correct!
+Certificate signature is invalid.
 
 ```ts
-export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError {
+export class ERR_DOJO_CERT_INVALID extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_CERT_SUBJECT
+
+Certificate subject must match authenticated user's identityKey.
+
+```ts
+export class ERR_DOJO_CERT_SUBJECT extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_COMPLETED_TX
+
+`Update is invalid on completed transaction txid=${asString(txid)}`
+
+```ts
+export class ERR_DOJO_COMPLETED_TX extends CwiError {
+    constructor(txid: string | Buffer) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_CREATE_TX_EMPTY
+
+Transaction must have at least one input and output.
+
+```ts
+export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_FOREIGN_KEY
+
+description || 'Dojo foreign key validation error.'
+
+```ts
+export class ERR_DOJO_FOREIGN_KEY extends CwiError {
     constructor(description?: string) 
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_NOT_SUFFICIENT_FUNDS
+#### Class: ERR_DOJO_INVALID_BASKET_NAME
 
-Not sufficient funds in the available inputs to cover the cost of the required outputs
-and the transaction fee (${moreSatoshisNeeded} more satoshis are needed,
-for a total of ${totalSatoshisNeeded}), plus whatever would be required in order
-to pay the fee to unlock and spend the outputs used to provide the additional satoshis.
+Basket names must have one visible character and not more than 1000.
 
 ```ts
-export class ERR_DOJO_NOT_SUFFICIENT_FUNDS extends CwiError {
-    constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) 
+export class ERR_DOJO_INVALID_BASKET_NAME extends CwiError {
+    constructor() 
 }
 ```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_BEEF
+
+Basket names must have one visible character and not more than 1000.
+
+```ts
+export class ERR_DOJO_INVALID_BEEF extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS
+
+Output customInstruction must be a string or length not more than 2500.
+
+```ts
+export class ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_NOTE
+
+The transaction note is invalid.
+
+```ts
+export class ERR_DOJO_INVALID_NOTE extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_OUTPOINT
+
+The outpoint (txid and vout combination) does not belong to a transaction known by this user of the server.
+
+```ts
+export class ERR_DOJO_INVALID_OUTPOINT extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_OUTPUT_DESCRIPTION
+
+Output description must be a string or length not more than 255.
+
+```ts
+export class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_OUTPUT_TAG
+
+Output tags must have one visible character and not more than 150.
+
+```ts
+export class ERR_DOJO_INVALID_OUTPUT_TAG extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_PAYMAIL_DOMAIN
+
+This server is not accepting registrations for new Paymail handles under the specified domain name.
+
+```ts
+export class ERR_DOJO_INVALID_PAYMAIL_DOMAIN extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_PAYMAIL_HANDLE
+
+The paymail handle is invalid.
+
+```ts
+export class ERR_DOJO_INVALID_PAYMAIL_HANDLE extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_REDEEM
+
+outputToRedeem is invalid
+
+```ts
+export class ERR_DOJO_INVALID_REDEEM extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_REFERENCE
+
+The transaction reference is invalid.
+
+```ts
+export class ERR_DOJO_INVALID_REFERENCE extends CwiError {
+    constructor(reference?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_SATOSHIS
+
+An amount of satoshis must be a non-negative integer less than 21e14.
+
+```ts
+export class ERR_DOJO_INVALID_SATOSHIS extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_SCRIPT
+
+Script must be a valid Bitcoin script.
+
+```ts
+export class ERR_DOJO_INVALID_SCRIPT extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_TIME
+
+Time values must be integer number of seconds since the epoch.
+
+```ts
+export class ERR_DOJO_INVALID_TIME extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_TRANSACTION_BEEF
+
+The transaction BEEF is invalid.
+
+```ts
+export class ERR_DOJO_INVALID_TRANSACTION_BEEF extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_TRANSACTION_STATUS
+
+The status of this transaction is ${stat}, which is not compatible with this operation. The transaction was not broadcasted by the recipient.
+
+```ts
+export class ERR_DOJO_INVALID_TRANSACTION_STATUS extends CwiError {
+    constructor(stat: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_TXID
+
+Transaction labels must have one visible character and not more than 150.
+
+```ts
+export class ERR_DOJO_INVALID_TXID extends CwiError {
+    constructor(txid: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_TX_LABEL
+
+Transaction labels must have one visible character and not more than 150.
+
+```ts
+export class ERR_DOJO_INVALID_TX_LABEL extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_INVALID_TX_RECIPIENT
+
+Transaction recipient must be not more than 100.
+
+```ts
+export class ERR_DOJO_INVALID_TX_RECIPIENT extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_LABEL_NOT_FOUND
+
+The label cannot be found linked with your user account.
+
+```ts
+export class ERR_DOJO_LABEL_NOT_FOUND extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_NOSENDCHANGE
+
+outputToRedeem is invalid
+
+```ts
+export class ERR_DOJO_NOSENDCHANGE extends CwiError {
+    constructor(description: string | OutPoint) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5004,6 +5506,26 @@ export class ERR_DOJO_NOT_SUFFICIENT_ACCEPTED_FUNDS extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_NOT_SUFFICIENT_FUNDS
+
+Not sufficient funds in the available inputs to cover the cost of the required outputs
+and the transaction fee (${moreSatoshisNeeded} more satoshis are needed,
+for a total of ${totalSatoshisNeeded}), plus whatever would be required in order
+to pay the fee to unlock and spend the outputs used to provide the additional satoshis.
+
+```ts
+export class ERR_DOJO_NOT_SUFFICIENT_FUNDS extends CwiError {
+    constructor(public totalSatoshisNeeded: number, public moreSatoshisNeeded: number) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -5022,460 +5544,7 @@ export class ERR_DOJO_NOT_SUFFICIENT_PROVEN_FUNDS extends CwiError {
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_UNKNOWN_FEE_MODEL
-
-Transaction was already broadcast.
-
-```ts
-export class ERR_DOJO_UNKNOWN_FEE_MODEL extends CwiError {
-    constructor(model: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_BROADCAST_DUPE
-
-Transaction was already broadcast.
-
-```ts
-export class ERR_DOJO_BROADCAST_DUPE extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_CERT_DUPE
-
-Certificate already exists.
-
-```ts
-export class ERR_DOJO_CERT_DUPE extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_CERT_INVALID
-
-Certificate signature is invalid.
-
-```ts
-export class ERR_DOJO_CERT_INVALID extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_CERT_SUBJECT
-
-Certificate subject must match authenticated user's identityKey.
-
-```ts
-export class ERR_DOJO_CERT_SUBJECT extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_CREATE_TX_EMPTY
-
-Transaction must have at least one input and output.
-
-```ts
-export class ERR_DOJO_CREATE_TX_EMPTY extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_NOSENDCHANGE
-
-outputToRedeem is invalid
-
-```ts
-export class ERR_DOJO_NOSENDCHANGE extends CwiError {
-    constructor(description: string | OutPoint) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_REDEEM
-
-outputToRedeem is invalid
-
-```ts
-export class ERR_DOJO_INVALID_REDEEM extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS
-
-Output customInstruction must be a string or length not more than 2500.
-
-```ts
-export class ERR_DOJO_INVALID_CUSTOM_INSTRUCTIONS extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_OUTPOINT
-
-The outpoint (txid and vout combination) does not belong to a transaction known by this user of the server.
-
-```ts
-export class ERR_DOJO_INVALID_OUTPOINT extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_OUTPUT_DESCRIPTION
-
-Output description must be a string or length not more than 255.
-
-```ts
-export class ERR_DOJO_INVALID_OUTPUT_DESCRIPTION extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_PAYMAIL_HANDLE
-
-The paymail handle is invalid.
-
-```ts
-export class ERR_DOJO_INVALID_PAYMAIL_HANDLE extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_PAYMAIL_DOMAIN
-
-This server is not accepting registrations for new Paymail handles under the specified domain name.
-
-```ts
-export class ERR_DOJO_INVALID_PAYMAIL_DOMAIN extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_NOTE
-
-The transaction note is invalid.
-
-```ts
-export class ERR_DOJO_INVALID_NOTE extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_REFERENCE
-
-The transaction reference is invalid.
-
-```ts
-export class ERR_DOJO_INVALID_REFERENCE extends CwiError {
-    constructor(reference?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_TRANSACTION_BEEF
-
-The transaction BEEF is invalid.
-
-```ts
-export class ERR_DOJO_INVALID_TRANSACTION_BEEF extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_SATOSHIS
-
-An amount of satoshis must be a non-negative integer less than 21e14.
-
-```ts
-export class ERR_DOJO_INVALID_SATOSHIS extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_SCRIPT
-
-Script must be a valid Bitcoin script.
-
-```ts
-export class ERR_DOJO_INVALID_SCRIPT extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_TIME
-
-Time values must be integer number of seconds since the epoch.
-
-```ts
-export class ERR_DOJO_INVALID_TIME extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_TRANSACTION_STATUS
-
-The status of this transaction is ${stat}, which is not compatible with this operation. The transaction was not broadcasted by the recipient.
-
-```ts
-export class ERR_DOJO_INVALID_TRANSACTION_STATUS extends CwiError {
-    constructor(stat: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_BASKET_NAME
-
-Basket names must have one visible character and not more than 1000.
-
-```ts
-export class ERR_DOJO_INVALID_BASKET_NAME extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_BEEF
-
-Basket names must have one visible character and not more than 1000.
-
-```ts
-export class ERR_DOJO_INVALID_BEEF extends CwiError {
-    constructor(description?: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_TX_RECIPIENT
-
-Transaction recipient must be not more than 100.
-
-```ts
-export class ERR_DOJO_INVALID_TX_RECIPIENT extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_TX_LABEL
-
-Transaction labels must have one visible character and not more than 150.
-
-```ts
-export class ERR_DOJO_INVALID_TX_LABEL extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_OUTPUT_TAG
-
-Output tags must have one visible character and not more than 150.
-
-```ts
-export class ERR_DOJO_INVALID_OUTPUT_TAG extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_INVALID_TXID
-
-Transaction labels must have one visible character and not more than 150.
-
-```ts
-export class ERR_DOJO_INVALID_TXID extends CwiError {
-    constructor(txid: string) 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_LABEL_NOT_FOUND
-
-The label cannot be found linked with your user account.
-
-```ts
-export class ERR_DOJO_LABEL_NOT_FOUND extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_PAYMAIL_MISMATCH
-
-This paymail is not the same one used to create the request. The transaction was not broadcasted by the recipient.
-
-```ts
-export class ERR_DOJO_PAYMAIL_MISMATCH extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY
-
-The provided paymail was not in the correct format.
-
-```ts
-export class ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_PAYMAIL_NOT_FOUND
-
-This paymail was not found on this server.
-
-```ts
-export class ERR_DOJO_PAYMAIL_NOT_FOUND extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_PAYMAIL_UNAVAILABLE
-
-This Paymail handle is unavailable for registration by this server.
-
-```ts
-export class ERR_DOJO_PAYMAIL_UNAVAILABLE extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_REQUEST_EXPIRED
-
-The reference you have provided is expired. The transaction was not broadcasted by the recipient.
-
-```ts
-export class ERR_DOJO_REQUEST_EXPIRED extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_SENDER_SIGNATURE_CHECK
-
-The signature you provided to authenticate this Paymail sender is not valid.
-
-```ts
-export class ERR_DOJO_SENDER_SIGNATURE_CHECK extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_TRANSACTION_NOT_FOUND
-
-The transaction cannot be found linked with your user account.
-
-```ts
-export class ERR_DOJO_TRANSACTION_NOT_FOUND extends CwiError {
-    constructor() 
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_TRANSACTION_REJECTED
-
-This transaction was rejected and was not broadcasted by the recipient. Ensure that all specified output scripts are present with the correct amounts assigned to each.
-
-```ts
-export class ERR_DOJO_TRANSACTION_REJECTED extends CwiError {
-    constructor(description?: string) 
-}
-```
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5490,6 +5559,68 @@ export class ERR_DOJO_NO_ENVELOPE extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_PAYMAIL_MISMATCH
+
+This paymail is not the same one used to create the request. The transaction was not broadcasted by the recipient.
+
+```ts
+export class ERR_DOJO_PAYMAIL_MISMATCH extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY
+
+The provided paymail was not in the correct format.
+
+```ts
+export class ERR_DOJO_PAYMAIL_NOT_FORMATTED_CORRECTLY extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_PAYMAIL_NOT_FOUND
+
+This paymail was not found on this server.
+
+```ts
+export class ERR_DOJO_PAYMAIL_NOT_FOUND extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_PAYMAIL_UNAVAILABLE
+
+This Paymail handle is unavailable for registration by this server.
+
+```ts
+export class ERR_DOJO_PAYMAIL_UNAVAILABLE extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
@@ -5503,57 +5634,52 @@ export class ERR_DOJO_PROCESS_PENDING_OUTGOING extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_SYNC_STATUS
+#### Class: ERR_DOJO_PROVEN_TX
 
-dojo sync ${step} status expected '${expected}' but received '${actual}'
+`Update is invalid on proven transaction txid=${asString(txid)}`
 
 ```ts
-export class ERR_DOJO_SYNC_STATUS extends CwiError {
-    constructor(step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) 
+export class ERR_DOJO_PROVEN_TX extends CwiError {
+    constructor(txid: string | Buffer) 
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_SYNC_REFNUM
-
-refNum '${expected}' expected, '${actual}' received
-
-```ts
-export class ERR_DOJO_SYNC_REFNUM extends CwiError {
-    constructor(expected: string, actual: string) 
-}
-```
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_SYNC_STATE
+#### Class: ERR_DOJO_REQUEST_EXPIRED
 
-missing valid update state from syncDojo
+The reference you have provided is expired. The transaction was not broadcasted by the recipient.
 
 ```ts
-export class ERR_DOJO_SYNC_STATE extends CwiError {
+export class ERR_DOJO_REQUEST_EXPIRED extends CwiError {
     constructor() 
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_SYNC_TOTAL
+#### Class: ERR_DOJO_SENDER_SIGNATURE_CHECK
 
-sync total '${expected ?? 0}' expected, '${actual ?? 0}' received
+The signature you provided to authenticate this Paymail sender is not valid.
 
 ```ts
-export class ERR_DOJO_SYNC_TOTAL extends CwiError {
-    constructor(expected: number | undefined, actual: number | undefined) 
+export class ERR_DOJO_SENDER_SIGNATURE_CHECK extends CwiError {
+    constructor() 
 }
 ```
+
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5568,18 +5694,127 @@ export class ERR_DOJO_SYNC_MERGE extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_FOREIGN_KEY
+#### Class: ERR_DOJO_SYNC_REFNUM
 
-description || 'Dojo foreign key validation error.'
+refNum '${expected}' expected, '${actual}' received
 
 ```ts
-export class ERR_DOJO_FOREIGN_KEY extends CwiError {
+export class ERR_DOJO_SYNC_REFNUM extends CwiError {
+    constructor(expected: string, actual: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_SYNC_STATE
+
+missing valid update state from syncDojo
+
+```ts
+export class ERR_DOJO_SYNC_STATE extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_SYNC_STATUS
+
+dojo sync ${step} status expected '${expected}' but received '${actual}'
+
+```ts
+export class ERR_DOJO_SYNC_STATUS extends CwiError {
+    constructor(step: string, expected: DojoSyncStatus, actual: DojoSyncStatus) 
+}
+```
+
+See also: [CwiError](#class-cwierror), [DojoSyncStatus](#type-dojosyncstatus)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_SYNC_TOTAL
+
+sync total '${expected ?? 0}' expected, '${actual ?? 0}' received
+
+```ts
+export class ERR_DOJO_SYNC_TOTAL extends CwiError {
+    constructor(expected: number | undefined, actual: number | undefined) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_TRANSACTION_NOT_FOUND
+
+The transaction cannot be found linked with your user account.
+
+```ts
+export class ERR_DOJO_TRANSACTION_NOT_FOUND extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_TRANSACTION_REJECTED
+
+This transaction was rejected and was not broadcasted by the recipient. Ensure that all specified output scripts are present with the correct amounts assigned to each.
+
+```ts
+export class ERR_DOJO_TRANSACTION_REJECTED extends CwiError {
     constructor(description?: string) 
 }
 ```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_TX_BAD_AMOUNT
+
+Transaction amount is not correct!
+
+```ts
+export class ERR_DOJO_TX_BAD_AMOUNT extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_DOJO_UNKNOWN_FEE_MODEL
+
+Transaction was already broadcast.
+
+```ts
+export class ERR_DOJO_UNKNOWN_FEE_MODEL extends CwiError {
+    constructor(model: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5594,44 +5829,130 @@ export class ERR_DOJO_VALIDATION extends CwiError {
 }
 ```
 
+See also: [CwiError](#class-cwierror)
+
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_BROADCAST_FAILED
+#### Class: ERR_DOUBLE_SPEND
 
-description || 'Dojo transaction broadcast failed.'
+Transaction is a double spend.
+
+This exception includes `spendingTransactions`, an array of transaction envelopes
+of conflicting transactions.
 
 ```ts
-export class ERR_DOJO_BROADCAST_FAILED extends CwiError {
+export class ERR_DOUBLE_SPEND extends CwiError {
+    constructor(public spendingTransactions: EnvelopeApi[], description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_INTERNAL
+
+An internal server error has occurred.
+
+```ts
+export class ERR_INTERNAL extends CwiError {
     constructor(description?: string) 
 }
 ```
 
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Class: ERR_DOJO_COMPLETED_TX
-
-`Update is invalid on completed transaction txid=${asString(txid)}`
-
-```ts
-export class ERR_DOJO_COMPLETED_TX extends CwiError {
-    constructor(txid: string | Buffer) 
-}
-```
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Class: ERR_DOJO_PROVEN_TX
+#### Class: ERR_INVALID_PARAMETER
 
-`Update is invalid on proven transaction txid=${asString(txid)}`
+The ${name} parameter is invalid.
 
 ```ts
-export class ERR_DOJO_PROVEN_TX extends CwiError {
-    constructor(txid: string | Buffer) 
+export class ERR_INVALID_PARAMETER extends CwiError {
+    constructor(name: string, mustBe?: string) 
 }
 ```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_MISSING_PARAMETER
+
+The ${name} parameter is missing, but it must be ${mustBe}.
+
+```ts
+export class ERR_MISSING_PARAMETER extends CwiError {
+    constructor(name: string, mustBe: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_NOT_IMPLEMENTED
+
+Not implemented.
+
+```ts
+export class ERR_NOT_IMPLEMENTED extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_TXID_INVALID
+
+TXIDs must be 32 bytes encoded as 64 hex digits.
+
+```ts
+export class ERR_TXID_INVALID extends CwiError {
+    constructor() 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_TXID_UNKNOWN
+
+TXID failed to correspond to a known transaction.
+
+```ts
+export class ERR_TXID_UNKNOWN extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Class: ERR_UNAUTHORIZED
+
+Access is denied due to an authorization error.
+
+```ts
+export class ERR_UNAUTHORIZED extends CwiError {
+    constructor(description?: string) 
+}
+```
+
+See also: [CwiError](#class-cwierror)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -5651,6 +5972,8 @@ export class ScriptTemplateSABPPP implements ScriptTemplate {
     } 
 }
 ```
+
+See also: [ScriptTemplateParamsSABPPP](#interface-scripttemplateparamssabppp)
 
 <details>
 
@@ -5709,303 +6032,86 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ---
 
-#### Function: verifyBuffer
-
-Helper function.
-
-Verifies the value of b is a Buffer and optionally also its length.
+#### Function: asBsvSdkPrivateKey
 
 ```ts
-export function verifyBuffer(b: Buffer | undefined | null, length?: number): Buffer 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyBufferEquals
-
-true iff both b1 and b2 are undefined or null, or both are Buffers and are equal.
-
-```ts
-export function verifyBufferEquals(b1: Buffer | undefined | null, b2: Buffer | undefined | null): boolean 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyTruthy
-
-Helper function.
-
-Verifies that a possibly optional value has a value.
-
-```ts
-export function verifyTruthy<T>(v: T | null | undefined, description?: string): T 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyNumber
-
-Helper function.
-
-Verifies that an optional or null number has a numeric value.
-
-```ts
-export function verifyNumber(v: number | null | undefined): number 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyId
-
-Helper function.
-
-Verifies that an optional numeric Id has a value.
-
-```ts
-export function verifyId(id: number | undefined | null): number 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyOneOrNone
-
-Helper function.
-
-throws ERR_BAD_REQUEST if results has length greater than one.
-
-```ts
-export function verifyOneOrNone<T>(results: T[]): (T | undefined) 
+export function asBsvSdkPrivateKey(privKey: string): PrivateKey 
 ```
 
 <details>
 
-<summary>Function verifyOneOrNone Details</summary>
-
-Returns
-
-results[0] or undefined if length is zero.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyOne
-
-Helper function.
-
-throws ERR_BAD_REQUEST if results has length other than one.
-
-```ts
-export function verifyOne<T>(results: T[], errorDescrition?: string): T 
-```
-
-<details>
-
-<summary>Function verifyOne Details</summary>
-
-Returns
-
-results[0].
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: verifyNone
-
-Helper function.
-
-throws ERR_BAD_REQUEST if results has length greater than one.
-
-```ts
-export function verifyNone<T>(results: T[]): void 
-```
-
-<details>
-
-<summary>Function verifyNone Details</summary>
-
-Returns
-
-results[0] or undefined if length is zero.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: bitsAreSet
-
-Tests if all `bits` are set in `what`.
-
-```ts
-export function bitsAreSet(what: number, bits: number): boolean 
-```
-
-<details>
-
-<summary>Function bitsAreSet Details</summary>
-
-Returns
-
-true iff all `bits` are set in `what`
+<summary>Function asBsvSdkPrivateKey Details</summary>
 
 Argument Details
 
-+ **what**
-  + value being tested for set bits.
-+ **bits**
-  + union of bits to test.
++ **privKey**
+  + bitcoin private key in 32 byte hex string form
 
 </details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: wait
-
-Returns an await'able Promise that resolves in the given number of msecs.
+#### Function: asBsvSdkPublickKey
 
 ```ts
-export function wait(msecs: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, msecs));
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: randomBytes
-
-```ts
-export function randomBytes(count: number): Buffer 
+export function asBsvSdkPublickKey(pubKey: string): PublicKey 
 ```
 
 <details>
 
-<summary>Function randomBytes Details</summary>
-
-Returns
-
-count cryptographically secure random bytes as Buffer
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: randomBytesHex
-
-```ts
-export function randomBytesHex(count: number): string 
-```
-
-<details>
-
-<summary>Function randomBytesHex Details</summary>
-
-Returns
-
-count cryptographically secure random bytes as hex encoded string
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: randomBytesBase64
-
-```ts
-export function randomBytesBase64(count: number): string 
-```
-
-<details>
-
-<summary>Function randomBytesBase64 Details</summary>
-
-Returns
-
-count cryptographically secure random bytes as base64 encoded string
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: randomMinMax
-
-```ts
-export function randomMinMax(min: number, max: number): number {
-    if (max < min)
-        throw new ERR_INVALID_PARAMETER("max", `less than min (${min}). max is (${max})`);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-```
-
-<details>
-
-<summary>Function randomMinMax Details</summary>
-
-Returns
-
-a weakly randomized value in the range from min to less than max.
+<summary>Function asBsvSdkPublickKey Details</summary>
 
 Argument Details
 
-+ **min**
-  + minimum value to return
-+ **max**
-  + greater than maximum value returned
-
-Throws
-
-ERR_INVALID_PARAMETER when max is less than min.
++ **pubKey**
+  + bitcoin public key in standard compressed key hex string form
 
 </details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: shuffleArray
+#### Function: asBsvSdkScript
 
-Shuffle an array of items.
-
-This is not a cryptographically strong shuffle.
-
-Run time is O(n)
+Coerce a bsv script encoded as a hex string, serialized Buffer, or Script to Script
+If script is already a Script, just return it.
 
 ```ts
-export function shuffleArray<T>(array: T[]): T[] {
-    let currentIndex = array.length;
-    let temporaryValue;
-    let randomIndex;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+export function asBsvSdkScript(script: string | Buffer | Script): Script {
+    if (Buffer.isBuffer(script)) {
+        script = Script.fromHex(asString(script));
     }
-    return array;
+    else if (typeof script === "string") {
+        script = Script.fromHex(script);
+    }
+    return script;
 }
 ```
 
-<details>
+See also: [asString](#function-asstring)
 
-<summary>Function shuffleArray Details</summary>
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
-Returns
+---
+#### Function: asBsvSdkTx
 
-original `array` with contents shuffled
+Coerce a bsv transaction encoded as a hex string, serialized Buffer, or Transaction to Transaction
+If tx is already a Transaction, just return it.
 
-</details>
+```ts
+export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
+    if (Buffer.isBuffer(tx)) {
+        tx = Transaction.fromHex(asString(tx));
+    }
+    else if (typeof tx === "string") {
+        tx = Transaction.fromHex(tx);
+    }
+    return tx;
+}
+```
+
+See also: [asString](#function-asstring)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6079,240 +6185,94 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: sha256Hash
+#### Function: bitsAreSet
 
-Calculate the SHA256 hash of a Buffer.
+Tests if all `bits` are set in `what`.
 
 ```ts
-export function sha256Hash(buffer: Buffer): Buffer {
-    return crypto.createHash("sha256").update(buffer).digest();
-}
+export function bitsAreSet(what: number, bits: number): boolean 
 ```
 
 <details>
 
-<summary>Function sha256Hash Details</summary>
+<summary>Function bitsAreSet Details</summary>
 
 Returns
 
-sha256 hash of buffer contents.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: doubleSha256HashLE
-
-Calculate the SHA256 hash of the SHA256 hash of a Buffer.
-
-```ts
-export function doubleSha256HashLE(data: string | Buffer, encoding?: BufferEncoding): Buffer {
-    return sha256Hash(sha256Hash(asBuffer(data, encoding)));
-}
-```
-
-<details>
-
-<summary>Function doubleSha256HashLE Details</summary>
-
-Returns
-
-double sha256 hash of buffer contents, byte 0 of hash first.
+true iff all `bits` are set in `what`
 
 Argument Details
 
-+ **data**
-  + is Buffer or hex encoded string
++ **what**
+  + value being tested for set bits.
++ **bits**
+  + union of bits to test.
 
 </details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: doubleSha256BE
+#### Function: blockHash
 
-Calculate the SHA256 hash of the SHA256 hash of a Buffer.
+Computes double sha256 hash of bitcoin block header
+bytes are reversed to bigendian order
+
+If header is a Buffer, it is required to 80 bytes long
+and in standard block header serialized encoding.
 
 ```ts
-export function doubleSha256BE(data: string | Buffer, encoding?: BufferEncoding): Buffer {
-    return doubleSha256HashLE(data, encoding).reverse();
+export function blockHash(header: BaseBlockHeader | Buffer): Buffer {
+    const data = !Buffer.isBuffer(header) ? serializeBlockHeader(header) : header;
+    if (data.length !== 80)
+        throw new Error("Block header must be 80 bytes long.");
+    return doubleSha256HashLE(data).reverse();
 }
 ```
 
+See also: [BaseBlockHeader](#interface-baseblockheader), [doubleSha256HashLE](#function-doublesha256hashle), [serializeBlockHeader](#function-serializeblockheader)
+
 <details>
 
-<summary>Function doubleSha256BE Details</summary>
+<summary>Function blockHash Details</summary>
 
 Returns
 
-reversed (big-endian) double sha256 hash of data, byte 31 of hash first.
+doule sha256 hash of header bytes reversed
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: computeMerkleTreeParent
+
+Coerce the 32 byte hash value for a merkle tree parent node given its left and right child node hashes.
+
+```ts
+export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: string | Buffer): Buffer {
+    const leftConc = Buffer.from(asBuffer(leftNode)).reverse();
+    const rightConc = Buffer.from(asBuffer(rightNode)).reverse();
+    const concat = Buffer.concat([leftConc, rightConc]);
+    const hash = doubleSha256BE(concat);
+    return hash;
+}
+```
+
+See also: [asBuffer](#function-asbuffer), [doubleSha256BE](#function-doublesha256be)
+
+<details>
+
+<summary>Function computeMerkleTreeParent Details</summary>
 
 Argument Details
 
-+ **data**
-  + is Buffer or hex encoded string
++ **leftNode**
+  + 32 byte hash as hex string or Buffer
++ **rightNode**
+  + 32 byte hash as hex string or Buffer
 
 </details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: swapByteOrder
-
-Returns a copy of a Buffer with byte order reversed.
-
-```ts
-export function swapByteOrder(buffer: Buffer): Buffer {
-    return Buffer.from(buffer).reverse();
-}
-```
-
-<details>
-
-<summary>Function swapByteOrder Details</summary>
-
-Returns
-
-new buffer with byte order reversed.
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: convertUint32ToBuffer
-
-```ts
-export function convertUint32ToBuffer(num: number, littleEndian = true): Buffer {
-    const arr = new ArrayBuffer(4);
-    const view = new DataView(arr);
-    view.setUint32(0, num, littleEndian);
-    return Buffer.from(arr);
-}
-```
-
-<details>
-
-<summary>Function convertUint32ToBuffer Details</summary>
-
-Returns
-
-four byte buffer with Uint32 number encoded
-
-Argument Details
-
-+ **num**
-  + a number value in the Uint32 value range
-+ **littleEndian**
-  + true for little-endian byte order in Buffer
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: convertBufferToUint32
-
-```ts
-export function convertBufferToUint32(buffer: Buffer, littleEndian = true): number {
-    const arr = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
-    const view = new DataView(arr);
-    return view.getUint32(0, littleEndian);
-}
-```
-
-<details>
-
-<summary>Function convertBufferToUint32 Details</summary>
-
-Returns
-
-a number value in the Uint32 value range
-
-Argument Details
-
-+ **buffer**
-  + four byte buffer with Uint32 number encoded
-+ **littleEndian**
-  + true for little-endian byte order in Buffer
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: varUintSize
-
-Returns the byte size required to encode number as Bitcoin VarUint
-
-```ts
-export function varUintSize(val: number): 1 | 3 | 5 | 9 {
-    if (val < 0)
-        throw new ERR_BAD_REQUEST();
-    return (val <= 252 ? 1 : val <= 65535 ? 3 : val <= 4294967295 ? 5 : 9);
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: readVarUint32LE
-
-Reads a Bitcoin VarUInt from buffer at an offset.
-
-Returns updated offset.
-
-```ts
-export function readVarUint32LE(buffer: Buffer, offset: number): {
-    val: number;
-    offset: number;
-} {
-    const b0 = buffer[offset++];
-    switch (b0) {
-        case 255:
-            throw new Error("Larger than Uint32 value is not supported at this time.");
-        case 254:
-            return { val: buffer.readUint32LE(offset), offset: offset + 4 };
-        case 253:
-            return { val: buffer.readUint16LE(offset), offset: offset + 2 };
-        default:
-            return { val: b0, offset };
-    }
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: writeVarUint32LE
-
-Writes a Bitcoin VarUInt to a buffer at an offset.
-
-Returns updated offset.
-
-```ts
-export function writeVarUint32LE(val: number, buffer: Buffer, offset: number): number {
-    if (val < 0) {
-        throw new Error(`val ${val} must be a non-negative integer.`);
-    }
-    if (val <= 252) {
-        buffer[offset] = val;
-        return offset + 1;
-    }
-    if (val <= 65535) {
-        buffer[offset] = 253;
-        buffer.writeUint16LE(val, offset + 1);
-        return offset + 3;
-    }
-    if (val <= 4294967295) {
-        buffer[offset] = 254;
-        buffer.writeUint32LE(val, offset + 1);
-        return offset + 5;
-    }
-    throw new Error("Larger than Uint32 value is not supported at this time.");
-}
-```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6355,112 +6315,207 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: computeMerkleTreeParent
-
-Coerce the 32 byte hash value for a merkle tree parent node given its left and right child node hashes.
+#### Function: convertBufferToUint32
 
 ```ts
-export function computeMerkleTreeParent(leftNode: string | Buffer, rightNode: string | Buffer): Buffer {
-    const leftConc = Buffer.from(asBuffer(leftNode)).reverse();
-    const rightConc = Buffer.from(asBuffer(rightNode)).reverse();
-    const concat = Buffer.concat([leftConc, rightConc]);
-    const hash = doubleSha256BE(concat);
-    return hash;
+export function convertBufferToUint32(buffer: Buffer, littleEndian = true): number {
+    const arr = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+    const view = new DataView(arr);
+    return view.getUint32(0, littleEndian);
 }
 ```
 
 <details>
 
-<summary>Function computeMerkleTreeParent Details</summary>
+<summary>Function convertBufferToUint32 Details</summary>
+
+Returns
+
+a number value in the Uint32 value range
 
 Argument Details
 
-+ **leftNode**
-  + 32 byte hash as hex string or Buffer
-+ **rightNode**
-  + 32 byte hash as hex string or Buffer
++ **buffer**
+  + four byte buffer with Uint32 number encoded
++ **littleEndian**
+  + true for little-endian byte order in Buffer
 
 </details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: asBsvSdkTx
-
-Coerce a bsv transaction encoded as a hex string, serialized Buffer, or Transaction to Transaction
-If tx is already a Transaction, just return it.
+#### Function: convertUint32ToBuffer
 
 ```ts
-export function asBsvSdkTx(tx: string | Buffer | Transaction): Transaction {
-    if (Buffer.isBuffer(tx)) {
-        tx = Transaction.fromHex(asString(tx));
-    }
-    else if (typeof tx === "string") {
-        tx = Transaction.fromHex(tx);
-    }
-    return tx;
+export function convertUint32ToBuffer(num: number, littleEndian = true): Buffer {
+    const arr = new ArrayBuffer(4);
+    const view = new DataView(arr);
+    view.setUint32(0, num, littleEndian);
+    return Buffer.from(arr);
 }
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: asBsvSdkScript
-
-Coerce a bsv script encoded as a hex string, serialized Buffer, or Script to Script
-If script is already a Script, just return it.
-
-```ts
-export function asBsvSdkScript(script: string | Buffer | Script): Script {
-    if (Buffer.isBuffer(script)) {
-        script = Script.fromHex(asString(script));
-    }
-    else if (typeof script === "string") {
-        script = Script.fromHex(script);
-    }
-    return script;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: asBsvSdkPrivateKey
-
-```ts
-export function asBsvSdkPrivateKey(privKey: string): PrivateKey 
 ```
 
 <details>
 
-<summary>Function asBsvSdkPrivateKey Details</summary>
+<summary>Function convertUint32ToBuffer Details</summary>
+
+Returns
+
+four byte buffer with Uint32 number encoded
 
 Argument Details
 
-+ **privKey**
-  + bitcoin private key in 32 byte hex string form
++ **num**
+  + a number value in the Uint32 value range
++ **littleEndian**
+  + true for little-endian byte order in Buffer
 
 </details>
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: asBsvSdkPublickKey
+#### Function: createBabbageServiceChargeOutput
 
 ```ts
-export function asBsvSdkPublickKey(pubKey: string): PublicKey 
+export function createBabbageServiceChargeOutput(fee = 200): {
+    script: string;
+    satoshis: number;
+    keyOffset: string;
+} 
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: deserializeBlockHeader
+
+Deserialize a block header from an 80 byte buffer
+
+```ts
+export function deserializeBlockHeader(buffer: Buffer, offset = 0): BaseBlockHeader {
+    const header: BaseBlockHeader = {
+        version: convertBufferToUint32(buffer.subarray(0 + offset, 4 + offset)),
+        previousHash: swapByteOrder(buffer.subarray(4 + offset, 36 + offset)),
+        merkleRoot: swapByteOrder(buffer.subarray(36 + offset, 68 + offset)),
+        time: convertBufferToUint32(buffer.subarray(68 + offset, 72 + offset)),
+        bits: convertBufferToUint32(buffer.subarray(72 + offset, 76 + offset)),
+        nonce: convertBufferToUint32(buffer.subarray(76 + offset, 80 + offset))
+    };
+    return header;
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [convertBufferToUint32](#function-convertbuffertouint32), [swapByteOrder](#function-swapbyteorder)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: doubleSha256BE
+
+Calculate the SHA256 hash of the SHA256 hash of a Buffer.
+
+```ts
+export function doubleSha256BE(data: string | Buffer, encoding?: BufferEncoding): Buffer {
+    return doubleSha256HashLE(data, encoding).reverse();
+}
+```
+
+See also: [doubleSha256HashLE](#function-doublesha256hashle)
 
 <details>
 
-<summary>Function asBsvSdkPublickKey Details</summary>
+<summary>Function doubleSha256BE Details</summary>
+
+Returns
+
+reversed (big-endian) double sha256 hash of data, byte 31 of hash first.
 
 Argument Details
 
-+ **pubKey**
-  + bitcoin public key in standard compressed key hex string form
++ **data**
+  + is Buffer or hex encoded string
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: doubleSha256HashLE
+
+Calculate the SHA256 hash of the SHA256 hash of a Buffer.
+
+```ts
+export function doubleSha256HashLE(data: string | Buffer, encoding?: BufferEncoding): Buffer {
+    return sha256Hash(sha256Hash(asBuffer(data, encoding)));
+}
+```
+
+See also: [asBuffer](#function-asbuffer), [sha256Hash](#function-sha256hash)
+
+<details>
+
+<summary>Function doubleSha256HashLE Details</summary>
+
+Returns
+
+double sha256 hash of buffer contents, byte 0 of hash first.
+
+Argument Details
+
++ **data**
+  + is Buffer or hex encoded string
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: genesisBuffer
+
+Returns the genesis block for the specified chain.
+
+```ts
+export function genesisBuffer(chain: Chain): Buffer { return serializeBlockHeader(toBlockHeader(genesisHeaderHex(chain))); }
+```
+
+See also: [Chain](#type-chain), [genesisHeaderHex](#function-genesisheaderhex), [serializeBlockHeader](#function-serializeblockheader), [toBlockHeader](#function-toblockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: genesisHeaderHex
+
+Returns the genesis block for the specified chain.
+
+```ts
+export function genesisHeaderHex(chain: Chain): BlockHeaderHex {
+    return chain === "main"
+        ? {
+            version: 1,
+            previousHash: "0000000000000000000000000000000000000000000000000000000000000000",
+            merkleRoot: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
+            time: 1231006505,
+            bits: 486604799,
+            nonce: 2083236893,
+            height: 0,
+            hash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+        }
+        : {
+            version: 1,
+            previousHash: "0000000000000000000000000000000000000000000000000000000000000000",
+            merkleRoot: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
+            time: 1296688602,
+            bits: 486604799,
+            nonce: 414098458,
+            height: 0,
+            hash: "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"
+        };
+}
+```
+
+See also: [BlockHeaderHex](#interface-blockheaderhex), [Chain](#type-chain)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6481,6 +6536,8 @@ export function getInputTxIds(tx: string | Buffer | Transaction): string[] {
     return Object.keys(txids);
 }
 ```
+
+See also: [asBsvSdkTx](#function-asbsvsdktx), [verifyTruthy](#function-verifytruthy)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6507,6 +6564,123 @@ Argument Details
   + as hex encoded 32 byte value
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isBaseBlockHeader
+
+Type guard function.
+
+```ts
+export function isBaseBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BaseBlockHeader {
+    return Buffer.isBuffer(header.previousHash);
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isBaseBlockHeaderHex
+
+Type guard function.
+
+```ts
+export function isBaseBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BaseBlockHeaderHex {
+    return (typeof header.previousHash === "string");
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isBlockHeader
+
+Type guard function.
+
+```ts
+export function isBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeader {
+    return ("height" in header) && Buffer.isBuffer(header.previousHash);
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isBlockHeaderHex
+
+Type guard function.
+
+```ts
+export function isBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BlockHeaderHex {
+    return ("height" in header) && (typeof header.previousHash === "string");
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isLive
+
+Type guard function.
+
+```ts
+export function isLive(header: BlockHeader | LiveBlockHeader): header is LiveBlockHeader {
+    return (header as LiveBlockHeader).headerId !== undefined;
+}
+```
+
+See also: [BlockHeader](#interface-blockheader), [LiveBlockHeader](#interface-liveblockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isLiveBlockHeader
+
+Type guard function.
+
+```ts
+export function isLiveBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeader {
+    return "chainwork" in header && Buffer.isBuffer(header.previousHash);
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: isLiveBlockHeaderHex
+
+Type guard function.
+
+```ts
+export function isLiveBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeaderHex {
+    return "chainwork" in header && (typeof header.previousHash === "string");
+}
+```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: lockScriptWithKeyOffsetFromPubKey
+
+```ts
+export function lockScriptWithKeyOffsetFromPubKey(pubKey: string, keyOffset?: string): {
+    script: string;
+    keyOffset: string;
+} 
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6543,276 +6717,162 @@ export function minDate(d1: Date | null | undefined, d2: Date | null | undefined
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: transformResultsWithTrust
-
-Helper function for evaluating if an entity meets the trust threshold of the user
+#### Function: offsetPrivKey
 
 ```ts
-export function transformResultsWithTrust({ settings, certifiers, results }: TrustEvaluatorParams) 
+export function offsetPrivKey(privKey: string, keyOffset?: string): {
+    offsetPrivKey: string;
+    keyOffset: string;
+} 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: offsetPubKey
+
+```ts
+export function offsetPubKey(pubKey: string, keyOffset?: string): {
+    offsetPubKey: string;
+    keyOffset: string;
+} 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: randomBytes
+
+```ts
+export function randomBytes(count: number): Buffer 
 ```
 
 <details>
 
-<summary>Function transformResultsWithTrust Details</summary>
-
-Argument Details
-
-+ **obj**
-  + all params given in an object
-
-</details>
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isLive
-
-Type guard function.
-
-```ts
-export function isLive(header: BlockHeader | LiveBlockHeader): header is LiveBlockHeader {
-    return (header as LiveBlockHeader).headerId !== undefined;
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isBaseBlockHeader
-
-Type guard function.
-
-```ts
-export function isBaseBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BaseBlockHeader {
-    return Buffer.isBuffer(header.previousHash);
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isBlockHeader
-
-Type guard function.
-
-```ts
-export function isBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeader {
-    return ("height" in header) && Buffer.isBuffer(header.previousHash);
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isLiveBlockHeader
-
-Type guard function.
-
-```ts
-export function isLiveBlockHeader(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeader {
-    return "chainwork" in header && Buffer.isBuffer(header.previousHash);
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isBaseBlockHeaderHex
-
-Type guard function.
-
-```ts
-export function isBaseBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BaseBlockHeaderHex {
-    return (typeof header.previousHash === "string");
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isBlockHeaderHex
-
-Type guard function.
-
-```ts
-export function isBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is BlockHeaderHex {
-    return ("height" in header) && (typeof header.previousHash === "string");
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: isLiveBlockHeaderHex
-
-Type guard function.
-
-```ts
-export function isLiveBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader | BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): header is LiveBlockHeaderHex {
-    return "chainwork" in header && (typeof header.previousHash === "string");
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toBaseBlockHeaderHex
-
-Type conversion function.
-
-```ts
-export function toBaseBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader): BaseBlockHeaderHex {
-    return {
-        version: header.version,
-        previousHash: asString(header.previousHash),
-        merkleRoot: asString(header.merkleRoot),
-        time: header.time,
-        bits: header.bits,
-        nonce: header.nonce
-    };
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toBlockHeaderHex
-
-Type conversion function.
-
-```ts
-export function toBlockHeaderHex(header: BlockHeader | LiveBlockHeader): BlockHeaderHex {
-    return {
-        version: header.version,
-        previousHash: asString(header.previousHash),
-        merkleRoot: asString(header.merkleRoot),
-        time: header.time,
-        bits: header.bits,
-        nonce: header.nonce,
-        height: header.height,
-        hash: asString(header.hash)
-    };
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toLiveBlockHeaderHex
-
-Type conversion function.
-
-```ts
-export function toLiveBlockHeaderHex(header: LiveBlockHeader): LiveBlockHeaderHex {
-    return {
-        ...header,
-        previousHash: asString(header.previousHash),
-        merkleRoot: asString(header.merkleRoot),
-        hash: asString(header.hash),
-        chainWork: asString(header.chainWork)
-    };
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toBaseBlockHeader
-
-Type conversion function.
-
-```ts
-export function toBaseBlockHeader(header: BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): BaseBlockHeader {
-    return {
-        version: header.version,
-        previousHash: asBuffer(header.previousHash),
-        merkleRoot: asBuffer(header.merkleRoot),
-        time: header.time,
-        bits: header.bits,
-        nonce: header.nonce
-    };
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toBlockHeader
-
-Type conversion function.
-
-```ts
-export function toBlockHeader(header: BlockHeaderHex | LiveBlockHeaderHex): BlockHeader {
-    return {
-        version: header.version,
-        previousHash: asBuffer(header.previousHash),
-        merkleRoot: asBuffer(header.merkleRoot),
-        time: header.time,
-        bits: header.bits,
-        nonce: header.nonce,
-        height: header.height,
-        hash: asBuffer(header.hash)
-    };
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toLiveBlockHeader
-
-Type conversion function.
-
-```ts
-export function toLiveBlockHeader(header: LiveBlockHeaderHex): LiveBlockHeader {
-    return {
-        ...header,
-        previousHash: asBuffer(header.previousHash),
-        merkleRoot: asBuffer(header.merkleRoot),
-        hash: asBuffer(header.hash),
-        chainWork: asBuffer(header.chainWork)
-    };
-}
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: toDojoSyncError
-
-```ts
-export function toDojoSyncError(e: CwiError): DojoSyncErrorApi 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: blockHash
-
-Computes double sha256 hash of bitcoin block header
-bytes are reversed to bigendian order
-
-If header is a Buffer, it is required to 80 bytes long
-and in standard block header serialized encoding.
-
-```ts
-export function blockHash(header: BaseBlockHeader | Buffer): Buffer {
-    const data = !Buffer.isBuffer(header) ? serializeBlockHeader(header) : header;
-    if (data.length !== 80)
-        throw new Error("Block header must be 80 bytes long.");
-    return doubleSha256HashLE(data).reverse();
-}
-```
-
-<details>
-
-<summary>Function blockHash Details</summary>
+<summary>Function randomBytes Details</summary>
 
 Returns
 
-doule sha256 hash of header bytes reversed
+count cryptographically secure random bytes as Buffer
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: randomBytesBase64
+
+```ts
+export function randomBytesBase64(count: number): string 
+```
+
+<details>
+
+<summary>Function randomBytesBase64 Details</summary>
+
+Returns
+
+count cryptographically secure random bytes as base64 encoded string
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: randomBytesHex
+
+```ts
+export function randomBytesHex(count: number): string 
+```
+
+<details>
+
+<summary>Function randomBytesHex Details</summary>
+
+Returns
+
+count cryptographically secure random bytes as hex encoded string
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: randomMinMax
+
+```ts
+export function randomMinMax(min: number, max: number): number {
+    if (max < min)
+        throw new ERR_INVALID_PARAMETER("max", `less than min (${min}). max is (${max})`);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+```
+
+See also: [ERR_INVALID_PARAMETER](#class-err_invalid_parameter)
+
+<details>
+
+<summary>Function randomMinMax Details</summary>
+
+Returns
+
+a weakly randomized value in the range from min to less than max.
+
+Argument Details
+
++ **min**
+  + minimum value to return
++ **max**
+  + greater than maximum value returned
+
+Throws
+
+ERR_INVALID_PARAMETER when max is less than min.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: readVarUint32LE
+
+Reads a Bitcoin VarUInt from buffer at an offset.
+
+Returns updated offset.
+
+```ts
+export function readVarUint32LE(buffer: Buffer, offset: number): {
+    val: number;
+    offset: number;
+} {
+    const b0 = buffer[offset++];
+    switch (b0) {
+        case 255:
+            throw new Error("Larger than Uint32 value is not supported at this time.");
+        case 254:
+            return { val: buffer.readUint32LE(offset), offset: offset + 4 };
+        case 253:
+            return { val: buffer.readUint16LE(offset), offset: offset + 2 };
+        default:
+            return { val: b0, offset };
+    }
+}
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: restoreUserStateEntities
+
+Entities sent across HTTP may not have Date and Buffer properties restored correctly.
+
+Detect these situations and restore contained values as Dates and Buffers.
+
+```ts
+export function restoreUserStateEntities(state: DojoUserStateApi): void 
+```
+
+See also: [DojoUserStateApi](#interface-dojouserstateapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -6850,6 +6910,8 @@ export function serializeBlockHeader(header: BaseBlockHeader, buffer?: Buffer, o
 }
 ```
 
+See also: [BaseBlockHeader](#interface-baseblockheader), [convertUint32ToBuffer](#function-convertuint32tobuffer), [swapByteOrder](#function-swapbyteorder)
+
 <details>
 
 <summary>Function serializeBlockHeader Details</summary>
@@ -6863,67 +6925,230 @@ Returns
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: deserializeBlockHeader
+#### Function: sha256Hash
 
-Deserialize a block header from an 80 byte buffer
+Calculate the SHA256 hash of a Buffer.
 
 ```ts
-export function deserializeBlockHeader(buffer: Buffer, offset = 0): BaseBlockHeader {
-    const header: BaseBlockHeader = {
-        version: convertBufferToUint32(buffer.subarray(0 + offset, 4 + offset)),
-        previousHash: swapByteOrder(buffer.subarray(4 + offset, 36 + offset)),
-        merkleRoot: swapByteOrder(buffer.subarray(36 + offset, 68 + offset)),
-        time: convertBufferToUint32(buffer.subarray(68 + offset, 72 + offset)),
-        bits: convertBufferToUint32(buffer.subarray(72 + offset, 76 + offset)),
-        nonce: convertBufferToUint32(buffer.subarray(76 + offset, 80 + offset))
+export function sha256Hash(buffer: Buffer): Buffer {
+    return crypto.createHash("sha256").update(buffer).digest();
+}
+```
+
+<details>
+
+<summary>Function sha256Hash Details</summary>
+
+Returns
+
+sha256 hash of buffer contents.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: shuffleArray
+
+Shuffle an array of items.
+
+This is not a cryptographically strong shuffle.
+
+Run time is O(n)
+
+```ts
+export function shuffleArray<T>(array: T[]): T[] {
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
+```
+
+<details>
+
+<summary>Function shuffleArray Details</summary>
+
+Returns
+
+original `array` with contents shuffled
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: swapByteOrder
+
+Returns a copy of a Buffer with byte order reversed.
+
+```ts
+export function swapByteOrder(buffer: Buffer): Buffer {
+    return Buffer.from(buffer).reverse();
+}
+```
+
+<details>
+
+<summary>Function swapByteOrder Details</summary>
+
+Returns
+
+new buffer with byte order reversed.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: toBaseBlockHeader
+
+Type conversion function.
+
+```ts
+export function toBaseBlockHeader(header: BaseBlockHeaderHex | BlockHeaderHex | LiveBlockHeaderHex): BaseBlockHeader {
+    return {
+        version: header.version,
+        previousHash: asBuffer(header.previousHash),
+        merkleRoot: asBuffer(header.merkleRoot),
+        time: header.time,
+        bits: header.bits,
+        nonce: header.nonce
     };
-    return header;
 }
 ```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeaderHex](#interface-liveblockheaderhex), [asBuffer](#function-asbuffer)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: genesisHeaderHex
+#### Function: toBaseBlockHeaderHex
 
-Returns the genesis block for the specified chain.
+Type conversion function.
 
 ```ts
-export function genesisHeaderHex(chain: Chain): BlockHeaderHex {
-    return chain === "main"
-        ? {
-            version: 1,
-            previousHash: "0000000000000000000000000000000000000000000000000000000000000000",
-            merkleRoot: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
-            time: 1231006505,
-            bits: 486604799,
-            nonce: 2083236893,
-            height: 0,
-            hash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
-        }
-        : {
-            version: 1,
-            previousHash: "0000000000000000000000000000000000000000000000000000000000000000",
-            merkleRoot: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
-            time: 1296688602,
-            bits: 486604799,
-            nonce: 414098458,
-            height: 0,
-            hash: "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"
-        };
+export function toBaseBlockHeaderHex(header: BaseBlockHeader | BlockHeader | LiveBlockHeader): BaseBlockHeaderHex {
+    return {
+        version: header.version,
+        previousHash: asString(header.previousHash),
+        merkleRoot: asString(header.merkleRoot),
+        time: header.time,
+        bits: header.bits,
+        nonce: header.nonce
+    };
 }
 ```
+
+See also: [BaseBlockHeader](#interface-baseblockheader), [BaseBlockHeaderHex](#interface-baseblockheaderhex), [BlockHeader](#interface-blockheader), [LiveBlockHeader](#interface-liveblockheader), [asString](#function-asstring)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: genesisBuffer
+#### Function: toBlockHeader
 
-Returns the genesis block for the specified chain.
+Type conversion function.
 
 ```ts
-export function genesisBuffer(chain: Chain): Buffer { return serializeBlockHeader(toBlockHeader(genesisHeaderHex(chain))); }
+export function toBlockHeader(header: BlockHeaderHex | LiveBlockHeaderHex): BlockHeader {
+    return {
+        version: header.version,
+        previousHash: asBuffer(header.previousHash),
+        merkleRoot: asBuffer(header.merkleRoot),
+        time: header.time,
+        bits: header.bits,
+        nonce: header.nonce,
+        height: header.height,
+        hash: asBuffer(header.hash)
+    };
+}
 ```
+
+See also: [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeaderHex](#interface-liveblockheaderhex), [asBuffer](#function-asbuffer)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: toBlockHeaderHex
+
+Type conversion function.
+
+```ts
+export function toBlockHeaderHex(header: BlockHeader | LiveBlockHeader): BlockHeaderHex {
+    return {
+        version: header.version,
+        previousHash: asString(header.previousHash),
+        merkleRoot: asString(header.merkleRoot),
+        time: header.time,
+        bits: header.bits,
+        nonce: header.nonce,
+        height: header.height,
+        hash: asString(header.hash)
+    };
+}
+```
+
+See also: [BlockHeader](#interface-blockheader), [BlockHeaderHex](#interface-blockheaderhex), [LiveBlockHeader](#interface-liveblockheader), [asString](#function-asstring)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: toDojoSyncError
+
+```ts
+export function toDojoSyncError(e: CwiError): DojoSyncErrorApi 
+```
+
+See also: [CwiError](#class-cwierror), [DojoSyncErrorApi](#interface-dojosyncerrorapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: toLiveBlockHeader
+
+Type conversion function.
+
+```ts
+export function toLiveBlockHeader(header: LiveBlockHeaderHex): LiveBlockHeader {
+    return {
+        ...header,
+        previousHash: asBuffer(header.previousHash),
+        merkleRoot: asBuffer(header.merkleRoot),
+        hash: asBuffer(header.hash),
+        chainWork: asBuffer(header.chainWork)
+    };
+}
+```
+
+See also: [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex), [asBuffer](#function-asbuffer)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: toLiveBlockHeaderHex
+
+Type conversion function.
+
+```ts
+export function toLiveBlockHeaderHex(header: LiveBlockHeader): LiveBlockHeaderHex {
+    return {
+        ...header,
+        previousHash: asString(header.previousHash),
+        merkleRoot: asString(header.merkleRoot),
+        hash: asString(header.hash),
+        chainWork: asString(header.chainWork)
+    };
+}
+```
+
+See also: [LiveBlockHeader](#interface-liveblockheader), [LiveBlockHeaderHex](#interface-liveblockheaderhex), [asString](#function-asstring)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -7006,50 +7231,307 @@ Argument Details
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: offsetPrivKey
+#### Function: transformResultsWithTrust
+
+Helper function for evaluating if an entity meets the trust threshold of the user
 
 ```ts
-export function offsetPrivKey(privKey: string, keyOffset?: string): {
-    offsetPrivKey: string;
-    keyOffset: string;
-} 
+export function transformResultsWithTrust({ settings, certifiers, results }: TrustEvaluatorParams) 
+```
+
+See also: [TrustEvaluatorParams](#interface-trustevaluatorparams)
+
+<details>
+
+<summary>Function transformResultsWithTrust Details</summary>
+
+Argument Details
+
++ **obj**
+  + all params given in an object
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateBasketName
+
+```ts
+export function validateBasketName(name: string): string 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: offsetPubKey
+#### Function: validateCreateTxOutput
 
 ```ts
-export function offsetPubKey(pubKey: string, keyOffset?: string): {
-    offsetPubKey: string;
-    keyOffset: string;
-} 
+export function validateCreateTxOutput(o: DojoCreateTxOutputApi): void 
+```
+
+See also: [DojoCreateTxOutputApi](#interface-dojocreatetxoutputapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateCustomInstructions
+
+```ts
+export function validateCustomInstructions(s: string): string 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: lockScriptWithKeyOffsetFromPubKey
+#### Function: validateDate
 
 ```ts
-export function lockScriptWithKeyOffsetFromPubKey(pubKey: string, keyOffset?: string): {
-    script: string;
-    keyOffset: string;
-} 
+export function validateDate(date: Date | string | number | null | undefined): Date | undefined 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: createBabbageServiceChargeOutput
+#### Function: validateFeeModel
 
 ```ts
-export function createBabbageServiceChargeOutput(fee = 200): {
-    script: string;
-    satoshis: number;
-    keyOffset: string;
-} 
+export function validateFeeModel(v?: DojoFeeModelApi): DojoFeeModelApi 
+```
+
+See also: [DojoFeeModelApi](#interface-dojofeemodelapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateIdentityKey
+
+```ts
+export function validateIdentityKey(identityKey?: string | null): string 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateInputSelection
+
+```ts
+export function validateInputSelection(v: DojoTxInputSelectionApi | undefined): DojoTxInputSelectionApi 
+```
+
+See also: [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateOutputDescription
+
+```ts
+export function validateOutputDescription(s: string): string 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateOutputGeneration
+
+```ts
+export function validateOutputGeneration(v: DojoOutputGenerationApi | undefined): DojoOutputGenerationApi 
+```
+
+See also: [DojoOutputGenerationApi](#interface-dojooutputgenerationapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateOutputTag
+
+```ts
+export function validateOutputTag(tag: string): string 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateOutputTags
+
+```ts
+export function validateOutputTags(v?: string[]): string[] 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateOutputToRedeem
+
+```ts
+export function validateOutputToRedeem(output: DojoOutputToRedeemApi): void 
+```
+
+See also: [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validatePaymail
+
+```ts
+export function validatePaymail(paymailHandle: string | null): void 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateSABPPPTransaction
+
+```ts
+export function validateSABPPPTransaction(transaction: DojoSubmitDirectTransactionApi): DojoSubmitDirectTransactionApi 
+```
+
+See also: [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateSatoshis
+
+```ts
+export function validateSatoshis(satoshis: number): void 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateScript
+
+```ts
+export function validateScript(script: string): void 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateSecondsSinceEpoch
+
+```ts
+export function validateSecondsSinceEpoch(time: number): Date 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateSubmitDirectCustomTransaction
+
+```ts
+export function validateSubmitDirectCustomTransaction(transaction: DojoSubmitDirectTransactionApi): DojoSubmitDirectTransactionApi 
+```
+
+See also: [DojoSubmitDirectTransactionApi](#interface-dojosubmitdirecttransactionapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateTXID
+
+```ts
+export function validateTXID(txid: string): void 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateTxLabel
+
+```ts
+export function validateTxLabel(label: string): string 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateTxLabels
+
+```ts
+export function validateTxLabels(v?: string[]): string[] 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateTxNote
+
+```ts
+export function validateTxNote(note?: string): string | undefined 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateTxRecipient
+
+```ts
+export function validateTxRecipient(recipient?: string): string | undefined 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateUnlockScriptOfChangeOutput
+
+```ts
+export async function validateUnlockScriptOfChangeOutput(output: DojoOutputApi, privateKey: string): Promise<CwiError | undefined> 
+```
+
+See also: [CwiError](#class-cwierror), [DojoOutputApi](#interface-dojooutputapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: validateUnlockScriptWithBsvSdk
+
+```ts
+export function validateUnlockScriptWithBsvSdk(spendingTx: Transaction | number[] | Buffer | string, vin: number, lockingScript: Script | number[] | Buffer | string, amount: number): boolean 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: varUintSize
+
+Returns the byte size required to encode number as Bitcoin VarUint
+
+```ts
+export function varUintSize(val: number): 1 | 3 | 5 | 9 {
+    if (val < 0)
+        throw new ERR_BAD_REQUEST();
+    return (val <= 252 ? 1 : val <= 65535 ? 3 : val <= 4294967295 ? 5 : 9);
+}
+```
+
+See also: [ERR_BAD_REQUEST](#class-err_bad_request)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyBuffer
+
+Helper function.
+
+Verifies the value of b is a Buffer and optionally also its length.
+
+```ts
+export function verifyBuffer(b: Buffer | undefined | null, length?: number): Buffer 
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyBufferEquals
+
+true iff both b1 and b2 are undefined or null, or both are Buffers and are equal.
+
+```ts
+export function verifyBufferEquals(b1: Buffer | undefined | null, b2: Buffer | undefined | null): boolean 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -7086,239 +7568,154 @@ export function verifyBufferOrObjectOrUndefined(v: Buffer | object | undefined):
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: restoreUserStateEntities
+#### Function: verifyId
 
-Entities sent across HTTP may not have Date and Buffer properties restored correctly.
+Helper function.
 
-Detect these situations and restore contained values as Dates and Buffers.
+Verifies that an optional numeric Id has a value.
 
 ```ts
-export function restoreUserStateEntities(state: DojoUserStateApi): void 
+export function verifyId(id: number | undefined | null): number 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: validateIdentityKey
+#### Function: verifyNone
+
+Helper function.
+
+throws ERR_BAD_REQUEST if results has length greater than one.
 
 ```ts
-export function validateIdentityKey(identityKey?: string | null): string 
+export function verifyNone<T>(results: T[]): void 
+```
+
+<details>
+
+<summary>Function verifyNone Details</summary>
+
+Returns
+
+results[0] or undefined if length is zero.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyNumber
+
+Helper function.
+
+Verifies that an optional or null number has a numeric value.
+
+```ts
+export function verifyNumber(v: number | null | undefined): number 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: validateTXID
+#### Function: verifyOne
+
+Helper function.
+
+throws ERR_BAD_REQUEST if results has length other than one.
 
 ```ts
-export function validateTXID(txid: string): void 
+export function verifyOne<T>(results: T[], errorDescrition?: string): T 
+```
+
+<details>
+
+<summary>Function verifyOne Details</summary>
+
+Returns
+
+results[0].
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyOneOrNone
+
+Helper function.
+
+throws ERR_BAD_REQUEST if results has length greater than one.
+
+```ts
+export function verifyOneOrNone<T>(results: T[]): (T | undefined) 
+```
+
+<details>
+
+<summary>Function verifyOneOrNone Details</summary>
+
+Returns
+
+results[0] or undefined if length is zero.
+
+</details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Function: verifyTruthy
+
+Helper function.
+
+Verifies that a possibly optional value has a value.
+
+```ts
+export function verifyTruthy<T>(v: T | null | undefined, description?: string): T 
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: validateBasketName
+#### Function: wait
+
+Returns an await'able Promise that resolves in the given number of msecs.
 
 ```ts
-export function validateBasketName(name: string): string 
+export function wait(msecs: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, msecs));
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Function: validateTxRecipient
+#### Function: writeVarUint32LE
+
+Writes a Bitcoin VarUInt to a buffer at an offset.
+
+Returns updated offset.
 
 ```ts
-export function validateTxRecipient(recipient?: string): string | undefined 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateTxNote
-
-```ts
-export function validateTxNote(note?: string): string | undefined 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateCustomInstructions
-
-```ts
-export function validateCustomInstructions(s: string): string 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateOutputDescription
-
-```ts
-export function validateOutputDescription(s: string): string 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateCreateTxOutput
-
-```ts
-export function validateCreateTxOutput(o: DojoCreateTxOutputApi): void 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateSecondsSinceEpoch
-
-```ts
-export function validateSecondsSinceEpoch(time: number): Date 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateDate
-
-```ts
-export function validateDate(date: Date | string | number | null | undefined): Date | undefined 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateSatoshis
-
-```ts
-export function validateSatoshis(satoshis: number): void 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateScript
-
-```ts
-export function validateScript(script: string): void 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateInputSelection
-
-```ts
-export function validateInputSelection(v: DojoTxInputSelectionApi | undefined): DojoTxInputSelectionApi 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateOutputGeneration
-
-```ts
-export function validateOutputGeneration(v: DojoOutputGenerationApi | undefined): DojoOutputGenerationApi 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateTxLabel
-
-```ts
-export function validateTxLabel(label: string): string 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateTxLabels
-
-```ts
-export function validateTxLabels(v?: string[]): string[] 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateOutputTag
-
-```ts
-export function validateOutputTag(tag: string): string 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateOutputTags
-
-```ts
-export function validateOutputTags(v?: string[]): string[] 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateFeeModel
-
-```ts
-export function validateFeeModel(v?: DojoFeeModelApi): DojoFeeModelApi 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateOutputToRedeem
-
-```ts
-export function validateOutputToRedeem(output: DojoOutputToRedeemApi): void 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validatePaymail
-
-```ts
-export function validatePaymail(paymailHandle: string | null): void 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateSABPPPTransaction
-
-```ts
-export function validateSABPPPTransaction(transaction: DojoSubmitDirectTransactionApi): DojoSubmitDirectTransactionApi 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateSubmitDirectCustomTransaction
-
-```ts
-export function validateSubmitDirectCustomTransaction(transaction: DojoSubmitDirectTransactionApi): DojoSubmitDirectTransactionApi 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateUnlockScriptWithBsvSdk
-
-```ts
-export function validateUnlockScriptWithBsvSdk(spendingTx: Transaction | number[] | Buffer | string, vin: number, lockingScript: Script | number[] | Buffer | string, amount: number): boolean 
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Function: validateUnlockScriptOfChangeOutput
-
-```ts
-export async function validateUnlockScriptOfChangeOutput(output: DojoOutputApi, privateKey: string): Promise<CwiError | undefined> 
+export function writeVarUint32LE(val: number, buffer: Buffer, offset: number): number {
+    if (val < 0) {
+        throw new Error(`val ${val} must be a non-negative integer.`);
+    }
+    if (val <= 252) {
+        buffer[offset] = val;
+        return offset + 1;
+    }
+    if (val <= 65535) {
+        buffer[offset] = 253;
+        buffer.writeUint16LE(val, offset + 1);
+        return offset + 3;
+    }
+    if (val <= 4294967295) {
+        buffer[offset] = 254;
+        buffer.writeUint32LE(val, offset + 1);
+        return offset + 5;
+    }
+    throw new Error("Larger than Uint32 value is not supported at this time.");
+}
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -7354,90 +7751,10 @@ export type Chain = "main" | "test"
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
-#### Type: HeaderListener
-
-```ts
-export type HeaderListener = (header: BlockHeader) => void
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: ReorgListener
-
-```ts
-export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Type: DojoLoggerApi
 
 ```ts
 export type DojoLoggerApi = (...data: any) => void
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: SyncDojoConfigType
-
-```ts
-export type SyncDojoConfigType = "<custom>" | "Cloud URL" | "Sqlite File" | "MySql Connection"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: DojoSyncStatus
-
-success: Last sync of this user from this dojo was successful.
-
-error: Last sync protocol operation for this user to this dojo threw and error.
-
-identified: Configured sync dojo has been identified but not sync'ed.
-
-unknown: Sync protocol state is unknown.
-
-```ts
-export type DojoSyncStatus = "success" | "error" | "identified" | "updated" | "unknown"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: DojoSyncProtocolVersion
-
-```ts
-export type DojoSyncProtocolVersion = "0.1.0"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: DojoTransactionStatusApi
-
-```ts
-export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "sending" | "unproven" | "unsigned" | "nosend"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: DojoRecordOrder
-
-```ts
-export type DojoRecordOrder = "ascending" | "descending"
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
-#### Type: DojoTransactionLabelsSortBy
-
-```ts
-export type DojoTransactionLabelsSortBy = "label" | "whenLastUsed"
 ```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
@@ -7491,6 +7808,90 @@ export type DojoProvidedByApi = "you" | "dojo" | "you-and-dojo"
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
 ---
+#### Type: DojoRecordOrder
+
+```ts
+export type DojoRecordOrder = "ascending" | "descending"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: DojoSyncProtocolVersion
+
+```ts
+export type DojoSyncProtocolVersion = "0.1.0"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: DojoSyncStatus
+
+success: Last sync of this user from this dojo was successful.
+
+error: Last sync protocol operation for this user to this dojo threw and error.
+
+identified: Configured sync dojo has been identified but not sync'ed.
+
+unknown: Sync protocol state is unknown.
+
+```ts
+export type DojoSyncStatus = "success" | "error" | "identified" | "updated" | "unknown"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: DojoTransactionLabelsSortBy
+
+```ts
+export type DojoTransactionLabelsSortBy = "label" | "whenLastUsed"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: DojoTransactionStatusApi
+
+```ts
+export type DojoTransactionStatusApi = "completed" | "failed" | "unprocessed" | "sending" | "unproven" | "unsigned" | "nosend"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: HeaderListener
+
+```ts
+export type HeaderListener = (header: BlockHeader) => void
+```
+
+See also: [BlockHeader](#interface-blockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: ReorgListener
+
+```ts
+export type ReorgListener = (depth: number, oldTip: BlockHeader, newTip: BlockHeader) => void
+```
+
+See also: [BlockHeader](#interface-blockheader)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Type: SyncDojoConfigType
+
+```ts
+export type SyncDojoConfigType = "<custom>" | "Cloud URL" | "Sqlite File" | "MySql Connection"
+```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
 ### Variables
 
 | |
@@ -7502,19 +7903,6 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 ---
 
-#### Variable: DojoProvenTxReqTerminalStatus
-
-```ts
-DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
-    "completed",
-    "invalid",
-    "doubleSpend"
-]
-```
-
-Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
-
----
 #### Variable: DojoProvenTxReqNonTerminalStatus
 
 ```ts
@@ -7529,6 +7917,23 @@ DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
     "unconfirmed"
 ]
 ```
+
+See also: [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi)
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Variable: DojoProvenTxReqTerminalStatus
+
+```ts
+DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
+    "completed",
+    "invalid",
+    "doubleSpend"
+]
+```
+
+See also: [DojoProvenTxReqStatusApi](#type-dojoproventxreqstatusapi)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
