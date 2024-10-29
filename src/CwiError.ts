@@ -19,6 +19,7 @@
  * classes.
  */
 export class CwiError extends Error {
+  isError = true
 
   constructor (code: string, description: string, stack?: string, public details?: Record<string, string>) {
     super(description)
