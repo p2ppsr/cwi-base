@@ -9,6 +9,7 @@ import {
    MapiResponseApi,
    OptionalEnvelopeEvidenceApi,
    OutPoint,
+   sdk
 } from '@babbage/sdk-ts'
 import { CwiError } from '../CwiError'
 import { Chain } from './CwiBaseApi'
@@ -442,6 +443,8 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       * @param options limit defaults to 25, offset defaults to 0, addLabels defaults to true, order defaults to 'descending'
       */
    getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
+
+   listActions(args: sdk.ListActionsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListActionsResult>
 
    /**
       * Returns transaction outputs matching options and total matching count available.
