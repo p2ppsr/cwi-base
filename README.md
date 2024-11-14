@@ -939,6 +939,8 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     getNetOfAmounts(options?: DojoGetTotalOfAmountsOptions): Promise<number>;
     updateTransactionStatus(reference: string, status: DojoTransactionStatusApi): Promise<void>;
     getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>;
+    listActions(args: sdk.ListActionsArgs, originator?: sdk.OriginatorDomainNameString): Promise<sdk.ListActionsResult>;
+    listOutputs(args: sdk.ListOutputsArgs, originator?: sdk.OriginatorDomainNameString): Promise<sdk.ListOutputsResult>;
     getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>;
     getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>;
     getBeefForTransaction(txid: string, options?: DojoGetBeefOptions): Promise<Beef>;
