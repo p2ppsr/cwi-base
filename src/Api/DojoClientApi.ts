@@ -444,6 +444,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       */
    getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
 
+   createActionUnsigned(args: sdk.ValidCreateActionArgs, originator?: sdk.OriginatorDomainNameString) : Promise<DojoCreateTransactionResultApi>
    listActions(args: sdk.ListActionsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListActionsResult>
    listOutputs(args: sdk.ListOutputsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListOutputsResult>
 
@@ -1618,6 +1619,19 @@ export interface DojoOutputToRedeemApi {
       */
    unlockingScriptLength: number
    spendingDescription?: string
+
+   /**
+    * If specified, the required input index in the transaction.
+    * 
+    * Supplied values must begin at zero, increment by one,
+    * and be unique across all specified values..
+    */
+   vin?: number
+
+   /**
+    * The value of this output in satoshis, if valid.
+    */
+   satoshis?: number
 }
 
 export interface DojoTxInputsApi extends OptionalEnvelopeEvidenceApi {
