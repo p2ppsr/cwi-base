@@ -41,7 +41,7 @@ export class ScriptTemplateSABPPP implements ScriptTemplate {
     unlock(unlockerPrivKey: string, lockerPubKey: string, sourceSatoshis?: number, lockingScript?: Script)
     : {
         sign: (tx: Transaction, inputIndex: number) => Promise<UnlockingScript>;
-        estimateLength: (tx: Transaction, inputIndex: number) => Promise<number>;
+        estimateLength: (tx?: Transaction, inputIndex?: number) => Promise<number>;
     }
     {
         // Derive the key used to unlock funds
@@ -55,5 +55,10 @@ export class ScriptTemplateSABPPP implements ScriptTemplate {
         const r = this.p2pkh.unlock(asBsvSdkPrivateKey(derivedPrivateKey), "all", false, sourceSatoshis, lockingScript)
         return r
     }
+
+    /**
+     * P2PKH unlock estimateLength is a constant 
+     */
+    unlockLength = 108
 
 }
