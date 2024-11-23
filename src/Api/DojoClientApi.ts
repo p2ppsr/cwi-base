@@ -445,8 +445,8 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
 
    createActionUnsigned(args: sdk.ValidCreateActionArgs, originator?: sdk.OriginatorDomainNameString) : Promise<DojoCreateTransactionResultApi>
-   listActions(args: sdk.ListActionsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListActionsResult>
-   listOutputs(args: sdk.ListOutputsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListOutputsResult>
+   listActions(args: sdk.ValidListActionsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListActionsResult>
+   listOutputs(args: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListOutputsResult>
 
    /**
       * Returns transaction outputs matching options and total matching count available.
