@@ -292,6 +292,23 @@ export interface DojoSyncOptionsApi {
 export interface TrxToken {
 }
 
+export interface DojoProcessActionSdkParams {
+   isNewTx: boolean
+   isSendWith: boolean
+   isNoSend: boolean
+   isDelayed: boolean
+   reference?: string
+   txid?: string
+   rawTx?: number[]
+   sendWith: string[]
+   log?: string
+}
+
+export interface DojoProcessActionSdkResults {
+   sendWithResults?: sdk.SendWithResult[]
+   log?: string
+}
+
 /**
  * User specific public Dojo API accessible from all Dojo implementations
  * including `DojoExpressClient` HTTP client
@@ -445,6 +462,8 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
 
    createActionUnsigned(args: sdk.ValidCreateActionArgs, originator?: sdk.OriginatorDomainNameString) : Promise<DojoCreateTransactionResultApi>
+   processActionSdk(params: DojoProcessActionSdkParams, originator?: sdk.OriginatorDomainNameString) : Promise<DojoProcessActionSdkResults>
+
    listActions(args: sdk.ValidListActionsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListActionsResult>
    listOutputs(args: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListOutputsResult>
 
@@ -1632,6 +1651,11 @@ export interface DojoOutputToRedeemApi {
     * The value of this output in satoshis, if valid.
     */
    satoshis?: number
+
+   /**
+    * The locking script of the output being spent, if valid.
+    */
+   lockingScript?: string
 }
 
 export interface DojoTxInputsApi extends OptionalEnvelopeEvidenceApi {
