@@ -309,6 +309,48 @@ export interface DojoProcessActionSdkResults {
    log?: string
 }
 
+export interface DojoCreateTransactionSdkInput {
+   vin: number
+   sourceTxid: string
+   sourceVout: number
+   sourceSatoshis: number
+   sourceLockingScript: string
+   unlockingScriptLength: number
+   providedBy: DojoProvidedByApi
+   type: string
+   spendingDescription?: string
+   derivationPrefix?: string
+   derivationSuffix?: string
+   senderIdentityKey?: string
+}
+
+export interface DojoCreateTransactionSdkOutput {
+   script: string
+   satoshis: number
+   description?: string
+   basket?: string
+   customInstructions?: string
+   tags?: string[]
+   vout: number
+   providedBy: DojoProvidedByApi
+   purpose?: string
+   destinationBasket?: string
+   derivationSuffix?: string
+   keyOffset?: string
+}
+
+export interface DojoCreateTransactionSdkResult {
+   inputBeef?: number[]
+   inputs: DojoCreateTransactionSdkInput[]
+   outputs: DojoCreateTransactionSdkOutput[]
+   noSendChangeOutputVouts?: number[]
+   derivationPrefix: string
+   version: number
+   lockTime: number
+   referenceNumber: string
+   log?: string
+}
+
 /**
  * User specific public Dojo API accessible from all Dojo implementations
  * including `DojoExpressClient` HTTP client
@@ -461,11 +503,11 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
       */
    getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>
 
-   createActionUnsigned(args: sdk.ValidCreateActionArgs, originator?: sdk.OriginatorDomainNameString) : Promise<DojoCreateTransactionResultApi>
-   processActionSdk(params: DojoProcessActionSdkParams, originator?: sdk.OriginatorDomainNameString) : Promise<DojoProcessActionSdkResults>
+   createTransactionSdk(args: sdk.ValidCreateActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<DojoCreateTransactionSdkResult>
+   processActionSdk(params: DojoProcessActionSdkParams, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<DojoProcessActionSdkResults>
 
-   listActions(args: sdk.ValidListActionsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListActionsResult>
-   listOutputs(args: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameString) : Promise<sdk.ListOutputsResult>
+   listActions(args: sdk.ValidListActionsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.ListActionsResult>
+   listOutputs(args: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.ListOutputsResult>
 
    /**
       * Returns transaction outputs matching options and total matching count available.
@@ -1865,7 +1907,7 @@ export interface DojoCreateTransactionResultApi {
     * This will be a partially valid serialized BEEF value.
     * 
     * Includes proof data for the inputs to the transaction being created.
-    * Some txids may be `known`, either by Dojo or the user, in which case
+    * Some txids may be txidOnly, in which case they must be known to Dojo,
     * their rawTx are not included.
     * 
     * It is recommended to the `@babbage/sdk-ts` package's `Beef` class to
