@@ -324,17 +324,10 @@ export interface DojoCreateTransactionSdkInput {
    senderIdentityKey?: string
 }
 
-export interface DojoCreateTransactionSdkOutput {
-   script: string
-   satoshis: number
-   description?: string
-   basket?: string
-   customInstructions?: string
-   tags?: string[]
+export interface DojoCreateTransactionSdkOutput extends sdk.ValidCreateActionOutput {
    vout: number
    providedBy: DojoProvidedByApi
    purpose?: string
-   destinationBasket?: string
    derivationSuffix?: string
    keyOffset?: string
 }
