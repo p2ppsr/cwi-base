@@ -329,7 +329,6 @@ export interface DojoCreateTransactionSdkOutput extends sdk.ValidCreateActionOut
    providedBy: DojoProvidedByApi
    purpose?: string
    derivationSuffix?: string
-   keyOffset?: string
 }
 
 export interface DojoCreateTransactionSdkResult {
@@ -341,7 +340,6 @@ export interface DojoCreateTransactionSdkResult {
    version: number
    lockTime: number
    referenceNumber: string
-   log?: string
 }
 
 /**
