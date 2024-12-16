@@ -1394,6 +1394,10 @@ export interface DojoProvenTxReqApi extends DojoEntityTimeStampApi {
       * Once a DojoProvenTxApi record has been validated and added to database, the provenTxId value.
       */
    provenTxId?: number
+   /**
+    * If valid, a unique string identifying a batch of transactions to be sent together for processing.
+    */
+   batch?: string
 }
 
 export interface DojoProvenTxApi extends DojoEntityTimeStampApi {
