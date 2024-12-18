@@ -1318,10 +1318,12 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
 /**
  * Initial status (attempts === 0):
  *
- * unsent: rawTx has not yet been sent to the network for processing. Next attempt should send it.
- * 
  * nosend: transaction was marked 'noSend'. It is complete and signed. It may be sent by an external party. Proof should be sought as if 'unmined'. No error if it remains unknown by network.
  *
+ * unprocessed: indicates req is about to be posted to network by non-acceptDelayedBroadcast application code, after posting status is normally advanced to 'sending'
+ *
+ * unsent: rawTx has not yet been sent to the network for processing. req is queued for delayed processing.
+ * 
  * sending: At least one attempt to send rawTx to transaction processors has occured without confirmation of acceptance.
  *
  * unknown: rawTx status is unknown but is believed to have been previously sent to the network.
@@ -1331,7 +1333,7 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
  * unknown: Last status update received did not recognize txid or wasn't understood.
  *
  * nonfinal: rawTx has an un-expired nLockTime and is eligible for continuous updating by new transactions with additional outputs and incrementing sequence numbers.
- *
+ * 
  * unmined: Last attempt has txid waiting to be mined, possibly just sent without callback
  *
  * callback: Waiting for proof confirmation callback from transaction processor.
@@ -1347,7 +1349,7 @@ export interface DojoTransactionXApi extends DojoTransactionApi {
  * completed: proven_txs record added, and notifications are complete.
  */
 export type DojoProvenTxReqStatusApi =
-   'sending' | 'unsent' | 'nosend' | 'unknown' | 'nonfinal' |
+   'sending' | 'unsent' | 'nosend' | 'unknown' | 'nonfinal' | 'unprocessed' |
    'unmined' | 'callback' | 'unconfirmed' |
    'completed' | 'invalid' | 'doubleSpend'
 
@@ -1356,7 +1358,7 @@ export const DojoProvenTxReqTerminalStatus: DojoProvenTxReqStatusApi[] = [
 ]
 
 export const DojoProvenTxReqNonTerminalStatus: DojoProvenTxReqStatusApi[] = [
-   'sending', 'unsent', 'nosend', 'unknown', 'nonfinal',
+   'sending', 'unsent', 'nosend', 'unknown', 'nonfinal', 'unprocessed',
    'unmined', 'callback', 'unconfirmed'
 ]
 
