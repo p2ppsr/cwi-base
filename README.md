@@ -942,6 +942,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     getTransactions(options?: DojoGetTransactionsOptions): Promise<DojoGetTransactionsResultApi>;
     createTransactionSdk(args: sdk.ValidCreateActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<DojoCreateTransactionSdkResult>;
     processActionSdk(params: DojoProcessActionSdkParams, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<DojoProcessActionSdkResults>;
+    abortActionSdk(vargs: sdk.ValidAbortActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.AbortActionResult>;
     listActions(args: sdk.ValidListActionsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.ListActionsResult>;
     listOutputs(args: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.ListOutputsResult>;
     getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>;
