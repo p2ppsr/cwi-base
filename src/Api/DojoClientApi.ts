@@ -2083,3 +2083,6 @@ export interface DojoGetBeefOptions {
 export interface DojoInternalizeActionArgs extends sdk.ValidInternalizeActionArgs {
     commonDerivationPrefix: string | undefined
 }
+
+export interface DojoProvenOrReq { proven?: DojoProvenTxApi, req?: DojoProvenTxReqApi }
+
