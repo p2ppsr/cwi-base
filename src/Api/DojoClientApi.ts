@@ -503,6 +503,10 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 
    relinquishOutputSdk(vargs: sdk.ValidRelinquishOutputArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.RelinquishOutputResult>
 
+   isValidRootForHeight(root: string, height: number) : Promise<boolean>
+
+   internalizeActionSdk(dargs: DojoInternalizeActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.InternalizeActionResult>
+
    /**
       * Returns transaction outputs matching options and total matching count available.
       *
@@ -2074,4 +2078,8 @@ export interface DojoGetBeefOptions {
    ignoreNewProven?: boolean
    /** optional. Default is zero. Ignores available merkle paths until recursion detpth equals or exceeds value  */
    minProofLevel?: number
+}
+
+export interface DojoInternalizeActionArgs extends sdk.ValidInternalizeActionArgs {
+    commonDerivationPrefix: string | undefined
 }
