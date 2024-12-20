@@ -504,6 +504,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    relinquishOutputSdk(vargs: sdk.ValidRelinquishOutputArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.RelinquishOutputResult>
 
    isValidRootForHeight(root: string, height: number) : Promise<boolean>
+   currentHeight: () => Promise<number>
 
    internalizeActionSdk(dargs: DojoInternalizeActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.InternalizeActionResult>
 

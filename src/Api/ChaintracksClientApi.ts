@@ -224,6 +224,7 @@ export interface ChaintracksClientApi extends ChainTracker {
   unsubscribe(subscriptionId: string) : Promise<boolean>
 
   isValidRootForHeight(root: string, height: number) : Promise<boolean>
+  currentHeight: () => Promise<number>
 }
 
 /**

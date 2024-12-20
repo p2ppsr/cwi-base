@@ -291,6 +291,7 @@ export interface ChaintracksClientApi extends ChainTracker {
     subscribeReorgs(listener: ReorgListener): Promise<string>;
     unsubscribe(subscriptionId: string): Promise<boolean>;
     isValidRootForHeight(root: string, height: number): Promise<boolean>;
+    currentHeight: () => Promise<number>;
 }
 ```
 
@@ -948,6 +949,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     listOutputs(vargs: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.ListOutputsResult>;
     relinquishOutputSdk(vargs: sdk.ValidRelinquishOutputArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.RelinquishOutputResult>;
     isValidRootForHeight(root: string, height: number): Promise<boolean>;
+    currentHeight: () => Promise<number>;
     internalizeActionSdk(dargs: DojoInternalizeActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.InternalizeActionResult>;
     getTransactionOutputs(options?: DojoGetTransactionOutputsOptions): Promise<DojoGetTransactionOutputsResultApi>;
     getTransactionLabels(options?: DojoGetTransactionLabelsOptions): Promise<DojoGetTransactionLabelsResultApi>;
