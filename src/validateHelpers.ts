@@ -155,7 +155,7 @@ export function validateOutputGeneration (v: DojoOutputGenerationApi | undefined
 
 export function validateTxLabel (label: string): string {
   label = label.trim()
-  if (label.length > 150) { throw new ERR_DOJO_INVALID_TX_LABEL() }
+  if (label.length > 300) { throw new ERR_DOJO_INVALID_TX_LABEL() }
   return label
 }
 
