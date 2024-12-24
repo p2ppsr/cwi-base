@@ -502,7 +502,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
    listOutputsSdk(vargs: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.ListOutputsResult>
 
    acquireCertificateSdk(vargs: sdk.ValidAcquireDirectCertificateArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.AcquireCertificateResult>
-   listCertificatesSdk(vargs: sdk.ValidListCertificatesArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.ListCertificatesResult>
+   listCertificatesSdk(vargs: sdk.ValidListCertificatesArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<DojoListCertificatesResult>
 
    relinquishOutputSdk(vargs: sdk.ValidRelinquishOutputArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes) : Promise<sdk.RelinquishOutputResult>
 
@@ -2090,3 +2090,13 @@ export interface DojoInternalizeActionArgs extends sdk.ValidInternalizeActionArg
 
 export interface DojoProvenOrReq { proven?: DojoProvenTxApi, req?: DojoProvenTxReqApi }
 
+
+export interface DojoListCertificatesResult extends sdk.ListCertificatesResult {
+  totalCertificates: sdk.PositiveIntegerOrZero
+  certificates: DojoWalletCertificate[]
+}
+
+export interface DojoWalletCertificate extends sdk.WalletCertificate {
+   counterparty: sdk.PubKeyHex
+   keyring: Record<sdk.CertificateFieldNameUnder50Bytes, string>
+}
