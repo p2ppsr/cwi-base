@@ -12,22 +12,22 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 
 | | | |
 | --- | --- | --- |
-| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) |
-| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) |
-| [BlockHeader](#interface-blockheader) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMapApi](#interface-dojosyncmapapi) |
-| [BlockHeaderHex](#interface-blockheaderhex) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
-| [CertifierDetails](#interface-certifierdetails) | [DojoInternalizeActionArgs](#interface-dojointernalizeactionargs) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
-| [ChaintracksApi](#interface-chaintracksapi) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
-| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
-| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
-| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
-| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
-| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
-| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
-| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
-| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
-| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserApi](#interface-dojouserapi) |
-| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [BaseBlockHeader](#interface-baseblockheader) | [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions) | [DojoSyncIdentifyResultApi](#interface-dojosyncidentifyresultapi) |
+| [BaseBlockHeaderHex](#interface-baseblockheaderhex) | [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi) | [DojoSyncMapApi](#interface-dojosyncmapapi) |
+| [BlockHeader](#interface-blockheader) | [DojoIdentityApi](#interface-dojoidentityapi) | [DojoSyncMergeParams](#interface-dojosyncmergeparams) |
+| [BlockHeaderHex](#interface-blockheaderhex) | [DojoInternalizeActionArgs](#interface-dojointernalizeactionargs) | [DojoSyncMergeResultApi](#interface-dojosyncmergeresultapi) |
+| [CertifierDetails](#interface-certifierdetails) | [DojoListCertificatesResult](#interface-dojolistcertificatesresult) | [DojoSyncOptionsApi](#interface-dojosyncoptionsapi) |
+| [ChaintracksApi](#interface-chaintracksapi) | [DojoMapiResponseApi](#interface-dojomapiresponseapi) | [DojoSyncUpdateParams](#interface-dojosyncupdateparams) |
+| [ChaintracksClientApi](#interface-chaintracksclientapi) | [DojoOutputApi](#interface-dojooutputapi) | [DojoSyncUpdateResultApi](#interface-dojosyncupdateresultapi) |
+| [ChaintracksInfoApi](#interface-chaintracksinfoapi) | [DojoOutputBasketApi](#interface-dojooutputbasketapi) | [DojoTransactionApi](#interface-dojotransactionapi) |
+| [ChaintracksPackageInfoApi](#interface-chaintrackspackageinfoapi) | [DojoOutputGenerationApi](#interface-dojooutputgenerationapi) | [DojoTransactionXApi](#interface-dojotransactionxapi) |
+| [DojoAliasApi](#interface-dojoaliasapi) | [DojoOutputTagApi](#interface-dojooutputtagapi) | [DojoTxInputSelectionApi](#interface-dojotxinputselectionapi) |
+| [DojoAvatarApi](#interface-dojoavatarapi) | [DojoOutputTagMapApi](#interface-dojooutputtagmapapi) | [DojoTxInputsApi](#interface-dojotxinputsapi) |
+| [DojoCertificateApi](#interface-dojocertificateapi) | [DojoOutputToRedeemApi](#interface-dojooutputtoredeemapi) | [DojoTxLabelApi](#interface-dojotxlabelapi) |
+| [DojoCertificateFieldApi](#interface-dojocertificatefieldapi) | [DojoOutputXApi](#interface-dojooutputxapi) | [DojoTxLabelMapApi](#interface-dojotxlabelmapapi) |
+| [DojoClientApi](#interface-dojoclientapi) | [DojoPendingTxApi](#interface-dojopendingtxapi) | [DojoUserApi](#interface-dojouserapi) |
+| [DojoClientUserApi](#interface-dojoclientuserapi) | [DojoPendingTxInputApi](#interface-dojopendingtxinputapi) | [DojoUserStateApi](#interface-dojouserstateapi) |
+| [DojoCommissionApi](#interface-dojocommissionapi) | [DojoPendingTxInputInstructionsApi](#interface-dojopendingtxinputinstructionsapi) | [DojoWalletCertificate](#interface-dojowalletcertificate) |
 | [DojoCreateTransactionParams](#interface-dojocreatetransactionparams) | [DojoPendingTxOutputApi](#interface-dojopendingtxoutputapi) | [IdentityGroup](#interface-identitygroup) |
 | [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi) | [DojoProcessActionSdkParams](#interface-dojoprocessactionsdkparams) | [IdentityGroupMember](#interface-identitygroupmember) |
 | [DojoCreateTransactionSdkInput](#interface-dojocreatetransactionsdkinput) | [DojoProcessActionSdkResults](#interface-dojoprocessactionsdkresults) | [LiveBlockHeader](#interface-liveblockheader) |
@@ -46,6 +46,7 @@ Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](
 | [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi) | [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi) | [TrustEvaluatorParams](#interface-trustevaluatorparams) |
 | [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions) | [DojoSyncApi](#interface-dojosyncapi) | [TrxToken](#interface-trxtoken) |
 | [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi) | [DojoSyncErrorApi](#interface-dojosyncerrorapi) |  |
+| [DojoGetTransactionsBaseOptions](#interface-dojogettransactionsbaseoptions) | [DojoSyncIdentifyParams](#interface-dojosyncidentifyparams) |  |
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -947,8 +948,12 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
     abortActionSdk(vargs: sdk.ValidAbortActionArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.AbortActionResult>;
     listActionsSdk(vargs: sdk.ValidListActionsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.ListActionsResult>;
     listOutputsSdk(vargs: sdk.ValidListOutputsArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.ListOutputsResult>;
-    acquireCertificateSdk(vargs: sdk.ValidAcquireCertificateArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.AcquireCertificateResult>;
-    listCertificatesSdk(vargs: sdk.ValidListCertificatesArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.ListCertificatesResult>;
+    acquireCertificateSdk(vargs: sdk.ValidAcquireDirectCertificateArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.AcquireCertificateResult>;
+    listCertificatesSdk(vargs: sdk.ValidListCertificatesArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<DojoListCertificatesResult>;
+    proveCertificatesSdk(vargs: sdk.ValidProveCertificateArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<DojoWalletCertificate>;
+    relinquishCertificateSdk(vargs: sdk.ValidRelinquishCertificateArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.RelinquishCertificateResult>;
+    discoverByIdentityKeySdk(vargs: sdk.ValidDiscoverByIdentityKeyArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.DiscoverCertificatesResult>;
+    discoverByAttributesSdk(vargs: sdk.ValidDiscoverByAttributesArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.DiscoverCertificatesResult>;
     relinquishOutputSdk(vargs: sdk.ValidRelinquishOutputArgs, originator?: sdk.OriginatorDomainNameStringUnder250Bytes): Promise<sdk.RelinquishOutputResult>;
     isValidRootForHeight(root: string, height: number): Promise<boolean>;
     currentHeight: () => Promise<number>;
@@ -979,7 +984,7 @@ export interface DojoClientApi extends DojoPublicApi, DojoSyncApi {
 }
 ```
 
-See also: [DojoAvatarApi](#interface-dojoavatarapi), [DojoCertificateApi](#interface-dojocertificateapi), [DojoClientUserApi](#interface-dojoclientuserapi), [DojoCreateTransactionParams](#interface-dojocreatetransactionparams), [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi), [DojoCreateTransactionSdkResult](#interface-dojocreatetransactionsdkresult), [DojoGetBeefOptions](#interface-dojogetbeefoptions), [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions), [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions), [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi), [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions), [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi), [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions), [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi), [DojoIdentityApi](#interface-dojoidentityapi), [DojoInternalizeActionArgs](#interface-dojointernalizeactionargs), [DojoLoggerApi](#type-dojologgerapi), [DojoOutputApi](#interface-dojooutputapi), [DojoOutputBasketApi](#interface-dojooutputbasketapi), [DojoOutputTagApi](#interface-dojooutputtagapi), [DojoPendingTxApi](#interface-dojopendingtxapi), [DojoProcessActionSdkParams](#interface-dojoprocessactionsdkparams), [DojoProcessActionSdkResults](#interface-dojoprocessactionsdkresults), [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams), [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi), [DojoPublicApi](#interface-dojopublicapi), [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams), [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi), [DojoSyncApi](#interface-dojosyncapi), [DojoSyncOptionsApi](#interface-dojosyncoptionsapi), [DojoTransactionApi](#interface-dojotransactionapi), [DojoTransactionStatusApi](#type-dojotransactionstatusapi), [DojoTxLabelApi](#interface-dojotxlabelapi), [DojoUserStateApi](#interface-dojouserstateapi), [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi), [TrxToken](#interface-trxtoken)
+See also: [DojoAvatarApi](#interface-dojoavatarapi), [DojoCertificateApi](#interface-dojocertificateapi), [DojoClientUserApi](#interface-dojoclientuserapi), [DojoCreateTransactionParams](#interface-dojocreatetransactionparams), [DojoCreateTransactionResultApi](#interface-dojocreatetransactionresultapi), [DojoCreateTransactionSdkResult](#interface-dojocreatetransactionsdkresult), [DojoGetBeefOptions](#interface-dojogetbeefoptions), [DojoGetTotalOfAmountsOptions](#interface-dojogettotalofamountsoptions), [DojoGetTransactionLabelsOptions](#interface-dojogettransactionlabelsoptions), [DojoGetTransactionLabelsResultApi](#interface-dojogettransactionlabelsresultapi), [DojoGetTransactionOutputsOptions](#interface-dojogettransactionoutputsoptions), [DojoGetTransactionOutputsResultApi](#interface-dojogettransactionoutputsresultapi), [DojoGetTransactionsOptions](#interface-dojogettransactionsoptions), [DojoGetTransactionsResultApi](#interface-dojogettransactionsresultapi), [DojoIdentityApi](#interface-dojoidentityapi), [DojoInternalizeActionArgs](#interface-dojointernalizeactionargs), [DojoListCertificatesResult](#interface-dojolistcertificatesresult), [DojoLoggerApi](#type-dojologgerapi), [DojoOutputApi](#interface-dojooutputapi), [DojoOutputBasketApi](#interface-dojooutputbasketapi), [DojoOutputTagApi](#interface-dojooutputtagapi), [DojoPendingTxApi](#interface-dojopendingtxapi), [DojoProcessActionSdkParams](#interface-dojoprocessactionsdkparams), [DojoProcessActionSdkResults](#interface-dojoprocessactionsdkresults), [DojoProcessTransactionParams](#interface-dojoprocesstransactionparams), [DojoProcessTransactionResultApi](#interface-dojoprocesstransactionresultapi), [DojoPublicApi](#interface-dojopublicapi), [DojoSubmitDirectTransactionParams](#interface-dojosubmitdirecttransactionparams), [DojoSubmitDirectTransactionResultApi](#interface-dojosubmitdirecttransactionresultapi), [DojoSyncApi](#interface-dojosyncapi), [DojoSyncOptionsApi](#interface-dojosyncoptionsapi), [DojoTransactionApi](#interface-dojotransactionapi), [DojoTransactionStatusApi](#type-dojotransactionstatusapi), [DojoTxLabelApi](#interface-dojotxlabelapi), [DojoUserStateApi](#interface-dojouserstateapi), [DojoWalletCertificate](#interface-dojowalletcertificate), [SyncDojoConfigBaseApi](#interface-syncdojoconfigbaseapi), [TrxToken](#interface-trxtoken)
 
 <details>
 
@@ -2721,6 +2726,20 @@ export interface DojoInternalizeActionArgs extends sdk.ValidInternalizeActionArg
     commonDerivationPrefix: string | undefined;
 }
 ```
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoListCertificatesResult
+
+```ts
+export interface DojoListCertificatesResult extends sdk.ListCertificatesResult {
+    totalCertificates: sdk.PositiveIntegerOrZero;
+    certificates: DojoWalletCertificate[];
+}
+```
+
+See also: [DojoWalletCertificate](#interface-dojowalletcertificate)
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
@@ -4687,6 +4706,18 @@ since?: Date
 ```
 
 </details>
+
+Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
+
+---
+#### Interface: DojoWalletCertificate
+
+```ts
+export interface DojoWalletCertificate extends sdk.WalletCertificate {
+    counterparty: sdk.PubKeyHex;
+    keyring: Record<sdk.CertificateFieldNameUnder50Bytes, string>;
+}
+```
 
 Links: [API](#api), [Interfaces](#interfaces), [Classes](#classes), [Functions](#functions), [Types](#types), [Variables](#variables)
 
